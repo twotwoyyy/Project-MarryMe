@@ -1,7 +1,7 @@
 package com.sist.test;
 
 public class MainClass2 {
-	/*
-	 * ㅓ ㅛㅓㅛㅓㅓㅛ
-	 */
+	public static void main(String[] args) {
+		
+	}
 }
