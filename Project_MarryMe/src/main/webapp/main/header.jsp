@@ -32,11 +32,6 @@
                         </li>
                         <li>
                             <a href="#">혼수</a>
-                            <ul class="sub_menu">
-                                <li><a href="#">가구</a></li>
-                                <li><a href="#">가전</a></li>
-                                <li><a href="#">청첩장</a></li>
-                            </ul>
                         </li>
                         <li>
                             <a href="#">커뮤니티</a>
