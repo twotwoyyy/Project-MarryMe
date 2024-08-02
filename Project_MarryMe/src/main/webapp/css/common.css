@@ -1,0 +1,158 @@
+@import url(normalize.css);
+@import url(reset.css);
+@import url('https://webfontworld.github.io/Cafe24Simplehae/Cafe24Simplehae.css');
+@import url('https://webfontworld.github.io/SCoreDream/SCoreDream.css');
+@import url('https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&family=Pinyon+Script&display=swap');
+/*
+font-family: 'SCoreDream', sans-serif; 100-900
+font-family: 'Cafe24Simplehae', sans-serif; 
+font-family: "Dancing Script", cursive; 400-700
+font-family: "Monsieur La Doulaise", cursive; 400
+*/
+
+/* ----------------- SCROLL ------------------- */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(#fff, #152A07);
+    border-radius: 100px;
+}
+::-webkit-scrollbar-track {
+    background: #fff;
+}
+/* ----------------- LAYOUT ------------------- */
+.container{
+    padding:0 15%;
+    margin:0 auto;
+}
+.hidden{
+    position:fixed;
+    top:-9999em;
+    left:0;
+    width:0;
+    height:0;
+    overflow:hidden;
+}
+/* --------------- TYPOGRAPHY ----------------- */
+*{
+    font-family: 'SCoreDream', sans-serif;
+    font-weight:300;
+    color:#303030;
+}
+/* ----------------- HEADER ------------------- */
+#header{
+    background:#9B9F8A;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:fixed;
+    z-index:9999;
+    width:100%;
+}
+#header .container{
+    width:80%;
+    padding:0 100px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+#header h1 a{
+    background:url(../img/logo.png) no-repeat;
+    display:block;
+    width:82px;
+    height:64px;
+    text-indent:-9999em;
+}
+#header .left{
+    display:flex;
+    gap:30px;
+    align-items:center;
+}
+#header .left .menu{
+    display:flex;
+    gap:30px;
+}
+#header .left .menu > li{
+    position:relative;
+    height:100%;
+}
+#header .left .menu > li > a{
+    display:inline-block;
+    line-height:80px;
+}
+#header a{
+    font-family: 'Cafe24Simplehae', sans-serif;
+    transition:.3s;
+}
+#header a:hover{
+    color:#dcdcdc;
+}
+#header .left .menu .sub_menu{
+    position:absolute;
+    top:100%;
+    left:50%;
+    transform:translateX(-50%);
+    background:#9B9F8A;
+    width:110px;
+    text-align:center;
+    height:0;
+    overflow:hidden;
+    box-sizing:border-box;
+    transition:.5s;
+}
+#header .left .menu > li:hover .sub_menu{
+    padding:5px 10px;
+    height:auto;
+}
+#header .left .menu .sub_menu a{
+    display:inline-block;
+    width:100%;
+    padding:10px 0;
+    transition:.5s;
+}
+#header .left .menu .sub_menu a:hover{
+    transform:translateX(3px);
+}
+#header .right_menu{
+    display:flex;
+    justify-content:end;
+    align-items:center;
+    gap:30px;
+}
+#header .right_menu input[type="search"]{
+    background:none;
+    border:none;
+    border-bottom:1px solid #303030;
+}
+#header .right_menu input[type="submit"]{
+    border:none;
+    background:none;
+    font-family: 'Cafe24Simplehae', sans-serif;
+    transition:.3s;
+}
+#header .right_menu input[type="submit"]:hover{
+    color:#dcdcdc;
+}
+/* ----------------- FOOTER ------------------- */
+#footer{
+    background:#9B9F8A;
+    font-family: 'SCoreDream', sans-serif;
+    line-height:1.5em;
+}
+#footer .container{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    padding:50px 15%;
+}
+#footer .copyright{
+    text-transform:uppercase;
+    font-weight:500;
+}
+#footer .info{
+    text-align:right;
+}
+#footer .info p:last-of-type{
+    font-weight:500;
+}

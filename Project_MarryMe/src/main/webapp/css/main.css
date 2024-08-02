@@ -1,0 +1,221 @@
+/*
+font-family: 'SCoreDream', sans-serif; 100-900
+font-family: 'Cafe24Simplehae', sans-serif; 
+font-family: "Pinyon Script", cursive;
+font-family: "Monsieur La Doulaise", cursive;
+*/
+
+/* --------------- BANNER ----------------- */
+#banner{
+    height:100vh;
+    overflow:hidden;
+    position:relative;
+}
+#banner p{
+    font-family: "Pinyon Script", cursive;
+    font-size:62px;
+    color: #dcdcdc;
+    line-height:1.3;;
+    text-align:center;
+    width: 610px;
+    margin:0 auto;
+    animation: typing 6.5s steps(25) infinite, blink .5s step-end infinite alternate;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 1px solid;
+    position:absolute;
+    top:150px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:999;
+    opacity:.6;
+}
+@keyframes typing {
+    0%{width:0}
+    50%{width:610px;}
+    90%{width:610px;}
+}
+@keyframes blink {
+    50% {border-color: transparent}
+}
+
+/* --------------- COMMON ----------------- */
+main .product_name{
+    font-weight:500;
+    margin-bottom:5px;
+}
+main .pro_link{
+    display:block;
+}
+main img:not(.banner_img){
+    width:100%;
+    margin-bottom:10px;
+    opacity:.8;
+    transition:.3s;
+}
+main .pro_link:hover img{
+    opacity:1;
+}
+main .tt_box{
+    text-align:center;
+}
+main .cate_tt{
+    font-family: "Pinyon Script", cursive;
+    font-size: 60px;
+    margin-bottom:30px;
+}
+main .cate_tt span{
+    font-family: "Monsieur La Doulaise", cursive;
+    font-size:70px;
+}
+main .cate_desc{
+    font-family: 'Cafe24Simplehae', sans-serif; 
+    font-size:20px;
+    word-break:keep-all;
+    margin-bottom:5px;
+}
+main .cate_desc:last-of-type{
+    margin-bottom:30px;
+}
+main .viewmore{
+    display:inline-block;
+    width:150px;
+    height:50px;
+    line-height:50px;
+    text-align:center;
+    text-transform:uppercase;
+    border:1px solid #303030;
+    position:relative;
+    z-index:0;
+    overflow:hidden;
+}
+main .viewmore::after{
+    content:'';
+    width:140%;
+    height:100%;
+    background:#9B9F8A;
+    transform:skew(45deg);
+    position:absolute;
+    top:0;
+    right:calc(100% + 25px);
+    transition:.5s;
+    z-index:-1;
+}
+main .viewmore:hover{
+    font-weight:400;
+    color:#F2F0F0;
+}
+main .viewmore:hover::after{
+    right:-30px;
+}
+/* --------------- HALL ----------------- */
+#hall{
+    padding:100px 0;
+    background:#CAD6BB;
+    display:grid;
+    grid-template-columns:4fr 1.5fr;
+    align-items:center;
+}
+#hall .hall_slide{
+    overflow:hidden;
+}
+#hall .slick-track{
+    display:flex;
+    column-gap:20px;
+}
+#hall .hall_slide img{
+    border-radius:15px;
+}
+#hall .hall_slide p.location{
+    font-size:14px;
+}
+#hall .tt_box{
+    margin-right:5%;
+}
+
+/* --------------- DRESS ----------------- */
+#dress{
+    padding:100px 15%;
+    background:#EFF3EA;
+}
+#dress .dress_list{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+}
+#dress .tt_box{
+    padding:70px 0;
+}
+
+/* --------------- STUDIO ----------------- */
+#studio{
+    padding:120px 0;
+    display:grid;
+    grid-template-columns:3fr 2fr 3fr;
+    align-items:center;
+    position:relative;
+}
+#studio::after{
+    content:'';
+    width:50%;
+    height:5px;
+    border-top:1px solid #9B9F8A;
+    border-bottom:1px solid #9B9F8A;
+    position:absolute;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+}
+#studio .studio_slide{
+    overflow:hidden;
+}
+#studio .slick-track{
+    display:flex;
+    column-gap: 10px;
+}
+#studio .cate_tt{
+    line-height:1.2;
+}
+
+/* --------------- GOODS ----------------- */
+#goods{
+    display:grid;
+    grid-template-columns: 1fr 2fr;
+    gap:50px;
+    padding:120px 5% 100px;
+    align-items:center;
+}
+#goods .left .tt_box{
+    margin-bottom:40px;
+}
+#goods .left .goods_tab{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+}
+#goods .left .goods_tab > li{
+    width:80px;
+    height:40px;
+    line-height:40px;
+    text-align:center;
+    border:1px solid #303030;
+    transition:.3s;
+    cursor: pointer;
+}
+#goods .left .goods_tab > li.active{
+    background:#303A1F;
+    color:#dcdcdc;
+}
+#goods .product_list{
+    display:none;
+}
+#goods .product_list.active{
+    display:flex;
+    gap:20px;
+}
+#goods .product_list .img_wrap{
+    height:250px;
+    overflow:hidden;
+    margin-bottom:10px;
+}
