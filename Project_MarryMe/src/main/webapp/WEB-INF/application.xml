@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
 	<bean id="main" class="com.sist.model.MainModel"/>
+	<bean id="hall" class="com.sist.model.HallModel"/>
+	<bean id="dress" class="com.sist.model.DressModel"/>
+	<bean id="studio" class="com.sist.model.StudioModel"/>
+	<bean id="goods" class="com.sist.model.GoodsModel"/>
 </beans>

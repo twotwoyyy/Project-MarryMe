@@ -7,31 +7,31 @@
 <title>Insert title here</title>
 </head>
 <body>
-	 <header id="header">
+    <header id="header">
         <div class="container">
             <div class="left">
-                <h1><a href="index.html">project marry me</a></h1>
+                <h1><a href="../main/main.do">project marry me</a></h1>
                 <nav>
                     <ul class="menu">
                         <li>
-                            <a href="#">웨딩홀</a>
+                            <a href="../hall/list.do">웨딩홀</a>
                         </li>
                         <li>
-                            <a href="#">드레스 / 예복</a>
+                            <a href="../dress/list.do">드레스 / 예복</a>
                             <ul class="sub_menu">
-                                <li><a href="#">드레스</a></li>
-                                <li><a href="#">예복</a></li>
+                                <li><a href="../dress/list.do">드레스</a></li>
+                                <li><a href="../dress/list.do">예복</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="#">스튜디오 / 헤어메이크업</a>
+                            <a href="../studio/list.do">스튜디오 / 헤어메이크업</a>
                             <ul class="sub_menu">
-                                <li><a href="#">스튜디오</a></li>
-                                <li><a href="#">헤어메이크업</a></li>
+                                <li><a href="../studio/list.do">스튜디오</a></li>
+                                <li><a href="../studio/list.do">헤어메이크업</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="#">혼수</a>
+                            <a href="../goods/list.do">혼수</a>
                         </li>
                         <li>
                             <a href="#">커뮤니티</a>

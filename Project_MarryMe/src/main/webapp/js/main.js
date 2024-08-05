@@ -48,3 +48,38 @@ goods_tab.click(function(){
         }
     })
 })
+
+/* --------------- list ----------------- */
+let list_tab=$('#list .cate_list > li'),
+    brand_list=$('#list .brand_list');
+$('#list .cate_list > li').click(function(){
+    $(this).siblings('li').removeClass('active');
+    $(this).addClass('active');
+
+    let target=$(this).attr('data-list');
+    brand_list.each(function(){
+        if($(this).hasClass(target)){
+            brand_list.removeClass('active');
+            $(this).addClass('active');
+        }
+    })
+})
+$('#list .latest_slide').slick({
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    autoplay:true,
+    autoplaySpeed:2000,
+    dots:false,
+    arrows:true,
+    pauseOnFocus:false,
+});
+/* --------------- AOS ----------------- */
+AOS.init();
+
+/* --------------- DATEPICKER ----------------- */
+let date_input=$("#detail #calendar");
+date_input.datepicker();
+date_input.focus(); 
+$("#ui-datepicker-div td .ui-state-default").click(function(){
+    date_input.css("visibility","visible");
+});

@@ -1,0 +1,201 @@
+/*
+font-family: 'SCoreDream', sans-serif; 100-900
+font-family: 'Cafe24Simplehae', sans-serif; 
+font-family: "Pinyon Script", cursive;
+font-family: "Monsieur La Doulaise", cursive;
+*/
+#list{
+    background:#EFF3EA;
+    font-family: 'SCoreDream', sans-serif;
+}
+/* --------------- BANNER ----------------- */
+#list .list_banner{
+    height:100vh;
+    background:no-repeat fixed center center;
+    position:relative;
+
+}
+#list.hall .list_banner{
+    background-image:url(../img/hall_list_banner.jpg);
+}
+#list.dress_suit .list_banner{
+    background-image:url(../img/dress_list_banner.jpg);
+}
+#list.studio_hair .list_banner{
+    background-image:url(../img/studio_list_banner.jpg);
+}
+#list.goods .list_banner{
+    background-image:url(../img/goods_list_banner.jpg);
+}
+#list .list_banner h2{
+    display:inline-block;
+    position:sticky;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    font-family: "Pinyon Script", cursive;
+    font-size:70px;
+}
+#list.hall .list_banner h2{
+    color:#dcdcdc;
+    transform:translate(-50%, -100%);
+}
+#list.dress_suit .list_banner h2{
+    top:65%;
+}
+#list.studio_hair .list_banner h2{
+    transform:translateY(-50%);
+}
+/* --------------- LIST ----------------- */
+#list .list_sc .cate_list{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+    padding-top:80px;
+}
+#list .list_sc .cate_list > li{
+    width:120px;
+    height:40px;
+    line-height:40px;
+    border:1px solid #303030;
+    text-align:center;
+    cursor:pointer;
+}
+#list .list_sc .cate_list > li.active{
+    background:#303A1F;
+    color:#dcdcdc;
+}
+#list .list_sc .brand_list{
+    display:none;
+    grid-template-columns: repeat(4, 1fr);
+    gap:40px;
+    padding-top:50px;
+}
+#list.hall .list_sc .brand_list,
+#list.goods .list_sc .brand_list{
+    padding-top:120px;
+}
+#list .list_sc .brand_list.active{
+    display:grid;
+}
+#list .list_sc .brand_list > li a{
+    display:block;
+    padding:20px;
+    background:#FBFBFB;
+    transition:.3s;
+}
+#list .list_sc .brand_list > li:hover a{
+    transform:translate(-3px, -3px);
+    box-shadow: 3px 3px 10px #929292;
+}
+#list .list_sc .brand_list .img_wrap{
+    width:100%;
+    height:300px;
+    overflow:hidden;
+    margin-bottom:10px;
+}
+#list.hall .list_sc .brand_list .img_wrap{
+    height:200px;
+}
+#list .list_sc .brand_list img{
+    width:100%;
+}
+#list .brand_name{
+    font-weight:600;
+    margin-bottom:5px;
+}
+/* --------------- PAGINATION ----------------- */
+#list .list_sc .page{
+    padding:50px 0 80px;
+    display:flex;
+    justify-content:center;
+    gap:10px;
+}
+#list .list_sc .page > li a{
+    display:block;
+    width:30px;
+    height:30px;
+    line-height:30px;
+    text-align:center;
+    border:1px solid #303030; 
+    transition:.3s;
+}
+#list .list_sc .page > li a:hover{
+    background:#303A1F;
+    color:#dcdcdc;
+}
+#list .list_sc .page > li.active > a{
+    background:#303A1F;
+    color:#dcdcdc;
+}
+/* --------------- LATEST ----------------- */
+#list .latest{
+    padding-bottom:120px;
+}
+#list .latest h3{
+    font-size:22px;
+    font-weight:500;
+    margin-bottom:30px;
+    position:relative;
+    z-index:1;
+}
+#list .latest h3::after{
+    content:'';
+    width:120px;
+    height:15px;
+    background:#213d16;
+    position:absolute;
+    top:50%;
+    left:10px;
+    z-index:-1;
+    opacity:.6;
+}
+#list .latest .latest_slide{
+    position:relative;
+}
+#list .latest .latest_slide .slick-list{
+    display:grid;
+    grid-template-columns: repeat(5, 1fr);
+}
+#list .latest .latest_slide .slick-track{
+    display:flex;
+    gap:20px;
+}
+#list .latest .latest_slide .img_wrap{
+    width:100%;
+    height:250px;
+    overflow:hidden;
+    margin-bottom:10px;
+    transition:.3s;
+}
+#list.hall .latest .latest_slide .img_wrap{
+    height:180px;
+}
+#list .latest .latest_slide .slides:hover .img_wrap{
+    box-shadow:2px 2px 5px #929292;
+    transform:translate(-3px, -3px);
+}
+#list .latest .latest_slide img{
+    width:100%;
+}
+#list .latest .latest_slide .slick-arrow{
+    border:none;
+    background:none;
+    text-indent:-9999em;
+    width:26px;
+    height:70px;
+    background:no-repeat;
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    cursor:pointer;
+}
+#list .latest .latest_slide .slick-prev{
+    background-image:url(../img/prev.png);
+    right:calc(100% + 30px);
+}
+#list .latest .latest_slide .slick-next{
+    background-image:url(../img/next.png);
+    left:calc(100% + 30px);
+}
