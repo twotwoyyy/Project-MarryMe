@@ -25,11 +25,11 @@
                 <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="${count*300 }">
                     <a href="detail.html">
                         <div class="img_wrap">
-                            <img src="../img/marriage_goods_demo.jpg" alt="">
+                            <img src="${vo.poster }" alt="">
                         </div>
                         <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
+                            <p class="brand_name">${vo.title }</p>
+                            <p class="brand_sub">${vo.price }</p>
                         </div>
                     </a>
                 </li>

@@ -15,5 +15,5 @@ EA	NUMBER	No		8
 @Data
 public class GoodsVO {
 	private int mgno,EA,firstprice;
-	private String price,discount,delivery,category,poster;
+	private String title,price,discount,delivery,category,poster;
 }

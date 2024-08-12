@@ -10,7 +10,7 @@
  	  FROM goods WHERE category LIKE '%'||#{category}||'%'))
  	  WHERE num BETWEEN #{start} AND #{end}
  	</select>
- 	<select id="goodsTotalPage" resultType="int" parameterType="String">
+ 	<select id="goodsTotalPage" resultType="int" parameterType="hashmap">
  	  SELECT COUNT(*) FROM goods WHERE category LIKE '%'||#{category}||'%'
  	</select>
  </mapper>

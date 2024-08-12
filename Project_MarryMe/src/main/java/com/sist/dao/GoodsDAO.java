@@ -30,11 +30,11 @@ public class GoodsDAO {
 		
 		return list;
 	}
-	public int goodsTotalPage(String category) {
+	public static int goodsTotalPage(Map map) {
 		int total=0;
 		try {
 			session=ssf.openSession();
-			total=session.selectOne("goodsTotalPage",category);
+			total=session.selectOne("goodsTotalPage",map);
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}finally {
