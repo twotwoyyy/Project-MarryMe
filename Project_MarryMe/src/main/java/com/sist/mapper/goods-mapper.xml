@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.sist.mapper.goods-mapper">
+ 	<select id="goodsListData" resultType="GoodsVO" parameterType="hashmap">
+ 	  SELECT mgno,poster,title,price,num
+ 	  FROM (SELECT mgno,poster,title,price,rownum as num
+ 	  FROM (SELECT mgno,poster,title,price
+ 	  FROM goods WHERE category LIKE '%'||#{category}||'%'))
+ 	  WHERE num BETWEEN #{start} AND #{end}
+ 	</select>
+ 	<select id="goodsTotalPage" resultType="int" parameterType="String">
+ 	  SELECT COUNT(*) FROM goods WHERE category LIKE '%'||#{category}||'%'
+ 	</select>
+ </mapper>

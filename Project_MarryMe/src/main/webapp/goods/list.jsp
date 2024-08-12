@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +20,9 @@
             </ul>
             -->
             <ul class="brand_list container studio active">
-                <li data-aos="fade-up" data-aos-duration="1000">
+            <c:set var="count" value="${count }"></c:set>
+              <c:forEach var="vo" items="${list }">
+                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="${count*300 }">
                     <a href="detail.html">
                         <div class="img_wrap">
                             <img src="../img/marriage_goods_demo.jpg" alt="">
@@ -30,127 +33,13 @@
                         </div>
                     </a>
                 </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/marriage_goods_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/marriage_goods_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="900">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/marriage_goods_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/marriage_goods_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/marriage_goods_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/marriage_goods_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="900">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/marriage_goods_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/marriage_goods_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/marriage_goods_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/marriage_goods_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="900">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/marriage_goods_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
+                <c:if test="${count<3 }">    
+              		<c:set var="count" value="${count+1 }"></c:set>
+              	</c:if>
+              	<c:if test="${count>=4 }">
+              		<c:set var="count" value="${count=0 }"></c:set>
+              	</c:if>
+              </c:forEach>          
             </ul>
             <ul class="page">
                 <li><a href="">&lt;</a></li>
