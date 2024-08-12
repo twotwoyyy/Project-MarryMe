@@ -3,6 +3,14 @@
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.sist.mapper.goods-mapper">
+ 	<!-- 메인페이지 상품 -->
+ 	<select id="mainGoodsData" resultType="GoodsVO" parameterType="string">
+ 		SELECT mgno, title, poster, price, rownum 
+		FROM (SELECT mgno, title, poster, price 
+		FROM goods WHERE category LIKE '%'||#{cate}||'%' ORDER BY mgno ASC) 
+		WHERE rownum&lt;=5
+	</select>
+	
  	<select id="goodsListData" resultType="GoodsVO" parameterType="hashmap">
  	  SELECT mgno,poster,title,price,num
  	  FROM (SELECT mgno,poster,title,price,rownum as num

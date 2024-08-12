@@ -48,7 +48,9 @@ main .pro_link{
     display:block;
 }
 main img:not(.banner_img){
-    width:100%;
+	width:100%;
+    object-fit:cover;
+	object-position:center;
     margin-bottom:10px;
     opacity:.8;
     transition:.3s;
@@ -125,6 +127,7 @@ main .viewmore:hover::after{
 }
 #hall .hall_slide img{
     border-radius:15px;
+    height:220px;
 }
 #hall .hall_slide p.location{
     font-size:14px;
@@ -170,6 +173,10 @@ main .viewmore:hover::after{
 #studio .studio_slide{
     overflow:hidden;
 }
+#studio .studio_slide img{
+	width:100%;
+	height:250px;
+}
 #studio .slick-track{
     display:flex;
     column-gap: 10px;
@@ -208,14 +215,9 @@ main .viewmore:hover::after{
     color:#dcdcdc;
 }
 #goods .product_list{
-    display:none;
-}
-#goods .product_list.active{
     display:flex;
     gap:20px;
 }
-#goods .product_list .img_wrap{
+#goods .product_list img{
     height:250px;
-    overflow:hidden;
-    margin-bottom:10px;
 }

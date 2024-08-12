@@ -15,6 +15,19 @@ public class GoodsDAO {
 		if(session!=null)
 			session.close();
 	}
+	public static List<GoodsVO> mainGoodsData(String cate){
+		List<GoodsVO> list=new ArrayList<GoodsVO>();
+		try {
+			session=ssf.openSession();
+			list=session.selectList("mainGoodsData",cate);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			ssfDisconnection();
+		}
+		
+		return list;
+	}
 	public static List<GoodsVO> goodsListData(Map map) {
 		List<GoodsVO> list=new ArrayList<GoodsVO>();
 		

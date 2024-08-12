@@ -47,3 +47,7 @@ a{
 a:focus, input:focus, button:focus{
 	outline:none;
 }
+button, input, select{
+	background:none;
+	border:none;
+}

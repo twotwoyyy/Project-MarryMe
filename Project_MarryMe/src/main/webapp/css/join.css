@@ -1,0 +1,193 @@
+/*
+font-family: 'SCoreDream', sans-serif; 100-900
+font-family: 'Cafe24Simplehae', sans-serif; 
+font-family: "Pinyon Script", cursive;
+font-family: "Monsieur La Doulaise", cursive;
+*/
+#join{
+    background:#EFF3EA;
+    padding-top:180px;
+    padding-bottom:50px;
+    font-family: 'SCoreDream', sans-serif;
+}
+#join .tt_box{
+    margin-bottom:80px;
+    text-align:center;
+}
+#join .tt_box h2{
+    display:inline-block;
+    font-size:30px;
+    font-weight:500;
+    position:relative;
+    z-index:1;
+}
+#join .tt_box h2::after{
+    content:'';
+    width:100%;
+    height:20px;
+    background:rgba(79, 123, 79, .6);
+    position:absolute;
+    top:50%;
+    left:20px;
+    z-index:-1;
+}
+/*-------------------- FORM ---------------------*/
+#join .join_wrap{
+    width:70%;
+    max-width:800px;
+    margin:0 auto;
+}
+#join .join_wrap > p{
+    text-align:right;
+    margin-bottom:5px;
+}
+#join .join_wrap span{
+    color:#e02f2f;
+}
+#join .join_wrap form{
+    border-top:2px solid #303030;
+    padding:80px 50px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+#join .join_wrap form .center > div + div{
+    margin-top:35px;
+}
+#join .join_wrap form .hasBtn{
+    display:flex;
+}
+#join .join_wrap form .hasBtn button{
+    width:150px;
+    height:40px;
+    line-height:36px;
+    text-align:center;
+    border:1px solid #303030;
+    background:#303A1F;
+    font-size:15px;
+    color:#dcdcdc;
+    cursor:pointer;
+}
+#join .join_wrap .input_wrap{
+    display:grid;
+    grid-template-columns:150px 350px;
+    margin-right:20px;
+    align-items:center;
+}
+#join .join_wrap .input_wrap input{
+    padding:5px;
+    border-bottom:1px solid #303030;
+}
+#join .join_wrap .input_wrap .radios{
+    display:flex;
+    gap:30px;
+}
+#join .join_wrap .input_wrap .radios .radio_btn{
+    display:flex;
+    flex-direction:row-reverse;
+    gap:5px;
+}
+#join .join_wrap .center > div:nth-last-child(2){
+    margin-bottom:70px;
+}
+#join .join_wrap form .form_btns{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+}
+#join .join_wrap form .form_btns button{
+    font-size:18px;
+    padding:10px 50px;
+    border:1px solid #303030;
+    background:#dcdcdc;
+    cursor:pointer;
+}
+#join .join_wrap form .form_btns button:first-child{
+    background:#303A1F;
+    color:#dcdcdc;
+    font-weight:500;
+}
+
+/* ------- DATEPICKER ------- */
+.ui-datepicker{
+    width:20em;
+}
+#ui-datepicker-div{
+    border:1px solid #303A1F;
+    border-radius:0;
+    padding:20px;
+}
+.ui-widget-header{
+    background:none;
+    border:none;
+    margin-bottom:20px;
+}
+.ui-datepicker .ui-datepicker-title{
+    font-family: 'SCoreDream', sans-serif;
+    line-height:2.5em;
+}
+.ui-datepicker .ui-datepicker-prev,
+.ui-datepicker .ui-datepicker-next{
+    background:no-repeat;
+    width:49px;
+    height:49px;
+    cursor: pointer;
+}
+.ui-datepicker .ui-datepicker-prev{
+    background-image:url(../img/detail_reserve_prev.png);
+}
+.ui-datepicker .ui-datepicker-next{
+    background-image:url(../img/detail_reserve_next.png);
+}
+.ui-datepicker .ui-datepicker-prev span,
+.ui-datepicker .ui-datepicker-next span{
+    background:none;
+}
+.ui-datepicker-prev:hover{
+    border:none;
+    background-color:transparent;
+    top:2px;
+    left:2px;
+}
+.ui-datepicker-next:hover{
+    border:none;
+    background-color:transparent;
+    top:2px;
+    right:2px;
+}
+.ui-datepicker td{
+    padding:7px;
+}
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default,
+.ui-button,
+html .ui-button.ui-state-disabled:hover, 
+html .ui-button.ui-state-disabled:active{
+    font-family: 'SCoreDream', sans-serif;
+    display:inline-block;
+    border:1px solid transparent;
+    border-radius:15px;
+    padding:0;
+    background:none;
+    text-align:center;
+    width:30px;
+    height:30px;
+    line-height:34px;
+    transition:.3s;
+}
+.ui-state-highlight, 
+.ui-widget-content .ui-state-highlight,
+.ui-widget-header .ui-state-highlight{
+    font-weight:600;
+    background:#EFF3EA;
+    color:#303030;
+}
+.ui-datepicker td span, .ui-datepicker td a:hover{
+    border:1px solid #303A1F;
+}
+#ui-datepicker-div .ui-state-default.active{
+    background:#303A1F;
+    color:#dcdcdc;
+    font-weight:500;
+}
