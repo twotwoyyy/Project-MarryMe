@@ -9,6 +9,7 @@
 		<typeAlias type="com.sist.vo.GoodsVO" alias="GoodsVO"/>
 		<typeAlias type="com.sist.vo.StudioVO" alias="StudioVO"/>
 		<typeAlias type="com.sist.vo.HairMakeupVO" alias="HairMakeupVO"/>
+		<typeAlias type="com.sist.vo.HallVO" alias="HallVO"/>
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
@@ -26,5 +27,6 @@
 		<mapper resource="com/sist/mapper/goods-mapper.xml"/>
 		<mapper resource="com/sist/mapper/studio-mapper.xml"/>
 		<mapper resource="com/sist/mapper/hairmakeup-mapper.xml"/>
+		<mapper resource="com/sist/mapper/hall-mapper.xml"/>
 	</mappers>
 </configuration>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.hall-mapper">
+	<!-- 홀 목록 출력 -->
+	<select id="hallListData" resultType="HallVO" parameterType="java.util.Map" >
+		SELECT hno,name,addr,point,type,menu,mealcost,map,homepage,image,num
+		FROM(SELECT hno,name,addr,point,type,menu,mealcost,map,homepage,image,rownum as num
+		FROM(SELECT /*+ INDEX_DESC(hall hall_hno_pk) */+hno,name,addr,point,type,menu,mealcost,map,homepage,image
+		FROM hall))
+		WHERE num BETWEEN #{start} AND #{end}
+	</select>
+
+	<select id="hallTotalPage" resultType="int">
+		SELECT CEIL(COUNT(*)/10.0) FROM hall
+	</select>
+</mapper>
