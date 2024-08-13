@@ -9,9 +9,9 @@
 </head>
 <body>
 	 <div id="list" class="goods">
-        <section class="list_banner">
+        <!-- <section class="list_banner">
             <h2>Marriage articles</h2>
-        </section>
+        </section> -->
         <section class="list_sc">
             <!--
             <ul class="cate_list">
@@ -20,7 +20,7 @@
             </ul>
             -->
             <ul class="brand_list container studio active">
-            <c:set var="count" value="${count }"></c:set>
+            <c:set var="count" value="0"></c:set>
               <c:forEach var="vo" items="${list }">
                 <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="${count*300 }">
                     <a href="detail.html">
@@ -28,27 +28,26 @@
                             <img src="${vo.poster }" alt="">
                         </div>
                         <div class="text_box">
-                            <p class="brand_name">${vo.title }</p>
+                            <p class="brand_name" >${vo.title }</p>
                             <p class="brand_sub">${vo.price }</p>
                         </div>
                     </a>
                 </li>
-                <c:if test="${count<3 }">    
-              		<c:set var="count" value="${count+1 }"></c:set>
-              	</c:if>
-              	<c:if test="${count>=4 }">
-              		<c:set var="count" value="${count=0 }"></c:set>
-              	</c:if>
+              	<c:set var="count" value="${count==3?count-3:count+1 }"></c:set>
               </c:forEach>          
             </ul>
             <ul class="page">
-                <li><a href="">&lt;</a></li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>
+              <c:if test="${startpage>1 }">
+                <li><a href="../goods/list.do?page=${startpage-1 }">&lt;</a></li>
+              </c:if>
+                <c:forEach var="i" begin="${startpage }" end="${endpage }">
+             
+                	<li ${i==curpage?"class=active":""}><a href="../goods/list.do?page=${i }" >${ i}</a></li>
+            
+                </c:forEach>
+              <c:if test="${endpage<totalpage }">
+                <li><a href="../goods/list.do?page=${endpage+1 }">&gt;</a></li>
+              </c:if>
             </ul>
         </section>
         <section class="latest container">

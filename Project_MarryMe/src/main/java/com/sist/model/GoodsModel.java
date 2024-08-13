@@ -34,9 +34,16 @@ public class GoodsModel {
 		int total=GoodsDAO.goodsTotalPage(map);
 		
 		int totalpage=(int)(Math.ceil(total/rowSize));
+		
+		// 페이지 개수 표시
 		final int BLOCK=5;
+		
+		
 		int startpage=((curpage-1)/BLOCK*BLOCK)+1;
 		int endpage=((curpage-1)/BLOCK*BLOCK)+BLOCK;
+		
+		if(endpage>totalpage)
+			endpage=totalpage;
 		
 		request.setAttribute("list", list);
 		request.setAttribute("cno", cno);
@@ -45,8 +52,6 @@ public class GoodsModel {
 		request.setAttribute("endpage", endpage);
 		request.setAttribute("totalpage", totalpage);
 		request.setAttribute("total", total);
-		int count=0;
-		request.setAttribute("count", count);
 		request.setAttribute("main_jsp", "../goods/list.jsp");
 		return "../main/main.jsp";
 	}
