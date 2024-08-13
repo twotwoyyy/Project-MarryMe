@@ -2,11 +2,14 @@ package com.sist.model;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.sist.controller.RequestMapping;
 import java.util.*;
 import com.sist.dao.*;
 import com.sist.vo.*;
+
+import oracle.net.ns.SessionAtts;
 public class GoodsModel {
 	private String[] category={"","종합","침대","가구","가전","카드"};
 	@RequestMapping("goods/list.do")
@@ -51,7 +54,8 @@ public class GoodsModel {
 		request.setAttribute("startpage", startpage);
 		request.setAttribute("endpage", endpage);
 		request.setAttribute("totalpage", totalpage);
-		request.setAttribute("total", total);
+		request.setAttribute("total", total);	
+		
 		request.setAttribute("main_jsp", "../goods/list.jsp");
 		return "../main/main.jsp";
 	}

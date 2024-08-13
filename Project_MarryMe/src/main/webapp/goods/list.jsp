@@ -9,9 +9,11 @@
 </head>
 <body>
 	 <div id="list" class="goods">
-        <!-- <section class="list_banner">
+	   <c:if test="${curpage==1 && cno==1}">
+        <section class="list_banner">
             <h2>Marriage articles</h2>
-        </section> -->
+        </section> 
+       </c:if>
         <section class="list_sc">
             <!--
             <ul class="cate_list">
@@ -20,9 +22,9 @@
             </ul>
             -->
             <ul class="brand_list container studio active">
-            <c:set var="count" value="0"></c:set>
+            <c:set var="delay" value="0"></c:set>
               <c:forEach var="vo" items="${list }">
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="${count*300 }">
+                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="${delay }">
                     <a href="detail.html">
                         <div class="img_wrap">
                             <img src="${vo.poster }" alt="">
@@ -33,7 +35,7 @@
                         </div>
                     </a>
                 </li>
-              	<c:set var="count" value="${count==3?count-3:count+1 }"></c:set>
+              	<c:set var="delay" value="${(delay + 300) % 1200}"/>
               </c:forEach>          
             </ul>
             <ul class="page">

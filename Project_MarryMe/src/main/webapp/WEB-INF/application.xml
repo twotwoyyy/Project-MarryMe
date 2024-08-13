@@ -6,4 +6,7 @@
 	<bean id="dress" class="com.sist.model.DressModel"/>
 	<bean id="studio" class="com.sist.model.StudioModel"/>
 	<bean id="goods" class="com.sist.model.GoodsModel"/>
+	<bean id="notice" class="com.sist.model.NoticeModel"/>
+	<bean id="qna" class="com.sist.model.QnaModel"/>
+	<bean id="review" class="com.sist.model.ReviewModel"/>
 </beans>
