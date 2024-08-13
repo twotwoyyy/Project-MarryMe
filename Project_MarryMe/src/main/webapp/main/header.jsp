@@ -24,10 +24,10 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="../studio/list.do">스튜디오 / 헤어메이크업</a>
+                            <a href="../studio/studio_list.do">스튜디오 / 헤어메이크업</a>
                             <ul class="sub_menu">
-                                <li><a href="../studio/list.do">스튜디오</a></li>
-                                <li><a href="../studio/list.do">헤어메이크업</a></li>
+                                <li><a href="../studio/studio_list.do">스튜디오</a></li>
+                                <li><a href="../studio/hairmakeup_list.do">헤어메이크업</a></li>
                             </ul>
                         </li>
                         <li>

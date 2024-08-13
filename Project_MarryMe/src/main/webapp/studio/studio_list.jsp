@@ -6,25 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript">
-$(function(){
-	$('#list .cate_list > li').click(function(){
-		let type=$(this).attr('data-list');
-		$.ajax({
-			type:'POST',
-			url:'../studio/list_content.do',
-			data:{"type":type},
-			success:function(result){
-				$('#list.studio_hair #list_content').html(result);
-			},
-			error:function(request, status, error){
-				console.log(error);
-			}
-		})
-	})
-	$('#list .cate_list > li:first-child').trigger('click');
-})
-</script>
 </head>
 <body>
 	  <div id="list" class="studio_hair">
@@ -33,15 +14,15 @@ $(function(){
         </section>
         <section class="list_sc">
             <ul class="cate_list">
-                <li data-list="studio" class="active">스튜디오</li>
-                <li data-list="hair">헤어/메이크업</li>
+                <li data-list="studio" class="active"><a href="../studio/studio_list.do">스튜디오</a></li>
+                <li data-list="hair"><a href="../studio/hairmakeup_list.do">헤어/메이크업</a></li>
             </ul>
             <div id="list_content">
-            <!-- 
             <ul class="brand_list container studio active">
+            	<c:set var="delay" value="0"/>
             	<c:forEach var="studio" items="${studio_list}">
-	                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="">
-	                    <a href="../studio/detail.do?shno=${studio.shno}">
+	                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="${delay}">
+	                    <a href="../studio/detail.do?sno=${studio.sno}">
 	                        <div class="img_wrap">
 	                            <img src="${studio.thumb}" alt="${studio.name}">
 	                        </div>
@@ -51,20 +32,20 @@ $(function(){
 	                        </div>
 	                    </a>
 	                </li>
+	                <c:set var="delay" value="${(delay + 300) % 1200}"/>
                 </c:forEach>
             </ul>
             <ul class="page">
-            	<c:if test="${curpage>1}">
-                	<li><a href="../studio/list.do?page=${startpage-1}">&lt;</a></li>
+            	<c:if test="${startpage>1}">
+                	<li><a href="../studio/studio_list.do?page=${startpage-1}">&lt;</a></li>
                 </c:if>
                 <c:forEach var="i" begin="${startpage}" end="${endpage}">
-                	<li ${curpage==i?"class=active":""}><a href="../studio/list.do?page=${i}">${i}</a></li>
+                	<li ${curpage==i?"class=active":""}><a href="../studio/studio_list.do?page=${i}">${i}</a></li>
                 </c:forEach>
-                <c:if test="${curpage<totalpage}">
-                	<li><a href="../studio/list.do?page=${endpage+1}">&gt;</a></li>
+                <c:if test="${endpage<totalpage}">
+                	<li><a href="../studio/studio_list.do?page=${endpage+1}">&gt;</a></li>
                 </c:if>
             </ul>
-            -->
             </div>
         </section>
         <section class="latest container">

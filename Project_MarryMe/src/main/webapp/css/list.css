@@ -54,7 +54,8 @@ font-family: "Monsieur La Doulaise", cursive;
     gap:20px;
     padding-top:80px;
 }
-#list .list_sc .cate_list > li{
+#list .list_sc .cate_list > li a{
+	display:block;
     width:120px;
     height:40px;
     line-height:40px;
@@ -62,7 +63,7 @@ font-family: "Monsieur La Doulaise", cursive;
     text-align:center;
     cursor:pointer;
 }
-#list .list_sc .cate_list > li.active{
+#list .list_sc .cate_list > li.active a{
     background:#303A1F;
     color:#dcdcdc;
 }
