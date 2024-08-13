@@ -27,4 +27,34 @@ public class HallDAO {
 		}
 		return list;
 	}
+	
+	public static List<HallVO> hallListData(Map map){
+		List<HallVO> list=new ArrayList<HallVO>();
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			list=session.selectList("hallListData",map);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return list;
+	}
+	
+	public static int hallTotalPage(Map map) {
+		int total=0;
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			total=session.selectOne("hallTotalPage",map);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return total;
+	}
 }
