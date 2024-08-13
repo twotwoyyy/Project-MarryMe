@@ -22,7 +22,7 @@ LINK              VARCHAR2(200)
  */
 @Data
 public class HairMakeupVO {
-	private int mno;
+	private int mno, shno;
 	private String name, info, thumb, tel, keyword, openday, opentime, 
 		concept, point, notice, cancel, refund, video, address, link;
 }

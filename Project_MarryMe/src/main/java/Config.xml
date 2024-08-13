@@ -26,7 +26,6 @@
 		<mapper resource="com/sist/mapper/member-mapper.xml"/>
 		<mapper resource="com/sist/mapper/goods-mapper.xml"/>
 		<mapper resource="com/sist/mapper/studio-mapper.xml"/>
-		<mapper resource="com/sist/mapper/hairmakeup-mapper.xml"/>
 		<mapper resource="com/sist/mapper/hall-mapper.xml"/>
 	</mappers>
 </configuration>

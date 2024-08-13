@@ -105,6 +105,19 @@ font-family: "Monsieur La Doulaise", cursive;
     font-weight:600;
     margin-bottom:5px;
 }
+#list.studio_hair .list_sc .brand_list img{
+	height:280px;
+	object-fit:cover;
+}
+#list.studio_hair .brand_list .text_box .brand_sub{
+	line-height: 18px;
+	height: 36px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-box-orient: vertical; 
+	-webkit-line-clamp: 2;
+}
 /* --------------- PAGINATION ----------------- */
 #list .list_sc .page{
     padding:50px 0 80px;

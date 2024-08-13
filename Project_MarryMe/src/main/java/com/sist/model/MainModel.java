@@ -16,7 +16,7 @@ public class MainModel {
 
 		List<HallVO> hall_list=HallDAO.mainHallData();
 		List<StudioVO> studio_list=StudioDAO.mainStudioData();
-		List<HairMakeupVO> hair_makup_list=HairMakeupDAO.mainHairMakeupData();
+		List<HairMakeupVO> hair_makup_list=StudioDAO.mainHairMakeupData();
 		
 		request.setAttribute("hall_list", hall_list);
 		request.setAttribute("studio_list", studio_list);

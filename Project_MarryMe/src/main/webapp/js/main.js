@@ -16,7 +16,7 @@ if($('#main').length > 0){
 	$('.hall_slide').slick({
 	    slidesToShow: 4,
 	    slidesToScroll: 1,
-	    autoplay:false,
+	    autoplay:true,
 	    autoplaySpeed:2000,
 	    dots:false,
 	    arrows:false,
@@ -56,7 +56,7 @@ if($('#join').length > 0){
 if($('#list').length > 0){
     let list_tab=$('#list .cate_list > li'),
         brand_list=$('#list .brand_list');
-    $('#list .cate_list > li').click(function(){
+    list_tab.click(function(){
         $(this).siblings('li').removeClass('active');
         $(this).addClass('active');
 

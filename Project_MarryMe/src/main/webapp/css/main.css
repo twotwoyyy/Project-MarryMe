@@ -184,6 +184,15 @@ main .viewmore:hover::after{
 #studio .cate_tt{
     line-height:1.2;
 }
+#studio .product_sub{
+	line-height: 18px;
+  	height: 36px;
+  	overflow: hidden;
+  	text-overflow: ellipsis;
+  	display: -webkit-box;
+  	-webkit-box-orient: vertical; 
+  	-webkit-line-clamp: 2;
+}
 
 /* --------------- GOODS ----------------- */
 #goods{
@@ -220,4 +229,13 @@ main .viewmore:hover::after{
 }
 #goods .product_list img{
     height:250px;
+}
+#goods .product_name{
+	line-height: 18px;
+  	height: 36px;
+  	overflow: hidden;
+  	text-overflow: ellipsis;
+  	display: -webkit-box;
+  	-webkit-box-orient: vertical; 
+  	-webkit-line-clamp: 2;
 }

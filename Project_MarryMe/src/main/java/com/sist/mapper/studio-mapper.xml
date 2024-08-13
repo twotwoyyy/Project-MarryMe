@@ -8,14 +8,33 @@
 		FROM studio ORDER BY sno ASC)
 		WHERE rownum&lt;=5
 	</select>
+	<!-- 메인페이지 헤어메이크업 -->
+	<select id="mainHairMakeupData" resultType="HairMakeupVO">
+ 		SELECT mno, name, thumb, keyword, rownum 
+		FROM (SELECT mno, name, thumb, keyword 
+		FROM hair_makeup ORDER BY mno ASC) 
+		WHERE rownum&lt;=5
+	</select>
+	
 	<select id="studioListData" resultType="StudioVO" parameterType="hashmap">
-		SELECT sno, name, thumb, keyword, num
-		FROM (SELECT sno, name, thumb, keyword, rownum as num 
-		FROM (SELECT sno, name, thumb, keyword 
+		SELECT shno, name, thumb, keyword, num
+		FROM (SELECT shno, name, thumb, keyword, rownum as num 
+		FROM (SELECT sno as shno, name, thumb, keyword 
 		FROM studio ORDER BY sno ASC))
 		WHERE num BETWEEN #{start} AND #{end}
 	</select>
 	<select id="studioTotalPage" resultType="int">
 		SELECT CEIL(COUNT(*)/12.0) FROM studio
+	</select>
+	
+	<select id="hairmakeupListData" resultType="HairMakeupVO" parameterType="hashmap">
+		SELECT shno, name, thumb, keyword, num
+		FROM (SELECT shno, name, thumb, keyword, rownum as num 
+		FROM (SELECT mno as shno, name, thumb, keyword 
+		FROM hair_makeup ORDER BY mno ASC))
+		WHERE num BETWEEN #{start} AND #{end}
+	</select>
+	<select id="hairmakeupTotalPage" resultType="int">
+		SELECT CEIL(COUNT(*)/12.0) FROM hair_makeup
 	</select>
 </mapper>

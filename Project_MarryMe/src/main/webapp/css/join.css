@@ -173,7 +173,7 @@ html .ui-button.ui-state-disabled:active{
     text-align:center;
     width:30px;
     height:30px;
-    line-height:34px;
+    line-height:30px;
     transition:.3s;
 }
 .ui-state-highlight, 
@@ -185,6 +185,9 @@ html .ui-button.ui-state-disabled:active{
 }
 .ui-datepicker td span, .ui-datepicker td a:hover{
     border:1px solid #303A1F;
+}
+.ui-state-default.ui-state-active{
+	background:#303A1F;
 }
 #ui-datepicker-div .ui-state-default.active{
     background:#303A1F;
