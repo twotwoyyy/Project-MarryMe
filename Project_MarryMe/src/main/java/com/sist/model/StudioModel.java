@@ -1,9 +1,14 @@
 package com.sist.model;
 
+import java.io.PrintWriter;
 import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import com.sist.controller.RequestMapping;
 import com.sist.dao.StudioDAO;
@@ -11,10 +16,13 @@ import com.sist.vo.*;
 public class StudioModel {
 	@RequestMapping("studio/list.do")
 	public String studio_list(HttpServletRequest request, HttpServletResponse response) {
+		
+		request.setAttribute("main_jsp", "../studio/list.jsp");
+		return "../main/main.jsp";
+	}
+	@RequestMapping("studio/list_content.do")
+	public String studio_list_content(HttpServletRequest request, HttpServletResponse response) {
 		String type=request.getParameter("type");
-		if(type==null) {
-			type="studio";
-		}
 		String page=request.getParameter("page");
 		if(page==null) {
 			page="1";
@@ -28,7 +36,7 @@ public class StudioModel {
 		map.put("end", end);
 
 		int totalpage=0;
-		if(type=="studio") {
+		if(type.equals("studio")) {
 			totalpage=StudioDAO.studioTotalPage();
 			List<StudioVO> studio_list=StudioDAO.studioListData(map);
 			request.setAttribute("studio_list", studio_list);
@@ -49,12 +57,6 @@ public class StudioModel {
 		request.setAttribute("startpage", startpage);
 		request.setAttribute("endpage", endpage);
 		
-		request.setAttribute("main_jsp", "../studio/list.jsp");
-		return "../main/main.jsp";
-	}
-	
-	@RequestMapping("studio/type.do")
-	public void studio_tab(HttpServletRequest request, HttpServletResponse response) {
-		
+		return "../studio/list_content.jsp";
 	}
 }

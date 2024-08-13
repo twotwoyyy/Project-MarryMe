@@ -60,6 +60,7 @@ if($('#list').length > 0){
         $(this).siblings('li').removeClass('active');
         $(this).addClass('active');
 
+		/*
         let target=$(this).attr('data-list');
         brand_list.each(function(){
             if($(this).hasClass(target)){
@@ -67,6 +68,7 @@ if($('#list').length > 0){
                 $(this).addClass('active');
             }
         })
+        */
     })
     $('#list .latest_slide').slick({
         slidesToShow: 5,

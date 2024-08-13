@@ -12,16 +12,17 @@ $(function(){
 		let type=$(this).attr('data-list');
 		$.ajax({
 			type:'POST',
-			url:'../studio/list.do',
+			url:'../studio/list_content.do',
 			data:{"type":type},
 			success:function(result){
-				
+				$('#list.studio_hair #list_content').html(result);
 			},
 			error:function(request, status, error){
 				console.log(error);
 			}
 		})
 	})
+	$('#list .cate_list > li:first-child').trigger('click');
 })
 </script>
 </head>
@@ -35,6 +36,8 @@ $(function(){
                 <li data-list="studio" class="active">스튜디오</li>
                 <li data-list="hair">헤어/메이크업</li>
             </ul>
+            <div id="list_content">
+            <!-- 
             <ul class="brand_list container studio active">
             	<c:forEach var="studio" items="${studio_list}">
 	                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="">
@@ -50,140 +53,6 @@ $(function(){
 	                </li>
                 </c:forEach>
             </ul>
-            <ul class="brand_list container hair">
-                <li data-aos="fade-up" data-aos-duration="1000">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/hair_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/hair_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/hair_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="900">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/hair_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/hair_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/hair_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/hair_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="900">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/hair_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/hair_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/hair_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>            
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/hair_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="900">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/hair_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-            </ul>
             <ul class="page">
             	<c:if test="${curpage>1}">
                 	<li><a href="../studio/list.do?page=${startpage-1}">&lt;</a></li>
@@ -195,6 +64,8 @@ $(function(){
                 	<li><a href="../studio/list.do?page=${endpage+1}">&gt;</a></li>
                 </c:if>
             </ul>
+            -->
+            </div>
         </section>
         <section class="latest container">
             <h3>최근 본 목록</h3>
