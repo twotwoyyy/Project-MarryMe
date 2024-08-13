@@ -68,7 +68,7 @@
                             </div>
                         </a>
                     </li>
-                    <c:set var="delay" value="${(delay + 300) % 1200}"/>
+                    <c:set var="delay" value="${(delay + 300) % 900}"/>
                 </c:forEach>
             </ul>
 			<ul class="page">
