@@ -13,8 +13,8 @@
 		<typeAlias type="com.sist.vo.NoticeVO" alias="NoticeVO"/>
 		<typeAlias type="com.sist.vo.QnaVO" alias="QnaVO"/>
 		<typeAlias type="com.sist.vo.ReviewVO" alias="ReviewVO"/>
-		<typeAlias type="com.sist.vo.DressVO" alias="ReviewVO"/>
-		<typeAlias type="com.sist.vo.SuitVO" alias="ReviewVO"/>
+		<typeAlias type="com.sist.vo.DressVO" alias="DressVO"/>
+		<typeAlias type="com.sist.vo.SuitVO" alias="SuitVO"/>
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
@@ -36,6 +36,5 @@
 		<mapper resource="com/sist/mapper/qna-mapper.xml"/>
 		<mapper resource="com/sist/mapper/review-mapper.xml"/>
 		<mapper resource="com/sist/mapper/dress-mapper.xml"/>
-		<mapper resource="com/sist/mapper/suit-mapper.xml"/>
 	</mappers>
 </configuration>
