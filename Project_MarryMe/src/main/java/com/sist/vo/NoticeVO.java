@@ -13,7 +13,8 @@ import java.util.*;
 import lombok.Data;
 @Data
 public class NoticeVO {
-	private int no,hit;
-	private String subject,content,id,dbday;
+	private int no,hit,filesize;
+	private String subject,content,id,dbday,filename;
 	private Date regdate;
+	private MemberVO mvo=new MemberVO();
 }

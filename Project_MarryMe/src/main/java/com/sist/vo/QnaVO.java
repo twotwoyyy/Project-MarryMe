@@ -16,4 +16,5 @@ public class QnaVO {
 	private int qna_no,cate,tab,group_id;
 	private String msg,dbday,id;
 	private Date regdate;
+	private MemberVO mvo=new MemberVO();
 }

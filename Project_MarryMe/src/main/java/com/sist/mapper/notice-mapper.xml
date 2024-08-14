@@ -1,5 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sist.mapper.notice-mapper">
-
+	<!-- 공지 작성 -->
+	<insert id="noticeInsert" parameterType="NoticeVO">
+		INSERT INTO notice VALUES(
+		(SELECT NVL(MAX(notice_no)+1,1) FROM notice),
+		#{id},#{subject},SYSDATE,#{content},0,
+		filename=#{filename},filesize=#{filesize}
+		)
+	</insert>
+	<!-- JOIN -->
+	<resultMap type="com.sist.vo.NoticeVO" id="NoticeMap">
+		<result property="mvo.name" column="name"/>
+	</resultMap>
+	<!-- 목록 -->
+	<select id="noticeListData" resultMap="NoticeMap" parameterType="hashmap">
+		SELECT notice_no,name,subject,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit,num
+		FROM (SELECT notice_no,name,subject,regdate,hit,rownum as num
+		FROM (SELECT notice_no,name,subject,regdate,hit
+		FROM notice,member 
+		WHERE notice.id=member.id
+		ORDER BY notice_no DESC))
+		WHERE num BETWEEN #{start} AND #{end}
+	</select>
+	<select id="noticeTotal" resultType="int">
+		SELECT COUNT(*) FROM notice
+	</select>
+	<!-- 조회수 업데이트 -->
+	<!-- <update id="noticeHitIncrement" parameterType="int">
+		UPDATE notice SET
+		hit=hit+1
+		WHERE notice_no=#{notice_no}
+	</update> -->
 </mapper>

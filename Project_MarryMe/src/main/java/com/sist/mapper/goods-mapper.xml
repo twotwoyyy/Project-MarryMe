@@ -10,7 +10,7 @@
 		FROM goods WHERE category LIKE '%'||#{cate}||'%' ORDER BY mgno ASC) 
 		WHERE rownum&lt;=5
 	</select>
-	
+	<!-- 목록 -->
  	<select id="goodsListData" resultType="GoodsVO" parameterType="hashmap">
  	  SELECT mgno,poster,title,price,num
  	  FROM (SELECT mgno,poster,title,price,rownum as num
@@ -18,7 +18,12 @@
  	  FROM goods WHERE category LIKE '%'||#{category}||'%'))
  	  WHERE num BETWEEN #{start} AND #{end}
  	</select>
+ 	<!-- 총 상품갯수 -->
  	<select id="goodsTotalPage" resultType="int" parameterType="hashmap">
  	  SELECT COUNT(*) FROM goods WHERE category LIKE '%'||#{category}||'%'
  	</select>
+ 	<!-- 상세 -->
+ 	<select id="goodsDetailData" resultType="GoodsVO" parameterType="hashmap">
+ 	  SELECT mgno,poster,title,price,num,
+ 	</select> 
  </mapper>

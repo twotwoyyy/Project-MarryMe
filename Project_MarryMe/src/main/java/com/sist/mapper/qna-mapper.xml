@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sist.mapper.qna-mapper">
-
+<!-- public class QnaVO {
+	private int qna_no,cate,tab,group_id;
+	private String msg,dbday,id;
+	private Date regdate;
+}
+ -->
+ 	<insert id="qnaInsert" parameterType="QnaVO">
+ 		INSERT INTO qna VALUES((SELECT NVL(MAX(qna_no)+1,1) FROM qna),
+ 		 #{msg},SYSDATE,#{cate},#{group_id},#{tab},#{id}
+ 		)
+ 	</insert>
+ 	<resultMap type="com.sist.vo.QnaVO" id="QnaMap">
+		<result property="mvo.name" column="name"/>
+	</resultMap>
+	<!-- 목록 -->
+ 	<select id="qnaListData" resultMap="QnaMap" parameterType="hashmap">
+ 		SELECT qna_no,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,cate,group_id,tab,name,num
+ 		FROM (SELECT qna_no,regdate,cate,group_id,tab,name,rownum as num
+ 		FROM (SELECT qna_no,regdate,cate,group_id,tab,name
+ 		FROM qna,member 
+ 		WHERE qna.id=member.id
+ 		ORDER BY group_id))
+ 		WHERE num BETWEEN #{start} AND #{end}
+ 	</select>
+ 	<select id="qnaTotal" resultType="int">
+ 		SELECT COUNT(*) FROM qna
+ 	</select>
 </mapper>

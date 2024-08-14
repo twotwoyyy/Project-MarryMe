@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sist.mapper.review-mapper">
-
+	<insert id="reviewInsert" parameterType="ReviewVO">
+		INSERT INTO review VALUES(
+			(SELECT NVL(MAX(review_no)+1,1) FROM review),
+			#{image},#{msg},#{regdate},#{pw},#{cate},#{id},#{pno},#{score},0
+		)
+	</insert>
+	<resultMap type="com.sist.vo.ReviewVO" id="ReviewMap">
+		<result property="mvo.name" column="name"/>
+	</resultMap>
+	<!-- 목록 -->
+	<select id="reviewListData" resultMap="ReviewMap" parameterType="hashmap">
+		SELECT review_no,image,msg,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,cate,name,score,hit,num
+		FROM (SELECT review_no,image,msg,regdate,cate,name,score,hit,rownum as num
+		FROM (SELECT review_no,image,msg,regdate,cate,name,score,hit
+		FROM review,member 
+		WHERE review.id=member.id
+		ORDER BY review_no DESC))
+		WHERE num BETWEEN #{start} AND #{end}
+	</select>
 </mapper>

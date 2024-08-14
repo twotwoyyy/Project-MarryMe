@@ -20,4 +20,5 @@ public class ReviewVO {
 	private int review_no,cate,pno,score,hit;
 	private String image,msg,pw,id,dbday;
 	private Date regdate;
+	private MemberVO mvo=new MemberVO();
 }
