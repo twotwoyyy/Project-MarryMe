@@ -6,11 +6,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+.row1{
+	padding:100px 0 80px;
+    display:flex;
+    justify-content:center;
+    gap:10px;
+}
+</style>
 </head>
 <body>
-<div id="list">
-<section class="list_sc" >
-	<div class="row1">
+	<div id="studio">
     <table class="table">
      <tr>
       <td>
@@ -67,7 +73,5 @@
      </tr>
     </table>
    </div>
- </section>
- </div>
 </body>
 </html>

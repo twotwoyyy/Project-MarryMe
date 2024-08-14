@@ -1,5 +1,6 @@
 package com.sist.model;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -24,7 +25,11 @@ public class GoodsModel {
 		int rowSize=12;
 		int start=(rowSize*curpage)-(rowSize-1);
 		int end=rowSize*curpage;
-		
+		String realFolder="";
+		ServletContext context = request.getServletContext();
+		  
+		  realFolder = context.getRealPath("");
+		  System.out.println(realFolder);
 		Map map=new HashMap();
 		if(cno.equals("1")) {
 			map.put("category", "");

@@ -80,7 +80,7 @@ public class NoticeModel {
 	  final int BLOCK=10;
 		int startpage=((curpage-1)/BLOCK*BLOCK)+1;
 		int endpage=((curpage-1)/BLOCK*BLOCK)+BLOCK;
-		
+	  
 		if(endpage>totalpage)
 			endpage=totalpage;
 	  
