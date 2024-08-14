@@ -43,7 +43,30 @@ public class QnaDAO {
  */
 	public static List<QnaVO> qnaListData(Map map){
 		List<QnaVO> list=new ArrayList<QnaVO>();
-		
+		SqlSession session=null;
+		try {
+		session=ssf.openSession();
+		list=session.selectList("qnaListData",map);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
 		return list;
+	}
+	public static int qnaTotalPage() {
+		int total=0;
+		SqlSession session=null;
+		try {
+		session=ssf.openSession();
+		total=session.selectOne("qnaTotalpage");
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return total;
 	}
 }

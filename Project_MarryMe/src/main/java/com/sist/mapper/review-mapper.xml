@@ -4,7 +4,7 @@
 	<insert id="reviewInsert" parameterType="ReviewVO">
 		INSERT INTO review VALUES(
 			(SELECT NVL(MAX(review_no)+1,1) FROM review),
-			#{image},#{msg},#{regdate},#{pw},#{cate},#{id},#{pno},#{score},0
+			#{image},#{msg},SYSDATE,#{pw},#{cate},#{id},#{pno},#{score},0
 		)
 	</insert>
 	<resultMap type="com.sist.vo.ReviewVO" id="ReviewMap">
@@ -20,4 +20,11 @@
 		ORDER BY review_no DESC))
 		WHERE num BETWEEN #{start} AND #{end}
 	</select>
+	<select id="reviewTotalPage" resultType="int">
+		SELECT COUNT(*) FROM review
+	</select>
+	<update id="reviewUpdate" parameterType="ReviewVO">
+		UPDATE review SET
+		
+	</update>
 </mapper>
