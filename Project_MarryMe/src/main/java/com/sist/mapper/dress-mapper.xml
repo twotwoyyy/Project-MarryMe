@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.dress-mapper">
+  <!-- 드레스 목록 -->
+  <select id="dressListData" resultType="DressVO" parameterType="hashmap">
+  	SELECT d_no, d_image, d_subject, d_price, d_content, d_delivery, d_return_exchange, d_detail_image, num
+  	FROM (SELECT d_no, d_image, d_subject, d_price, d_content, d_delivery, d_return_exchange, d_detail_image, rownum as num
+  	FROM (SELECT d_no, d_image, d_subject, d_price, d_content, d_delivery, d_return_exchange, d_detail_image
+  	FROM (SELECT ${dress} ORDER BY d_no ASC))
+  	WHERE num BETWEEN #{start} AND #{end}  	
+  </select>
+  <select id="dressTotalPage" resultType="int" parameterType="hashmap">
+  	SELECT CEIL(COUNT(*)/10.0) 
+   	FROM ${dress}
+  </select>
+  
+  <update id="dressHitIncrement" parameterType="hashmap">
+    UPDATE ${dress} SET 
+    hit = hit + 1
+    WHERE d_no = #{d_no}
+  </update>
+  <select id="dressDetailData" parameterType="hashmap" resultType="DressVO">
+    SELECT * FROM ${dress}
+    WHERE d_no = #{d_no}
+  </select>
+  
+  <select id="suitListData" resultType="Suit" parameterType="hashmap">
+  	SELCET su_no, su_image, su_subject, su_price, su_delivery, su_return_exchange, su_detail_image, su_content, num
+  	FROM (SELECT su_no, su_image, su_subject, su_price, su_delivery, su_return_exchange, su_detail_image, su_content, rownum as num
+  	FROM (SELECT su_no, su_image, su_subject, su_price, su_delivery, su_return_exchange, su_detail_image, su_content
+  	FROM (SELECT ${suit} ORDER BY su_no ASC)
+  	WHERE num BETWEEN #{start} AND #{end}
+  </select>
+  <select id="suitTotalPage" resultType="int" parameterType="hashmap">
+  	SELECT CEIL(COUNT(*)/10.0)
+  	FROM ${suit}
+  </select>
+  
+  <update id="suitHitIncrement" parameterType="hashmap">
+    UPDATE ${suit} SET 
+    hit = hit + 1
+    WHERE su_no = #{su_no}
+  </update>
+  <select id="suitDetailData" parameterType="hashmap" resultType="DressVO">
+    SELECT * FROM ${suit}
+    WHERE su_no = #{su_no}
+  </select>
+  
+</mapper>

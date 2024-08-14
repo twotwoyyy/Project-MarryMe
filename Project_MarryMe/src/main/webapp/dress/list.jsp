@@ -18,13 +18,13 @@
             </ul>
             <ul class="brand_list container dress active">
                 <li data-aos="fade-up" data-aos-duration="1000">
-                    <a href="detail.html">
+                    <a href="../dress/detail.do">
                         <div class="img_wrap">
-                            <img src="../img/dress_demo.jpg" alt="">
+                            <img src="{vo.d_image}" alt="">
                         </div>
                         <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
+                            <p class="brand_name">${vo.d_subject }</p>
+                            <p class="brand_sub">장미의 아름다움을 담은 드레스</p>
                         </div>
                     </a>
                 </li>
