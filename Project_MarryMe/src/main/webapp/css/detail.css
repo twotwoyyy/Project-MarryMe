@@ -1,0 +1,598 @@
+/*
+font-family: 'SCoreDream', sans-serif; 100-900
+font-family: 'Cafe24Simplehae', sans-serif; 
+font-family: "Pinyon Script", cursive;
+font-family: "Monsieur La Doulaise", cursive;
+*/
+#detail{
+    font-family: 'SCoreDream', sans-serif;
+    padding:200px 15% 100px;
+    background:#EFF3EA;
+}
+/* --------------- TITLE ----------------- */
+#detail .tt_box{
+    text-align:center;
+    margin-bottom:50px;
+}
+#detail .tt_box h2{
+    font-size:34px;
+    font-weight:500;
+    padding-bottom:20px;
+    margin-bottom:25px;
+    position:relative;
+    display:inline-block;
+}
+#detail .tt_box h2::before{
+    content:'';
+    width:95px;
+    height:95px;
+    background:url(../img/detail_deco.png) no-repeat;
+    position:absolute;
+    top:-60px;
+    right:calc(100% - 30px);
+}
+#detail .tt_box h2::after{
+    content:'';
+    width:50px;
+    height:3px;
+    background:#303A1F;
+    position:absolute;
+    top:100%;
+    left:50%;
+    transform:translateX(-50%);
+}
+/* --------------- THUMBNAIL ----------------- */
+#detail .detail_wrap{
+    display:grid;
+    grid-template-columns: 60% 40%;
+    gap:20px;
+}
+#detail .detail_wrap .thumbnail{
+    background:#fff;
+    border:1px solid #0b3a1e;
+    text-align:center;
+    position:relative;
+    box-sizing:border-box;
+    padding: 65px 0;
+    margin-bottom:50px;
+}
+#detail .detail_wrap .thumbnail::after{
+    content:'';
+    width:calc(100% - 50px);
+    height:calc(100% - 50px);
+    border:7px solid rgba(9, 47, 25, .8);
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+}
+#detail .detail_wrap .thumbnail .img_wrap{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+#detail .detail_wrap .thumbnail img{
+    object-fit:cover;
+    max-height:90%;
+}
+#detail h3{
+    font-size:18px;
+    font-weight:500;
+}
+/* --------------- BOTTOM - INFO ----------------- */
+#detail .bottom_wrap .detail_tab{
+    display:flex;
+}
+#detail .bottom_wrap .detail_tab > li > a{
+    display:block;
+    padding:10px 15px;
+    border:1px solid #303030;
+    border-right:none;
+    background:#fff;
+    transition:.3s;
+}
+#detail .bottom_wrap .detail_tab > li:last-child > a{
+    border-right:1px solid #303030;
+}
+#detail .bottom_wrap .detail_tab > li > a.active,
+#detail .bottom_wrap .detail_tab > li > a:hover{
+    background:#303A1F;
+    color:#dcdcdc;
+}
+#detail .bottom_wrap .bottom_content{
+    padding:0 50px;
+    background:#fff;
+}
+#detail .bottom_wrap .bottom_content h3{
+    display:inline-block;
+    margin-bottom:20px;
+    position:relative;
+    z-index:1;
+}
+#detail .bottom_wrap .bottom_content h3::after{
+    content:'';
+    width:100%;
+    height:10px;
+    background:rgb(150, 161, 154, .8);
+    position:absolute;
+    top:12px;
+    left:10px;
+    z-index:-1;
+}
+#detail .bottom_wrap .bottom_content > div{
+    padding:50px 0;
+}
+#detail .bottom_wrap table{
+    width:100%;
+}
+#detail .bottom_wrap table th{
+    font-weight:500;
+    width:110px;
+    text-align:left;
+    padding:10px 0;
+}
+#detail .bottom_wrap #info table th{
+    width:125px;
+}
+/* --------------- MASONRY ----------------- */
+#detail #image .masonry_wrap .img_wrap{
+    width:30%;
+    margin-bottom:10px;
+}
+#detail #image .masonry_wrap .img_wrap img{
+    width:100%;
+}
+/* ------------ MAP ------------- */
+#detail #map address{
+    font-style: normal;
+	margin-bottom:10px;
+}
+/* ------------ REVIEW ------------- */
+#detail .board_top{
+    margin-bottom:30px;
+}
+#detail .board_top h3{
+    margin-right:20px;
+}
+#detail .board_top button{
+    padding:5px;
+    border:1px solid #303030;
+    line-height:22px;
+    transition:.3s;
+    cursor: pointer;
+}
+#detail .board_top button:hover{
+    background:#303A1F;
+    color:#dcdcdc;
+}
+#detail .detail_input{
+    display:flex;
+    flex-direction:column;
+    border-bottom:1px solid #303030;
+    height:0;
+    opacity:0;
+    overflow:hidden;
+    visibility:hidden;
+    padding-bottom:0;
+    margin-bottom:0;
+    transition:.3s;
+}
+#detail .detail_input.active{
+    padding-bottom:20px;
+    margin-bottom:20px;
+    height:auto;
+    opacity:1;
+    overflow:hidden;
+    visibility:visible;
+}
+#detail .detail_input > label:first-child{
+    font-weight:500;
+    margin-bottom:5px;
+}
+#detail .detail_input textarea{
+    width:100%;
+    height:100px;
+    resize:none;
+    font-size:14px;
+    line-height:1.5em;
+    margin-bottom:5px;
+    box-sizing:border-box;
+}
+#detail .detail_input input[type="file"]{
+    font-size:14px;
+}
+#detail .detail_input input[type="button"]{
+    align-self:end;
+    padding:5px;
+    background:#303A1F;
+    color:#dcdcdc;
+    cursor:pointer;
+}
+#detail #review .review_list li + li{
+    border-top:1px solid #dcdcdc;
+    padding-top:30px;
+}
+#detail #review .review_list .top{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    margin-bottom:15px;
+    font-size:14px;
+}
+#detail #review .review_list .top .profile{
+    display:flex;
+    align-items:end;
+    gap:10px;
+}
+#detail #review .review_list .top .profile img{
+    width:35px;
+}
+#detail #review .content .star{
+    margin-bottom:10px;
+}
+#detail #review .content .star svg{
+    fill:#bbbbbb;
+}
+#detail #review .content .star svg.active{
+    fill:#0b3a1e;
+}
+#detail #review .content .content_text pre{
+    white-space:break-spaces;
+    font-size:14px;
+    line-height:1.3em;
+}
+#detail #review .content .img_box{
+    max-width:100%;
+    overflow:hidden;
+    display:flex;
+    gap:5px;
+    margin-bottom:20px;
+    overflow:hidden;
+}
+#detail #review .content .img_box img{
+    height:200px;
+    object-fit:cover;
+    object-position:center;
+}
+
+/* ------------ QNA ------------- */
+#detail #qna .qna_list li{
+    border-top:1px solid #dcdcdc;
+    padding:15px;
+}
+#detail #qna .detail_input > div{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+}
+#detail #qna .qna_pwbox{
+    display:flex;
+    gap:5px;
+    align-items:center;
+}
+#detail #qna .qna_pwbox input{
+    padding:5px;
+    border-bottom:1px solid #dcdcdc;
+}
+#detail #qna .qna_list .close{
+    display:grid;
+    grid-template-columns:40px 1fr 50px 70px;
+    text-align:center;
+    align-items:center;
+    gap:10px;
+    font-size:14px;
+}
+#detail #qna .qna_list .close .subject{
+    display:flex;
+    gap:5px;
+    justify-content: start;
+    align-items:center;
+    cursor: pointer;
+}
+#detail #qna .qna_list .close .subject .reply{
+    padding:5px;
+    border:1px solid #303030;
+    background:#d6e4cf;
+    font-size:14px;
+}
+#detail #qna .qna_list .close .writer{
+    font-size:14px;
+}
+#detail #qna .qna_list .close .regdate{
+    font-size:12px;
+}
+#detail #qna .qna_list .write_pw{
+    margin-left:50px;
+    font-size:14px;
+    height:0;
+    opacity:0;
+    overflow:hidden;
+    visibility:hidden;
+    transition:.3s;
+}
+#detail #qna .qna_list .write_pw.active{
+    height:auto;
+    opacity:1;
+    overflow:auto;
+    visibility: visible;
+    padding:10px;
+}
+#detail #qna .qna_list .write_pw .review_pw_input{
+    padding:5px;
+    border-bottom:1px solid #dcdcdc;
+    width:150px;
+}
+#detail #qna .qna_list .write_pw button{
+    padding:5px;
+    border:1px solid #303030;
+    transition:.3s;
+    cursor: pointer;
+}
+#detail #qna .qna_list .write_pw button:hover{
+    background:#303A1F;
+    color:#dcdcdc;
+}
+#detail #qna .qna_list .open{
+    margin-left:50px;
+    height:0;
+    opacity:0;
+    overflow:hidden;
+    visibility:hidden;
+    transition:.3s;
+}
+#detail #qna .qna_list .open.active{
+    padding-top:10px;
+    margin-bottom:20px;
+    height:auto;
+    opacity:1;
+    overflow:auto;
+    visibility: visible;
+}
+#detail #qna .qna_list .open pre{
+    font-size:14px;
+    white-space:break-spaces;
+    line-height:1.3em;
+}
+
+/* --------------- PAGINATION ----------------- */
+#detail .page{
+    padding-top:30px;
+    display:flex;
+    justify-content:center;
+    gap:10px;
+}
+#detail .page > li a{
+    display:block;
+    width:24px;
+    height:24px;
+    line-height:24px;
+    text-align:center;
+    transition:.3s;
+}
+#detail .page > li a:hover{
+    background:#303A1F;
+    color:#dcdcdc;
+}
+#detail .page > li.active > a{
+    background:#303A1F;
+    color:#dcdcdc;
+}
+
+/* --------------- RESERVATION ----------------- */
+#detail .reservation{
+    padding:30px;
+    border:1px solid #303030;
+    background:#c6d1bd;
+    box-sizing:border-box;
+}
+#detail .reservation.sticky{
+    top:100px;
+}
+#detail .reservation .top{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    padding-bottom:20px;
+    border-bottom:1px solid #303030;
+}
+#detail .reservation h3{
+    margin-bottom:10px;
+}
+#detail .reservation .top .icons > *{
+    background:no-repeat center center cover;
+    text-indent:-9999em;
+    cursor: pointer;
+}
+#detail .reservation .top .icons .wish{
+    width:32px;
+    height:28px;
+    background-image:url(../img/wish_list.png);
+    margin-right:10px;
+}
+#detail .reservation .top .icons .wish.active,
+#detail .reservation .top .icons .wish:hover{
+    background-image:url(../img/wish_list_hover.png);
+}
+#detail .reservation .top .icons .share{
+    width:28px;
+    height:32px;
+    background-image:url(../img/share_link.png);
+}
+#detail .reservation .top .icons .share:hover{
+    background-image:url(../img/share_link_hover.png);
+}
+#detail .reservation form{
+    padding-top:30px;
+}
+#detail .reservation .date{
+    margin-bottom:30px;
+}
+#detail .reservation label,
+#detail .reservation .label{
+    font-weight:500;
+}
+#detail .reservation #calendar{
+    visibility:hidden;
+    border:none;
+    background:none;
+    margin-left:10px;
+    margin-bottom:10px;
+}
+/* ------- DATEPICKER ------- */
+.ui-datepicker{
+    width:20em;
+}
+#ui-datepicker-div{
+    border:1px solid #303A1F;
+    border-radius:0;
+    padding:20px;
+}
+#ui-datepicker-div{
+    position:static !important;
+    display: block !important;
+    width: 89%;
+}
+.ui-widget-header{
+    background:none;
+    border:none;
+    margin-bottom:20px;
+}
+.ui-datepicker .ui-datepicker-title{
+    font-family: 'SCoreDream', sans-serif;
+    line-height:2.5em;
+}
+.ui-datepicker .ui-datepicker-prev,
+.ui-datepicker .ui-datepicker-next{
+    background:no-repeat;
+    width:49px;
+    height:49px;
+    cursor: pointer;
+}
+.ui-datepicker .ui-datepicker-prev{
+    background-image:url(../img/detail_reserve_prev.png);
+}
+.ui-datepicker .ui-datepicker-next{
+    background-image:url(../img/detail_reserve_next.png);
+}
+.ui-datepicker .ui-datepicker-prev span,
+.ui-datepicker .ui-datepicker-next span{
+    background:none;
+}
+.ui-datepicker-prev:hover{
+    border:none;
+    background-color:transparent;
+    top:2px;
+    left:2px;
+}
+.ui-datepicker-next:hover{
+    border:none;
+    background-color:transparent;
+    top:2px;
+    right:2px;
+}
+.ui-datepicker td{
+    padding:3px;
+}
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default,
+.ui-button,
+html .ui-button.ui-state-disabled:hover, 
+html .ui-button.ui-state-disabled:active{
+    font-family: 'SCoreDream', sans-serif;
+    display:inline-block;
+    border:1px solid transparent;
+    border-radius:15px;
+    padding:0;
+    background:none;
+    text-align:center;
+    width:30px;
+    height:30px;
+    line-height:30px;
+    transition:.3s;
+}
+.ui-state-highlight, 
+.ui-widget-content .ui-state-highlight,
+.ui-widget-header .ui-state-highlight{
+    font-weight:600;
+    background:#EFF3EA;
+    color:#303030;
+}
+.ui-datepicker td span, .ui-datepicker td a:hover{
+    border:1px solid #303A1F;
+}
+#ui-datepicker-div .ui-state-default.active{
+    background:#303A1F;
+    color:#dcdcdc;
+    font-weight:500;
+}
+/* ------- TIME ------- */
+#detail .time {
+    margin-bottom:30px;
+}
+#detail .time label{
+    display:inline-block;
+    margin-bottom:10px;
+}
+#detail .time .reserve_time{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+#detail .time .reserve_time button{
+    display:inline-block;
+    padding:5px;
+    border:1px solid #303030;
+    cursor:pointer;
+}
+#detail .time .reserve_time button.active{
+    background:#303A1F;
+    color:#dcdcdc;
+}
+#detail .reservation .total{
+    margin-bottom:30px;
+}
+#detail .reservation .total .label{
+    display:inline;
+    margin-right:10px;
+}
+#detail .reservation form .bottom{
+    display:flex;
+    justify-content:space-between;
+}
+#detail .reservation form input[type="submit"]{
+    width:100%;
+    height:40px;
+    line-height:40px;
+    text-align:center;
+    background:#303A1F;
+    color:#dcdcdc;
+    cursor:pointer;
+    position:relative;
+}
+@media (max-width:1500px) {
+    #detail .detail_wrap .thumbnail{
+        padding:13px 0;
+    }
+    #detail .reservation{
+        padding:20px;
+    }
+    #detail .reservation form {
+        padding-top: 15px;
+    }
+    #ui-datepicker-div{
+        padding:10px 20px;
+    }
+    #detail .reservation .date {
+        margin-bottom: 15px;
+    }
+    #detail .time {
+        margin-bottom: 15px;
+    }
+    #detail .reservation .total {
+        margin-bottom: 15px;
+    }
+    #detail .detail_wrap .thumbnail .img_wrap{
+        height:643px;
+    }
+}

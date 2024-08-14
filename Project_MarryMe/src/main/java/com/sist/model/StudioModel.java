@@ -79,4 +79,10 @@ public class StudioModel {
 		request.setAttribute("main_jsp", "../studio/hairmakeup_list.jsp");
 		return "../main/main.jsp";
 	}
+	
+	@RequestMapping("studio/detail.do")
+	public String studio_detail(HttpServletRequest request, HttpServletResponse response) {
+		request.setAttribute("main_jsp", "../studio/detail.jsp");
+		return "../main/main.jsp";
+	}
 }
