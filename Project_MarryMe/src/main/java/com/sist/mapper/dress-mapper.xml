@@ -24,7 +24,7 @@
     WHERE d_no = #{d_no}
   </select>
   
-  <select id="suitListData" resultType="Suit" parameterType="hashmap">
+  <select id="suitListData" resultType="SuitVO" parameterType="hashmap">
   	SELCET su_no, su_image, su_subject, su_price, su_delivery, su_return_exchange, su_detail_image, su_content, num
   	FROM (SELECT su_no, su_image, su_subject, su_price, su_delivery, su_return_exchange, su_detail_image, su_content, rownum as num
   	FROM (SELECT su_no, su_image, su_subject, su_price, su_delivery, su_return_exchange, su_detail_image, su_content
