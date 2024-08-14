@@ -41,7 +41,7 @@
     hit = hit + 1
     WHERE su_no = #{su_no}
   </update>
-  <select id="suitDetailData" parameterType="hashmap" resultType="DressVO">
+  <select id="suitDetailData" parameterType="hashmap" resultType="DressVO"> 
     SELECT * FROM ${suit}
     WHERE su_no = #{su_no}
   </select>
