@@ -500,6 +500,7 @@ font-family: "Monsieur La Doulaise", cursive;
 html .ui-button.ui-state-disabled:hover, 
 html .ui-button.ui-state-disabled:active{
     font-family: 'SCoreDream', sans-serif;
+    color:#303030;
     display:inline-block;
     border:1px solid transparent;
     border-radius:15px;
