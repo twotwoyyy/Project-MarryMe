@@ -22,6 +22,7 @@
   <select id="dressDetailData" parameterType="hashmap" resultType="DressVO">
     SELECT * FROM ${dress}
     WHERE d_no = #{d_no}
+    <!-- asdasd -->
   </select>
   
   <select id="suitListData" resultType="SuitVO" parameterType="hashmap">
