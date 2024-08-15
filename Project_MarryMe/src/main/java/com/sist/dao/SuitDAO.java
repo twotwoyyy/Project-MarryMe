@@ -1,24 +1,24 @@
 package com.sist.dao;
 
-import com.sist.vo.DressVO;
-
 import java.util.*;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
-public class DressDAO {
+import com.sist.vo.SuitVO;
+
+public class SuitDAO {
 	private static SqlSessionFactory ssf;
 	  static {
 		  ssf = CreateSqlSessionFactory.getSsf();
 	  }
 	  
-	  public static List<DressVO> dressListData(Map map) {
-		  List<DressVO> list = new ArrayList<DressVO>();
+	  public static List<SuitVO> suitListData(Map map) {
+		  List<SuitVO> list = new ArrayList<SuitVO>();
 		  SqlSession session = null;
 		  try {
 			  session = ssf.openSession();
-			  list = session.selectList("dressListData", map);
+			  list = session.selectList("suitListData", map);
 		  } catch (Exception ex) {
 			  ex.printStackTrace();
 		  } finally {
@@ -28,12 +28,12 @@ public class DressDAO {
 		  return list;
 	  }
 	  
-	  public static int dressTotalPage(Map map) {
+	  public static int suitTotalPage(Map map) {
 		  int total = 0;
 		  SqlSession session = null;
 		  try {
 			  session = ssf.openSession();
-			  total = session.selectOne("dressTotalPage", map);
+			  total = session.selectOne("suitTotalPage", map);
 		  } catch (Exception ex) {
 			  ex.printStackTrace();
 		  } finally {
@@ -43,14 +43,14 @@ public class DressDAO {
 		  return total;
 	  }
 	  
-	  public static DressVO dressDetailData(Map map) {
-		  DressVO vo = new DressVO();
+	  public static SuitVO suitDetailData(Map map) {
+		  SuitVO vo = new SuitVO();
 		  SqlSession session = null;
 		  try {
 			  session = ssf.openSession();
-			  session.update("dressHitIncrement", map);
+			  session.update("suitHitIncrement", map);
 			  session.commit();
-			  vo = session.selectOne("dressDetailData", map);
+			  vo = session.selectOne("suitDetailData", map);
 		  } catch(Exception ex) {
 			  ex.printStackTrace();
 		  } finally {
