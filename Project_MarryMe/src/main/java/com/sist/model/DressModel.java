@@ -16,7 +16,7 @@ import com.sist.vo.SuitVO;
 public class DressModel {
 
     // 드레스 목록 화면을 처리하는 메서드
-    @RequestMapping("dress/dress_list.do") // URL 매핑을 지정합니다.
+    @RequestMapping("dress/list.do") // URL 매핑을 지정합니다.
     public String dress_list(HttpServletRequest request, HttpServletResponse response) {
         String page = request.getParameter("page"); // 페이지 번호를 요청에서 가져옵니다.
         if (page == null) { // 페이지 번호가 없는 경우
@@ -46,7 +46,7 @@ public class DressModel {
         request.setAttribute("endpage", endpage); // 끝 페이지를 요청에 추가합니다.
         request.setAttribute("dress_list", dress_list); // 드레스 목록을 요청에 추가합니다.
 
-        request.setAttribute("main_jsp", "../dress/dress_list.jsp");
+        request.setAttribute("main_jsp", "../dress/list.jsp");
         return "../main/main.jsp";
     }
 
@@ -66,7 +66,7 @@ public class DressModel {
     }
 
     // 수트 목록 화면을 처리하는 메서드
-    @RequestMapping("dress/suit_list")
+    @RequestMapping("dress/list")
     public String suit_list(HttpServletRequest request, HttpServletResponse response) {
         String page = request.getParameter("page");
         if (page == null) {
@@ -95,7 +95,7 @@ public class DressModel {
         request.setAttribute("endpage", endpage);
         request.setAttribute("suit_list", suit_list);
 
-        request.setAttribute("main_jsp", "../dress/suit_list.jsp");
+        request.setAttribute("main_jsp", "../dress/list.jsp");
         return "../main/main.jsp";
     }
 
