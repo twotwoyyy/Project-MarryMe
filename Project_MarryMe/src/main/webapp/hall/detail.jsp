@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,146 +11,73 @@
 <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 <link rel="stylesheet" href="../css/detail.css">
 <script defer src="../js/main.js"></script>
+<style type="text/css">
+#hallimg{
+	width: 90%;
+	height: 100%;
+}
+
+#map p {
+        margin-top: 20px; /* 원하는 만큼의 여백을 설정합니다. */
+}
+.mapinfo::before {
+        content: "지하철 🚇 ";
+        color: #0b3a1e; /* 원하는 색상으로 설정 */
+}
+</style>
 </head>
 <body>
 	<div id="detail" class="studio">
         <div class="tt_box">
-            <h2>업체명</h2>
-            <p>업체 소개글</p>
+            <h2>${vo.name }</h2>
+            <p>${vo.homepage }</p>
         </div>
         <div class="detail_wrap">
             <div class="left">
                 <section class="thumbnail">
                     <div class="img_wrap">
-                        <img src="../img/studio_demo.jpg" alt="">
+                        <img src="${vo.image }" alt="" id="hallimg">
                     </div>
                 </section>
                 <section class="bottom_wrap">
                     <ul class="detail_tab">
                         <li><a href="#brand" class="active">브랜드정보</a></li>
-                        <li><a href="#image">이미지</a></li>
-                        <li><a href="#video">영상</a></li>
-                        <li><a href="#info">상세안내</a></li>
                         <li><a href="#map">위치</a></li>
                         <li><a href="#review">후기()</a></li>
                         <li><a href="#qna">문의()</a></li>
                     </ul>
                     <div class="bottom_content">
                         <div id="brand">
-                            <h3>브랜드 정보</h3>
+                            <h3>${vo.name }홀 정보</h3>
                             <table>
                                 <tbody>
                                     <tr>
-                                        <th scope="row">브랜드</th>
-                                        <td>-</td>
+                                        <th scope="row">업체명</th>
+                                        <td>✅${vo.name }</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">전화번호</th>
-                                        <td>-</td>
+                                        <th scope="row">형태</th>
+                                        <td>🏢${vo.type }</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">스타일</th>
-                                        <td>-</td>
+                                        <th scope="row">메뉴</th>
+                                        <td>🍽️${vo.menu }</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">영업/휴무일</th>
-                                        <td>-</td>
+                                        <th scope="row">식대</th>
+                                        <td>💰${vo.mealcost }</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">영업시간</th>
-                                        <td>-</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <hr>
-                        <div id="image">
-                            <h3>이미지</h3>
-                            <div class="masonry_wrap">
-                                <div class="img_wrap">
-                                    <img src="../img/goods_list_banner.jpg" alt="">
-                                </div>
-                                <div class="img_wrap">
-                                    <img src="../img/hair_demo.jpg" alt="" >
-                                </div>
-                                <div class="img_wrap">
-                                    <img src="../img/hall_list_banner.jpg" alt="">
-                                </div>
-                                <div class="img_wrap">
-                                    <img src="../img/dress_list_banner.jpg" alt="">
-                                </div>
-                                <div class="img_wrap">
-                                    <img src="../img/marriage_goods_demo.jpg" alt="">
-                                </div>
-                                <div class="img_wrap">
-                                    <img src="../img/dress_demo.jpg" alt="">
-                                </div>
-                                <div class="img_wrap">
-                                    <img src="../img/studio_demo.jpg" alt="">
-                                </div>
-                                <div class="img_wrap">
-                                    <img src="../img/goods_list_banner.jpg" alt="">
-                                </div>
-                                <div class="img_wrap">
-                                    <img src="../img/hair_demo.jpg" alt="" >
-                                </div>
-                                <div class="img_wrap">
-                                    <img src="../img/hall_list_banner.jpg" alt="">
-                                </div>
-                                <div class="img_wrap">
-                                    <img src="../img/suit_demo.jpg" alt="">
-                                </div>
-                                <div class="img_wrap">
-                                    <img src="../img/marriage_goods_demo.jpg" alt="">
-                                </div>
-                                <div class="img_wrap">
-                                    <img src="../img/studio_list_banner.jpg" alt="">
-                                </div>
-                                <div class="img_wrap">
-                                    <img src="../img/hall_demo.jpg" alt="">
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div id="video">
-                            <h3>영상</h3>
-                            <iframe width="100%" height="400" class="youtube_wrap" src="https://www.youtube.com/embed/xp6XpRINNbg" frameborder="0" ></iframe>
-                        </div>
-                        <div id="info">
-                            <h3>상세안내</h3>
-                            <table>
-                                <tbody>
                                     <tr>
-                                        <th scope="row">컨셉</th>
-                                        <td>-</td>
+                                        <th scope="row">위치</th>
+                                        <td>📌${vo.addr }</td>
+                                    </tr>
+                                        <th scope="row">특징</th>
+                                        <td>✔️${vo.point }</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">추천포인트</th>
-                                        <td>-</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">촬영의상</th>
-                                        <td>-</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">촬영시간</th>
-                                        <td>-</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">보유소품</th>
-                                        <td>-</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">유의사항</th>
-                                        <td>-</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">일정변경/취소</th>
-                                        <td>-</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">위약금/환불</th>
-                                        <td>-</td>
+                                        <th scope="row">홈페이지</th>
+                                        <td>🌏${vo.homepage }</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -157,8 +85,9 @@
                         <hr>
                         <div id="map">
                             <h3>위치</h3>
-                            <address>서울시 마포구 서교동</address>
-                            <div id="detail_map" style="width:100%;height:350px;"></div> 
+                            <address>${vo.addr }</address>
+                            <div id="detail_map" style="width:100%;height:350px;"></div>
+                            <p class="mapinfo">${vo.map }</p> 
                         </div>
                         <hr>
                         <div id="review">
@@ -428,7 +357,7 @@
     var geocoder = new kakao.maps.services.Geocoder();
     
     // 주소로 좌표를 검색합니다
-    geocoder.addressSearch('서울특별시 마포구 월드컵북로 21', function(result, status) {
+    geocoder.addressSearch('${vo.addr}', function(result, status) {
     
         // 정상적으로 검색이 완료됐으면 
          if (status === kakao.maps.services.Status.OK) {
@@ -443,7 +372,7 @@
     
             // 인포윈도우로 장소에 대한 설명을 표시합니다
             var infowindow = new kakao.maps.InfoWindow({
-                content: '<div style="width:150px;text-align:center;padding:6px 0;">업체명</div>'
+                content: '<div style="width:150px;text-align:center;padding:6px 0;">${vo.name}</div>'
             });
             infowindow.open(map, marker);
     

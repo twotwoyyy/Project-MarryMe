@@ -57,7 +57,7 @@
                 <!-- 첫 9개만 출력하도록 설정 -->
                 <c:forEach var="vo" items="${list}" begin="0" end="8">
                     <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="${delay}">
-                        <a href="detail.html">
+                        <a href="../hall/detail_before.do?hno=${vo.hno }">
                             <div class="img_wrap">
                                 <img src="${vo.image}" alt="${vo.name}">
                             </div>

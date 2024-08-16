@@ -2,8 +2,10 @@ package com.sist.model;
 
 import java.util.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.sist.controller.RequestMapping;
 import com.sist.dao.*;
@@ -46,6 +48,25 @@ public class HallModel {
 		request.setAttribute("list", list);
 		request.setAttribute("ss", ss);
 		request.setAttribute("main_jsp", "../hall/list.jsp");
+		return "../main/main.jsp";
+	}
+	
+	@RequestMapping("hall/detail_before.do")
+	public String food_detail_before(HttpServletRequest request,HttpServletResponse response) {
+		String hno=request.getParameter("hno");
+		Cookie cookie=new Cookie("hall_"+hno,hno);
+		cookie.setMaxAge(60*60*24);
+		cookie.setPath("/");
+		response.addCookie(cookie);
+		return "redirect:../hall/detail.do?hno="+hno;
+	}
+	// 상세보기
+	@RequestMapping("hall/detail.do")
+	public String hall_detail(HttpServletRequest request, HttpServletResponse response) {
+		String hno=request.getParameter("hno");
+		HallVO vo=HallDAO.hallDetailData(Integer.parseInt(hno));
+		request.setAttribute("vo", vo);
+		request.setAttribute("main_jsp", "../hall/detail.jsp");
 		return "../main/main.jsp";
 	}
 }

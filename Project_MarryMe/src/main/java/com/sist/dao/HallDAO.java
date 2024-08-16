@@ -57,4 +57,21 @@ public class HallDAO {
 		}
 		return total;
 	}
+	
+	public static HallVO hallDetailData(int hno) {
+		HallVO vo=new HallVO();
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			session.selectOne("hallHitIncrement",hno);
+			session.commit();
+			vo=session.selectOne("hallDetailData",hno);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return vo;
+	}
 }

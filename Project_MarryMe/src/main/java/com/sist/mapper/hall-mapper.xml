@@ -12,7 +12,7 @@
 	<select id="hallListData" resultType="HallVO" parameterType="java.util.Map" >
 		SELECT hno,name,addr,point,type,menu,mealcost,map,homepage,image,num
 		FROM(SELECT hno,name,addr,point,type,menu,mealcost,map,homepage,image,rownum as num
-		FROM(SELECT /*+ INDEX_DESC(hall hall_hno_pk) */+hno,name,addr,point,type,menu,mealcost,map,homepage,image
+		FROM(SELECT /*+ INDEX_ASC(hall hall_hno_pk) */hno,name,addr,point,type,menu,mealcost,map,homepage,image
 		FROM hall 
 		<if test="ss!='all'">
 		WHERE name LIKE '%'||#{ss}||'%'		 
@@ -25,5 +25,16 @@
 		<if test="ss!='all'">
 			WHERE name LIKE '%'||#{ss}||'%'
 		</if>
+	</select>
+	<!-- 홀 상세보기 -->
+	<update id="hallHitIncrement" parameterType="int">
+		UPDATE hall SET
+		hit=hit+1
+		WHERE hno=#{hno}
+	</update>
+	<select id="hallDetailData" resultType="HallVO" parameterType="int">
+		SELECT hno,name,addr,point,type,menu,mealcost,map,homepage,image,hit
+		FROM hall
+		WHERE hno=#{hno}
 	</select>
 </mapper>
