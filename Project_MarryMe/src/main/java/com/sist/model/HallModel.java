@@ -11,16 +11,26 @@ import com.sist.vo.*;
 
 public class HallModel {
 	@RequestMapping("hall/list.do")
-	public String hall_list(HttpServletRequest request, HttpServletResponse response) {
+	public String hall_list(HttpServletRequest request, HttpServletResponse response) { 
+	    try{
+		    request.setCharacterEncoding("UTF-8");
+	    }catch(Exception ex) {}
+	    String ss=request.getParameter("ss");
+	    if(ss==null || ss.equals(""))
+	    	ss="all";
 		String page=request.getParameter("page");
 		if(page==null)
 			page="1";
 		int curpage=Integer.parseInt(page);
+		int rowSize=10;
+		int start=(rowSize*curpage)-(rowSize-1);
+		int end=(rowSize*curpage);
 		Map map=new HashMap();
-		map.put("start", (curpage*10)-9);
-		map.put("end", curpage*10);
+		map.put("start",start);
+		map.put("end", end);
+		map.put("ss", ss);
 		List<HallVO> list=HallDAO.hallListData(map);
-		int totalpage=HallDAO.hallTotalPage(map);
+		int totalpage=HallDAO.hallTotalPage(ss);
 		
 		final int BLOCK=5;
 		int startPage=((curpage-1)/BLOCK*BLOCK)+1;
@@ -34,6 +44,7 @@ public class HallModel {
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("list", list);
+		request.setAttribute("ss", ss);
 		request.setAttribute("main_jsp", "../hall/list.jsp");
 		return "../main/main.jsp";
 	}

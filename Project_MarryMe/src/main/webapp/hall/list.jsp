@@ -41,7 +41,7 @@
 		<section class="centered">
 		    <form method="GET" action="#">
 		        <label for="search" class="hidden">검색</label>
-		        <input type="search" id="search" name="search">
+		        <input type="text" id="search" name=ss value="${ss}">
 		        <input type="submit" value="검색">
 		    </form>
 		</section>
@@ -53,7 +53,7 @@
             </ul>
             -->
             <ul class="brand_list container studio active">
-                  <c:set var="delay" value="0"/>
+                  <c:set var="delay" value="0"/> 
                 <!-- 첫 9개만 출력하도록 설정 -->
                 <c:forEach var="vo" items="${list}" begin="0" end="8">
                     <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="${delay}">
@@ -74,16 +74,16 @@
 			<ul class="page">
 			    <!-- 이전 페이지 링크 -->
 			        <c:if test="${startPage>1}">
-			            <li><a href="../hall/list.do?page=${startPage - 1}">&lt;</a></li>
+			            <li><a href="../hall/list.do?page=${startPage - 1}&ss=${ss}">&lt;</a></li>
 			        </c:if>
 			    <c:forEach var="i" begin="${startPage}" end="${endPage}">
 			        <li class="${i == curpage ? 'active' : ''}">
-			            <a href="../hall/list.do?page=${i}">${i}</a>
+			            <a href="../hall/list.do?page=${i}&ss=${ss}">${i}</a>
 			        </li>
 			    </c:forEach>
 			    <!-- 다음 페이지 링크 -->
 		        <c:if test="${endPage < totalpage}">
-		            <li><a href="../hall/list.do?page=${endPage + 1}">&gt;</a></li>
+		            <li><a href="../hall/list.do?page=${endPage + 1}&ss=${ss}">&gt;</a></li>
 		        </c:if>
 			</ul>
         </section>

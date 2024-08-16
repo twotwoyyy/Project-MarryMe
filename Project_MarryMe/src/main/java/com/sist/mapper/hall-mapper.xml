@@ -13,11 +13,17 @@
 		SELECT hno,name,addr,point,type,menu,mealcost,map,homepage,image,num
 		FROM(SELECT hno,name,addr,point,type,menu,mealcost,map,homepage,image,rownum as num
 		FROM(SELECT /*+ INDEX_DESC(hall hall_hno_pk) */+hno,name,addr,point,type,menu,mealcost,map,homepage,image
-		FROM hall))
-		WHERE num BETWEEN #{start} AND #{end}
+		FROM hall 
+		<if test="ss!='all'">
+		WHERE name LIKE '%'||#{ss}||'%'		 
+		</if>
+		))WHERE num BETWEEN #{start} AND #{end}
 	</select>
 
 	<select id="hallTotalPage" resultType="int">
 		SELECT CEIL(COUNT(*)/10.0) FROM hall
+		<if test="ss!='all'">
+			WHERE name LIKE '%'||#{ss}||'%'
+		</if>
 	</select>
 </mapper>

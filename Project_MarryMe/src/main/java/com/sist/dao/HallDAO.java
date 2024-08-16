@@ -39,16 +39,16 @@ public class HallDAO {
 		}finally {
 			if(session!=null)
 				session.close();
-		}
+		} 
 		return list;
 	}
 	
-	public static int hallTotalPage(Map map) {
+	public static int hallTotalPage(String ss) {
 		int total=0;
 		SqlSession session=null;
 		try {
 			session=ssf.openSession();
-			total=session.selectOne("hallTotalPage",map);
+			total=session.selectOne("hallTotalPage",ss);
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}finally {
