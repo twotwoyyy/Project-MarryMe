@@ -6,10 +6,64 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
 <link rel="stylesheet" href="../css/join.css">
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript">
+$(function(){
+	let id;
+	$('.id_check_btn').click(function(){
+		id=$('#id_input').val();
+		if(id.trim()===""){
+			$('#id_input').focus();
+			return;
+		}
+		$.ajax({
+			type:'POST',
+			url:'../member/idcheck_ok.do',
+			data:{"id":id},
+			success:function(result){
+				let count=Number(result.trim());
+				if(count===0){
+					$('#idcheck_box .confirm_id').css({'display':'inline'});
+					$('#idcheck_box .is_id').text(id+'는(은) 사용가능한 아이디입니다');
+					$('#idcheck_box .is_id').css({'color':'#303030'})
+				}else{
+					$('#idcheck_box .confirm_id').css({'display':'none'});
+					$('#idcheck_box .is_id').text(id+'는(은) 이미 사용중인 아이디입니다');
+					$('#idcheck_box .is_id').css({'color':'#e02f2f'})
+				}
+			},
+			error:function(request, status, error){
+				console.log(error);
+			}
+		})
+	})
+	$('#idcheck_box .confirm_id').click(function(){
+		$('.join_wrap #id').val(id);
+		$('#idcheck_box').removeClass('active');
+		$('body').removeClass('active');
+	})
+	$('.post_search').click(function(){
+	  	new daum.Postcode({
+	        oncomplete: function(data) {
+	            $('input#post').val(data.zonecode);
+	            $('input#address1').val(data.address);
+	        }
+	    }).open();		
+	})
+	$('#join .join_btn').click(function(){
+		if($('#pw').val() != $('#pw_check').val()){
+			alert('비밀번호를 확인해주세요')
+		}
+		if(isNaN($('#phone').val())){
+			alert('휴대폰번호는 숫자만 입력해주세요')
+			$('#phone').focus();
+		}
+	})
+})
+</script>
 </head>
 <body>
 	<div id="join">
@@ -18,14 +72,14 @@
         </div>
         <section class="join_wrap">
             <p><span>*</span> 필수입력사항</p>
-            <form method="POST" action="">
+            <form method="POST" action="../member/join_ok.do">
                 <div class="center">
                     <div class="hasBtn">
                         <div class="input_wrap">
                             <label for="id">아이디<span>*</span></label>
-                            <input type="text" id="id" name="id" placeholder="아이디를 입력해주세요" required>
+                            <input type="text" id="id" name="id" placeholder="아이디 중복체크 버튼을 눌러주세요" required disabled>
                         </div>
-                        <button>아이디 중복체크</button>
+                        <input type="button" class="idCheck" value="아이디 중복체크">
                     </div>
                     <div class="input_wrap">
                         <label for="pw">비밀번호<span>*</span></label>
@@ -61,13 +115,13 @@
                     <div class="hasBtn">
                         <div class="input_wrap">
                             <label for="post">우편번호<span>*</span></label>
-                            <input type="text" id="post" name="post" placeholder="검색버튼을 눌러주세요" required>
+                            <input type="text" id="post" name="post" placeholder="검색버튼을 눌러주세요" required disabled>
                         </div>
-                        <button>우편번호 검색</button>
+                        <input type="button" class="post_search" value="우편번호 검색">
                     </div>
                     <div class="input_wrap">
                         <label for="address1">기본주소<span>*</span></label>
-                        <input type="text" id="address1" name="address1">
+                        <input type="text" id="address1" name="address1" disabled>
                     </div>
                     <div class="input_wrap">
                         <label for="address2">상세주소</label>
@@ -95,12 +149,23 @@
                         <input type="text" id="wedding_date" name="wedding_date">
                     </div>
                     <div class="form_btns">
-                        <button>회원가입</button>
-                        <button>취소</button>
+                        <button class="join_btn">회원가입</button>
+                        <button onclick="javascript:history.back()">취소</button>
                     </div>
                 </div>
             </form>
         </section>
     </div>
+    <aside id="idcheck_box">
+    	<h3>아이디 중복체크</h3>
+    	<div class="form">
+   			<label for="id_input">ID</label>
+   			<input type="text" name="id_input" id="id_input">
+   			<button class="id_check_btn">중복확인</button>
+   		</div>
+    	<p class="is_id"></p>
+    	<button class="confirm_id">확인</button>
+    	<button class="close">X</button>
+    </aside>
 </body>
 </html>

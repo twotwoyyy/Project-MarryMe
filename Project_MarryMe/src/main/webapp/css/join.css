@@ -57,7 +57,7 @@ font-family: "Monsieur La Doulaise", cursive;
 #join .join_wrap form .hasBtn{
     display:flex;
 }
-#join .join_wrap form .hasBtn button{
+#join .join_wrap form .hasBtn input[type="button"]{
     width:150px;
     height:40px;
     line-height:36px;
@@ -193,4 +193,96 @@ html .ui-button.ui-state-disabled:active{
     background:#303A1F;
     color:#dcdcdc;
     font-weight:500;
+}
+
+/*-------------------- ASIDE IDCHECK ---------------------*/
+body{
+	position:static;
+	height:auto;
+}
+body.active{
+	position:fixed;
+	width:100%;
+	height:100vh;
+	top:0; bottom:0; left:0; right:0;
+	overflow:hidden;
+}
+body.active::after{
+	content:'';
+	width:100%;
+	height:100%;
+	background:rgba(30, 30, 30, .6);
+	position:absolute;
+	top:0; bottom:0; left:0; right:0;
+}
+aside#idcheck_box{
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%, -50%);
+	background:#EFF3EA;
+	width:400px;
+	height:200px;
+	padding:30px;
+	border:1px solid #303030;
+	box-sizing:border-box;
+	text-align:center;
+	opacity:0;
+	visibility: hidden;
+	transition:.3s;
+	z-index:1;
+}
+aside#idcheck_box.active{
+	opacity:1;
+	visibility:visible;
+}
+aside#idcheck_box h3{
+	font-weight:500;
+	margin-bottom:20px;
+}
+aside#idcheck_box .form{
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	gap:10px;
+	margin-bottom:20px;
+}
+aside#idcheck_box .form input{
+	padding:5px;
+	border-bottom:1px solid #dcdcdc;
+}
+aside#idcheck_box .form .id_check_btn{
+	padding:5px;
+	border:1px solid #303030;
+	background:#303A1F;
+	color:#dcdcdc;
+	cursor:pointer;
+}
+aside#idcheck_box .is_id{
+	font-size:14px;
+	margin-bottom:10px;	
+}
+aside#idcheck_box .is_id.black{
+	color:#303030;
+}
+aside#idcheck_box .is_id.red{
+	color:#e02f2f;
+}
+aside#idcheck_box .confirm_id{
+	padding:5px;
+	border:1px solid #303030;
+	background:#303A1F;
+	color:#dcdcdc;
+	cursor:pointer;
+	display:none;
+}
+
+aside#idcheck_box .close{
+	position:absolute;
+	top:10px;
+	right:10px;
+	font-size:20px;
+	padding:0 5px;
+	border:1px solid #303030;
+	cursor:pointer;
 }

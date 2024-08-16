@@ -50,6 +50,17 @@ if($('#join').length > 0){
         minDate: 0,
         dateFormat:'yy-mm-dd',
     });
+    $('input.idCheck').click(function(){
+		$('#idcheck_box').addClass('active');
+		$('body').addClass('active');
+	})
+	
+}
+if($('#idcheck_box').length>0){
+	$('#idcheck_box button.close').click(function(){
+		$('#idcheck_box').removeClass('active');
+		$('body').removeClass('active');
+	})	
 }
 
 /* --------------- LIST ----------------- */
