@@ -53,15 +53,33 @@ $(function(){
 	        }
 	    }).open();		
 	})
-	$('#join .join_btn').click(function(){
+	$('#join #join_form').submit(function(e){
+		if($('#id').val()==""){
+			e.preventDefault()
+			alert("아이디 중복체크 버튼을 눌러 아이디 입력을 해주세요")
+		}
 		if($('#pw').val() != $('#pw_check').val()){
+			e.preventDefault()
 			alert('비밀번호를 확인해주세요')
 		}
 		if(isNaN($('#phone').val())){
+			e.preventDefault()
 			alert('휴대폰번호는 숫자만 입력해주세요')
 			$('#phone').focus();
 		}
+		if($('#post').val()==""){
+			e.preventDefault()
+			alert("우편번호 검색 버튼을 눌러 주소입력을 해주세요")
+		}
 	})
+	if($('#wedding_date').val()==""){
+		let today=new Date().toLocaleDateString('ko-KR',{
+			year:'numeric',
+			month:'2-digit',
+			day:'2-digit'
+		}).replace(/\./g, '').replace(/\s/g, '-');
+		$('#wedding_date').val(today);
+	}
 })
 </script>
 </head>
@@ -72,12 +90,12 @@ $(function(){
         </div>
         <section class="join_wrap">
             <p><span>*</span> 필수입력사항</p>
-            <form method="POST" action="../member/join_ok.do">
+            <form method="POST" action="../member/join_ok.do" id="join_form">
                 <div class="center">
                     <div class="hasBtn">
                         <div class="input_wrap">
                             <label for="id">아이디<span>*</span></label>
-                            <input type="text" id="id" name="id" placeholder="아이디 중복체크 버튼을 눌러주세요" required disabled>
+                            <input type="text" id="id" name="id" placeholder="아이디 중복체크 버튼을 눌러주세요" required readonly>
                         </div>
                         <input type="button" class="idCheck" value="아이디 중복체크">
                     </div>
@@ -101,7 +119,7 @@ $(function(){
                         <label for="id">이메일</label>
                         <div>
                             <input type="text" id="email" name="email" placeholder="ex&#41; marryme" required>@
-                            <select>
+                            <select name="email_domain">
                                 <option value="naver.com">naver.com</option>
                                 <option value="gmail.com">gmail.com</option>
                                 <option value="hanmail.net">hanmail.net</option>
@@ -115,13 +133,13 @@ $(function(){
                     <div class="hasBtn">
                         <div class="input_wrap">
                             <label for="post">우편번호<span>*</span></label>
-                            <input type="text" id="post" name="post" placeholder="검색버튼을 눌러주세요" required disabled>
+                            <input type="text" id="post" name="post" placeholder="검색버튼을 눌러주세요" required readonly>
                         </div>
                         <input type="button" class="post_search" value="우편번호 검색">
                     </div>
                     <div class="input_wrap">
                         <label for="address1">기본주소<span>*</span></label>
-                        <input type="text" id="address1" name="address1" disabled>
+                        <input type="text" id="address1" name="address1" readonly>
                     </div>
                     <div class="input_wrap">
                         <label for="address2">상세주소</label>

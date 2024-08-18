@@ -40,7 +40,7 @@ public class MemberDAO {
 		SqlSession session=null;
 		try {
 			session=ssf.openSession(true);
-			session.insert("memberInsert");
+			session.insert("memberInsert", vo);
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}finally {

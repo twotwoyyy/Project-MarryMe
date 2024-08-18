@@ -1,5 +1,8 @@
 package com.sist.model;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,12 +40,22 @@ public class MemberModel {
 		String pw=request.getParameter("pw");
 		String name=request.getParameter("name");
 		String phone=request.getParameter("phone");
-		String email=request.getParameter("email");
+		String email_id=request.getParameter("email");
+		String email_domain=request.getParameter("email_domain");
+		String email=email_id+"@"+email_domain;
 		String post=request.getParameter("post");
 		String address1=request.getParameter("address1");
 		String address2=request.getParameter("address2");
 		String gender=request.getParameter("gender");
-		String weddingday=request.getParameter("weddingday");
+		String wedding_date=request.getParameter("wedding_date");
+		SimpleDateFormat wedding_form=new SimpleDateFormat("yyyy-MM-dd");
+		Date weddingday=new Date();
+		try {
+			weddingday = wedding_form.parse(wedding_date);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		MemberVO vo=new MemberVO();
 		vo.setId(id);
@@ -54,7 +67,7 @@ public class MemberModel {
 		vo.setAddress1(address1);
 		vo.setAddress2(address2);
 		vo.setGender(gender);
-		vo.setDbwdday(weddingday);
+		vo.setWeddingday(weddingday);
 		MemberDAO.memberInsert(vo);
 		
 		return "redirect:../main/main.do";
