@@ -13,7 +13,6 @@
 <script defer src="../js/main.js"></script>
 <script type="text/javascript">
 $(function() {
-
     $('#scrapBtn').on('click', function() {
         let cno = $(this).attr("data-cno");
         
@@ -33,7 +32,9 @@ $(function() {
                             if (result === 'OK') {
                                 alert("스크랩 되었습니다");
                                 location.href = "../hall/detail.do?hno=" + cno;
-                            } 
+                            } else {
+                                alert("스크랩 실패");
+                            }
                         },
                         error: function(request, status, error) {
                             console.log(error);
@@ -43,12 +44,21 @@ $(function() {
             }
         });
     });
+
     $(document).ready(function() {
-        var check = ${check}; 
-        if (check === false) {
-            $('#detail .reservation .wish').removeClass('active');
+        var check = '${check}'; // JSP에서 전달된 값
+        // check 값을 Boolean으로 변환
+        if (check === 'true') {
+            check = true;
+        } else if (check === 'false') {
+            check = false;
+        }
+
+        // 체크 값을 사용하여 버튼 상태 설정
+        if (check) {
+            $('#scrapBtn').addClass('active');
         } else {
-            $('#detail .reservation .wish').toggleClass('active');
+            $('#scrapBtn').removeClass('active');
         }
     });
 });
