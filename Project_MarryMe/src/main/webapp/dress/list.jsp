@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,10 +18,12 @@
                 <li data-list="suit">예복</li>
             </ul>
             <ul class="brand_list container dress active">
-                <li data-aos="fade-up" data-aos-duration="1000">
+            	<c:set var="delay" value="0"/> 
+            	<c:forEach var="vo" items="${dress_list}" begin="0" end="8">
+                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="${delay}">
                     <a href="../dress/detail.do">
                         <div class="img_wrap">
-                            <img src="{vo.d_image}" alt="">
+                            <img src="${vo.d_image}" alt="">
                         </div>
                         <div class="text_box">
                             <p class="brand_name">${vo.d_subject }</p>
@@ -28,261 +31,8 @@
                         </div>
                     </a>
                 </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/dress_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/dress_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="900">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/dress_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/dress_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/dress_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/dress_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="900">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/dress_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/dress_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/dress_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/dress_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="900">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/dress_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-            </ul>
-            <ul class="brand_list container suit">
-                <li data-aos="fade-up" data-aos-duration="1000">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/suit_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/suit_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/suit_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="900">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/suit_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/suit_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/suit_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/suit_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="900">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/suit_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/suit_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/suit_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/suit_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="900">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/suit_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </li>
+                <c:set var="delay" value="${(delay + 300) % 900}"/>
+                </c:forEach>
             </ul>
             <ul class="page">
                 <li><a href="">&lt;</a></li>
