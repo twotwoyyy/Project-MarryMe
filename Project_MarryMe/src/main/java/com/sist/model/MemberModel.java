@@ -27,6 +27,11 @@ public class MemberModel {
 			session.setAttribute("id", vo.getId());
 			session.setAttribute("name", vo.getName());
 			session.setAttribute("admin", vo.getAdmin());
+			if(vo.getGender().equals("선택안함")) {
+				session.setAttribute("gender", "");				
+			}else {
+				session.setAttribute("gender", vo.getGender());
+			}
 		}
 		try {
 			PrintWriter out=response.getWriter();
