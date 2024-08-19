@@ -1,11 +1,11 @@
 package com.sist.dao;
 
+import com.sist.vo.SuitVO;
+
 import java.util.*;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-
-import com.sist.vo.SuitVO;
 
 public class SuitDAO {
 	private static SqlSessionFactory ssf;
@@ -28,12 +28,12 @@ public class SuitDAO {
 		  return list;
 	  }
 	  
-	  public static int suitTotalPage(Map map) {
+	  public static int suitTotalPage() {
 		  int total = 0;
 		  SqlSession session = null;
 		  try {
 			  session = ssf.openSession();
-			  total = session.selectOne("suitTotalPage", map);
+			  total = session.selectOne("suitTotalPage");
 		  } catch (Exception ex) {
 			  ex.printStackTrace();
 		  } finally {

@@ -18,10 +18,10 @@
                             <a href="../hall/list.do">웨딩홀</a>
                         </li>
                         <li>
-                            <a href="../dress/list.do">드레스 / 예복</a>
+                            <a href="../dress/dress_list.do">드레스 / 예복</a>
                             <ul class="sub_menu">
-                                <li><a href="../dress/list.do">드레스</a></li>
-                                <li><a href="../dress/list.do">예복</a></li>
+                                <li><a href="../dress/dress_list.do">드레스</a></li>
+                                <li><a href="../dress/suit_list.do">예복</a></li>
                             </ul>
                         </li>
                         <li>

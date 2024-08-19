@@ -12,16 +12,7 @@ public class DressDAO {
 	  static {
 		  ssf = CreateSqlSessionFactory.getSsf();
 	  }
-	  
-	  /*
-	   *   <select id="dressListData" resultType="DressVO" parameterType="hashmap">
-		  	SELECT d_no, d_image, d_subject, d_price, d_content, d_delivery, d_return_exchange, d_detail_image, num
-		  	FROM (SELECT d_no, d_image, d_subject, d_price, d_content, d_delivery, d_return_exchange, d_detail_image, rownum as num
-		  	FROM (SELECT d_no, d_image, d_subject, d_price, d_content, d_delivery, d_return_exchange, d_detail_image
-		  	FROM (SELECT ${dress} ORDER BY d_no ASC))
-		  	WHERE num BETWEEN #{start} AND #{end}  	
-		  </select>
-	   */
+
 	  public static List<DressVO> dressListData(Map map) {
 		  List<DressVO> list = new ArrayList<DressVO>();
 		  SqlSession session = null;

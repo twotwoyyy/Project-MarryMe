@@ -14,35 +14,41 @@
         </section>
         <section class="list_sc">
             <ul class="cate_list">
-                <li data-list="dress" class="active">드레스</li>
-                <li data-list="suit">예복</li>
+                <li data-list="dress" class="active"><a href="../dress/dress_list.do">드레스</a></li>
+                <li data-list="suit"><a href="../dress/suit_list.do">예복</a></li>
             </ul>
+            <div id="list_content">
             <ul class="brand_list container dress active">
               <c:set var="delay" value="0"/>
-               <c:forEach var="vo" items="${dress_list }" begin="0" end="12">
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="${delay }">
-                    <a href="../dress/detail.do">
+               <c:forEach var="dress" items="${dress_list }">
+               <c:if test="${dress.d_no >= 1 && dress.d_no <= 51}">
+                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="${delay}">
+                    <a href="../dress/dress_detail.do?d_no=${dress.d_no }">
                         <div class="img_wrap">
-                            <img src="https:${vo.d_image}" alt="">
+                            <img src="${dress.d_image}" alt="${dress.d_subject }">
                         </div>
                         <div class="text_box">
-                            <p class="brand_name">${vo.d_subject }</p>
-                            <p class="brand_sub">${vo.d_price }</p>
+                            <p class="brand_name">${dress.d_subject }</p>
+                            <p class="brand_sub">${dress.d_price }</p>
                         </div>
                     </a>
                 </li>
                <c:set var="delay" value="${(delay + 300) % 1200 }"/>
+               </c:if>
               </c:forEach>
             </ul>
-            <ul class="page">
-                <li><a href="">&lt;</a></li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>
-            </ul>
+				 <ul class="page">
+				    <c:if test="${startPage > 1}">
+				        <li><a href="../dress/dress_list.do?page=${startPage - 1}">&lt;</a></li>
+				    </c:if>
+				    <c:forEach var="i" begin="${startPage}" end="${endPage}">
+				        <li class="${i == curPage ? 'active' : ''}"><a href="../dress/dress_list.do?page=${i}">${i}</a></li>
+				    </c:forEach>
+				    <c:if test="${endPage < totalPage}">
+				        <li><a href="../dress/dress_list.do?page=${endPage + 1}">&gt;</a></li>
+				    </c:if>
+				</ul>
+            </div>
         </section>
         <section class="latest container">
             <h3>최근 본 목록</h3>
