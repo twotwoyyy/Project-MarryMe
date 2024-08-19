@@ -6,6 +6,61 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+#curpage{
+	background-color: #303A1F;
+	color: #dcdcdc
+}
+.pageinfo:hover{
+	
+	cursor: pointer;
+	background-color: #303A1F;
+	color: #dcdcdc
+}
+.pageinfo{
+	margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+	display:block;
+    width:24px;
+    height:24px;
+    line-height:24px;
+    text-align:center;
+    transition:.3s;
+}
+.star-rating {
+            display: inline-block;
+            font-size: 24px;
+            color: lightgray; /* 기본 별 색상 */
+        }
+        .star-rating input {
+            display: none; /* 실제 라디오 버튼은 숨깁니다. */
+        }
+        .star-rating label {
+            color: lightgray; /* 기본 별 색상 */
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+        }
+        .star-rating label::before {
+            content: '★';
+            font-size: 24px; /* 별의 크기 */
+        }
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: gold; /* Hover 시 별 색상 */
+        }
+        /* 선택된 별의 색상 */
+        .star-rating input:checked ~ label {
+            color: gold;
+        }
+        .star-rating input:checked ~ label ~ label {
+            color: lightgray;
+        }
+</style>
 <script type="text/javascript">
 $(function(){
 	let pno=$('#postNo').val()
@@ -62,7 +117,7 @@ $(function(){
 	
 	$(document).on('click', '.pageinfo', function() {
         let page = $(this).data('page');
-        console.log(page); //
+   //     console.log(page); //
         replyList(pno, page, cate); // 클릭한 페이지로 갱신
     });
 })
@@ -76,7 +131,7 @@ function replyList(pno,page,cate)
 		 {
 			
 			 json=JSON.parse(json)
-			 console.log(json)
+			// console.log(json)
 			 let html=''
 			 
 			 if(json.length === 0){
@@ -132,7 +187,7 @@ function replyList(pno,page,cate)
          html+=  '</div>'
          html+='</li>'
 		 })
-		 console.log(html)
+	//	 console.log(html)
 		 $('.review_list').html(html)
 		 
 		 let html2=''
@@ -153,7 +208,7 @@ function replyList(pno,page,cate)
    	        	html2+='<li><input type="button" class="pageinfo" value="&gt;" data-page="'+(page.endpage+1)+'"></li>'
           	}
 		})
-		console.log(html2)
+	//	console.log(html2)
 		$('ul.page:first').html(html2)	
 		},
 		error:function(request,status,error)
@@ -175,6 +230,18 @@ function replyList(pno,page,cate)
      <textarea name="review_content" id="review_content"></textarea>
      <label for="review_photo" class="hidden">파일업로드</label>
      <input type="file" id="review_photo">
+      <div class="star-rating">
+        <input type="radio" id="star5" name="rating" value="5">
+        <label for="star5"></label>
+        <input type="radio" id="star4" name="rating" value="4">
+        <label for="star4"></label>
+        <input type="radio" id="star3" name="rating" value="3">
+        <label for="star3"></label>
+        <input type="radio" id="star2" name="rating" value="2">
+        <label for="star2"></label>
+        <input type="radio" id="star1" name="rating" value="1">
+        <label for="star1"></label>
+     </div>
      <input type="button" value="작성완료" id="reviewBtn">
    </div>
    <ul class="review_list">

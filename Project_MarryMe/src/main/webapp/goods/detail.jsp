@@ -9,34 +9,7 @@
 <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
 <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 <link rel="stylesheet" href="../css/detail.css">
-<style type="text/css">
-#curpage{
-	background-color: #303A1F;
-	color: #dcdcdc
-}
-.pageinfo:hover{
-	
-	cursor: pointer;
-	background-color: #303A1F;
-	color: #dcdcdc
-}
-.pageinfo{
-	margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
-	display:block;
-    width:24px;
-    height:24px;
-    line-height:24px;
-    text-align:center;
-    transition:.3s;
-}
-</style>
 <script defer src="../js/main.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 </head>
 <body>
 	<div id="detail" class="studio">
@@ -281,46 +254,6 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dee4629f5156da2c49e694161e31a96a&libraries=services"></script>
-    <script defer src="../js/main.js"></script>
-    <script>
-    var mapContainer = document.getElementById('detail_map'), // 지도를 표시할 div 
-        mapOption = {
-            center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-            level: 3 // 지도의 확대 레벨
-        };  
-    
-    // 지도를 생성합니다    
-    var map = new kakao.maps.Map(mapContainer, mapOption); 
-    
-    // 주소-좌표 변환 객체를 생성합니다
-    var geocoder = new kakao.maps.services.Geocoder();
-    
-    // 주소로 좌표를 검색합니다
-    geocoder.addressSearch('서울특별시 마포구 월드컵북로 21', function(result, status) {
-    
-        // 정상적으로 검색이 완료됐으면 
-         if (status === kakao.maps.services.Status.OK) {
-    
-            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-    
-            // 결과값으로 받은 위치를 마커로 표시합니다
-            var marker = new kakao.maps.Marker({
-                map: map,
-                position: coords
-            });
-    
-            // 인포윈도우로 장소에 대한 설명을 표시합니다
-            var infowindow = new kakao.maps.InfoWindow({
-                content: '<div style="width:150px;text-align:center;padding:6px 0;">업체명</div>'
-            });
-            infowindow.open(map, marker);
-    
-            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-            map.setCenter(coords);
-        } 
-    });    
-    </script>
  <div>
  <input type="hidden" value="${pno }" id="postNo">
  <input type="hidden" value="${cate }" id="rCate">
