@@ -7,14 +7,15 @@
 			#{cno},#{cate},#{id},SYSDATE
 		)
 	</insert>
-	<select id="scrapCheck" resultType="int" parameterType="java.util.Map">
-		SELECT COUNT(*) FROM scrap
-		WHERE cno=#{cno} AND cate=#{cate} AND id=#{id}
-	</select>
+    <select id="scrapCheck" resultType="int" parameterType="java.util.Map">
+        SELECT COUNT(*) FROM scrap
+        WHERE cno=#{cno} AND cate=#{cate} AND id=#{id}
+    </select>
 	
 	<update id="hallScrapCountIncrement" parameterType="java.util.Map">
 		UPDATE hall SET
-		scrap=(SELECT COUNT(*) FROM scrap WHERE cate=#{cate} AND cno=#{cno})
+		scrapcount=(SELECT COUNT(*) FROM scrap WHERE cate=#{cate} AND cno=#{cno})
 		WHERE hno=#{cno}
 	</update>
+	
 </mapper>

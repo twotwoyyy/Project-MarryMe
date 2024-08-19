@@ -15,13 +15,13 @@ public class ScrapModel {
 		String cno=request.getParameter("cno");
 		String cate=request.getParameter("cate");
 		HttpSession session=request.getSession();
-		String isLoggedIn = (session.getAttribute("id") != null) ? "true" : "false";
 		String id=(String)session.getAttribute("id");
 		Map map=new HashMap();
 		map.put("cno", cno);
 		map.put("cate", cate);
 		map.put("id", id);
 		String result="";
+
 		try {
 			ScrapDAO.scrapInsert(map);
 			ScrapDAO.hallScrapCountIncrement(map);
@@ -35,4 +35,30 @@ public class ScrapModel {
 			out.write(result);
 		}catch(Exception ex){}
 	}
+	
+	
+	 @RequestMapping("scrap/checklogin.do")
+		public void checklogin(HttpServletRequest request, HttpServletResponse response)
+		{
+		   try {
+			   request.setCharacterEncoding("UTF-8");
+			   
+		   }catch(Exception e) {
+			   e.printStackTrace();
+			   }
+		   HttpSession session=request.getSession();
+		   String id=(String)session.getAttribute("id");
+		   String result="NO";
+		   if(id==null)
+			   result="NO";
+		   else
+			   result="OK";   
+		   try {
+			   PrintWriter out=response.getWriter();
+			   out.write(result);
+		   }catch(Exception e) {
+			   e.printStackTrace();
+			   }
+		}
+	
 }

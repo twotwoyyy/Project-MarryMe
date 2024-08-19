@@ -13,38 +13,42 @@
 <script defer src="../js/main.js"></script>
 <script type="text/javascript">
 $(function() {
-    var isLoggedIn = '${isLoggedIn}';
-
-    $('#detail .reservation .wish').click(function() {
-        if (isCheckTrue === 'true') {
-            $(this).toggleClass('active');
-        } else {
-            $(this).removeClass('active');
-        }
-    });
 
     $('#scrapBtn').on('click', function() {
-        if (isLoggedIn === 'true') {
-            let cno = $(this).attr("data-cno");
-
-            $.ajax({
-                type: 'post',
-                url: '../scrap/insert.do',
-                data: {"cno": cno, "cate": 1},
-                success: function(result) {
-                    if (result === 'OK') {
-                        location.href="../food/detail.do?fno="+cno;
-                        alert("스크랩되었습니다!");
-                    } else {
-                        alert(result);
-                    }
-                },
-                error: function(request, status, error) {
-                    console.log(error);
+        let cno = $(this).attr("data-cno");
+        
+        $.ajax({
+            type: 'post',
+            url: '../scrap/checklogin.do',
+            success: function(loginResult) {
+                if (loginResult === 'NO') {  
+                    alert("로그인 후 스크랩이 가능합니다!!");
+                    window.location.href = "../member/login.do";
+                } else {
+                    $.ajax({
+                        type: 'post',
+                        url: '../scrap/insert.do',
+                        data: {"cno": cno, "cate": 1},
+                        success: function(result) {
+                            if (result === 'OK') {
+                                alert("스크랩 되었습니다");
+                                location.href = "../hall/detail.do?hno=" + cno;
+                            } 
+                        },
+                        error: function(request, status, error) {
+                            console.log(error);
+                        }
+                    });
                 }
-            });
+            }
+        });
+    });
+    $(document).ready(function() {
+        var check = ${check}; 
+        if (check === false) {
+            $('#detail .reservation .wish').removeClass('active');
         } else {
-            alert('로그인 후 이용해 주세요.');
+            $('#detail .reservation .wish').toggleClass('active');
         }
     });
 });
@@ -111,6 +115,7 @@ $(function() {
                                         <th scope="row">위치</th>
                                         <td>📌${vo.addr }</td>
                                     </tr>
+                                    <tr>
                                         <th scope="row">특징</th>
                                         <td>✔️${vo.point }</td>
                                     </tr>

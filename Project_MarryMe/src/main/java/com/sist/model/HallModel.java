@@ -50,6 +50,8 @@ public class HallModel {
 				}
 			}
 		}
+		
+		
 
 		// 전송
 		request.setAttribute("curpage", curpage);
@@ -76,8 +78,27 @@ public class HallModel {
 	@RequestMapping("hall/detail.do")
 	public String hall_detail(HttpServletRequest request, HttpServletResponse response) {
 		String hno=request.getParameter("hno");
+		int cate=1;
 		HallVO vo=HallDAO.hallDetailData(Integer.parseInt(hno));
 		request.setAttribute("vo", vo);
+		request.setAttribute("cate", cate);
+		
+		boolean bCheck=false;
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		if(id!=null) {
+			Map map=new HashMap();
+			map.put("cno", hno);
+			map.put("cate", cate);
+			map.put("id", id);
+			int count=ScrapDAO.scrapCheck(map);
+			if(count==1) {
+				bCheck=true;
+			}else {
+				bCheck=false;
+			}
+			request.setAttribute("check", bCheck);
+		}
 		request.setAttribute("main_jsp", "../hall/detail.jsp");
 		return "../main/main.jsp";
 	}

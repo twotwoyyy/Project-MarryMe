@@ -35,6 +35,7 @@ public class ScrapDAO {
 		}
 		return count;
 	}
+	
 	// 홀 스크랩 개수
 	public static void hallScrapCountIncrement(Map map) {
 		SqlSession session=null;
