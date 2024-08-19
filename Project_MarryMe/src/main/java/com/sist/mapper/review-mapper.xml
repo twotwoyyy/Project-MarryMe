@@ -4,7 +4,7 @@
 	<insert id="reviewInsert" parameterType="ReviewVO">
 		INSERT INTO review VALUES(
 			(SELECT NVL(MAX(review_no)+1,1) FROM review),
-			#{image},#{msg},SYSDATE,#{pw},#{cate},#{id},#{pno},#{score},0
+			#{image},#{msg},SYSDATE,#{cate},#{id},#{pno},#{score},0
 		)
 	</insert>
 	<resultMap type="com.sist.vo.ReviewVO" id="ReviewMap">
@@ -14,14 +14,19 @@
 	<select id="reviewListData" resultMap="ReviewMap" parameterType="hashmap">
 		SELECT review_no,image,msg,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,cate,name,score,hit,num
 		FROM (SELECT review_no,image,msg,regdate,cate,name,score,hit,rownum as num
-		FROM (SELECT review_no,image,msg,regdate,cate,name,score,hit
+		FROM (SELECT review_no,image,msg,review.regdate as regdate,cate,member.name as name,score,hit
 		FROM review,member 
 		WHERE review.id=member.id
+		AND review.pno=#{pno}
+		AND review.cate=#{cate}
 		ORDER BY review_no DESC))
 		WHERE num BETWEEN #{start} AND #{end}
 	</select>
-	<select id="reviewTotalPage" resultType="int">
-		SELECT COUNT(*) FROM review
+	<select id="reviewTotalPage" resultType="int" parameterType="hashmap">
+		SELECT COUNT(*) 
+		FROM review 
+		WHERE pno=#{pno}
+		AND cate=#{cate}
 	</select>
 	<update id="reviewUpdate" parameterType="ReviewVO">
 		UPDATE review SET

@@ -5,7 +5,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import com.sist.controller.RequestMapping;
+
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import com.sist.dao.*;
 import com.sist.vo.*;
@@ -64,5 +70,15 @@ public class GoodsModel {
 		request.setAttribute("main_jsp", "../goods/list.jsp");
 		return "../main/main.jsp";
 	}
-	
+	@RequestMapping("goods/detail.do")
+	public String goods_detail(HttpServletRequest request,HttpServletResponse response) {
+		String pno=request.getParameter("pno");
+		String cate=request.getParameter("cate");
+		System.out.println(pno);
+		System.out.println(cate);
+		request.setAttribute("pno", pno);
+		request.setAttribute("cate", cate);
+		request.setAttribute("main_jsp", "../goods/detail.jsp");
+		return "../main/main.jsp";
+	}
 }

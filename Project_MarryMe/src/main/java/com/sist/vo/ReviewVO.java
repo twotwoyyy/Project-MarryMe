@@ -17,8 +17,7 @@ import java.util.*;
 import lombok.Data;
 @Data
 public class ReviewVO {
-	private int review_no,cate,pno,hit;
-	private double score;
+	private int review_no,cate,pno,hit,score;
 	private String image,msg,pw,id,dbday;
 	private Date regdate;
 	private MemberVO mvo=new MemberVO();

@@ -1,4 +1,5 @@
 package com.sist.model;
+import java.io.File;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -6,6 +7,10 @@ import java.util.*;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -20,7 +25,7 @@ public class ReviewModel {
 	 * request.setAttribute("main_jsp", "../review/insert.jsp"); return
 	 * "../main/main.jsp"; }
 	 */
-	@RequestMapping("review/insert_ok.do")
+	@RequestMapping("review/insert.do")
 	public void review_insert_ok(HttpServletRequest request,HttpServletResponse response) {
 		
 		  try {
@@ -46,12 +51,13 @@ public class ReviewModel {
 				  new MultipartRequest(request, realFolder,maxSize,encType,
 						  new DefaultFileRenamePolicy());
 		  
-		  String id=request.getParameter("id");
-		  String msg=request.getParameter("msg");
-		  String cate=request.getParameter("cate");
-		  String pw=request.getParameter("pw");
-		  String pno=request.getParameter("pno");
-		  String score=request.getParameter("score");
+		  String id=mr.getParameter("id");
+		  String msg=mr.getParameter("msg");
+		  String cate=mr.getParameter("cate");
+		  String pno=mr.getParameter("pno");
+		  String score=mr.getParameter("score");
+		  
+		  String image=mr.getFilesystemName("file");
 		  // a.jpg
 		  // a.jpg => a1.jpg
 		  
@@ -59,9 +65,20 @@ public class ReviewModel {
 		  vo.setId(id);
 		  vo.setMsg(msg);
 		  vo.setCate(Integer.parseInt(cate));
-		  vo.setPw(pw);
 		  vo.setPno(Integer.parseInt(pno));
-		  vo.setScore(Double.parseDouble(score));
+		  vo.setScore(Integer.parseInt(score));
+		  
+		  
+		  if(image==null) // 업로드가 없는 상태 
+		  {
+			  vo.setImage("");
+			
+		  }
+		  else // 업로드가 된 상태 
+		  {
+			 
+			  vo.setImage(image);
+		  }
 		  
 		  String result="";
 		  try {
@@ -81,16 +98,15 @@ public class ReviewModel {
 		 }catch(Exception ex) {}
 	}
 	
-	@RequestMapping("review/list.do")
-	public String review_list(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping("review/review_list.do")
+	public void review_list(HttpServletRequest request,HttpServletResponse response) {
 		String page=request.getParameter("page");
 		if(page==null)
 			page="1";
-		String cno=request.getParameter("cno");
-		if(cno==null)
-			cno="1";
+		String cate=request.getParameter("cate");
+		String pno=request.getParameter("pno");
 		int curpage=Integer.parseInt(page);
-		int rowSize=12;
+		int rowSize=3;
 		int start=(rowSize*curpage)-(rowSize-1);
 		int end=rowSize*curpage;
 		
@@ -98,8 +114,13 @@ public class ReviewModel {
 		
 		map.put("start", start);
 		map.put("end", end);
+		map.put("cate", Integer.parseInt(cate));
+		map.put("pno", Integer.parseInt(pno));
+		try {
 		List<ReviewVO> list=ReviewDAO.reviewListData(map);
-		int total=ReviewDAO.reviewTotalPage();
+		
+		
+		int total=ReviewDAO.reviewTotalPage(map);
 		
 		int totalpage=(int)(Math.ceil(total/rowSize));
 		
@@ -113,47 +134,50 @@ public class ReviewModel {
 		if(endpage>totalpage)
 			endpage=totalpage;
 		
-		request.setAttribute("list", list);
-		request.setAttribute("curpage", curpage);
-		request.setAttribute("startpage", startpage);
-		request.setAttribute("endpage", endpage);
-		request.setAttribute("totalpage", totalpage);
-		request.setAttribute("total", total);	
+		
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-		  Date date=new Date();
-		  String today=sdf.format(date);
+		Date date=new Date();
+		String today=sdf.format(date);
 		  // new SimpleDateFormat("yyyy-MM-dd").format(new Date())
-		request.setAttribute("today", today);
-		
-		request.setAttribute("main_jsp", "../review/list.jsp");
-		return "../main/main.jsp";
-	}
-	@RequestMapping("review/update.do")
-	public void review_update(HttpServletRequest request,HttpServletResponse response) {
-		try {
-			request.setCharacterEncoding("UTF-8");
-		} catch (Exception e) {
-			// TODO: handle exception
+		HttpSession session=request.getSession();
+		String sid=(String)session.getAttribute("id");
+		if(sid==null) {
+			sid="guest";
 		}
-		String rno=request.getParameter("rno");
-		String msg=request.getParameter("msg");
-		System.out.println(msg+"크아악");
-		String result="";
-		try {
-			Map map=new HashMap();
-			map.put("rno", rno);
-			map.put("msg", msg);
-			
-			result="OK";
-		}catch(Exception ex) {
-			result=ex.getMessage();
+		ServletContext context = request.getServletContext();
+		String realFolder="";
+		realFolder = context.getRealPath("");
+		//review_no,image,msg,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,cate,name,score,hit,num
+		JSONArray arr=new JSONArray();
+		int h=0;
+		for(ReviewVO vo:list) {
+			JSONObject obj=new JSONObject();
+			obj.put("rno", vo.getReview_no());
+			obj.put("img", realFolder+vo.getImage());
+			obj.put("name", vo.getMvo().getName());
+			obj.put("dbday", vo.getDbday());
+			obj.put("cate", vo.getCate());
+			obj.put("score", vo.getScore());
+			obj.put("hit", vo.getHit());
+			obj.put("msg", vo.getMsg());
+			obj.put("today", today);
+			if(h==0) {
+			obj.put("startpage", startpage);
+			obj.put("endpage", endpage);
+			obj.put("totalpage", totalpage);
+			obj.put("curpage", curpage);
+			h=1;
+			}
+			obj.put("sessionId", sid);
+			arr.add(obj);
 		}
-		
-		try {
+		System.out.println(arr.toJSONString());
+			response.setContentType("text/plain;charset=UTF-8");
 			PrintWriter out=response.getWriter();
-			out.write(result);
-		} catch (Exception e) {
+			out.write(arr.toJSONString());
+		}catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 }

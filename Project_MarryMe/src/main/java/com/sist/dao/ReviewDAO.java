@@ -37,15 +37,14 @@ public class ReviewDAO {
 			if(session!=null)
 				session.close();
 		}
-		
 		return list;
 	}
-	public static int reviewTotalPage() {
+	public static int reviewTotalPage(Map map) {
 		int total=0;
 		SqlSession session=null;
 		try {
 			session=ssf.openSession();
-			total=session.selectOne("reviewTotalPage");
+			total=session.selectOne("reviewTotalPage",map);
 		} catch (Exception e) {
 			e.printStackTrace();
 			// TODO: handle exception
