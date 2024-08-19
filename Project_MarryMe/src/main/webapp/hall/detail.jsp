@@ -11,6 +11,44 @@
 <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 <link rel="stylesheet" href="../css/detail.css">
 <script defer src="../js/main.js"></script>
+<script type="text/javascript">
+$(function() {
+    var isLoggedIn = '${isLoggedIn}';
+
+    $('#detail .reservation .wish').click(function() {
+        if (isCheckTrue === 'true') {
+            $(this).toggleClass('active');
+        } else {
+            $(this).removeClass('active');
+        }
+    });
+
+    $('#scrapBtn').on('click', function() {
+        if (isLoggedIn === 'true') {
+            let cno = $(this).attr("data-cno");
+
+            $.ajax({
+                type: 'post',
+                url: '../scrap/insert.do',
+                data: {"cno": cno, "cate": 1},
+                success: function(result) {
+                    if (result === 'OK') {
+                        location.href="../food/detail.do?fno="+cno;
+                        alert("스크랩되었습니다!");
+                    } else {
+                        alert(result);
+                    }
+                },
+                error: function(request, status, error) {
+                    console.log(error);
+                }
+            });
+        } else {
+            alert('로그인 후 이용해 주세요.');
+        }
+    });
+});
+</script>
 <style type="text/css">
 #hallimg{
 	width: 90%;
@@ -24,6 +62,7 @@
         content: "지하철 🚇 ";
         color: #0b3a1e; /* 원하는 색상으로 설정 */
 }
+
 </style>
 </head>
 <body>
@@ -306,7 +345,7 @@
                             <p>원하는 상담 예약 날짜를 선택해주세요</p>
                         </div>
                         <div class="icons">
-                            <button class="wish">wish list</button>
+                            <button class="wish" id="scrapBtn" data-cno="${vo.hno }">wish list</button>
                             <button class="share">share link</button>
                         </div>
                     </div>

@@ -1,3 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sist.mapper.scrap-mapper"></mapper>
+<mapper namespace="com.sist.mapper.scrap-mapper">
+	<insert id="scrapInsert" parameterType="java.util.Map">
+		INSERT INTO scrap VALUES(
+			(SELECT NVL(MAX(scno)+1,1) FROM scrap),
+			#{cno},#{cate},#{id},SYSDATE
+		)
+	</insert>
+	<select id="scrapCheck" resultType="int" parameterType="java.util.Map">
+		SELECT COUNT(*) FROM scrap
+		WHERE cno=#{cno} AND cate=#{cate} AND id=#{id}
+	</select>
+	
+	<update id="hallScrapCountIncrement" parameterType="java.util.Map">
+		UPDATE hall SET
+		scrap=(SELECT COUNT(*) FROM scrap WHERE cate=#{cate} AND cno=#{cno})
+		WHERE hno=#{cno}
+	</update>
+</mapper>
