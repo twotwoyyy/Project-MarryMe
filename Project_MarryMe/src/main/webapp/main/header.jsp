@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,13 +54,20 @@
                             <input type="submit" value="검색">
                         </form>
                     </li>
-                    <li><a href="../member/login.do">로그인</a></li>
-                    <li><a href="../member/join.do">회원가입</a></li>
-                    <!--
-                    <li><a href="#">장바구니</a></li>
-                    <li><a href="#">마이페이지</a></li>
-                    <li><a href="#">관리자페이지</a></li>
-                    -->
+                    <c:if test="${sessionScope.id==null}">
+                    	<li><a href="../member/login.do">로그인</a></li>
+                    	<li><a href="../member/join.do">회원가입</a></li>
+                    </c:if>
+                    <c:if test="${sessionScope.id!=null}">
+                    	<li><a href="../member/logout.do">로그아웃</a></li>
+                    	<li><a href="#">장바구니</a></li>
+                    	<c:if test="${sessionScope.admin=='n'}">
+	                    	<li><a href="#">마이페이지</a></li>
+	                    </c:if>
+	                    <c:if test="${sessionScope.admin=='y'}">
+	                    	<li><a href="#">관리자페이지</a></li>
+	                    </c:if>
+                    </c:if>
                 </ul>
             </div>
         </div>

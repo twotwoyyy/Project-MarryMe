@@ -63,6 +63,17 @@ if($('#idcheck_box').length>0){
 	})	
 }
 
+/* --------------- LOGIN -----------------*/
+if($('#login').length > 0){
+	let login_input=$('#login form .login_box input');
+	login_input.change(function(){
+		if($(this).val()!==""){
+			$(this).siblings('label').addClass('active');
+		}else{
+			$(this).siblings('label').removeClass('active');
+		}
+	})
+}
 /* --------------- LIST ----------------- */
 if($('#list').length > 0){
     let list_tab=$('#list .cate_list > li'),

@@ -47,6 +47,7 @@ font-family: "Monsieur La Doulaise", cursive;
     color:#898888;
     transition:.3s;
 }
+#login form .login_box .input_wrap label.active,
 #login form .login_box .input_wrap input:focus + label{
     top:15px;
     color:#303030;
@@ -79,6 +80,7 @@ font-family: "Monsieur La Doulaise", cursive;
     background:#303A1F;
     color:#dcdcdc;
     padding:15px 0;
+    cursor: pointer;
 }
 #login .login_links{
     display:flex;

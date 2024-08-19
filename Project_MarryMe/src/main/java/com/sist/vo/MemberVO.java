@@ -18,6 +18,6 @@ import java.util.*;
 import lombok.Data;
 @Data
 public class MemberVO {
-	private String id, pw, name, phone, email, post, address1, address2, gender, dbwdday, admin;
+	private String id, pw, name, phone, email, post, address1, address2, gender, dbwdday, admin, msg;
 	private Date weddingday, regdate;
 }

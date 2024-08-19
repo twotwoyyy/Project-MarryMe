@@ -49,4 +49,35 @@ public class MemberDAO {
 			}
 		}
 	}
+	
+	/*
+	<select id="memberLoginData" resultType="MemberVO" parameterType="string">
+		SELECT * FROM member WHERE id=#{id}
+	</select>
+	 */
+	public static MemberVO memberLogin(String id, String pw) {
+		MemberVO vo=new MemberVO();
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			int count=session.selectOne("memberIdCheck", id);
+			if(count==0) {
+				vo.setMsg("noID");
+			}else {
+				vo=session.selectOne("memberLoginData", id);
+				if(pw.equals(vo.getPw())) {
+					vo.setMsg("correct");
+				}else {
+					vo.setMsg("noPW");
+				}
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null) {
+				session.close();
+			}
+		}
+		return vo;
+	}
 }

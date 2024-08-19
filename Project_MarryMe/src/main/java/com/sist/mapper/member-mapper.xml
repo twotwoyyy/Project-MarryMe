@@ -7,4 +7,7 @@
 	<insert id="memberInsert" parameterType="MemberVO">
 		INSERT INTO member VALUES(#{id}, #{pw}, #{name}, #{phone}, #{email}, #{post}, #{address1}, #{address2}, #{gender}, #{weddingday}, 'n', SYSDATE)
 	</insert>
+	<select id="memberLoginData" resultType="MemberVO" parameterType="string">
+		SELECT * FROM member WHERE id=#{id}
+	</select>
 </mapper>

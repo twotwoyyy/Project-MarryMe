@@ -21,10 +21,50 @@
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script defer src="../js/main.js"></script>
 <link rel="stylesheet" href="../css/common.css">
 <link rel="stylesheet" href="../css/main.css">
 <link rel="stylesheet" href="../css/login.css">
 <title>Insert title here</title>
+<script type="text/javascript">
+$(function(){
+	$('.loginBtn').click(function(e){
+		e.preventDefault();
+		let id=$('#id').val();
+		if(id.trim()===''){
+			$('#id').focus();
+			$('.error').text("아이디를 입력해주세요");
+			return
+		}
+		let pw=$('#pw').val()
+		if(pw.trim()===''){
+			$('#pw').focus()
+			$('.error').text("비밀번호를 입력해주세요")
+			return
+		}
+		$.ajax({
+			type:'POST',
+			url:'../member/login_ok.do',
+			data:{"id":id, "pw":pw},
+			success:function(result){
+				if(result==='noID'){
+					$('.error').text('아이디를 정확히 입력해주세요')
+					$('#id').val("")
+					$('#pw').val("")
+					$('#id').focus()
+				}else if(result==='noPW'){
+					$('.error').text("비밀번호를 확인해주세요")
+					$('#pw').val("")
+					$('#pw').focus()
+				}else{
+					location.href="../main/main.do";
+				}
+			}
+		})
+	})
+})
+</script>
 </head>
 <body>
 	<div id="login">
@@ -45,8 +85,8 @@
                     <label for="pw">비밀번호</label>
                 </div>
             </div>
-            <p class="error">아이디를 입력해주세요</p>
-            <button>로그인</button>
+            <p class="error"></p>
+            <button class="loginBtn">로그인</button>
         </form>
         <ul class="login_links">
             <li><a href="#">아이디 찾기</a></li>
