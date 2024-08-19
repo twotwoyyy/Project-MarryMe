@@ -98,12 +98,15 @@ if($('#list').length > 0){
 if($('#detail').length > 0){
 	if($('#detail #image .masonry_wrap').length>0){
     /* ------ MASONRY ------ */
-	    $('#detail #image .masonry_wrap').masonry({
-	        itemSelector: '.img_wrap',
-	        columnWidth: '.img_wrap',
-	        gutter: 10,
-	        fitWidth: true,
-	    });
+   		let img_masonry=$('#detail #image .masonry_wrap');
+    	img_masonry.imagesLoaded(function() {
+		    img_masonry.masonry({
+		        itemSelector: '.img_wrap',
+		        columnWidth: '.img_wrap',
+		        gutter: 10,
+		        fitWidth: true,
+		    });
+    	})
     }
 
     /* ----- DATEPICKER ----- */

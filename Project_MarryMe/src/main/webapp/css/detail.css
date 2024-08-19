@@ -41,6 +41,10 @@ font-family: "Monsieur La Doulaise", cursive;
     left:50%;
     transform:translateX(-50%);
 }
+#detail .tt_box p{
+	line-height: 1.3em;
+    word-break: keep-all;
+}
 /* --------------- THUMBNAIL ----------------- */
 #detail .detail_wrap{
     display:grid;
@@ -124,6 +128,8 @@ font-family: "Monsieur La Doulaise", cursive;
 }
 #detail .bottom_wrap table{
     width:100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
 }
 #detail .bottom_wrap table th{
     font-weight:500;
@@ -134,9 +140,15 @@ font-family: "Monsieur La Doulaise", cursive;
 #detail .bottom_wrap #info table th{
     width:125px;
 }
+#detail .bottom_wrap #info table td{
+	line-height:1.4em;
+}
 /* --------------- MASONRY ----------------- */
+/* #detail #image .masonry_wrap {
+	overflow:hidden;
+} */
 #detail #image .masonry_wrap .img_wrap{
-    width:30%;
+    width:33%;
     margin-bottom:10px;
 }
 #detail #image .masonry_wrap .img_wrap img{

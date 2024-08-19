@@ -25,7 +25,7 @@ LINK               VARCHAR2(200)
  */
 @Data
 public class StudioVO {
-	private int sno, shno;
+	private int sno;
 	private String name, info, thumb, tel, keyword, openday, opentime,
 		concept, point, clothes, shoottime, objet, notice, cancel, refund, video, address, link;
 }

@@ -37,4 +37,12 @@
 	<select id="hairmakeupTotalPage" resultType="int">
 		SELECT CEIL(COUNT(*)/12.0) FROM hair_makeup
 	</select>
+	
+	<select id="studioDetailData" resultType="StudioVO" parameterType="int">
+		SELECT * FROM studio WHERE sno=#{sno}
+	</select>
+	<select id="studioDetailImageData" resultType="StudioImageVO" parameterType="int">
+		SELECT image FROM studio_image WHERE sno=#{sno}
+	</select>
+	
 </mapper>

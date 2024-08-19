@@ -22,7 +22,7 @@
             	<c:set var="delay" value="0"/>
             	<c:forEach var="studio" items="${studio_list}">
 	                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="${delay}">
-	                    <a href="../studio/detail.do?sno=${studio.sno}">
+	                    <a href="../studio/studio_detail.do?sno=${studio.sno}">
 	                        <div class="img_wrap">
 	                            <img src="${studio.thumb}" alt="${studio.name}">
 	                        </div>
