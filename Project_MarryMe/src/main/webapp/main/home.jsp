@@ -39,7 +39,7 @@ $(function(){
         <section id="hall">
             <div class="hall_slide">
             	<c:forEach var="hall" items="${hall_list}">
-	                <a href="#" class="hall_slides pro_link">
+	                <a href="../hall/detail_before.do?hno=${hall.hno }" class="hall_slides pro_link">
 	                   	<img src="${hall.image}" alt="${hall.name}">
 	                    <p class="product_name">${hall.name}</p>
 	                    <p class="product_sub">${hall.type}</p>

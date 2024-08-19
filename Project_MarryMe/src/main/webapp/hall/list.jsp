@@ -89,74 +89,21 @@
         </section>
         <section class="latest container">
             <h3>최근 본 목록</h3>
-            <div class="latest_slide">
-                <div class="slides">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/hall_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="slides">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/hall_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="slides">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/hall_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="slides">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/hall_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="slides">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/hall_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="slides">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/hall_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
+	            <div class="latest_slide">
+				<c:forEach var="cvo" items="${cookieList}">
+				    <div class="slides">
+				        <a href="../hall/detail.do?hno=${cvo.hno}">
+				            <div class="img_wrap">
+				                <img src="${cvo.image }" alt="">
+				            </div>
+				            <div class="text_box">
+				                <p class="brand_name">${cvo.name }</p>
+				                <p class="brand_sub">${cvo.type }</p>
+				            </div>
+				        </a>
+				    </div>
+				</c:forEach>
+	            </div>
         </section>
     </div>
 </body>

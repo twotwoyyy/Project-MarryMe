@@ -43,6 +43,7 @@ public class HallDAO {
 		return list;
 	}
 	
+	
 	public static int hallTotalPage(String ss) {
 		int total=0;
 		SqlSession session=null;

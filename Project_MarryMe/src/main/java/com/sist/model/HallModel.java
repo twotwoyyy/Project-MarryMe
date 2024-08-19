@@ -2,11 +2,10 @@ package com.sist.model;
 
 import java.util.*;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import javax.servlet.http.Cookie;
 import com.sist.controller.RequestMapping;
 import com.sist.dao.*;
 import com.sist.vo.*;
@@ -39,13 +38,26 @@ public class HallModel {
 		int endPage=((curpage-1)/BLOCK*BLOCK)+BLOCK;
 		if(endPage>totalpage)
 			endPage=totalpage;
-		
+		// 쿠키
+		Cookie[] cookies=request.getCookies(); // 브라우저에 저장된 쿠키 읽어올 때 사용
+		List<HallVO> cookieList=new ArrayList<HallVO>();
+		if(cookies!=null) {
+			for(int i=cookies.length-1;i>=0;i--) {
+				if(cookies[i].getName().startsWith("hall_")) {
+					String hno=cookies[i].getValue();
+					HallVO vo=HallDAO.hallDetailData(Integer.parseInt(hno));
+			        cookieList.add(vo);
+				}
+			}
+		}
+
 		// 전송
 		request.setAttribute("curpage", curpage);
 		request.setAttribute("totalpage", totalpage);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("list", list);
+		request.setAttribute("cookieList", cookieList);
 		request.setAttribute("ss", ss);
 		request.setAttribute("main_jsp", "../hall/list.jsp");
 		return "../main/main.jsp";
