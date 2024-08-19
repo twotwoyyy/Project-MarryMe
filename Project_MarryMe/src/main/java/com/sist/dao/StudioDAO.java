@@ -107,4 +107,36 @@ public class StudioDAO {
 		}
 		return total;
 	}
+	
+	public static StudioVO studioDetailData(int sno){
+		StudioVO vo=new StudioVO();
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			vo=session.selectOne("studioDetailData", sno);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null) {
+				session.close();
+			}
+		}
+		return vo;
+	}
+	
+	public static List<StudioImageVO> studioDetailImageData(int sno){
+		List<StudioImageVO> list=new ArrayList<StudioImageVO>();
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			list=session.selectList("studioDetailImageData", sno);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null) {
+				session.close();
+			}
+		}
+		return list;
+	}
 }

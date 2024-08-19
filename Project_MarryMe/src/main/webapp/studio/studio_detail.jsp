@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,20 +9,21 @@
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
 <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
 <link rel="stylesheet" href="../css/detail.css">
 <script defer src="../js/main.js"></script>
 </head>
 <body>
 	<div id="detail" class="studio">
         <div class="tt_box">
-            <h2>업체명</h2>
-            <p>업체 소개글</p>
+            <h2>${studio_vo.name}</h2>
+            <p>${studio_vo.info}</p>
         </div>
         <div class="detail_wrap">
             <div class="left">
                 <section class="thumbnail">
                     <div class="img_wrap">
-                        <img src="../img/studio_demo.jpg" alt="">
+                        <img src="${studio_vo.thumb}" alt="">
                     </div>
                 </section>
                 <section class="bottom_wrap">
@@ -41,23 +43,23 @@
                                 <tbody>
                                     <tr>
                                         <th scope="row">브랜드</th>
-                                        <td>-</td>
+                                        <td>${studio_vo.name}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">전화번호</th>
-                                        <td>-</td>
+                                        <td>${studio_vo.tel}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">스타일</th>
-                                        <td>-</td>
+                                        <td>${studio_vo.keyword}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">영업/휴무일</th>
-                                        <td>-</td>
+                                        <td>${studio_vo.openday}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">영업시간</th>
-                                        <td>-</td>
+                                        <td>${studio_vo.opentime}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -66,54 +68,17 @@
                         <div id="image">
                             <h3>이미지</h3>
                             <div class="masonry_wrap">
-                                <div class="img_wrap">
-                                    <img src="../img/goods_list_banner.jpg" alt="">
-                                </div>
-                                <div class="img_wrap">
-                                    <img src="../img/hair_demo.jpg" alt="" >
-                                </div>
-                                <div class="img_wrap">
-                                    <img src="../img/hall_list_banner.jpg" alt="">
-                                </div>
-                                <div class="img_wrap">
-                                    <img src="../img/dress_list_banner.jpg" alt="">
-                                </div>
-                                <div class="img_wrap">
-                                    <img src="../img/marriage_goods_demo.jpg" alt="">
-                                </div>
-                                <div class="img_wrap">
-                                    <img src="../img/dress_demo.jpg" alt="">
-                                </div>
-                                <div class="img_wrap">
-                                    <img src="../img/studio_demo.jpg" alt="">
-                                </div>
-                                <div class="img_wrap">
-                                    <img src="../img/goods_list_banner.jpg" alt="">
-                                </div>
-                                <div class="img_wrap">
-                                    <img src="../img/hair_demo.jpg" alt="" >
-                                </div>
-                                <div class="img_wrap">
-                                    <img src="../img/hall_list_banner.jpg" alt="">
-                                </div>
-                                <div class="img_wrap">
-                                    <img src="../img/suit_demo.jpg" alt="">
-                                </div>
-                                <div class="img_wrap">
-                                    <img src="../img/marriage_goods_demo.jpg" alt="">
-                                </div>
-                                <div class="img_wrap">
-                                    <img src="../img/studio_list_banner.jpg" alt="">
-                                </div>
-                                <div class="img_wrap">
-                                    <img src="../img/hall_demo.jpg" alt="">
-                                </div>
+                            	<c:forEach var="i" begin="0" end="${studio_image_list.size()}">
+	                                <div class="img_wrap">
+	                                    <img src="${studio_image_list[i].image}" alt="${studio_vo.name} 이미지"> 
+	                                </div>
+                             	</c:forEach>
                             </div>
                         </div>
                         <hr>
                         <div id="video">
                             <h3>영상</h3>
-                            <iframe width="100%" height="400" class="youtube_wrap" src="https://www.youtube.com/embed/xp6XpRINNbg" frameborder="0" ></iframe>
+                            <iframe width="100%" height="400" class="youtube_wrap" src="${studio_vo.video}" frameborder="0" ></iframe>
                         </div>
                         <div id="info">
                             <h3>상세안내</h3>
@@ -121,35 +86,35 @@
                                 <tbody>
                                     <tr>
                                         <th scope="row">컨셉</th>
-                                        <td>-</td>
+                                        <td>${studio_vo.concept}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">추천포인트</th>
-                                        <td>-</td>
+                                        <td>${studio_vo.point}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">촬영의상</th>
-                                        <td>-</td>
+                                        <td>${studio_vo.clothes}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">촬영시간</th>
-                                        <td>-</td>
+                                        <td>${studio_vo.shoottime}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">보유소품</th>
-                                        <td>-</td>
+                                        <td>${studio_vo.objet}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">유의사항</th>
-                                        <td>-</td>
+                                        <td>${studio_vo.notice}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">일정변경/취소</th>
-                                        <td>-</td>
+                                        <td>${studio_vo.cancel}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">위약금/환불</th>
-                                        <td>-</td>
+                                        <td>${studio_vo.refund}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -157,7 +122,7 @@
                         <hr>
                         <div id="map">
                             <h3>위치</h3>
-                            <address>서울시 마포구 서교동</address>
+                            <address>${studio_vo.address}</address>
                             <div id="detail_map" style="width:100%;height:350px;"></div> 
                         </div>
                         <hr>
@@ -428,7 +393,7 @@
     var geocoder = new kakao.maps.services.Geocoder();
     
     // 주소로 좌표를 검색합니다
-    geocoder.addressSearch('서울특별시 마포구 월드컵북로 21', function(result, status) {
+    geocoder.addressSearch('${studio_vo.address.substring(0, studio_vo.address.lastIndexOf(' '))}', function(result, status) {
     
         // 정상적으로 검색이 완료됐으면 
          if (status === kakao.maps.services.Status.OK) {
@@ -443,7 +408,7 @@
     
             // 인포윈도우로 장소에 대한 설명을 표시합니다
             var infowindow = new kakao.maps.InfoWindow({
-                content: '<div style="width:150px;text-align:center;padding:6px 0;">업체명</div>'
+                content: '<div style="width:150px;text-align:center;padding:6px 0;">'+${studio_vo.name}+'</div>'
             });
             infowindow.open(map, marker);
     

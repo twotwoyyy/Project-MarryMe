@@ -11,6 +11,58 @@
 <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 <link rel="stylesheet" href="../css/detail.css">
 <script defer src="../js/main.js"></script>
+<script type="text/javascript">
+$(function() {
+    $('#scrapBtn').on('click', function() {
+        let cno = $(this).attr("data-cno");
+        
+        $.ajax({
+            type: 'post',
+            url: '../scrap/checklogin.do',
+            success: function(loginResult) {
+                if (loginResult === 'NO') {  
+                    alert("로그인 후 스크랩이 가능합니다!!");
+                    window.location.href = "../member/login.do";
+                } else {
+                    $.ajax({
+                        type: 'post',
+                        url: '../scrap/insert.do',
+                        data: {"cno": cno, "cate": 1},
+                        success: function(result) {
+                            if (result === 'OK') {
+                                alert("스크랩 되었습니다");
+                                location.href = "../hall/detail.do?hno=" + cno;
+                            } else {
+                                alert("스크랩 실패");
+                            }
+                        },
+                        error: function(request, status, error) {
+                            console.log(error);
+                        }
+                    });
+                }
+            }
+        });
+    });
+
+    $(document).ready(function() {
+        var check = '${check}'; // JSP에서 전달된 값
+        // check 값을 Boolean으로 변환
+        if (check === 'true') {
+            check = true;
+        } else if (check === 'false') {
+            check = false;
+        }
+
+        // 체크 값을 사용하여 버튼 상태 설정
+        if (check) {
+            $('#scrapBtn').addClass('active');
+        } else {
+            $('#scrapBtn').removeClass('active');
+        }
+    });
+});
+</script>
 <style type="text/css">
 #hallimg{
 	width: 90%;
@@ -24,6 +76,7 @@
         content: "지하철 🚇 ";
         color: #0b3a1e; /* 원하는 색상으로 설정 */
 }
+
 </style>
 </head>
 <body>
@@ -72,6 +125,7 @@
                                         <th scope="row">위치</th>
                                         <td>📌${vo.addr }</td>
                                     </tr>
+                                    <tr>
                                         <th scope="row">특징</th>
                                         <td>✔️${vo.point }</td>
                                     </tr>
@@ -306,7 +360,7 @@
                             <p>원하는 상담 예약 날짜를 선택해주세요</p>
                         </div>
                         <div class="icons">
-                            <button class="wish">wish list</button>
+                            <button class="wish" id="scrapBtn" data-cno="${vo.hno }">wish list</button>
                             <button class="share">share link</button>
                         </div>
                     </div>

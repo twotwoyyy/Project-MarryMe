@@ -80,9 +80,14 @@ public class StudioModel {
 		return "../main/main.jsp";
 	}
 	
-	@RequestMapping("studio/detail.do")
+	@RequestMapping("studio/studio_detail.do")
 	public String studio_detail(HttpServletRequest request, HttpServletResponse response) {
-		request.setAttribute("main_jsp", "../studio/detail.jsp");
+		String sno=request.getParameter("sno");
+		StudioVO studio_vo=StudioDAO.studioDetailData(Integer.parseInt(sno));
+		List<StudioImageVO> studio_image_list=StudioDAO.studioDetailImageData(Integer.parseInt(sno));
+		request.setAttribute("studio_vo", studio_vo);
+		request.setAttribute("studio_image_list", studio_image_list);
+		request.setAttribute("main_jsp", "../studio/studio_detail.jsp");
 		return "../main/main.jsp";
 	}
 }
