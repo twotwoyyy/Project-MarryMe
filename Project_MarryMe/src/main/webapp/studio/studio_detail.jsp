@@ -70,7 +70,7 @@
                             <div class="masonry_wrap">
                             	<c:forEach var="i" begin="0" end="${studio_image_list.size()}">
 	                                <div class="img_wrap">
-	                                    <img src="${studio_image_list[i].image}" alt="">
+	                                    <img src="${studio_image_list[i].image}" alt="${studio_vo.name} 이미지">
 	                                </div>
                              	</c:forEach>
                             </div>
