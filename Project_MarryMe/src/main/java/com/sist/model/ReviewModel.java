@@ -50,8 +50,8 @@ public class ReviewModel {
 		  MultipartRequest mr=
 				  new MultipartRequest(request, realFolder,maxSize,encType,
 						  new DefaultFileRenamePolicy());
-		  
-		  String id=mr.getParameter("id");
+		  HttpSession session=request.getSession();
+		  String id=(String)session.getAttribute("id");
 		  String msg=mr.getParameter("msg");
 		  String cate=mr.getParameter("cate");
 		  String pno=mr.getParameter("pno");
@@ -95,7 +95,9 @@ public class ReviewModel {
 				// TODO: handle exception
 				e.printStackTrace();
 			}
-		 }catch(Exception ex) {}
+		 }catch(Exception ex) {
+			 ex.printStackTrace();
+		 }
 	}
 	
 	@RequestMapping("review/review_list.do")
@@ -121,8 +123,8 @@ public class ReviewModel {
 		
 		
 		int total=ReviewDAO.reviewTotalPage(map);
-		
-		int totalpage=(int)(Math.ceil(total/rowSize));
+		System.out.println(total+"개 있음");
+		int totalpage=(int)(Math.ceil(total/(double)rowSize));
 		
 		// 페이지 개수 표시
 		final int BLOCK=5;

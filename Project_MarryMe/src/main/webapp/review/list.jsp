@@ -31,35 +31,18 @@
     text-align:center;
     transition:.3s;
 }
-.star-rating {
-            display: inline-block;
-            font-size: 24px;
-            color: lightgray; /* 기본 별 색상 */
-        }
-        .star-rating input {
-            display: none; /* 실제 라디오 버튼은 숨깁니다. */
-        }
-        .star-rating label {
-            color: lightgray; /* 기본 별 색상 */
-            cursor: pointer;
-            display: inline-block;
-            position: relative;
-        }
-        .star-rating label::before {
-            content: '★';
-            font-size: 24px; /* 별의 크기 */
-        }
-        .star-rating label:hover,
-        .star-rating label:hover ~ label {
-            color: gold; /* Hover 시 별 색상 */
-        }
-        /* 선택된 별의 색상 */
-        .star-rating input:checked ~ label {
-            color: gold;
-        }
-        .star-rating input:checked ~ label ~ label {
-            color: lightgray;
-        }
+.rating {
+    display: flex;
+}
+
+.rating .star {
+    cursor: pointer;
+    fill: #bbbbbb; /* 기본 색상 */
+}
+
+.star.active {
+    fill: #0b3a1e; /* 선택된 색상 */
+}
 </style>
 <script type="text/javascript">
 $(function(){
@@ -70,7 +53,25 @@ $(function(){
 	let page=1
 	replyList(pno,page,cate)
 	//paging(pno,page,cate)
+	let score=0;
+	
+	$('.star').on('click', function(){
+	    // 클릭된 별의 인덱스를 가져옵니다.
+	        var index = $(this).data('index');
+	        score=index
+	        // 모든 별에 대해 색상을 업데이트합니다.
+	        $('.star').each(function() {
+	            var starIndex = $(this).data('index');
+	            if (starIndex <= index) {
+	                $(this).addClass('active');
+	        	}else{
+	           		$(this).removeClass('active');
+	        	}
+	   		});
+	});
+	
 	  $('#reviewBtn').on('click',function(){
+		 let msg=$('#review_content').val()
 		 if(msg.trim()==="")
 		 {
 			 $('#review_content').focus()
@@ -80,11 +81,11 @@ $(function(){
 		
 		var formData = new FormData();
 		
-		
-		formData.append("msg",$('#review_content').text());
-		formData.append("pno", $('#postNo').val());
-		formData.append("cate", $('#rCate').val());
+		formData.append("msg", msg);
+		formData.append("pno", pno);
+		formData.append("cate", cate);
 		formData.append("file", $('#review_photo')[0].files[0]);
+		formData.append("score", score);
 		
 		$.ajax({
 			
@@ -100,6 +101,8 @@ $(function(){
 				 console.log(res)
 				 if(res==='OK')
 				 {
+					 
+					 $('.detail_input').removeClass('active');
 					 page=1
 					 replyList(pno,page,cate)
 				 }
@@ -120,6 +123,7 @@ $(function(){
    //     console.log(page); //
         replyList(pno, page, cate); // 클릭한 페이지로 갱신
     });
+	
 })
 function replyList(pno,page,cate)
 {
@@ -223,25 +227,32 @@ function replyList(pno,page,cate)
 <div id="review">
    <div class="board_top">
    	 <h3>후기</h3>
-  	 <button>후기 작성</button>
+   	 <c:if test="${sessionScope.id!=null }">
+  	 	<button>후기 작성</button>
+  	 </c:if>
    </div>
    <div class="detail_input">
      <label for="review_content">후기를 작성해주세요</label>
      <textarea name="review_content" id="review_content"></textarea>
      <label for="review_photo" class="hidden">파일업로드</label>
      <input type="file" id="review_photo">
-      <div class="star-rating">
-        <input type="radio" id="star5" name="rating" value="5">
-        <label for="star5"></label>
-        <input type="radio" id="star4" name="rating" value="4">
-        <label for="star4"></label>
-        <input type="radio" id="star3" name="rating" value="3">
-        <label for="star3"></label>
-        <input type="radio" id="star2" name="rating" value="2">
-        <label for="star2"></label>
-        <input type="radio" id="star1" name="rating" value="1">
-        <label for="star1"></label>
-     </div>
+      <div class="rating">
+    <svg data-index="1" class="star" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+        <path d="M7.157 6.698l2.165-4.59a.743.743 0 0 1 1.358 0l2.165 4.59 4.84.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l4.84-.74z" />
+    </svg>
+    <svg data-index="2" class="star" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+        <path d="M7.157 6.698l2.165-4.59a.743.743 0 0 1 1.358 0l2.165 4.59 4.84.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l4.84-.74z" />
+    </svg>
+    <svg data-index="3" class="star" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+        <path d="M7.157 6.698l2.165-4.59a.743.743 0 0 1 1.358 0l2.165 4.59 4.84.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l4.84-.74z" />
+    </svg>
+    <svg data-index="4" class="star" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+        <path d="M7.157 6.698l2.165-4.59a.743.743 0 0 1 1.358 0l2.165 4.59 4.84.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l4.84-.74z" />
+    </svg>
+    <svg data-index="5" class="star" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+        <path d="M7.157 6.698l2.165-4.59a.743.743 0 0 1 1.358 0l2.165 4.59 4.84.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l4.84-.74z" />
+    </svg>
+	</div>
      <input type="button" value="작성완료" id="reviewBtn">
    </div>
    <ul class="review_list">

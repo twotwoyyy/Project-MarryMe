@@ -25,7 +25,7 @@
             <c:set var="delay" value="0"></c:set>
               <c:forEach var="vo" items="${list }">
                 <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="${delay }">
-                    <a href="../goods/detail.do?cate=1&pno=${vo.mgno }">
+                    <a href="../goods/detail.do?cate=6&pno=${vo.mgno }">
                         <div class="img_wrap">
                             <img src="${vo.poster }" alt="">
                         </div>

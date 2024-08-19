@@ -17,7 +17,7 @@
 	<select id="noticeListData" resultMap="NoticeMap" parameterType="hashmap">
 		SELECT notice_no,name,subject,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit,num
 		FROM (SELECT notice_no,name,subject,regdate,hit,rownum as num
-		FROM (SELECT notice_no,name,subject,regdate,hit
+		FROM (SELECT notice_no,member.name as name,subject,notice.regdate as regdate,hit
 		FROM notice,member 
 		WHERE notice.id=member.id
 		ORDER BY notice_no DESC))

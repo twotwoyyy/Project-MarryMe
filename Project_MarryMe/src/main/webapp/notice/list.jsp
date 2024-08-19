@@ -6,72 +6,66 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-.row1{
-	padding:100px 0 80px;
-    display:flex;
-    justify-content:center;
+<style type="text/css">	
+#list{
+	padding: 200px 300px 200px 300px; 
+}
+.close{
+	display:grid;
+    grid-template-columns:10% 50% 20% 30%;
+    text-align:center;
+    align-items:center;
     gap:10px;
+    font-size:14px;
+}
+.subject{
+	display:flex;
+    gap:5px;
+    justify-content: start;
+    align-items:center;
+    cursor: pointer;
 }
 </style>
 </head>
 <body>
-	<div id="studio">
-    <table class="table">
-     <tr>
-      <td>
-       <a href="../databoard/insert.do" class="btn btn-sm btn-primary">새글</a>
-      </td>
-     </tr>
-    </table>
-    <table class="table">
-     <tr>
-      <th width=10% class="text-center">번호</th>
-      <th width=55% class="text-center">제목</th>
-      <th width=10% class="text-center">이름</th>
-      <th width=15% class="text-center">작성일</th>
-      <th width=10% class="text-center">조회수</th>
-     </tr>
-     <c:set var="count" value="${count }"/>
-     <c:forEach var="vo" items="${list }">
-       <tr>
-	      <td width=10% class="text-center">${count }</td>
-	      <td width=55%>
-	      <a href="../databoard/detail.do?no=${vo.notice_no }">${vo.subject }</a>
-	      &nbsp;
-	      <c:if test="${today==vo.dbday }">
-	        <sup><img src="../databoard/new.gif"></sup>
-	      </c:if>
-	      </td>
-	      <td width=10% class="text-center">${vo.name }</td>
-	      <td width=15% class="text-center">${vo.dbday }</td>
-	      <td width=10% class="text-center">${vo.hit }</td>
-	     </tr>
-	     <c:set var="count" value="${count-1 }"/>
-     </c:forEach>
-    </table>
-    <table class="table">
-     <tr>
-      <td class="text-left inline">
-      <form method="post" action="../databoard/find.do">
-       <input type="checkbox" value="N" name="fs">이름
-       <input type="checkbox" value="S" name="fs">제목
-       <input type="checkbox" value="C" name="fs">내용
-       <!-- Search:<select name="fs>
-       			
-       			</select>
-        -->
-       <input type=text name=ss size=15 class="input-sm">
-       <input type=submit value="검색" class="btn btn-sm btn-success">
-       </form>
-      </td>
-      <td class="text-right">
-       <a href="#" class="btn btn-sm btn-success">이전</a>
-       ${curpage } page / ${totalpage } pages
-       <a href="#" class="btn btn-sm btn-info">다음</a>
-      </td>
-     </tr>
-    </table>
-   </div>
+<div id="list">
+	<div id="detail">
+		<div id="qna">
+			<div class="list_sc">
+				<ul class="qna_list">
+					<li>
+                      <div class="close">
+                        <p class="number">번호</p>
+                     	<div class="subject">
+                          <p style="margin: 0px auto;">제목</p>
+                        </div>
+                        <p class="writer">작성자</p>
+                        <p class="regdate">작성일</p>
+                      </div>
+                      <div class="close">
+                        <c:forEach var="vo" items="${list }">
+                         <p>${vo.notice_no }</p>
+                         <div>
+                           <p>${vo.subject }</p>
+                         </div>
+                         <p>${vo.name }</p>
+                         <p>${vo.dbday }</p>
+                        </c:forEach>
+                      </div>
+                   </li>
+			 	 </ul>
+				 <ul class="page">
+                   <li><a href="">&lt;</a></li>
+                   <li class="active"><a href="#">1</a></li>
+                   <li><a href="#">2</a></li>
+                   <li><a href="#">10</a></li>
+                   <li><a href="#">12</a></li>
+                   <li><a href="#">5</a></li>
+                   <li><a href="#">&gt;</a></li>
+    	     	 </ul>
+			</div>
+		</div>
+	</div>
+</div>
 </body>
 </html>
