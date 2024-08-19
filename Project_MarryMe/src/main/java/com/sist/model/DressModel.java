@@ -22,46 +22,45 @@ public class DressModel {
         if (page == null) { // 페이지 번호가 없는 경우
             page = "1";    // 기본 페이지를 1로 설정합니다.
         }
-        int curpage = Integer.parseInt(page); // 페이지 번호를 정수로 변환합니다.
-        Map map = new HashMap(); // Map 객체를 생성합니다.
+        int curPage = Integer.parseInt(page); // 페이지 번호를 정수로 변환합니다.
         int rowSize = 12; // 한 페이지에 표시할 출력물의 개수를 설정합니다.
-        int start = (rowSize * curpage) - (rowSize - 1); // 현재 페이지에 몇 번째 데이터부터 출력할지 설정
-        int end = rowSize * curpage; // 현재 페이지에 몇 번째 데이터까지 출력할지 설정
+        int start = (rowSize * curPage) - (rowSize - 1); // 현재 페이지에 몇 번째 데이터부터 출력할지 설정
+        int end = rowSize * curPage; // 현재 페이지에 몇 번째 데이터까지 출력할지 설정
+        
+        Map map = new HashMap(); // Map 객체를 생성합니다.
         map.put("start", start); // 설정한 start의 값을 Map에 추가.
         map.put("end", end); // 설정한 end의 값을 Map에 추가.
 
         List<DressVO> dress_list = DressDAO.dressListData(map); // 드레스 목록 데이터를 가져옵니다.
-        int totalpage = DressDAO.dressTotalPage(map); // 전체 페이지 수를 가져옵니다.
+        int totalPage = DressDAO.dressTotalPage(); // 전체 페이지 수를 가져옵니다.
 
-        // 강사님 주석 참고해야 함 (제대로 이해 못함 / 얼추 감만 잡음)
         final int BLOCK = 5;
-        int startpage = ((curpage - 1) / BLOCK * BLOCK) + 1;
-        int endpage = ((curpage - 1) / BLOCK * BLOCK) + BLOCK;
-        if (endpage > totalpage) {
-            endpage = totalpage;
-        }
-        request.setAttribute("curpage", curpage); // 현재 페이지를 요청에 추가합니다.
-        request.setAttribute("totalpage", totalpage); // 전체 페이지를 요청에 추가합니다.
-        request.setAttribute("startpage", startpage); // 시작 페이지를 요청에 추가합니다.
-        request.setAttribute("endpage", endpage); // 끝 페이지를 요청에 추가합니다.
+        int startPage = ((curPage - 1) / BLOCK * BLOCK) + 1;
+        int endPage = ((curPage - 1) / BLOCK * BLOCK) + BLOCK;
+        if (endPage > totalPage) 
+            endPage = totalPage;
+        
         request.setAttribute("dress_list", dress_list); // 드레스 목록을 요청에 추가합니다.
+        request.setAttribute("curPage", curPage); // 현재 페이지를 요청에 추가합니다.
+        request.setAttribute("totalPage", totalPage); // 전체 페이지를 요청에 추가합니다.
+        request.setAttribute("startPage", startPage); // 시작 페이지를 요청에 추가합니다.
+        request.setAttribute("endPage", endPage); // 끝 페이지를 요청에 추가합니다.
 
         request.setAttribute("main_jsp", "../dress/list.jsp");
         return "../main/main.jsp";
     }
 
     // 드레스 상세 보기 화면을 처리하는 메서드
-    @RequestMapping("dress/dress_detail.do")
+    @RequestMapping("dress/detail.do")
     public String dress_detail(HttpServletRequest request, HttpServletResponse response) {
-        String no = request.getParameter("no");
+        String d_no = request.getParameter("d_no");
         Map map = new HashMap();
-        map.put("no", no);
         
         DressVO vo = DressDAO.dressDetailData(map);
         request.setAttribute("vo", vo);
 //		 CommonsModel.footerPrint(request); // 각 return "main.jsp"마다 footer에 내용 출력하는 코드
 
-        request.setAttribute("main_jsp", "../dress/dress_detail.jsp");
+        request.setAttribute("main_jsp", "../dress/detail.jsp");
         return "../main/main.jsp";
     }
 

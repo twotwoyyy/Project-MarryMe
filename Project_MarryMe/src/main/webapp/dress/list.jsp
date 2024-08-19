@@ -18,21 +18,21 @@
                 <li data-list="suit">예복</li>
             </ul>
             <ul class="brand_list container dress active">
-            	<c:set var="delay" value="0"/> 
-            	<c:forEach var="vo" items="${dress_list}" begin="0" end="8">
-                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="${delay}">
+              <c:set var="delay" value="0"/>
+               <c:forEach var="vo" items="${dress_list }" begin="0" end="12">
+                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="${delay }">
                     <a href="../dress/detail.do">
                         <div class="img_wrap">
-                            <img src="${vo.d_image}" alt="">
+                            <img src="https:${vo.d_image}" alt="">
                         </div>
                         <div class="text_box">
                             <p class="brand_name">${vo.d_subject }</p>
-                            <p class="brand_sub">장미의 아름다움을 담은 드레스</p>
+                            <p class="brand_sub">${vo.d_price }</p>
                         </div>
                     </a>
                 </li>
-                <c:set var="delay" value="${(delay + 300) % 900}"/>
-                </c:forEach>
+               <c:set var="delay" value="${(delay + 300) % 1200 }"/>
+              </c:forEach>
             </ul>
             <ul class="page">
                 <li><a href="">&lt;</a></li>
