@@ -10,8 +10,8 @@ import com.sist.controller.RequestMapping;
 import com.sist.dao.*;
 import com.sist.vo.*;
 public class WishModel {
-	@RequestMapping("scrap/insert.do")
-	public void scrap_insert(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping("wish/insert.do")
+	public void wish_insert(HttpServletRequest request, HttpServletResponse response) {
 		String cno=request.getParameter("cno");
 		String cate=request.getParameter("cate");
 		HttpSession session=request.getSession();
@@ -23,8 +23,8 @@ public class WishModel {
 		String result="";
 
 		try {
-			WishDAO.scrapInsert(map);
-			WishDAO.hallScrapCountIncrement(map);
+			WishDAO.wishInsert(map);
+			WishDAO.hallWishCountIncrement(map);
 			result="OK";
 		}catch(Exception ex) {
 			result=ex.getMessage();
@@ -37,7 +37,7 @@ public class WishModel {
 	}
 	
 	
-	 @RequestMapping("scrap/checklogin.do")
+	 @RequestMapping("wish/checklogin.do")
 		public void checklogin(HttpServletRequest request, HttpServletResponse response)
 		{
 		   try {

@@ -7,7 +7,7 @@ import lombok.Data;
 /*
 	이름      널?       유형           
 	------- -------- ------------ 
-	SCNO    NOT NULL NUMBER       
+	WNO    NOT NULL NUMBER       
 	CNO              NUMBER       
 	CATE             NUMBER       
 	ID               VARCHAR2(20) 
@@ -15,7 +15,7 @@ import lombok.Data;
  */
 @Data
 public class WishVO {
-	private int scno,cno,cate;
+	private int wno,cno,cate;
 	private String id,dbday;
 	private Date regdate;
 }
