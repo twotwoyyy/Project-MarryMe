@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 import com.sist.controller.RequestMapping;
 import com.sist.dao.*;
 import com.sist.vo.*;
-public class ScrapModel {
+public class WishModel {
 	@RequestMapping("scrap/insert.do")
 	public void scrap_insert(HttpServletRequest request, HttpServletResponse response) {
 		String cno=request.getParameter("cno");
@@ -23,8 +23,8 @@ public class ScrapModel {
 		String result="";
 
 		try {
-			ScrapDAO.scrapInsert(map);
-			ScrapDAO.hallScrapCountIncrement(map);
+			WishDAO.scrapInsert(map);
+			WishDAO.hallScrapCountIncrement(map);
 			result="OK";
 		}catch(Exception ex) {
 			result=ex.getMessage();

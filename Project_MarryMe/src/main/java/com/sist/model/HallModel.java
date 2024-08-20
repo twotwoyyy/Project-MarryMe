@@ -91,7 +91,7 @@ public class HallModel {
 			map.put("cno", hno);
 			map.put("cate", cate);
 			map.put("id", id);
-			int count=ScrapDAO.scrapCheck(map);
+			int count=WishDAO.scrapCheck(map);
 			if(count==1) {
 				bCheck=true;
 			}else {
