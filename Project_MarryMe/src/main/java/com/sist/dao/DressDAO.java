@@ -15,7 +15,7 @@ public class DressDAO {
 
 	  public static List<DressVO> dressListData(Map map) {
 		  List<DressVO> list = new ArrayList<DressVO>();
-		  SqlSession session = null;
+		  SqlSession session = null; 
 		  try {
 			  session = ssf.openSession();
 			  list = session.selectList("dressListData", map);
