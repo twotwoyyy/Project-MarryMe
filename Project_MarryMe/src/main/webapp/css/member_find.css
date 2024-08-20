@@ -1,9 +1,10 @@
 @charset "UTF-8";
+/* ---------------- MEMBER FIND ----------------- */
 #member_find{
     background:#EFF3EA;
     padding:80px 0 100px;
     font-family: 'SCoreDream', sans-serif;
-    height:80vh;
+    min-height:80vh;
     box-sizing:border-box;;
 }
 #member_find .tt_box{
@@ -98,6 +99,54 @@
 	width:100%;
 	text-align:center;
 	padding:10px 0;
+	background:#303A1F;
+	color:#dcdcdc;
+}
+
+/* ---------------- MEMBER FIND RESULT ----------------- */
+#member_find_result{
+    background:#EFF3EA;
+    padding:80px 0 100px;
+    font-family: 'SCoreDream', sans-serif;
+    min-height:80vh;
+    box-sizing:border-box;;
+}
+#member_find_result .tt_box{
+    text-align:center;
+    margin-bottom:50px;
+}
+#member_find_result .tt_box a{
+    display:inline-block;
+}
+#member_find_result .tt_box h1{
+    font-family: "Pinyon Script", cursive;
+    font-size:40px;
+    margin-top:10px;
+}
+#member_find_result .result_box{
+	width:400px;
+	margin:0 auto;
+	text-align:center;
+}
+#member_find_result .result_box p{
+	font-size:20px;
+	margin-bottom:10px;
+}
+#member_find_result .result_box .btns{
+	display:flex;
+	gap:10px;
+	justify-content:center;
+	margin-top:50px;
+}
+#member_find_result .result_box .btns a{
+	display:block;
+	text-align:center;
+	width: 120px;
+	height:40px;
+	line-height:40px;
+	border:1px solid #303030;
+}
+#member_find_result .result_box .btns a:last-child{
 	background:#303A1F;
 	color:#dcdcdc;
 }
