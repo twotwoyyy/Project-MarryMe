@@ -103,4 +103,11 @@ public class MemberModel {
 		
 		return "redirect:../main/main.do";
 	}
+	
+	@RequestMapping("member/member_find.do")
+	public String member_id_find(HttpServletRequest request, HttpServletResponse response) {
+		String type=request.getParameter("type");
+		request.setAttribute("type", type);
+		return "../member/member_find.jsp";
+	}
 }

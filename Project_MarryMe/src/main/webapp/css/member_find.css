@@ -1,0 +1,103 @@
+@charset "UTF-8";
+#member_find{
+    background:#EFF3EA;
+    padding:80px 0 100px;
+    font-family: 'SCoreDream', sans-serif;
+    height:80vh;
+    box-sizing:border-box;;
+}
+#member_find .tt_box{
+    text-align:center;
+    margin-bottom:50px;
+}
+#member_find .tt_box a{
+    display:inline-block;
+}
+#member_find .tt_box h1{
+    font-family: "Pinyon Script", cursive;
+    font-size:40px;
+    margin-top:10px;
+}
+/* ---------------- FIND TAB BOX ----------------- */
+#member_find #find_container{
+	width:400px;
+	margin:0 auto;
+	background:#fff;
+	padding-bottom:20px;
+}
+#member_find .tab{
+	display:grid;
+	grid-template-columns:1fr 1fr;
+	justify-content:center;
+	align-items:center;
+}
+#member_find .tab > li{
+	padding:20px;
+	text-align:center;
+	border-bottom:1px solid #303030;
+	transition:.3s;
+	cursor:pointer;
+}
+#member_find .tab > li.active{
+	border-bottom-width:3px;
+	font-weight:500;
+}
+#member_find .find_box{
+	padding:0 20px;
+	display:none;
+}
+#member_find .find_box.active{
+	display:block;
+}
+#member_find .find_box .acco{
+	padding:10px;
+	height:56px;
+	overflow:hidden;
+	box-sizing:border-box;
+	transition:.3s;
+}
+#member_find .find_box .acco.active{
+	height:215px;
+}
+#member_find .find_box#find_pw .acco.active{
+	height:265px;
+}
+#member_find .find_box .acco p{
+	padding:20px 0;
+	font-weight:500;
+	position:relative;
+	cursor:pointer;
+}
+#member_find .find_box .acco p::after{
+	content:'';
+	width:13px;
+	height:7px;
+	background:url(../img/arrow_bottom.png) no-repeat center center / cover;
+	position:absolute;
+	top:50%;
+	right:0;
+	transform:translateY(-50%);
+	transition:.3s;
+}
+#member_find .find_box .acco.active p::after{
+	transform:translateY(-50%) rotate(180deg);
+}
+#member_find .find_box .acco label{
+	display:none;
+}
+#member_find .find_box .acco input{
+	width:100%;
+	padding:5px;
+	border-bottom:1px solid #dcdcdc;
+	font-size:14px;
+}
+#member_find .find_box .acco > div{
+	margin-bottom:20px;
+}
+#member_find .find_box .acco button{
+	width:100%;
+	text-align:center;
+	padding:10px 0;
+	background:#303A1F;
+	color:#dcdcdc;
+}
