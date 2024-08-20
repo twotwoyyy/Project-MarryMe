@@ -14,7 +14,7 @@ import lombok.Data;
 	REGDATE          DATE         
  */
 @Data
-public class ScrapVO {
+public class WishVO {
 	private int scno,cno,cate;
 	private String id,dbday;
 	private Date regdate;

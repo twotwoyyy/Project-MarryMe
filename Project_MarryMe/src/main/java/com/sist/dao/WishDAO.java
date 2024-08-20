@@ -3,7 +3,7 @@ import java.util.*;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import com.sist.vo.*;
-public class ScrapDAO {
+public class WishDAO {
 	private static SqlSessionFactory ssf;
 	static {
 		ssf=CreateSqlSessionFactory.getSsf();
