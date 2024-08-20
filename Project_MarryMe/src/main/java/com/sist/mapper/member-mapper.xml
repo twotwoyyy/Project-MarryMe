@@ -15,4 +15,11 @@
  		FROM member
  		WHERE id=#{id}
  	</select>
+ 	<select id="memberIdFindCount" resultType="int" parameterType="MemberVO">
+ 		SELECT COUNT(*) FROM member WHERE name=#{name} AND email=#{email}
+ 	</select>
+ 	<select id="memberIdFindData" resultType="string" parameterType="MemberVO">
+ 		SELECT RPAD(SUBSTR(id,1,2),LENGTH(id),'*') FROM member
+ 		WHERE name=#{name} AND email=#{email}
+ 	</select>
 </mapper>

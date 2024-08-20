@@ -49,7 +49,7 @@ $(function(){
         	</ul>
         	<div class="form_wrapper">
 	        	<div class='find_box ${type.equals("id")?"active":""}'  id="find_id">
-	        		<div class="acco">
+	        		<form method="POST" action="../member/member_id_find.do" class="acco">
 		        		<p>이메일로 찾기</p>
 	        			<div>
 	        				<label for="id_email_name">이름</label>
@@ -60,8 +60,8 @@ $(function(){
 	        				<input type="email" name="email" id="id_email_email" placeholder="이메일을 입력해 주세요">
 	        			</div>
 	        			<button>찾기</button>
-	        		</div>
-	        		<div class="acco">
+	        		</form>
+	        		<form method="POST" action="../member/member_id_find.do" class="acco">
 	        			<p>휴대폰 번호로 찾기</p>
 	        			<div>
 	        				<label for="id_phone_name">이름</label>
@@ -72,7 +72,7 @@ $(function(){
 	        				<input type="email" name="phone" id="id_phone_phone" placeholder="휴대폰번호를 숫자만 입력해 주세요">
 	        			</div>
 	        			<button>찾기</button>
-	        		</div>
+	        		</form>
 	        	</div>
 	        	<div class='find_box ${type.equals("pw")?"active":""}' id="find_pw">
 	        		<div class="acco">

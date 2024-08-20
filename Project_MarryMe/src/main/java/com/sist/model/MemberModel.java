@@ -105,9 +105,23 @@ public class MemberModel {
 	}
 	
 	@RequestMapping("member/member_find.do")
-	public String member_id_find(HttpServletRequest request, HttpServletResponse response) {
+	public String member_find(HttpServletRequest request, HttpServletResponse response) {
 		String type=request.getParameter("type");
 		request.setAttribute("type", type);
 		return "../member/member_find.jsp";
+	}
+	
+	@RequestMapping("member/member_id_find.do")
+	public String member_id_find(HttpServletRequest request, HttpServletResponse response) {
+		String name=request.getParameter("name");
+		String email=request.getParameter("email");
+		
+		MemberVO vo=new MemberVO();
+		vo.setName(name);
+		vo.setEmail(email);
+		String result=MemberDAO.memberIdFind(vo);
+		
+		request.setAttribute("result", result);
+		return "../member/member_find_result.jsp";
 	}
 }
