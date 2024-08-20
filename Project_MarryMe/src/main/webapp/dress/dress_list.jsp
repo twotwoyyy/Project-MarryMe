@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +21,6 @@
             <ul class="brand_list container dress active">
               <c:set var="delay" value="0"/>
                <c:forEach var="dress" items="${dress_list }">
-               <c:if test="${dress.d_no >= 1 && dress.d_no <= 51}">
                 <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="${delay}">
                     <a href="../dress/dress_detail.do?d_no=${dress.d_no }">
                         <div class="img_wrap">
@@ -34,7 +33,6 @@
                     </a>
                 </li>
                <c:set var="delay" value="${(delay + 300) % 1200 }"/>
-               </c:if>
               </c:forEach>
             </ul>
 				 <ul class="page">

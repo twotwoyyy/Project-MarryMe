@@ -49,30 +49,18 @@ public class DressDAO {
 		  return total;
 	  }
 	  
-	  /*
-	   * <update id="dressHitIncrement" parameterType="hashmap">
-		    UPDATE dress 
-		    SET hit = hit + 1
-		    WHERE d_no = #{d_no}
-		  </update>
-		  <select id="dressDetailData" parameterType="hashmap" resultType="DressVO">
-		    SELECT * FROM dress
-		    WHERE d_no = #{d_no}
-		  </select>
-	   */
-	  public static DressVO dressDetailData(Map map) {
+	  public static DressVO dressDetailData(int d_no) {
 		  DressVO vo = new DressVO();
 		  SqlSession session = null;
 		  try {
 			  session = ssf.openSession();
-			  session.update("dressHitIncrement", map);
-			  session.commit();
-			  vo = session.selectOne("dressDetailData", map);
+			  vo = session.selectOne("dressDetailData", d_no);
 		  } catch(Exception ex) {
 			  ex.printStackTrace();
 		  } finally {
-			  if (session != null)
+			  if (session != null) {
 				  session.close();
+			  }
 		  }
 		  return vo;
 	  }
