@@ -10,4 +10,9 @@
 	<select id="memberLoginData" resultType="MemberVO" parameterType="string">
 		SELECT * FROM member WHERE id=#{id}
 	</select>
+ 	<select id="memberUpdateData" resultType="MemberVO" parameterType="string">
+ 		SELECT id,name,phone,email,post,address1,address2,gender,weddingday
+ 		FROM member
+ 		WHERE id=#{id}
+ 	</select>
 </mapper>

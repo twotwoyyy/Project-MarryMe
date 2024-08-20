@@ -13,10 +13,11 @@
 </style>
 </head>
 <body>
-	<section class="content">
+	<section class="mycontent">
 	<div class="sixth">
-		<h1>마이페이지</h1>
+		<h1>${sessionScope.name}&nbsp;${sessionScope.gender}님 마이페이지</h1>
 	</div>
 	</section>
+	
 </body>
 </html>

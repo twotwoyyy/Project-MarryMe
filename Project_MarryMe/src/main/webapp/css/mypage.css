@@ -6,8 +6,6 @@
 
         .mycontainer {
             display: flex;
-            height: 100vh;
-            width: 100vw;
             padding-top: 80px;
         }
         .mypage_menu {
@@ -15,17 +13,21 @@
             background-color: #f4f4f4;
             padding: 20px;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            font-family: 'SCoreDream', sans-serif;
             
         }
-        .mycontent {
-            flex: 1; /* 나머지 공간을 차지하도록 설정 */
-            padding: 20px;
-            padding-top: 80px;
-        }
+.mycontent {
+    padding: 20px;
+    padding-top: 50px;
+    margin: 0 auto; 
+    text-align: center; 
+    width: 80%; 
+}
 
 .mypage_menu ul {
     list-style-type: none; /* 리스트 스타일 없앰 */
-    padding: 0; /* 패딩 제거 */
+    margin-top: 20px;
+	margin-bottom: 50px;
 }
 
 .mypage_menu ul li {
@@ -50,7 +52,7 @@
     position: relative;
     text-align: center;
     font-family: 'SCoreDream', sans-serif;
-    font-size: 20px;
+    font-size: 25px;
     font-weight: 400;
     justify-content: center;
     align-items: center; 
