@@ -10,4 +10,5 @@
 	<bean id="qna" class="com.sist.model.QnaModel"/>
 	<bean id="review" class="com.sist.model.ReviewModel"/>
 	<bean id="wish" class="com.sist.model.WishModel"/>
+	<bean id="mypage" class="com.sist.model.MypageModel"/>
 </beans>
