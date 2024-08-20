@@ -13,27 +13,27 @@
 <script defer src="../js/main.js"></script>
 <script type="text/javascript">
 $(function() {
-    $('#scrapBtn').on('click', function() {
+    $('#wishBtn').on('click', function() {
         let cno = $(this).attr("data-cno");
         
         $.ajax({
             type: 'post',
-            url: '../scrap/checklogin.do',
+            url: '../wish/checklogin.do',
             success: function(loginResult) {
                 if (loginResult === 'NO') {  
-                    alert("로그인 후 스크랩이 가능합니다!!");
+                    alert("로그인이 필요합니다!!");
                     window.location.href = "../member/login.do";
                 } else {
                     $.ajax({
                         type: 'post',
-                        url: '../scrap/insert.do',
+                        url: '../wish/insert.do',
                         data: {"cno": cno, "cate": 1},
                         success: function(result) {
                             if (result === 'OK') {
-                                alert("스크랩 되었습니다");
+                                alert("위시리스트에 저장되었습니다");
                                 location.href = "../hall/detail.do?hno=" + cno;
                             } else {
-                                alert("스크랩 실패");
+                                alert("위시 저장 실패");
                             }
                         },
                         error: function(request, status, error) {
@@ -56,9 +56,9 @@ $(function() {
 
         // 체크 값을 사용하여 버튼 상태 설정
         if (check) {
-            $('#scrapBtn').addClass('active');
+            $('#wishBtn').addClass('active');
         } else {
-            $('#scrapBtn').removeClass('active');
+            $('#wishBtn').removeClass('active');
         }
     });
 });
@@ -360,7 +360,7 @@ $(function() {
                             <p>원하는 상담 예약 날짜를 선택해주세요</p>
                         </div>
                         <div class="icons">
-                            <button class="wish" id="scrapBtn" data-cno="${vo.hno }">wish list</button>
+                            <button class="wish" id="wishBtn" data-cno="${vo.hno }">wish list</button>
                             <button class="share">share link</button>
                         </div>
                     </div>

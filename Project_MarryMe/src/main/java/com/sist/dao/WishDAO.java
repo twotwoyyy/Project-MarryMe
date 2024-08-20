@@ -8,11 +8,11 @@ public class WishDAO {
 	static {
 		ssf=CreateSqlSessionFactory.getSsf();
 	}
-	public static void scrapInsert(Map map) {
+	public static void wishInsert(Map map) {
 		SqlSession session=null;
 		try {
 			session=ssf.openSession(true);
-			session.insert("scrapInsert",map);
+			session.insert("wishInsert",map);
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}finally {
@@ -20,13 +20,13 @@ public class WishDAO {
 				session.close();
 		}
 	}
-	// 스크랩
-	public static int scrapCheck(Map map) {
+	// 위시
+	public static int wishCheck(Map map) {
 		int count=0;
 		SqlSession session=null;
 		try {
 			session=ssf.openSession(true);
-			count=session.selectOne("scrapCheck",map);
+			count=session.selectOne("wishCheck",map);
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}finally {
@@ -36,12 +36,12 @@ public class WishDAO {
 		return count;
 	}
 	
-	// 홀 스크랩 개수
-	public static void hallScrapCountIncrement(Map map) {
+	// 홀 위시 개수
+	public static void hallWishCountIncrement(Map map) {
 		SqlSession session=null;
 		try {
 			session=ssf.openSession(true);
-			session.update("hallScrapCountIncrement",map);
+			session.update("hallWishCountIncrement",map);
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}finally {
