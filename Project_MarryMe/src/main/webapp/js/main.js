@@ -74,6 +74,28 @@ if($('#login').length > 0){
 		}
 	})
 }
+
+/* --------------- LOGIN -----------------*/
+if($('#member_find').length > 0){
+	let find_tab=$('#member_find .tab > li');
+	find_tab.click(function(){
+		let target=$(this).attr('data-tab');
+		$(this).siblings('li').removeClass('active');
+		$(this).addClass('active');
+		$('.find_box').removeClass('active');
+		$('#'+target).addClass('active');
+	})
+	
+	let find_acco=$('.find_box .acco > p');
+	find_acco.click(function(){
+		if($(this).parents('.acco').hasClass('active')){
+			$(this).parents('.acco').removeClass('active');
+		}else{
+			$('.acco').removeClass('active');
+			$(this).parents().addClass('active');			
+		}
+	})
+}
 /* --------------- LIST ----------------- */
 if($('#list').length > 0){
     let list_tab=$('#list .cate_list > li'),

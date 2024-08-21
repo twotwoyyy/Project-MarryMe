@@ -10,6 +10,20 @@
 		.h3{
 			text-align: center;
 		}
+		#my_title{
+			font-size: 20px;
+			font-family: 'SCoreDream', sans-serif;
+			font-weight:500;
+			margin-bottom: 20px;
+		}
+		#my_title::before {
+        content: "▶ ";
+        color: #0b3a1e;
+}
+		#my_title::after{
+        content: "◀";
+        color: #0b3a1e;
+}
 	</style>
 </head>
 <body>
@@ -17,9 +31,10 @@
         <section class="mypage_menu">
             <!-- 사이드바 메뉴 영역 -->
             <div>
+            <h1 id="my_title">${title }</h1>
                 <h3>개인정보</h3>
                 <ul>
-                    <li><a href="#">회원수정</a></li>
+                    <li><a href="../member/join_update.do">회원수정</a></li>
                     <li><a href="#">회원탈퇴</a></li>
                     <li><a href="#">비밀번호 변경</a></li>
                 </ul>

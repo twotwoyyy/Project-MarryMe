@@ -10,4 +10,16 @@
 	<select id="memberLoginData" resultType="MemberVO" parameterType="string">
 		SELECT * FROM member WHERE id=#{id}
 	</select>
+ 	<select id="memberUpdateData" resultType="MemberVO" parameterType="string">
+ 		SELECT id,name,phone,email,post,address1,address2,gender,weddingday
+ 		FROM member
+ 		WHERE id=#{id}
+ 	</select>
+ 	<select id="memberIdFindCount" resultType="int" parameterType="MemberVO">
+ 		SELECT COUNT(*) FROM member WHERE name=#{name} AND email=#{email}
+ 	</select>
+ 	<select id="memberIdFindData" resultType="string" parameterType="MemberVO">
+ 		SELECT RPAD(SUBSTR(id,1,2),LENGTH(id),'*') FROM member
+ 		WHERE name=#{name} AND email=#{email}
+ 	</select>
 </mapper>

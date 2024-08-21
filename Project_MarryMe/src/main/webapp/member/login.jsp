@@ -89,8 +89,8 @@ $(function(){
             <button class="loginBtn">로그인</button>
         </form>
         <ul class="login_links">
-            <li><a href="#">아이디 찾기</a></li>
-            <li><a href="#">비밀번호 찾기</a></li>
+            <li><a href="../member/member_find.do?type=id">아이디 찾기</a></li>
+            <li><a href="../member/member_find.do?type=pw">비밀번호 찾기</a></li>
             <li><a href="../member/join.do">회원가입</a></li>
         </ul>
         <ul class="sns_btns">

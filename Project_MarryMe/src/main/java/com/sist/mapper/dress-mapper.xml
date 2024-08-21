@@ -13,14 +13,9 @@
   	SELECT CEIL(COUNT(*)/12.0) 
    	FROM dress
   </select>
-  
-  <update id="dressHitIncrement" parameterType="HashMap">
-    UPDATE dress 
-    SET hit = hit + 1
-    WHERE d_no = #{d_no}
-  </update>
   <select id="dressDetailData" parameterType="HashMap">
-    SELECT * FROM dress
+    SELECT * 
+    FROM dress
     WHERE d_no = #{d_no}
   </select>
   
@@ -35,15 +30,10 @@
   	SELECT CEIL(COUNT(*)/12.0)
   	FROM suit
   </select>
-  
-  <update id="suitHitIncrement" parameterType="HashMap">
-    UPDATE suit 
-    SET hit = hit + 1
-   	WHERE su_no = #{su_no}
-  </update>
   <select id="suitDetailData" parameterType="HashMap"> 
-    SELECT * FROM suit
-    WHERE su_no = #{su_no}
+    SELECT * 
+    FROM suit 
+    WHERE su_no=#{su_no}
   </select>
   
 </mapper>

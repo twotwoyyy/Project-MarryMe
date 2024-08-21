@@ -80,4 +80,54 @@ public class MemberDAO {
 		}
 		return vo;
 	}
+	/*
+	 *  <select id="memberUpdateData" resultType="MemberVO" parameterType="string">
+	 		SELECT id,name,phone,email,post,address1,address2,gender,weddingday
+	 		FROM member
+	 		WHERE id=#{id}
+ 		</select>
+	 */
+	public static MemberVO memberUpdateData(String id) {
+		MemberVO vo=new MemberVO();
+		SqlSession session=null;
+		try {
+			session=ssf.openSession(true);
+			vo=session.selectOne("memberUpdateData",id);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return vo;
+	}
+	
+	/*
+	<select id="memberIdFindCount" resultType="int" parameterType="MemberVO">
+ 		SELECT COUNT(*) FROM member WHERE name=#{name} AND email=#{email}
+ 	</select>
+ 	<select id="memberIdFindData" resultType="string" parameterType="MemberVO">
+ 		SELECT RPAD(SUBSTR(id,1,2),LENGTH(id),'*') FROM member
+ 		WHERE name=#{name} AND email=#{email}
+ 	</select> 
+	 */
+	public static String memberIdFind(MemberVO vo) {
+		String result="";
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			int count=session.selectOne("memberIdFindCount", vo);
+			if(count==0) {
+				result="incorrect";
+			}else {
+				result=session.selectOne("memberIdFindData", vo);
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return result;
+	}
 }
