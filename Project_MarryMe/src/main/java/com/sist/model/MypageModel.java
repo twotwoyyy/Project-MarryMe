@@ -11,17 +11,23 @@ import com.sist.controller.RequestMapping;
 import com.sist.dao.MemberDAO;
 import com.sist.vo.MemberVO;
 public class MypageModel {
-   @RequestMapping("mypage/mypage_main.do")
-   public String mypage_main(HttpServletRequest request, HttpServletResponse response) {
-      HttpSession session=request.getSession();
-      String id=(String)session.getAttribute("id");
-      MemberVO vo=MemberDAO.memberUpdateData(id);
-      request.setAttribute("vo", vo);
-      request.setAttribute("title", "마이페이지");
-      request.setAttribute("mypage_jsp", "../mypage/mypage_home.jsp" );
-      request.setAttribute("main_jsp", "../mypage/mypage_main.jsp");
-      return "../main/main.jsp";
-   }
+	@RequestMapping("mypage/mypage_main.do")
+	public String mypage_main(HttpServletRequest request, HttpServletResponse response) {
+	    HttpSession session = request.getSession();
+	    String id = (String) session.getAttribute("id");
+	    MemberVO vo = MemberDAO.memberUpdateData(id);
+
+	    // 날짜를 문자열 형식으로 변환
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // 원하는 형식으로 변경
+	    String weddingdayStr = sdf.format(vo.getWeddingday());
+	    
+	    request.setAttribute("vo", vo);
+	    request.setAttribute("weddingday", weddingdayStr); // 날짜를 문자열로 전달
+	    request.setAttribute("title", "마이페이지");
+	    request.setAttribute("mypage_jsp", "../mypage/mypage_home.jsp");
+	    request.setAttribute("main_jsp", "../mypage/mypage_main.jsp");
+	    return "../main/main.jsp";
+	}
    @RequestMapping("member/join_update.do")
    public String mypage_join_update(HttpServletRequest request, HttpServletResponse response) {
       HttpSession session=request.getSession();
@@ -74,8 +80,11 @@ public class MypageModel {
       vo.setAddress2(address2);
       vo.setGender(gender);
       vo.setWeddingday(weddingday);
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // 원하는 형식으로 변경
+      String weddingdayStr = sdf.format(vo.getWeddingday());
       
       boolean bCheck=MemberDAO.memberUpdate(vo);
+      request.setAttribute("weddingday", weddingdayStr); // 날짜를 문자열로 전달
       request.setAttribute("result", bCheck);
       
       return "../member/join_update_ok.jsp";

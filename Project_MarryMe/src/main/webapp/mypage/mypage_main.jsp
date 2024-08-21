@@ -25,6 +25,9 @@
         color: #0b3a1e;
 }
    </style>
+<script type="text/javascript">
+
+</script>
 </head>
 <body>
     <div class="mycontainer">
@@ -34,9 +37,10 @@
             <h1 id="my_title">${title }</h1>
                 <h3>개인정보</h3>
                 <ul>
+                    <li><a href="../mypage/mypage_main.do">정보확인</a></li>
                     <li><a href="../member/join_update.do">회원수정</a></li>
                     <li><a href="#">회원탈퇴</a></li>
-                    <li><a href="#">비밀번호 변경</a></li>
+                    <li><a href="">비밀번호 변경</a></li>
                 </ul>
             </div>
             <div>
