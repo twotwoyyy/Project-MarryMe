@@ -35,14 +35,6 @@ $(function(){
          alert("우편번호 검색 버튼을 눌러 주소입력을 해주세요")
       }
    })
-   if($('#wedding_date').val()==""){
-      let today=new Date().toLocaleDateString('ko-KR',{
-         year:'numeric',
-         month:'2-digit',
-         day:'2-digit'
-      }).replace(/\./g, '').replace(/\s/g, '-');
-      $('#wedding_date').val(today);
-   }
 })
 </script>
 <link rel="stylesheet" type="text/css" href="../css/mypage.css">
@@ -132,7 +124,7 @@ $(function(){
                     </div>
                     <div class="input_wrap">
                         <label for="wedding_date">결혼예정일</label>
-                        <input type="text" id="wedding_date" name="wedding_date" value="${vo.dbwdday }">
+                        <input type="text" id="wedding_date" name="wedding_date" value="${weddingday}">
                     </div>
                     <div class="form_btns">
                         <button class="join_btn">수정</button>

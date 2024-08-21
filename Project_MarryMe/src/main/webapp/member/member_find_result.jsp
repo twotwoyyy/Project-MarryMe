@@ -43,16 +43,46 @@ $(function(){
             </a>
         </div>
         <div class="result_box">
-        	<p class="result_msg">일치하는 회원 정보가 없습니다</p>
-        	<p class="result_print">😢</p>
-        	<div class="btns">
-        		<!-- 
-        		<a href="../member/member_find.do?type=id">아이디 찾기</a>
-        		<a href="../main/main.do">메인페이지</a>
-        		 -->
-        		<a href="../member/member_find.do?type=pw">비밀번호 찾기</a>
-        		<a href="../member/login.do">로그인</a>
-        	</div>
+        	<c:if test="${type=='id'}">
+	        	<c:if test="${result=='incorrect'}">
+		        	<p class="result_msg">일치하는 회원 정보가 없습니다</p>
+		        	<p class="result_print imoji">😢</p>
+	        	</c:if>
+	        	<c:if test="${result!='incorrect'}">
+	        		<p class="result_msg">입력하신 정보와 일치하는 결과입니다</p>
+		        	<p class="result_print">${result}</p>
+	        	</c:if>
+	        	<div class="btns">
+	        		<c:if test="${result=='incorrect'}">
+	        			<a href="../member/member_find.do?type=id">아이디 찾기</a>
+	        			<a href="../main/main.do">메인페이지</a>
+	        		</c:if>
+	        		<c:if test="${result!='incorrect'}">
+		        		<a href="../member/member_find.do?type=pw">비밀번호 찾기</a>
+		        		<a href="../member/login.do">로그인</a>
+	        		</c:if>
+	        	</div>
+        	</c:if>
+        	<c:if test="${type=='pw'}">
+        		<c:if test="${result=='incorrect'}">
+		        	<p class="result_msg">일치하는 회원 정보가 없습니다</p>
+		        	<p class="result_print imoji">😢</p>
+	        	</c:if>
+	        	<c:if test="${result!='incorrect'}">
+	        		<p class="result_msg">입력하신 정보와 일치하는 결과는<br> 메일로 전송되었습니다</p>
+		        	<p class="result_print imoji">📫</p>
+	        	</c:if>
+	        	<div class="btns">
+	        		<c:if test="${result=='incorrect'}">
+	        			<a href="../member/member_find.do?type=pw">비밀번호 찾기</a>
+	        			<a href="../main/main.do">메인페이지</a>
+	        		</c:if>
+	        		<c:if test="${result!='incorrect'}">
+		        		<a href="../main/main.do">메인페이지</a>
+		        		<a href="../member/login.do">로그인</a>
+	        		</c:if>
+	        	</div>
+        	</c:if>
         </div>
     </div>
     <jsp:include page="../main/footer.jsp"></jsp:include>

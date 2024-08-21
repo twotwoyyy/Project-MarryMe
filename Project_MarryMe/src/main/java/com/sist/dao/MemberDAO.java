@@ -130,6 +130,39 @@ public class MemberDAO {
 		}
 		return result;
 	}
+	
+	/*
+	<select id="memberPwFindCount" resultType="int" parameterType="MemberVO">
+ 		SELECT COUNT(*) FROM member
+ 		WHERE id=#{id} AND name=#{name} AND (email=#{email} OR phone=#{phone})
+ 	</select>
+ 	<select id="memberPwFindData" resultType="string" parameterType="MemberVO">
+ 		SELECT pw FROM member
+ 		WHERE id=#{id} AND name=#{name} AND (email=#{email} OR phone=#{phone})
+ 	</select  
+	 */
+	public static String memberPwFind(MemberVO vo) {
+		String result="";
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			int count=session.selectOne("memberPwFindCount", vo);
+			if(count==0) {
+				result="incorrect";
+			}else {
+				result=session.selectOne("memberPwFindData", vo);
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return result;
+	}
+	
+	
+	
 	   /*
 	    *  <select id="memberGetPassword" resultType="string" parameterType="string">
 	          SELECT pw FROM member
@@ -142,26 +175,26 @@ public class MemberDAO {
 	          WHERE id=#{id}
 	       </update>
 	    */   
-	      public static boolean memberUpdate(MemberVO vo) {
-	         boolean bCheck=false;
-	         SqlSession session=null;
-	         try {
-	            session=ssf.openSession();
-	            String db_pwd=session.selectOne("memberGetPassword",vo.getId());
-	            
-	            if(db_pwd != null && db_pwd.equals(vo.getPw())) {
-	                bCheck=true;
-	                session.update("memberUpdate", vo);
-	                session.commit();
-	            } else {
-	                bCheck=false;
-	            }
-	         }catch(Exception ex) {
-	            ex.printStackTrace();
-	         }finally {
-	            if(session!=null)
-	               session.close();
-	         }   
-	         return bCheck;
-	      }
+      public static boolean memberUpdate(MemberVO vo) {
+         boolean bCheck=false;
+         SqlSession session=null;
+         try {
+            session=ssf.openSession();
+            String db_pwd=session.selectOne("memberGetPassword",vo.getId());
+            
+            if(db_pwd != null && db_pwd.equals(vo.getPw())) {
+                bCheck=true;
+                session.update("memberUpdate", vo);
+                session.commit();
+            } else {
+                bCheck=false;
+            }
+         }catch(Exception ex) {
+            ex.printStackTrace();
+         }finally {
+            if(session!=null)
+               session.close();
+         }   
+         return bCheck;
+      }
 }

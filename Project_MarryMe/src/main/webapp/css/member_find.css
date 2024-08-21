@@ -101,6 +101,7 @@
 	padding:10px 0;
 	background:#303A1F;
 	color:#dcdcdc;
+	cursor:pointer;
 }
 
 /* ---------------- MEMBER FIND RESULT ----------------- */
@@ -113,7 +114,7 @@
 }
 #member_find_result .tt_box{
     text-align:center;
-    margin-bottom:50px;
+    margin-bottom:80px;
 }
 #member_find_result .tt_box a{
     display:inline-block;
@@ -130,7 +131,16 @@
 }
 #member_find_result .result_box p{
 	font-size:20px;
-	margin-bottom:10px;
+	margin-bottom:50px;
+}
+#member_find_result .result_box p.result_msg{
+	line-height:1.4em;
+}
+#member_find_result .result_box p.result_print{
+	font-size:20px;;
+}
+#member_find_result .result_box p.result_print.imoji{
+	font-size:35px;
 }
 #member_find_result .result_box .btns{
 	display:flex;

@@ -30,7 +30,16 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 $(function(){
-	
+	$('#member_find form').submit(function(e){
+		$('input[name="phone"]').each(function(){
+			if(isNaN($(this).val())){
+				e.preventDefault()
+				alert('휴대폰번호는 숫자만 입력해주세요')
+				$(this).val("");
+				$(this).focus();
+			}			
+		})
+	})
 })
 </script>
 </head>
@@ -53,11 +62,11 @@ $(function(){
 		        		<p>이메일로 찾기</p>
 	        			<div>
 	        				<label for="id_email_name">이름</label>
-	        				<input type="text" name="name" id="id_email_name" placeholder="이름을 입력해 주세요">
+	        				<input type="text" name="name" id="id_email_name"required  placeholder="이름을 입력해 주세요">
 	        			</div>
 	        			<div>
 	        				<label for="id_email_email">이메일</label>
-	        				<input type="email" name="email" id="id_email_email" placeholder="이메일을 입력해 주세요">
+	        				<input type="email" name="email" id="id_email_email" required placeholder="이메일을 입력해 주세요">
 	        			</div>
 	        			<button>찾기</button>
 	        		</form>
@@ -65,48 +74,48 @@ $(function(){
 	        			<p>휴대폰 번호로 찾기</p>
 	        			<div>
 	        				<label for="id_phone_name">이름</label>
-	        				<input type="text" name="name" id="id_phone_name" placeholder="이름을 입력해 주세요">
+	        				<input type="text" name="name" id="id_phone_name" required placeholder="이름을 입력해 주세요">
 	        			</div>
 	        			<div>
 	        				<label for="id_phone_phone">휴대폰번호</label>
-	        				<input type="email" name="phone" id="id_phone_phone" placeholder="휴대폰번호를 숫자만 입력해 주세요">
+	        				<input type="text" name="phone" id="id_phone_phone" required placeholder="휴대폰번호를 숫자만 입력해 주세요">
 	        			</div>
 	        			<button>찾기</button>
 	        		</form>
 	        	</div>
 	        	<div class='find_box ${type.equals("pw")?"active":""}' id="find_pw">
-	        		<div class="acco">
+	        		<form method="POST" action="../member/member_pw_find.do" class="acco">
 		        		<p>이메일로 찾기</p>
 		        		<div>
 	        				<label for="pw_email_id">아이디</label>
-	        				<input type="text" name="name" id="pw_email_id" placeholder="아이디를 입력해 주세요">
+	        				<input type="text" name="id" id="pw_email_id" required placeholder="아이디를 입력해 주세요">
 	        			</div>
 	        			<div>
 	        				<label for="pw_email_name">이름</label>
-	        				<input type="text" name="name" id="pw_email_name" placeholder="이름을 입력해 주세요">
+	        				<input type="text" name="name" id="pw_email_name" required placeholder="이름을 입력해 주세요">
 	        			</div>
 	        			<div>
 	        				<label for="pw_email_email">이메일</label>
-	        				<input type="email" name="email" id="pw_email_email" placeholder="이메일을 입력해 주세요">
+	        				<input type="email" name="email" id="pw_email_email"required  placeholder="이메일을 입력해 주세요">
 	        			</div>
 	        			<button>찾기</button>
-	        		</div>
-	        		<div class="acco">
+	        		</form>
+	        		<form method="POST" action="../member/member_pw_find.do" class="acco">
 	        			<p>휴대폰 번호로 찾기</p>
 	        			<div>
 	        				<label for="pw_phone_name">아이디</label>
-	        				<input type="text" name="name" id="pw_phone_name" placeholder="아이디를 입력해 주세요">
+	        				<input type="text" name="id" id="pw_phone_name" required placeholder="아이디를 입력해 주세요">
 	        			</div>
 	        			<div>
 	        				<label for="pw_phone_name">이름</label>
-	        				<input type="text" name="name" id="pw_phone_name" placeholder="이름을 입력해 주세요">
+	        				<input type="text" name="name" id="pw_phone_name" required placeholder="이름을 입력해 주세요">
 	        			</div>
 	        			<div>
 	        				<label for="pw_phone_phone">휴대폰번호</label>
-	        				<input type="email" name="email" id="pw_phone_phone" placeholder="휴대폰번호를 숫자만 입력해 주세요">
+	        				<input type="text" name="phone" id="pw_phone_phone" required placeholder="휴대폰번호를 숫자만 입력해 주세요">
 	        			</div>
 	        			<button>찾기</button>
-	        		</div>
+	        		</form>
 	        	</div>        	
         	</div>
         </div>
