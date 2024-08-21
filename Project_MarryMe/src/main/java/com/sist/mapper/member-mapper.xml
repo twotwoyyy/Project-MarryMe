@@ -22,4 +22,15 @@
  		SELECT RPAD(SUBSTR(id,1,2),LENGTH(id),'*') FROM member
  		WHERE name=#{name} AND email=#{email}
  	</select>
+ 	   <select id="memberGetPassword" resultType="string" parameterType="string">
+       SELECT pw FROM member
+       WHERE id=#{id}
+    </select>
+    <update id="memberUpdate" parameterType="MemberVO">
+       UPDATE member SET
+       name=#{name}, phone=#{phone}, email=#{email},
+       post=#{post}, address1=#{address1}, address2=#{address2}, gender=#{gender}, weddingday=#{weddingday}
+       WHERE id=#{id}
+    </update>
+ 	
 </mapper>

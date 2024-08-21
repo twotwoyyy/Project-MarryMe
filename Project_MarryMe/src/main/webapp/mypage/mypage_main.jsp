@@ -6,25 +6,25 @@
     <title>기본 레이아웃</title>
     <!-- 외부 CSS 파일 링크 -->
     <link rel="stylesheet" type="text/css" href="styles.css">
-	<style type="text/css">
-		.h3{
-			text-align: center;
-		}
-		#my_title{
-			font-size: 20px;
-			font-family: 'SCoreDream', sans-serif;
-			font-weight:500;
-			margin-bottom: 20px;
-		}
-		#my_title::before {
+   <style type="text/css">
+      .h3{
+         text-align: center;
+      }
+      #my_title{
+         font-size: 20px;
+         font-family: 'SCoreDream', sans-serif;
+         font-weight:500;
+         margin-bottom: 20px;
+      }
+      #my_title::before {
         content: "▶ ";
         color: #0b3a1e;
 }
-		#my_title::after{
+      #my_title::after{
         content: "◀";
         color: #0b3a1e;
 }
-	</style>
+   </style>
 </head>
 <body>
     <div class="mycontainer">
@@ -42,12 +42,11 @@
             <div>
                 <h3>관리정보</h3>
                 <ul>
+                    <li><a href="#">나의 위시리스트</a></li>
+                    <li><a href="#">예약내역 조회</a></li>
                     <li><a href="#">게시판관리</a></li>
                     <li><a href="#">댓글관리</a></li>
-                    <li><a href="#">찜관리</a></li>
-                    <li><a href="#">좋아요관리</a></li>
-                    <li><a href="#">장바구니관리</a></li>
-                    <li><a href="#">예약관리</a></li>
+                    <li><a href="#">장바구니 관리</a></li>
                 </ul>
             </div>
         </section>

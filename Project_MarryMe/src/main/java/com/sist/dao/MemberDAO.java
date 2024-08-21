@@ -130,4 +130,38 @@ public class MemberDAO {
 		}
 		return result;
 	}
+	   /*
+	    *  <select id="memberGetPassword" resultType="string" parameterType="string">
+	          SELECT pw FROM member
+	          WHERE id=#{id}
+	       </select>
+	       <update id="memberUpdate" parameterType="MemberVO">
+	          UPDATE member SET
+	          name=#{name}, phone=#{phone}, email=#{email},
+	          post=#{post}, address1=#{address1}, address2=#{address2}, gender=#{gender}, weddingday=#{weddingday}
+	          WHERE id=#{id}
+	       </update>
+	    */   
+	      public static boolean memberUpdate(MemberVO vo) {
+	         boolean bCheck=false;
+	         SqlSession session=null;
+	         try {
+	            session=ssf.openSession();
+	            String db_pwd=session.selectOne("memberGetPassword",vo.getId());
+	            
+	            if(db_pwd != null && db_pwd.equals(vo.getPw())) {
+	                bCheck=true;
+	                session.update("memberUpdate", vo);
+	                session.commit();
+	            } else {
+	                bCheck=false;
+	            }
+	         }catch(Exception ex) {
+	            ex.printStackTrace();
+	         }finally {
+	            if(session!=null)
+	               session.close();
+	         }   
+	         return bCheck;
+	      }
 }

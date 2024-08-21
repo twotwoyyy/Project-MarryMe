@@ -124,4 +124,6 @@ public class MemberModel {
 		request.setAttribute("result", result);
 		return "../member/member_find_result.jsp";
 	}
+	
+	
 }
