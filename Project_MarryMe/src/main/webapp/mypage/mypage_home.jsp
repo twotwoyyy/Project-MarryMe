@@ -5,7 +5,9 @@
 <meta charset="UTF-8">
 <title>My Page</title>
 <link rel="stylesheet" type="text/css" href="../css/mypage.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
 <style type="text/css">
    h1 {
         text-align: center;
@@ -68,8 +70,6 @@
         content: " ▶ ";
         color: #0b3a1e; /* 원하는 색상으로 설정 */
 }
-
-
 </style>
 <script>
     // 서버에서 전달된 날짜 문자열을 JavaScript 변수에 할당
@@ -100,6 +100,9 @@
     
     // 페이지 로드 시 호출
     window.onload = showWeddingDay;
+    
+    // 메모장
+
 </script>
 </head>
 <body>
@@ -145,6 +148,18 @@
                 <div class="info-value">${weddingday}</div>
             </div>
         </div>
-    </section>
+        <div style="height: 20px"></div>
+        <h1>메모장</h1>
+    <div style="height: 20px"></div>
+    <div class="container">
+        <div class="comment-section">
+            <textarea id="commentInput" class="comment-box" placeholder="댓글을 입력하세요..."></textarea>
+            <button class="comment-button">댓글 추가</button>
+            <div id="commentList" class="comment-list">
+                <!-- 댓글 목록이 여기에 추가됩니다 -->
+            </div>
+        </div>
+    </div>
+	</section>
 </body>
 </html>

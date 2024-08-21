@@ -49,5 +49,33 @@ public class WishDAO {
 				session.close();
 		}
 	}
+	// 홀 마이페이지 위시 리스트
+	public static List<WishVO> hallWishMypageData(String id){
+		List<WishVO> list=new ArrayList<WishVO>();
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			list=session.selectList("hallWishMypageData",id);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return list;
+	}
 	
+	// 위시 취소하기
+	public static void wishCancel(int wno) {
+		SqlSession session=null;
+		try {
+			session=ssf.openSession(true);
+			session.delete("wishCancel",wno);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+	}
 }

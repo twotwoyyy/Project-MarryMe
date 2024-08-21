@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,9 +26,7 @@
         color: #0b3a1e;
 }
    </style>
-<script type="text/javascript">
 
-</script>
 </head>
 <body>
     <div class="mycontainer">
@@ -46,7 +45,7 @@
             <div>
                 <h3>관리정보</h3>
                 <ul>
-                    <li><a href="#">나의 위시리스트</a></li>
+                    <li><a href="../mypage/mypage_wish.do">나의 위시리스트</a></li>
                     <li><a href="#">예약내역 조회</a></li>
                     <li><a href="#">게시판관리</a></li>
                     <li><a href="#">댓글관리</a></li>

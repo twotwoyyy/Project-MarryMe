@@ -1,4 +1,5 @@
 package com.sist.model;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -9,7 +10,9 @@ import javax.servlet.http.HttpSession;
 
 import com.sist.controller.RequestMapping;
 import com.sist.dao.MemberDAO;
+import com.sist.dao.WishDAO;
 import com.sist.vo.MemberVO;
+import com.sist.vo.WishVO;
 public class MypageModel {
 	@RequestMapping("mypage/mypage_main.do")
 	public String mypage_main(HttpServletRequest request, HttpServletResponse response) {
@@ -89,4 +92,33 @@ public class MypageModel {
       
       return "../member/join_update_ok.jsp";
    }
+   
+	@RequestMapping("mypage/mypage_wish.do")
+	public String mypage_wish(HttpServletRequest request, HttpServletResponse response) {
+		
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		
+		List<WishVO> hallList=WishDAO.hallWishMypageData(id);
+		
+		int hSize=hallList.size();
+		int totalWish=hSize;
+		request.setAttribute("hCount", hallList.size());
+		request.setAttribute("totalWish", totalWish);
+		request.setAttribute("title", "나의 위시리스트");
+		request.setAttribute("hallList", hallList);
+		request.setAttribute("mypage_jsp", "../mypage/mypage_wish.jsp");
+		request.setAttribute("main_jsp", "../mypage/mypage_main.jsp");
+		return "../main/main.jsp";
+	}
+	
+	@RequestMapping("mypage/mypage_wish_cancel.do")
+	public String mypage_wish_cancel(HttpServletRequest request, HttpServletResponse response) {
+		String wno=request.getParameter("wno");
+		// 데이터베이스 연동 
+		WishDAO.wishCancel(Integer.parseInt(wno));
+		return "redirect:../mypage/mypage_wish.do";
+		
+	}
+	
 }

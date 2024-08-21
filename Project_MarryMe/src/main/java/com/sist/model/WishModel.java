@@ -60,5 +60,5 @@ public class WishModel {
 			   e.printStackTrace();
 			   }
 		}
-	
+
 }
