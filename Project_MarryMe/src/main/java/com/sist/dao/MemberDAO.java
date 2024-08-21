@@ -161,6 +161,27 @@ public class MemberDAO {
 		return result;
 	}
 	
+	/*
+	<select id="memberGetEmail" resultType="string" parameterType="MemberVO">
+ 		SELECT email FROM member
+ 		WHERE id=#{id} AND name=#{name} 
+ 	</select>
+	 */
+	public static String memberGetEmail(MemberVO vo) {
+		String pw_email="";
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			pw_email=session.selectOne("memberGetEmail", vo);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return pw_email;
+	}
+	
 	
 	
 	   /*

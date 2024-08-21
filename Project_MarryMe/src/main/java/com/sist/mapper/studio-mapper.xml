@@ -44,5 +44,11 @@
 	<select id="studioDetailImageData" resultType="StudioImageVO" parameterType="int">
 		SELECT image FROM studio_image WHERE sno=#{sno}
 	</select>
+	<select id="hmDetailData" resultType="HairMakeupVO" parameterType="int">
+		SELECT * FROM hair_makeup WHERE mno=#{mno}
+	</select>
+	<select id="hmDetailImageData" resultType="HairMakeupImageVO" parameterType="int">
+		SELECT image FROM hair_makeup_image WHERE mno=#{mno}
+	</select>
 	
 </mapper>

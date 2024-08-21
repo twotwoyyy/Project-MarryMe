@@ -3,6 +3,7 @@ package com.sist.model;
 import java.io.PrintWriter;
 import java.util.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -42,6 +43,19 @@ public class StudioModel {
 		request.setAttribute("startpage", startpage);
 		request.setAttribute("endpage", endpage);
 		request.setAttribute("studio_list", studio_list);
+		
+		Cookie[] cookies=request.getCookies();
+		List<StudioVO> studio_cookies=new ArrayList<StudioVO>();
+		if(cookies!=null) {
+			for(int i=cookies.length-1;i>=0;i--) {
+				if(cookies[i].getName().startsWith("studio_")) {
+					String sno=cookies[i].getValue();
+					StudioVO vo=StudioDAO.studioDetailData(Integer.parseInt(sno));
+					studio_cookies.add(vo);
+				}
+			}
+		}
+		request.setAttribute("studio_cookies", studio_cookies);
 
 		request.setAttribute("main_jsp", "../studio/studio_list.jsp");
 		return "../main/main.jsp";
@@ -75,11 +89,32 @@ public class StudioModel {
 		request.setAttribute("startpage", startpage);
 		request.setAttribute("endpage", endpage);
 		request.setAttribute("hm_list", hm_list);
+		
+		Cookie[] cookies=request.getCookies();
+		List<HairMakeupVO> hm_cookies=new ArrayList<HairMakeupVO>();
+		if(cookies!=null) {
+			for(int i=cookies.length-1;i>=0;i--) {
+				if(cookies[i].getName().startsWith("hairmakeup_")) {
+					String mno=cookies[i].getValue();
+					HairMakeupVO vo=StudioDAO.hmDetailData(Integer.parseInt(mno));
+					hm_cookies.add(vo);
+				}
+			}
+		}
+		request.setAttribute("hm_cookies", hm_cookies);
 
 		request.setAttribute("main_jsp", "../studio/hairmakeup_list.jsp");
 		return "../main/main.jsp";
 	}
-	
+	@RequestMapping("studio/studio_detail_before.do")
+	public String studio_detail_before(HttpServletRequest request, HttpServletResponse response) {
+		String sno=request.getParameter("sno");
+		Cookie cookie=new Cookie("studio_"+sno, sno);
+		cookie.setMaxAge(60*60*24);
+		cookie.setPath("/");
+		response.addCookie(cookie);
+		return "redirect:../studio/studio_detail.do?sno="+sno;
+	}
 	@RequestMapping("studio/studio_detail.do")
 	public String studio_detail(HttpServletRequest request, HttpServletResponse response) {
 		String sno=request.getParameter("sno");
@@ -88,6 +123,25 @@ public class StudioModel {
 		request.setAttribute("studio_vo", studio_vo);
 		request.setAttribute("studio_image_list", studio_image_list);
 		request.setAttribute("main_jsp", "../studio/studio_detail.jsp");
+		return "../main/main.jsp";
+	}
+	@RequestMapping("studio/hairmakeup_detail_before.do")
+	public String hairmakeup_detail_before(HttpServletRequest request, HttpServletResponse response) {
+		String mno=request.getParameter("mno");
+		Cookie cookie=new Cookie("hairmakeup_"+mno, mno);
+		cookie.setMaxAge(60*60*24);
+		cookie.setPath("/");
+		response.addCookie(cookie);
+		return "redirect:../studio/hairmakeup_detail.do?mno="+mno;
+	}
+	@RequestMapping("studio/hairmakeup_detail.do")
+	public String hairmakeup_detail(HttpServletRequest request, HttpServletResponse response) {
+		String mno=request.getParameter("mno");
+		HairMakeupVO hm_vo=StudioDAO.hmDetailData(Integer.parseInt(mno));
+		List<HairMakeupImageVO> hm_image_list=StudioDAO.hmDetailImageData(Integer.parseInt(mno));
+		request.setAttribute("hm_vo", hm_vo);
+		request.setAttribute("hm_image_list", hm_image_list);
+		request.setAttribute("main_jsp", "../studio/hairmakeup_detail.jsp");
 		return "../main/main.jsp";
 	}
 }

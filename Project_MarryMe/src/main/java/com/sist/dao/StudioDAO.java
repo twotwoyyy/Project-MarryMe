@@ -139,4 +139,36 @@ public class StudioDAO {
 		}
 		return list;
 	}
+	
+	public static HairMakeupVO hmDetailData(int mno){
+		HairMakeupVO vo=new HairMakeupVO();
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			vo=session.selectOne("hmDetailData", mno);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null) {
+				session.close();
+			}
+		}
+		return vo;
+	}
+	
+	public static List<HairMakeupImageVO> hmDetailImageData(int mno){
+		List<HairMakeupImageVO> list=new ArrayList<HairMakeupImageVO>();
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			list=session.selectList("hmDetailImageData", mno);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null) {
+				session.close();
+			}
+		}
+		return list;
+	}
 }

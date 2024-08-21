@@ -30,7 +30,9 @@
                     <ul class="detail_tab">
                         <li><a href="#brand" class="active">브랜드정보</a></li>
                         <li><a href="#image">이미지</a></li>
-                        <li><a href="#video">영상</a></li>
+                        <c:if test="${studio_vo.video!=null}">
+                        	<li><a href="#video">영상</a></li>
+                        </c:if>
                         <li><a href="#info">상세안내</a></li>
                         <li><a href="#map">위치</a></li>
                         <li><a href="#review">후기()</a></li>
@@ -68,7 +70,7 @@
                         <div id="image">
                             <h3>이미지</h3>
                             <div class="masonry_wrap">
-                            	<c:forEach var="i" begin="0" end="${studio_image_list.size()}">
+                            	<c:forEach var="i" begin="0" end="${studio_image_list.size()-1}">
 	                                <div class="img_wrap">
 	                                    <img src="${studio_image_list[i].image}" alt="${studio_vo.name} 이미지"> 
 	                                </div>
@@ -76,10 +78,12 @@
                             </div>
                         </div>
                         <hr>
-                        <div id="video">
-                            <h3>영상</h3>
-                            <iframe width="100%" height="400" class="youtube_wrap" src="${studio_vo.video}" frameborder="0" ></iframe>
-                        </div>
+                        <c:if test="${studio_vo.video!=null}">
+	                        <div id="video">
+	                            <h3>영상</h3>
+	                            <iframe width="100%" height="400" class="youtube_wrap" src="${studio_vo.video}" frameborder="0" ></iframe>
+	                        </div>
+                        </c:if>
                         <div id="info">
                             <h3>상세안내</h3>
                             <table>

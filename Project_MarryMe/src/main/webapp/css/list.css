@@ -193,6 +193,19 @@ font-family: "Monsieur La Doulaise", cursive;
 #list .latest .latest_slide img{
     width:100%;
 }
+#list.studio_hair .latest .latest_slide img{
+    height:250px;
+    object-fit:cover;	
+}
+#list .latest .latest_slide .brand_sub{
+	line-height: 18px;
+	height: 36px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-box-orient: vertical; 
+	-webkit-line-clamp: 2;
+}
 #list .latest .latest_slide .slick-arrow{
     border:none;
     background:none;

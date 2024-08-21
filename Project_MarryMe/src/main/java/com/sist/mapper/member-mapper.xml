@@ -34,6 +34,10 @@
  		SELECT pw FROM member
  		WHERE id=#{id} AND name=#{name} AND (email=#{email} OR phone=#{phone})
  	</select>
+ 	<select id="memberGetEmail" resultType="string" parameterType="MemberVO">
+ 		SELECT email FROM member
+ 		WHERE id=#{id} AND name=#{name} 
+ 	</select>
  	
  	<select id="memberGetPassword" resultType="string" parameterType="string">
        SELECT pw FROM member

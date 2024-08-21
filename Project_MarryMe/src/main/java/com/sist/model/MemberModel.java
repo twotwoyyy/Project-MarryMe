@@ -163,8 +163,9 @@ public class MemberModel {
 		//System.out.println(vo.getEmail());
 		
 		if(!result.equals("incorrect")) {
+			String pw_email=MemberDAO.memberGetEmail(vo);
 			MailManager mail=new MailManager();
-			mail.mailSender(vo, result);
+			mail.mailSender(name, pw_email, result);
 		}
 		
 		request.setAttribute("type", "pw");
