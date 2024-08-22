@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.servlet.ServletContext;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -31,7 +32,7 @@ public class ReviewModel {
 		  try {
 				request.setCharacterEncoding("UTF-8");
 		  
-		  String realFolder = "";
+		  String path = "C:\\Users\\user\\git\\Project_MarryMe\\Project_MarryMe\\src\\main\\webapp\\img\\review_img";
 
 		  // 파일이 업로드 되는 폴더를 지정한다.
 		  //String saveFolder = "JSP_File/01_file_basic";
@@ -40,15 +41,12 @@ public class ReviewModel {
 		  String encType = "utf-8";
 
 		  // 최대 업로드 될 파일의 크기
-		  int maxSize = 5 * 1024 * 1024;
+		  int maxSize = 1 * 1024 * 1024; // 1메가바이트
 
 		  // 현재 jsp 페이지의 웹 어플리케이션 상의 경로를 구한다.
-		  ServletContext context = request.getServletContext();
 		  
-		  realFolder = context.getRealPath("");
-		  System.out.println(realFolder);
 		  MultipartRequest mr=
-				  new MultipartRequest(request, realFolder,maxSize,encType,
+				  new MultipartRequest(request, path,maxSize,encType,
 						  new DefaultFileRenamePolicy());
 		  HttpSession session=request.getSession();
 		  String id=(String)session.getAttribute("id");
@@ -56,8 +54,11 @@ public class ReviewModel {
 		  String cate=mr.getParameter("cate");
 		  String pno=mr.getParameter("pno");
 		  String score=mr.getParameter("score");
+		  String image=mr.getFilesystemName("upload");
 		  
-		  String image=mr.getFilesystemName("file");
+		  
+		  
+		  
 		  // a.jpg
 		  // a.jpg => a1.jpg
 		  
@@ -67,18 +68,7 @@ public class ReviewModel {
 		  vo.setCate(Integer.parseInt(cate));
 		  vo.setPno(Integer.parseInt(pno));
 		  vo.setScore(Integer.parseInt(score));
-		  
-		  
-		  if(image==null) // 업로드가 없는 상태 
-		  {
-			  vo.setImage("");
-			
-		  }
-		  else // 업로드가 된 상태 
-		  {
-			 
-			  vo.setImage(image);
-		  }
+		  vo.setImage(image);
 		  
 		  String result="";
 		  try {
@@ -87,10 +77,15 @@ public class ReviewModel {
 		  }catch(Exception ex) {
 			  result=ex.getMessage();
 		  }
+		  
+		  JSONObject obj=new JSONObject();
+		  obj.put("result", result);
+		  obj.put("fileName", image);
+		  
 		  try {
 				
 				PrintWriter out=response.getWriter();
-				out.write(result);
+				out.write(obj.toJSONString());
 			}catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
@@ -123,7 +118,7 @@ public class ReviewModel {
 		
 		
 		int total=ReviewDAO.reviewTotalPage(map);
-		System.out.println(total+"개 있음");
+		//System.out.println(total+"개 있음");
 		int totalpage=(int)(Math.ceil(total/(double)rowSize));
 		
 		// 페이지 개수 표시
@@ -155,7 +150,9 @@ public class ReviewModel {
 		for(ReviewVO vo:list) {
 			JSONObject obj=new JSONObject();
 			obj.put("rno", vo.getReview_no());
-			obj.put("img", realFolder+vo.getImage());
+			
+			obj.put("img", vo.getImage());
+			
 			obj.put("name", vo.getMvo().getName());
 			obj.put("dbday", vo.getDbday());
 			obj.put("cate", vo.getCate());
@@ -173,13 +170,19 @@ public class ReviewModel {
 			obj.put("sessionId", sid);
 			arr.add(obj);
 		}
-		System.out.println(arr.toJSONString());
+//		System.out.println(arr.toJSONString());
 			response.setContentType("text/plain;charset=UTF-8");
 			PrintWriter out=response.getWriter();
 			out.write(arr.toJSONString());
+			
+			
+			
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
 	}
+	
+	
 }
+

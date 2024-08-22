@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,18 +10,69 @@
 <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
 <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 <link rel="stylesheet" href="../css/detail.css">
+<style type="text/css">
+#detail .reservation .tops{
+    display:flex;
+    justify-content:space-between;
+    align-items:start;
+    padding-bottom:20px;
+    border-bottom:1px solid #303030;
+}
+#detail .reservation .tops .icons > *{
+    background:no-repeat center center cover;
+    text-indent:-9999em;
+    cursor: pointer;
+}
+#detail .reservation .tops .icons .wish{
+    width:32px;
+    height:28px;
+    background-image:url(../img/wish_list.png);
+    margin-right:10px;
+}
+#detail .reservation .tops .icons .wish.active,
+#detail .reservation .tops .icons .wish:hover{
+    background-image:url(../img/wish_list_hover.png);
+}
+#detail .reservation .tops .icons .share{
+    width:28px;
+    height:32px;
+    background-image:url(../img/share_link.png);
+}
+#detail .reservation .tops .icons .share:hover{
+    background-image:url(../img/share_link_hover.png);
+}
+ .star-container {
+            position: relative;
+            width: 20px; /* SVG의 너비 */
+            height: 20px; /* SVG의 높이 */
+        }
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        }
+        .stars-left {
+            fill: #0b3a1e; /* 왼쪽 색상 */
+            clip-path: inset(0 50% 0 0); /* 오른쪽 절반을 잘라냅니다 */
+        }
+        .stars-right {
+            fill: #bbbbbb; /* 오른쪽 색상 */
+            clip-path: inset(0 0 0 50%); /* 왼쪽 절반을 잘라냅니다 */
+        }
+</style>
 </head>
 <body>
 	<div id="detail" class="studio">
         <div class="tt_box">
-            <h2>업체명</h2>
-            <p>업체 소개글</p>
+            <h2>${vo.title }</h2>
+            <p>${vo.category }</p>
         </div>
         <div class="detail_wrap">
             <div class="left">
                 <section class="thumbnail">
                     <div class="img_wrap">
-                        <img src="../img/studio_demo.jpg" alt="">
+                        <img src="${vo.poster }" alt="">
                     </div>
                 </section>
                 <section class="bottom_wrap">
@@ -39,26 +91,18 @@
                             <h3>제품 상세</h3>
                             <table>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">브랜드</th>
-                                        <td>-</td>
+                                 <c:if test="${cList.size()==0}">
+                                 	<tr>
+                                        <th scope="row">-</th>
+                                        <td></td>
                                     </tr>
+                                 </c:if>
+                                 <c:forEach var="content" items="${cList }">
                                     <tr>
-                                        <th scope="row">전화번호</th>
-                                        <td>-</td>
+                                        <th scope="row">-</th>
+                                        <td>${content}</td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">스타일</th>
-                                        <td>-</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">영업/휴무일</th>
-                                        <td>-</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">영업시간</th>
-                                        <td>-</td>
-                                    </tr>
+                                 </c:forEach>   
                                 </tbody>
                             </table>
                         </div>
@@ -140,10 +184,37 @@
             </div>
             <div class="right">
                 <aside class="reservation">
-                    <div class="top">
+                    <div class="tops">
                         <div>
-                            <h3>예약</h3>
-                            <p>원하는 상담 예약 날짜를 선택해주세요</p>
+                            <h3>${vo.title }</h3>
+                            <c:if test="${reviewtotal!=0 }">
+                            <div style="display: flex;">
+                              <c:forEach var="star" begin="1" end="${score }">
+                              	<svg class="star" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+    							    <path d="M7.157 6.698l2.165-4.59a.743.743 0 0 1 1.358 0l2.165 4.59 4.84.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l4.84-.74z" fill="#0b3a1e"/>
+   								</svg>
+                              </c:forEach>
+                              <c:if test="${point==1 }">
+                         	     <div class="star-container">
+							        <svg class="stars stars-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+							            <path d="M10 1.293l2.165 4.59 5.04.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l5.04-.74L10 1.293z"/>
+							        </svg>
+							        <svg class="stars stars-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+							            <path d="M10 1.293l2.165 4.59 5.04.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l5.04-.74L10 1.293z"/>
+							        </svg>
+							    </div>	
+                              </c:if>
+                              <c:forEach var="star" begin="${point==1?score+1:score }" end="4">
+                              	<svg class="star" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+    							    <path d="M7.157 6.698l2.165-4.59a.743.743 0 0 1 1.358 0l2.165 4.59 4.84.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l4.84-.74z" fill="#bbbbbb"/>
+   								</svg>
+                              </c:forEach>
+                          	  <p style="font-size: 120%">&nbsp;${reviewtotal}개의 리뷰</p>
+                            </div>
+                            </c:if>
+                            <c:if test="${reviewtotal==0 }">
+                              <p style="font-size: 120%">리뷰가 없습니다</p>
+                            </c:if>
                         </div>
                         <div class="icons">
                             <button class="wish">wish list</button>
@@ -152,8 +223,21 @@
                     </div>
                     <form method="POST" action="">
                         <div class="date">
-                            <label for="calendar">예약 날짜</label>
-                            <input type="text" name="reserve_date" id="calendar">
+                          <div style="display: grid;">
+                            <c:if test="${vo.discount!='할인없음' }">
+                            	<p>${vo.discount }</p>
+                            	<p style="text-decoration-line: line-through;">${fPrice}원</p>
+                            </c:if>
+                            <p>${vo.price }</p>
+                            <c:choose>
+                              <c:when test="${vo.EA!=0 }">
+                            	<p>남은 수량:&nbsp;${vo.EA }</p>
+                              </c:when>	
+                          	  <c:when test="${vo.EA==0 }">
+                          	    <p>품절</p>
+                          	  </c:when>
+                          	</c:choose>
+                          </div>
                         </div>
                         <div class="time">
                             <label for="time">예약 시간</label>
@@ -175,7 +259,8 @@
                             <span class="date_print"></span>
                             <span class="time_print"></span>
                         </div>
-                        <input type="submit" value="예약">
+                        <input type="submit" value="장바구니" style="width: 225px ;float: left ;margin-right: 20px">
+                        <input type="submit" value="바로구매" style="width: 225px ;display: flex">
                     </form>
                 </aside>
             </div>

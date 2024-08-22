@@ -54,4 +54,19 @@ public class ReviewDAO {
 		}
 		return total;
 	}
+	public static List<Integer> reviewScoreData(Map map) {
+		List<Integer> list=new ArrayList<Integer>();
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			list=session.selectList("reviewScoreData",map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return list;
+	}
 }

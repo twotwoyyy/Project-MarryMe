@@ -58,4 +58,31 @@ public class GoodsDAO {
 		}
 		return total;
 	}
+	public static GoodsVO goodsDetailData(int mgno) {
+		GoodsVO vo=new GoodsVO();
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			vo=session.selectOne("goodsDetailData",mgno);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			ssfDisconnection(session);
+		}
+		return vo;
+	}
+	public static List<String> goodsContentData(int mgcno){
+		List<String> list=new ArrayList<String>();
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			list=session.selectList("goodsContentData",mgcno);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			ssfDisconnection(session);
+		}
+		return list;
+	}
+	
 }

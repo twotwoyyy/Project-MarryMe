@@ -28,6 +28,12 @@
 		WHERE pno=#{pno}
 		AND cate=#{cate}
 	</select>
+	<select id="reviewScoreData" resultType="int" parameterType="hashmap">
+		SELECT score
+		FROM review 
+		WHERE pno=#{pno}
+		AND cate=#{cate}
+	</select>
 	<update id="reviewUpdate" parameterType="ReviewVO">
 		UPDATE review SET
 		

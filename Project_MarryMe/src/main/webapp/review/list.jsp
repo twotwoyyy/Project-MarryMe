@@ -84,7 +84,8 @@ $(function(){
 		formData.append("msg", msg);
 		formData.append("pno", pno);
 		formData.append("cate", cate);
-		formData.append("file", $('#review_photo')[0].files[0]);
+		formData.append("upload", $('input[type="file"]')[0].files[0]);
+
 		formData.append("score", score);
 		
 		$.ajax({
@@ -97,14 +98,15 @@ $(function(){
 			type : 'POST',
 			success : function(result){
 				
-				 let res=result
+				 let res = JSON.parse(result);
 				 console.log(res)
-				 if(res==='OK')
+				 if(res.result==='OK')
 				 {
 					 
 					 $('.detail_input').removeClass('active');
 					 page=1
 					 replyList(pno,page,cate)
+					 
 				 }
 				
 			},
@@ -124,7 +126,9 @@ $(function(){
         replyList(pno, page, cate); // 클릭한 페이지로 갱신
     });
 	
+	
 })
+
 function replyList(pno,page,cate)
 {
 	 $.ajax({
@@ -173,11 +177,11 @@ function replyList(pno,page,cate)
              html+='<div class="content_text">'//내용
                  html+='<pre>'+reply.msg+'</pre>'
              html+='</div>'
-             
-           //  html+='<div class="img_box">'//이미지
-           //      html+='<img src="'+reply.img+'" alt="">'
-           //  html+='</div>'
-             
+            if(reply.img!==null){
+            	html+='<div class="img_box">'//이미지
+                html+='<img src="http://localhost/Project_MarryMe/img/review_img/'+reply.img+'" alt="">'
+            	html+='</div>'	
+            }
          html+='</div>'
          html+= '<div class="detail_input" style="display: none" id="m'+reply.rno+'">'
          html+= '<label for="review_content">후기를 작성해주세요</label>'
@@ -221,6 +225,31 @@ function replyList(pno,page,cate)
 		}
 	 })
 }
+document.addEventListener('DOMContentLoaded', function () {
+    // 파일 입력 요소들을 가져옵니다.
+    const fileInputs = Array.from(document.querySelectorAll('input[type="file"]'));
+    
+    fileInputs.forEach((input, index) => {
+        input.addEventListener('change', function () {
+            // 파일이 선택되면 다음 파일 입력 요소를 표시합니다.
+             if (input.files.length > 0) {
+                  // 다음 파일 입력 필드와 레이블을 표시합니다.
+                  if (index < fileInputs.length - 1) {
+                      fileInputs[index + 1].classList.remove('hidden');
+                      
+                  }
+             }
+             // 만약 선택을 해제한다면
+             if (input.files.length === 0) {
+                 // 다음 파일 입력 필드와 레이블을 표시합니다.
+                 if (index < fileInputs.length - 1) {
+                     fileInputs[index + 1].classList.add('hidden');
+                     
+                 }
+            }
+        });
+    });
+});  
 </script>
 </head>
 <body>
@@ -232,10 +261,10 @@ function replyList(pno,page,cate)
   	 </c:if>
    </div>
    <div class="detail_input">
-     <label for="review_content">후기를 작성해주세요</label>
+     <label for="review_content">리뷰를 작성해주세요</label>
      <textarea name="review_content" id="review_content"></textarea>
-     <label for="review_photo" class="hidden">파일업로드</label>
-     <input type="file" id="review_photo">
+     <label for="review_photo" class="hidden" >파일업로드</label>
+     <input type="file" id="review_photo" name="upload">
       <div class="rating">
     <svg data-index="1" class="star" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
         <path d="M7.157 6.698l2.165-4.59a.743.743 0 0 1 1.358 0l2.165 4.59 4.84.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l4.84-.74z" />

@@ -23,7 +23,14 @@
  	  SELECT COUNT(*) FROM goods WHERE category LIKE '%'||#{category}||'%'
  	</select>
  	<!-- 상세 -->
- 	<select id="goodsDetailData" resultType="GoodsVO" parameterType="hashmap">
- 	  SELECT mgno,poster,title,price,num,
- 	</select> 
+ 	<select id="goodsDetailData" resultType="GoodsVO" parameterType="int">
+ 	  SELECT mgno,poster,title,price,discount,delivery,category,ea
+ 	  FROM goods
+ 	  WHERE mgno=#{mgno}
+ 	</select>
+ 	<select id="goodsContentData" resultType="String" parameterType="int">
+ 	  SELECT content
+ 	  FROM goods_content
+ 	  WHERE mgcno=#{mgcno}
+ 	</select>
  </mapper>

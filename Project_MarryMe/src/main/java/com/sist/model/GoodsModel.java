@@ -1,5 +1,6 @@
 package com.sist.model;
 
+import javax.naming.spi.DirStateFactory.Result;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +12,7 @@ import org.json.simple.JSONObject;
 import com.sist.controller.RequestMapping;
 
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import com.sist.dao.*;
@@ -74,8 +76,53 @@ public class GoodsModel {
 	public String goods_detail(HttpServletRequest request,HttpServletResponse response) {
 		String pno=request.getParameter("pno");
 		String cate=request.getParameter("cate");
-		System.out.println(pno);
-		System.out.println(cate);
+		GoodsVO vo=GoodsDAO.goodsDetailData(Integer.parseInt(pno));
+		List<String> list=GoodsDAO.goodsContentData(Integer.parseInt(pno));
+		int price=Integer.parseInt(vo.getPrice().replaceAll("[^0-9]", ""));
+		int discount=0;
+		if(!vo.getDiscount().equals("할인없음")){
+			 discount=Integer.parseInt(vo.getDiscount().replaceAll("[^0-9]", ""));
+		}
+		int firstprice=(int)Math.ceil((double)price/(100-discount))*100;
+		String fPrice=new DecimalFormat("###,###,###").format(firstprice);
+				
+		vo.setPoster(vo.getPoster().replace("230x230ex", "480x480ex")); // 이미지 크기 조절
+		Map map=new HashMap();
+		
+		map.put("cate", Integer.parseInt(cate));
+		map.put("pno", Integer.parseInt(pno));
+		int totalscore=0;
+		int score=0;
+		int point=0;
+		int reviewtotal=0;
+		try {
+			reviewtotal=ReviewDAO.reviewTotalPage(map);
+		
+			List<Integer> sList=ReviewDAO.reviewScoreData(map);
+			for(int i:sList) {
+				totalscore=totalscore+i;
+			}
+			
+			score=(int)Math.floor(totalscore/(double)reviewtotal);	
+			
+			if(totalscore%reviewtotal!=0) {
+				point=1;
+			}
+		
+		}catch(Exception ex) {
+			System.out.println("NoReview");
+		}
+		
+		
+		
+		//System.out.println("score: "+score);
+		//System.out.println("point: "+point);
+		request.setAttribute("fPrice", fPrice);
+		request.setAttribute("score", score);
+		request.setAttribute("point", point);
+		request.setAttribute("reviewtotal", reviewtotal);
+		request.setAttribute("cList", list);
+		request.setAttribute("vo", vo);
 		request.setAttribute("pno", pno);
 		request.setAttribute("cate", cate);
 		request.setAttribute("main_jsp", "../goods/detail.jsp");
