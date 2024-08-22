@@ -10,10 +10,9 @@
 <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
 <style type="text/css">
 h1 {
-     text-align: center;
-     margin-bottom: 20px;
- }
-    
+    text-align: center;
+    margin-bottom: 20px;
+}
 
 #weddingDayInfo {
     font-size: 18px;
@@ -33,11 +32,11 @@ h1 {
     line-height: 1.5; /* 줄 높이 설정 */
     font-family: 'SCoreDream', sans-serif;
 }
-    
+
 #ppm{
     font-weight: bold;
 }
-    
+
 .personal-info {
     width: 60%;
     margin: 20px auto; /* 중앙 정렬 */
@@ -67,8 +66,75 @@ h1 {
 }
 
 .infos::after {
-        content: " ▶ ";
-        color: #0b3a1e; /* 원하는 색상으로 설정 */
+    content: " ▶ ";
+    color: #0b3a1e; /* 원하는 색상으로 설정 */
+}
+
+.comment-section {
+    width: 80%;
+    margin: 20px auto; /* 중앙 정렬 */
+}
+
+.comment-box {
+    width: calc(100% - 20px);
+    height: 100px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-family: 'SCoreDream', sans-serif;
+    box-sizing: border-box;
+    resize: vertical; /* 수직으로만 조절 가능 */
+}
+
+.comment-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'SCoreDream', sans-serif;
+    margin-top: 10px;
+}
+
+.comment-button:hover {
+    background-color: #218838;
+}
+
+.comment-list {
+    margin-top: 20px;
+    font-family: 'SCoreDream', sans-serif;
+}
+
+.comment {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.comment .comment-content {
+    white-space: pre-wrap; /* 댓글의 줄바꿈을 유지합니다 */
+    margin-bottom: 5px;
+}
+
+.comment .comment-actions {
+    text-align: right;
+}
+
+.comment .comment-actions button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 5px;
+}
+
+.comment .comment-actions button:hover {
+    background-color: #0056b3;
 }
 </style>
 <script>
@@ -76,15 +142,12 @@ h1 {
 var weddingdayString = "<%= request.getAttribute("weddingday") %>";
 
 function showWeddingDay() {
-    // 날짜 문자열의 형식이 'yyyy-MM-dd'일 때
-    var weddingday = new Date(weddingdayString + "T00:00:00"); // 시간 부분을 추가하여 UTC 기준으로 날짜 생성
+    var weddingday = new Date(weddingdayString + "T00:00:00");
     var today = new Date();
     
-    // 날짜 계산
     var timeDiff = weddingday.getTime() - today.getTime();
-    var daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)); // 남은 일수 계산
+    var daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
     
-    // 출력할 메시지 설정
     var message = "";
     if (daysLeft > 0) {
         message = '<div id="merry">설레는 그 날까지 <span style="color:#006400; font-weight:bold; font-size:24px;">' + daysLeft + '</span>일!<br><span id="ppm">Project MerryMe</span>가 돕겠습니다</div>';
@@ -94,15 +157,80 @@ function showWeddingDay() {
         message = "웨딩이 끝나셨군요. 행복한 하루하루를 보내세요.";
     }
 
-    // 결과를 HTML 요소에 출력
-	document.getElementById("weddingDayInfo").innerHTML = message;
+    document.getElementById("weddingDayInfo").innerHTML = message;
 }
 
-// 페이지 로드 시 호출
 window.onload = showWeddingDay;
 
-// 메모장
+$(function() {
+    function loadComments() {
+        $.ajax({
+            type: 'POST',
+            url: '../memo/list.do',
+            data: { "cno": 1, "cate": 1 }, // cno와 cate 값을 실제로 사용하세요
+            success: function(json) {
+                var comments = JSON.parse(json);
+                var loggedInId = comments.length > 0 ? comments[0].sessionId : 'guest'; // sessionId를 사용하여 현재 로그인한 ID 확인
 
+                var html = comments
+                    .filter(function(comment) {
+                        return comment.id === loggedInId; // 로그인한 사용자와 ID가 일치하는 댓글만 필터링
+                    })
+                    .map(function(comment) {
+                        return `
+                            <div class="comment" id="comment-${comment.mno}">
+                                <div class="comment-content">${msg}</div>
+                                <div class="comment-info">
+                                    작성자: ${comment.name} | 작성일: ${comment.dbday}
+                                </div>
+                                <div class="comment-actions">
+                                    <button onclick="editComment(${comment.mno})">수정</button>
+                                    <button onclick="deleteComment(${comment.mno})">삭제</button>
+                                </div>
+                            </div>
+                        `;
+                    })
+                    .join('');
+
+                $('#commentList').html(html);
+            },
+            error: function(request, status, error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function addComment() {
+        var commentText = $('#commentInput').val();
+        if (commentText.trim() === '') {
+            alert('메모를 입력하세요.');
+            return;
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '../memo/insert.do',
+            data: { "cno": "1", "cate": "1", "msg": commentText },
+            success: function(result) {
+                if (result === 'OK') {
+                    $('#commentInput').val('');
+                    loadComments(); // 메모 추가 후 목록을 다시 로드
+                } else {
+                    alert('메모 추가 실패: ' + result);
+                }
+            },
+            error: function(request, status, error) {
+                console.log(error);
+            }
+        });
+    }
+
+    // 이벤트 바인딩
+    $('.comment-button').click(addComment);
+    
+    // 페이지 로드 시 댓글 목록을 불러옴
+    loadComments();
+});
 </script>
 </head>
 <body>
@@ -113,7 +241,7 @@ window.onload = showWeddingDay;
         <div id="weddingDayInfo">
             <!-- 메시지가 여기 출력됩니다. -->
         </div>
-      <!-- 개인정보 출력 부분 -->
+        <!-- 개인정보 출력 부분 -->
         <div class="personal-info">
             <div class="info-item">
                 <label for="id" class="infos">아이디</label>
@@ -143,23 +271,15 @@ window.onload = showWeddingDay;
                 <label for="address2" class="infos">상세주소</label>
                 <div class="info-value">${vo.address2}</div>
             </div>
-            <div class="info-item" class="infos">
-                <label for="address2" class="infos">결혼 예정일</label>
-                <div class="info-value">${weddingday}</div>
-            </div>
         </div>
-        <div style="height: 20px"></div>
-        <h1>메모장</h1>
-    <div style="height: 20px"></div>
-    <div class="container">
+        <!-- 댓글 입력 및 출력 부분 -->
         <div class="comment-section">
-            <textarea id="commentInput" class="comment-box" placeholder="댓글을 입력하세요..."></textarea>
-            <button class="comment-button">댓글 추가</button>
+            <textarea id="commentInput" class="comment-box" placeholder="여기에 메모를 입력하세요..."></textarea>
+            <button class="comment-button">메모 추가</button>
             <div id="commentList" class="comment-list">
-                <!-- 댓글 목록이 여기에 추가됩니다 -->
+
             </div>
         </div>
-    </div>
-	</section>
+    </section>
 </body>
 </html>
