@@ -12,6 +12,33 @@
 <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
 <link rel="stylesheet" href="../css/detail.css">
 <script defer src="../js/main.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('.wish').click(function(){
+		if(${sessionScope.id==null}){
+			alert('로그인 후 이용해주세요')
+			location.href="../member/login.do";
+		}
+		let sno=${studio_vo.sno};
+		$.ajax({
+			type:'POST',
+			url:'../wish/insert.do',
+			data:{"cno":sno, "cate":4},
+			success:function(result){
+				if(result==="OK"){
+					$('.wish').addClass('active');
+					location.href="../studio/studio_detail.do?sno="+sno;
+				}else{
+					//취소
+				}
+			},
+			error:function(request, status, error){
+				console.log(error)
+			}
+		})
+	})
+})
+</script>
 </head>
 <body>
 	<div id="detail" class="studio">
@@ -346,7 +373,7 @@
                             <p>원하는 상담 예약 날짜를 선택해주세요</p>
                         </div>
                         <div class="icons">
-                            <button class="wish">wish list</button>
+                            <button class="wish ${isWish==true?'active':''}">wish list</button>
                             <button class="share">share link</button>
                         </div>
                     </div>

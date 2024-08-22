@@ -175,9 +175,11 @@ if($('#detail').length > 0){
         }
     })
 
+	/*
     $('#detail .reservation .wish').click(function(){
         $(this).toggleClass('active');
     })
+    */
     $('#detail .reservation .time_btn').click(function(e){
         e.preventDefault();
         $('#detail .reservation .time_btn').removeClass('active');

@@ -8,6 +8,22 @@ public class WishDAO {
 	static {
 		ssf=CreateSqlSessionFactory.getSsf();
 	}
+	
+	//중복확인
+	public static int wishGetWnoCount(Map map) {
+		int count=0;
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			count=session.selectOne("wishGetWnoCount",map);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return count;
+	}
 	public static void wishInsert(Map map) {
 		SqlSession session=null;
 		try {
@@ -25,7 +41,7 @@ public class WishDAO {
 		int count=0;
 		SqlSession session=null;
 		try {
-			session=ssf.openSession(true);
+			session=ssf.openSession();
 			count=session.selectOne("wishCheck",map);
 		}catch(Exception ex) {
 			ex.printStackTrace();
@@ -63,6 +79,19 @@ public class WishDAO {
 				session.close();
 		}
 		return list;
+	}
+	
+	public static void studioWishCountIncrement(Map map) {
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			session.update("studioWishCountIncrement", map);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
 	}
 	
 	// 위시 취소하기

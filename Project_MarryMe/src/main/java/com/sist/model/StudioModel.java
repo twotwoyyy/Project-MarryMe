@@ -13,6 +13,7 @@ import org.json.simple.JSONObject;
 
 import com.sist.controller.RequestMapping;
 import com.sist.dao.StudioDAO;
+import com.sist.dao.WishDAO;
 import com.sist.vo.*;
 public class StudioModel {
 	@RequestMapping("studio/studio_list.do")
@@ -120,8 +121,23 @@ public class StudioModel {
 		String sno=request.getParameter("sno");
 		StudioVO studio_vo=StudioDAO.studioDetailData(Integer.parseInt(sno));
 		List<StudioImageVO> studio_image_list=StudioDAO.studioDetailImageData(Integer.parseInt(sno));
+		
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		Map map=new HashMap();
+		map.put("cno", sno);
+		map.put("cate", 4);
+		map.put("id", id);
+		int existWish=WishDAO.wishCheck(map);
+		boolean isWish=false;
+		if(existWish!=0) {
+			isWish=true;
+		}
+		
+		
 		request.setAttribute("studio_vo", studio_vo);
 		request.setAttribute("studio_image_list", studio_image_list);
+		request.setAttribute("isWish", isWish);
 		request.setAttribute("main_jsp", "../studio/studio_detail.jsp");
 		return "../main/main.jsp";
 	}

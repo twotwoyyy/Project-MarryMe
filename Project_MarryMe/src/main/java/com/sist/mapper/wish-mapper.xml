@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sist.mapper.scrap-mapper">
+	<select id="wishGetWnoCount" resultType="int" parameterType="hashmap">
+		SELECT COUNT(*) FROM wish_list
+		WHERE cno=#{cno} AND cate=#{cate}
+	</select>
 	<insert id="wishInsert" parameterType="java.util.Map">
 		INSERT INTO wish_list VALUES(
 			(SELECT NVL(MAX(wno)+1,1) FROM wish_list),
@@ -16,6 +20,11 @@
 		UPDATE hall SET
 		wishcount=(SELECT COUNT(*) FROM wish_list WHERE cate=#{cate} AND cno=#{cno})
 		WHERE hno=#{cno}
+	</update>
+	<update id="studioWishCountIncrement" parameterType="hashmap">
+		UPDATE studio SET
+		wish=(SELECT COUNT(*) FROM wish_list WHERE cate=#{cate} AND cno=#{cno})
+		WHERE sno=#{cno}
 	</update>
 	<resultMap type="com.sist.vo.WishVO" id="wishMap">
 		<result property="hvo.hno" column="hno"/>
