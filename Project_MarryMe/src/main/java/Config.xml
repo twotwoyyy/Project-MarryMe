@@ -18,6 +18,7 @@
 		<typeAlias type="com.sist.vo.DressVO" alias="DressVO"/>
 		<typeAlias type="com.sist.vo.SuitVO" alias="SuitVO"/>
 		<typeAlias type="com.sist.vo.WishVO" alias="WishVO"/>
+		<typeAlias type="com.sist.vo.MemoVO" alias="MemoVO"/>
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
@@ -40,5 +41,6 @@
 		<mapper resource="com/sist/mapper/review-mapper.xml"/>
 		<mapper resource="com/sist/mapper/dress-mapper.xml"/>
 		<mapper resource="com/sist/mapper/wish-mapper.xml"/>
+		<mapper resource="com/sist/mapper/memo-mapper.xml"/>
 	</mappers>
 </configuration>
