@@ -18,4 +18,5 @@ public class WishVO {
 	private int wno,cno,cate;
 	private String id,dbday;
 	private Date regdate;
+	HallVO hvo=new HallVO();
 }

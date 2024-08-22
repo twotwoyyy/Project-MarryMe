@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import com.sist.controller.RequestMapping;
 import com.sist.dao.*;
+import com.sist.manager.MailManager;
 import com.sist.vo.*;
 public class MemberModel {
 	@RequestMapping("member/login.do")
@@ -113,15 +114,63 @@ public class MemberModel {
 	
 	@RequestMapping("member/member_id_find.do")
 	public String member_id_find(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			request.setCharacterEncoding("UTF-8");
+		}catch(Exception ex) {}
 		String name=request.getParameter("name");
 		String email=request.getParameter("email");
+		String phone=request.getParameter("phone");
+		if(email==null) {
+			email="";
+		}
+		if(phone==null) {
+			phone="";
+		}
 		
 		MemberVO vo=new MemberVO();
 		vo.setName(name);
 		vo.setEmail(email);
+		vo.setPhone(phone);
 		String result=MemberDAO.memberIdFind(vo);
 		
+		request.setAttribute("type", "id");
 		request.setAttribute("result", result);
 		return "../member/member_find_result.jsp";
 	}
+	
+	@RequestMapping("member/member_pw_find.do")
+	public String member_pw_find(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			request.setCharacterEncoding("UTF-8");
+		}catch(Exception ex) {}
+		String id=request.getParameter("id");
+		String name=request.getParameter("name");
+		String email=request.getParameter("email");
+		String phone=request.getParameter("phone");
+		if(email==null) {
+			email="";
+		}
+		if(phone==null) {
+			phone="";
+		}
+		
+		MemberVO vo=new MemberVO();
+		vo.setId(id);
+		vo.setName(name);
+		vo.setEmail(email);
+		vo.setPhone(phone);
+		String result=MemberDAO.memberPwFind(vo);
+		//System.out.println(vo.getEmail());
+		
+		if(!result.equals("incorrect")) {
+			String pw_email=MemberDAO.memberGetEmail(vo);
+			MailManager mail=new MailManager();
+			mail.mailSender(name, pw_email, result);
+		}
+		
+		request.setAttribute("type", "pw");
+		request.setAttribute("result", result);
+		return "../member/member_find_result.jsp";
+	}
+	
 }

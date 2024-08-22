@@ -10,6 +10,7 @@
 		<typeAlias type="com.sist.vo.StudioVO" alias="StudioVO"/>
 		<typeAlias type="com.sist.vo.StudioImageVO" alias="StudioImageVO"/>
 		<typeAlias type="com.sist.vo.HairMakeupVO" alias="HairMakeupVO"/>
+		<typeAlias type="com.sist.vo.HairMakeupImageVO" alias="HairMakeupImageVO"/>
 		<typeAlias type="com.sist.vo.HallVO" alias="HallVO"/>
 		<typeAlias type="com.sist.vo.NoticeVO" alias="NoticeVO"/>
 		<typeAlias type="com.sist.vo.QnaVO" alias="QnaVO"/>

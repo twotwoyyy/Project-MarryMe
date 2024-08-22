@@ -65,6 +65,7 @@ $(function(){
 		if(isNaN($('#phone').val())){
 			e.preventDefault()
 			alert('휴대폰번호는 숫자만 입력해주세요')
+			$('#phone').val("");
 			$('#phone').focus();
 		}
 		if($('#post').val()==""){

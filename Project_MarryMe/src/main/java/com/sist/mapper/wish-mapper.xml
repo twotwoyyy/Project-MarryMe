@@ -17,5 +17,20 @@
 		wishcount=(SELECT COUNT(*) FROM wish_list WHERE cate=#{cate} AND cno=#{cno})
 		WHERE hno=#{cno}
 	</update>
-	
+	<resultMap type="com.sist.vo.WishVO" id="wishMap">
+		<result property="hvo.hno" column="hno"/>
+		<result property="hvo.name" column="name"/>
+		<result property="hvo.image" column="image"/>
+	</resultMap>
+	<select id="hallWishMypageData" resultMap="wishMap" parameterType="string">
+		SELECT wno,cno,regdate,h.hno,h.name,h.image
+		FROM wish_list w, hall h
+		WHERE w.cno=h.hno
+		AND id=#{id}
+		ORDER BY wno DESC
+	</select>
+	<delete id="wishCancel" parameterType="int">
+		DELETE FROM wish_list
+		WHERE wno=#{wno}
+	</delete>
 </mapper>

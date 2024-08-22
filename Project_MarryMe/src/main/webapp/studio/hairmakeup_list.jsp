@@ -22,7 +22,7 @@
             	<c:set var="delay" value="0"/>
             	<c:forEach var="hm" items="${hm_list}">
 	                <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="${delay}">
-	                    <a href="../studio/detail.do?sno=${hm.mno}">
+	                    <a href="../studio/hairmakeup_detail_before.do?mno=${hm.mno}">
 	                        <div class="img_wrap">
 	                            <img src="${hm.thumb}" alt="${hm.name}">
 	                        </div>
@@ -51,72 +51,19 @@
         <section class="latest container">
             <h3>최근 본 목록</h3>
             <div class="latest_slide">
-                <div class="slides">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/studio_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="slides">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/studio_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="slides">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/studio_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="slides">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/studio_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="slides">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/studio_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="slides">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/studio_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </div>
+                <c:forEach var="hm_ck" items="${hm_cookies}">
+	                <div class="slides">
+	                    <a href="../studio/studio_detail.do?sno=${hm_ck.mno}">
+	                        <div class="img_wrap">
+	                            <img src="${hm_ck.thumb}" alt="${hm_ck.name}">
+	                        </div>
+	                        <div class="text_box">
+	                            <p class="brand_name">${hm_ck.name}</p>
+	                            <p class="brand_sub">${hm_ck.keyword}</p>
+	                        </div>
+	                    </a>
+	                </div>
+                </c:forEach>
             </div>
         </section>
     </div>
