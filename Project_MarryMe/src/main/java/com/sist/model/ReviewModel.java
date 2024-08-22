@@ -152,7 +152,7 @@ public class ReviewModel {
 			obj.put("rno", vo.getReview_no());
 			
 			obj.put("img", vo.getImage());
-			
+			obj.put("id", vo.getId());
 			obj.put("name", vo.getMvo().getName());
 			obj.put("dbday", vo.getDbday());
 			obj.put("cate", vo.getCate());
