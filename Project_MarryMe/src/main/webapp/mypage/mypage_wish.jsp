@@ -1,234 +1,231 @@
-
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="../css/mypage.css">
-<style type="text/css">
-.tab_area.tab5 button {
-    width: 20%;
-}
-.tab_area.sub4 button {
-    height: 70px;
-}
-.tab_area button:last-child {
-    border-radius: 0 10px 10px 0;
-    border-right: 1px solid #e7e7e7;
-}
-.tab_area button {
-    overflow: hidden;
-    position: relative;
-    display: inline-block;
-    height: 66px;
-    border: 1px solid #e7e7e7;
-    border-left: none;
-    border-right: none;
-    cursor: pointer;
-}
-.tab_area.mypage button span {
-    font-size: 16px;
-}
-.tab_area.sub4 button span {
-    font-size: 16px;
-    line-height: 68px;
-}
-.tab_area button.on span {
-    color: #ffffff;
-}
-
-.tab_area button span {
-    position: relative;
+    <meta charset="UTF-8">
+    <title>My Wishlist</title>
+    <link rel="stylesheet" type="text/css" href="../css/mypage.css">
+    <style type="text/css">
+        body {
+            font-family: 'SCoreDream', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .myWish {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .titbox {
+            margin-bottom: 20px;
+           
+        }
+        .tab_area {
+            display: flex;
+            margin: 20px 0;
+        }
+        .tab_box button {
+            flex: 1;
+            width: 150px;
+            height: 60px;
+            border: 1px solid #e7e7e7;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            line-height: 60px;
+            font-size: 16px;
+            background-color: #f4f4f4;
+        }
+        .tab_box button.on {
+            background-color: #8FBC8B;
+            color: white;
+        }
+        .tab_contents {
+            display: none;
+        }
+        .tab_contents.active {
+            display: block;
+        }
+        .wishBtn {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .empty {
+            text-align: center;
+            font-size: 1.2em;
+            padding: 20px;
+        }
+.wishdetail {
     display: block;
-    color: #00548b;
-    font-size: 18px;
-    text-align: center;
-    line-height: 66px;
-    z-index: 20;
-}
-.tab_area {
-    height: 68px;
-    font-size: 0;
-}
-.pc_mt30 {
-    margin-top: 30px;
+    margin-bottom: 20px; /* 항목 간의 간격 조정 */
 }
 
-.titbox .total_num_txt {
-    color: grey; 
-}
-
-/* Hidden 클래스 정의 */
-.hidden {
-    display: none;
-}
-
-.tab_area button.on::after {
-    background-color: #00548b;
-}
-.tab_area button.on::after {
-    z-index: 10;
-}
-
-/* 활성화된 탭의 스타일 */
-.on {
-    background-color: #00548b; /* 활성화된 탭의 배경색을 파란색으로 설정 */
-    color: white; /* 글자색을 흰색으로 설정 */
-}
-
-.tab_area button::after {
-    position: absolute;
+.wishdetail > div {
+    display: flex;
+    align-items: center; /* 수직 정렬 */
+    margin-bottom: 20px;
+    border: 1px solid #e7e7e7;
+    border-radius: 5px;
+    padding: 10px;
     width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    content: '';
-}
-    
-.jjimTitle {
-        font-size: 1.2em; 
-        font-weight: bold;
-}
-.jjimBtn {
-        width: 25px; 
-        height: 25px; 
-    }
- .jjimTitle {
-    display: inline-block;
-    max-width: 100%;
-    white-space: nowrap;
+    max-width: 930px;
     overflow: hidden;
-    text-overflow: ellipsis;
-  }
-</style>
-<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-<script type="text/javascript">
-function toggleTab(tabIndex) {
-    // 모든 테이블 숨기기
-    document.getElementById('table1').classList.add('hidden');
-    document.getElementById('table2').classList.add('hidden');
-    document.getElementById('table3').classList.add('hidden');
-    document.getElementById('table4').classList.add('hidden');
-    document.getElementById('table5').classList.add('hidden');
-    document.getElementById('table6').classList.add('hidden');
-
-    // 모든 탭의 활성화 클래스 제거
-    var buttons = document.querySelectorAll('.tab_box button');
-    buttons.forEach(function(button) {
-        button.classList.remove('on');
-    });
-
-    // 선택한 탭의 테이블 표시 및 해당 탭 활성화
-    if (tabIndex === 0) {
-        document.getElementById('table1').classList.remove('hidden');
-        buttons[tabIndex].classList.add('on');
-    } else if (tabIndex === 1) {
-        document.getElementById('table2').classList.remove('hidden');
-        buttons[tabIndex].classList.add('on');
-    }else if (tabIndex === 2) {
-        document.getElementById('table3').classList.remove('hidden');
-        buttons[tabIndex].classList.add('on');
-    }else if (tabIndex === 3) {
-        document.getElementById('table4').classList.remove('hidden');
-        buttons[tabIndex].classList.add('on');
-    }else if (tabIndex === 4) {
-        document.getElementById('table5').classList.remove('hidden');
-        buttons[tabIndex].classList.add('on');
-    }
-    }else if (tabIndex === 5) {
-        document.getElementById('table6').classList.remove('hidden');
-        buttons[tabIndex].classList.add('on');
-    }
+    box-sizing: border-box;
 }
 
-</script>
-<script type="text/javascript">
-$(function(){
-	$('.jjimBtn').click(function() {
-        let jno = $(this).attr("data-jno");            
+.wishimage img {
+    width: 200px; /* 이미지 크기 조정 */
+    height: auto;
+    display: block;
+}
 
-        $.ajax({
-            type: 'post',
-            url: '../mypage/mypage_wish_cancel.do',
-            data: {'jno': jno},
-            success: function(result) {
-                if (result === 'ok') {
-                    alert("찜 취소가 완료되었습니다");
-                    location.reload(); 
-                } 
-            }
+.wishname {
+    font-size: 20px;
+    line-height: 1.4;
+    margin-left: 15px; /* 이미지와 제목 사이의 간격 조정 */
+    flex: 1; /* 남은 공간을 차지하도록 설정 */
+}
+
+.wishname img {
+    width: 23px;
+    height: 25px;
+    display: inline-block;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px; /* 버튼 사이의 간격 조정 */
+    margin-left: 20px; /* 제목과 버튼 사이의 간격 조정 */
+}
+
+.action-buttons button {
+    width: 100px;
+    height: 50px;
+    border: 1px solid #e7e7e7;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 50px;
+    font-size: 16px;
+    background-color: #f4f4f4;
+}
+
+.action-buttons button:hover {
+    background-color: #8FBC8B;
+    color: white;
+}
+        .sixth {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+#count{
+	color: #DC143C;
+	font-size: 20px;
+	font-weight: bold;
+}
+    </style>
+    <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            // 탭 클릭 이벤트 핸들러
+            $('.tab_box button').click(function() {
+                var index = $(this).index();
+                
+                // 모든 탭 내용 숨기기
+                $('.tab_contents').removeClass('active');
+
+                // 모든 탭 비활성화
+                $('.tab_box button').removeClass('on');
+
+                // 선택한 탭의 내용만 표시하고 해당 탭 활성화
+                $('.tab_contents').eq(index).addClass('active');
+                $(this).addClass('on');
+            });
+
+            // 취소 버튼 클릭 이벤트 핸들러
+            $('.cancel').click(function() {
+            	alert('위시가 삭제되었습니다')
+                window.location.href = $(this).data('href');
+            });
+            $('.view-details').click(function() {
+            	alert('상세보기로 이동합니다')
+                window.location.href = $(this).data('href');
+            });
         });
-    });
-})
-</script>
+    </script>
 </head>
 <body>
-  <div class="myJjim">
-      <div class="max1200 dp_pc contents_titbox">
-                <h4 class="titbox">나의<strong>찜목록</strong></h4>
-   	  </div>
-   	 <div class="tab_contents_area ">
-   	  	<p class="titbox">&nbsp;&nbsp;<span class="total_num_txt offline ta_px0">총 <strong>${totalWish}</strong>개의 찜 내역이 있습니다.</span></p>
-   	  </div>
-		<div class="pc_mt30 ta_mt40 ta_mx40 tab_area tab5 sub4 mypage">
-		    <div class="tab_box">
-		        <button onclick="toggleTab(0)" class="h40 on"><span>홀</span></button>
-		        <button onclick="toggleTab(1)" class="h40"><span>드레스</span></button>
-		        <button onclick="toggleTab(2)" class="h40"><span>예복</span></button>
-		        <button onclick="toggleTab(3)" class="h40"><span>스튜디오</span></button>
-		        <button onclick="toggleTab(4)" class="h40"><span>헤어/메이크업</span></button>
-		        <button onclick="toggleTab(5)" class="h40"><span>혼수</span></button>
-		    </div>
-		</div>
-
-        <!--  명소 찜 목록 -->
-        <div id="table1" class="">
-		   <c:choose>
-			 <c:when test="${empty hallList}">
-			 		<!--TABLE-->
-			  <table class="lecture_info_table tablet_type2 mypage" style="width: 100%;">
-				    <tbody>
-						        <tr>
-						            <td colspan="4" class="empty">
-						                나의 위시 목록이 없습니다.
-						            </td>
-						        </tr>
-					 </tbody>
-				 </table>
-			 </c:when>
-			<c:otherwise>        
-        	<div class="col-sm-4 col-md-12">
-				<div class="row">
-					<c:forEach var="vo" items="${hallList }">
-						<div class="col-md-4">
-							<div class="single-blog">
-								<div class="content fix">
-									<a class="image fix" href="../hall/detail.do?hno=${vo.hvo.hno}"><img
-										src="${vo.hvo.image }" width="100%" height="220px" /></a>
-									<div class="metammm" style="position: relative">
-										<div style="display: inline-block" class="jjimTitle">
-											<a href="../hall/detail.do?hno=${vo.hvo.hno}"></a>
-											<img src="../busan/jjim.png" class="jjimBtn" data-jno="${vo.hvo.hno }">
-											${vo.hvo.name}
-										</div>
-										<div style="display: inline-block; float: right; margin-top: 22px; cursor: pointer;" onclick="">
-											<img src="" style="width: 30px;">
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</c:forEach>
-				</div>
-			</div>
-			</c:otherwise>
-			</c:choose>
+    <div class="myWish">
+        <div class="sixth">
+            <h1>나의 위시리스트</h1>
         </div>
-    
+        <div class="tab_contents_area">
+            <p class="titbox" style="font-size: 20px; text-align: center;">총 <span id="count">${totalWish}</span>개의 위시리스트가 있습니다</p>
+        </div>
+        <div class="tab_area">
+            <div class="tab_box">
+                <button class="on"><span>웨딩홀</span></button>
+                <button><span>드레스</span></button>
+                <button><span>예복</span></button>
+                <button><span>스튜디오</span></button>
+                <button><span>헤어/메이크업</span></button>
+                <button><span>혼수</span></button>
+            </div>
         </div>
 
+        <!-- 탭 내용 섹션 -->
+        <div id="table1" class="tab_contents active">
+            <div class="tab_contents_area">
+                <p class="titbox">웨딩홀 위시 리스트는 총 <span id="count" style="color: #228B22;">${hCount}</span>개입니다.</p>
+            </div>
+            <c:choose>
+                <c:when test="${empty hallList}">
+                    <div class="empty">
+                        나의 위시 목록이 없습니다.
+                    </div>
+                </c:when>
+                <c:otherwise>
+					<div class="wishdetail">
+					    <c:forEach var="vo" items="${hallList}">
+					        <div>
+					            <a class="wishimage" href="../hall/detail.do?hno=${vo.hvo.hno}">
+					                <img src="${vo.hvo.image}" alt="${vo.hvo.name}">
+					            </a>
+					            <div class="wishname">
+					                <img src="../mypage/jjim.png" class="wishBtn" data-wno="${vo.hvo.hno}" alt="찜 취소">
+					                <span>${vo.hvo.name}</span>
+					            </div>
+					            <div class="action-buttons">
+					                <button class="view-details" data-href="../hall/detail.do?hno=${vo.hvo.hno}">상세보기</button>
+					                <button class="cancel" data-href="../mypage/mypage_wish_cancel.do?wno=${vo.wno}">취소</button>
+					            </div>
+					        </div>
+					    </c:forEach>
+					</div>
+                </c:otherwise>
+            </c:choose>
+        </div>
+
+        <!-- 각 탭에 맞는 내용 추가 -->
+        <div id="table2" class="tab_contents">
+            <!-- 드레스 관련 내용 추가 -->
+            
+        </div>
+        <div id="table3" class="tab_contents">
+            <!-- 예복 관련 내용 추가 -->
+        </div>
+        <div id="table4" class="tab_contents">
+            <!-- 스튜디오 관련 내용 추가 -->
+        </div>
+        <div id="table5" class="tab_contents">
+            <!-- 헤어/메이크업 관련 내용 추가 -->
+        </div>
+        <div id="table6" class="tab_contents">
+            <!-- 혼수 관련 내용 추가 -->
+        </div>
+    </div>
 </body>
 </html>

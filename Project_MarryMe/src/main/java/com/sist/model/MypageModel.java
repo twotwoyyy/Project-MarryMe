@@ -100,7 +100,7 @@ public class MypageModel {
 		String id=(String)session.getAttribute("id");
 		
 		List<WishVO> hallList=WishDAO.hallWishMypageData(id);
-		
+
 		int hSize=hallList.size();
 		int totalWish=hSize;
 		request.setAttribute("hCount", hallList.size());
