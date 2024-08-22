@@ -124,17 +124,17 @@ public class StudioModel {
 		
 		HttpSession session=request.getSession();
 		String id=(String)session.getAttribute("id");
-		Map map=new HashMap();
-		map.put("cno", sno);
-		map.put("cate", 4);
-		map.put("id", id);
-		int existWish=WishDAO.wishCheck(map);
 		boolean isWish=false;
-		if(existWish!=0) {
-			isWish=true;
+		if(id!=null) {
+			Map map=new HashMap();
+			map.put("cno", sno);
+			map.put("cate", 4);
+			map.put("id", id);
+			int existWish=WishDAO.wishCheck(map);
+			if(existWish!=0) {
+				isWish=true;
+			}			
 		}
-		
-		
 		request.setAttribute("studio_vo", studio_vo);
 		request.setAttribute("studio_image_list", studio_image_list);
 		request.setAttribute("isWish", isWish);
@@ -155,8 +155,24 @@ public class StudioModel {
 		String mno=request.getParameter("mno");
 		HairMakeupVO hm_vo=StudioDAO.hmDetailData(Integer.parseInt(mno));
 		List<HairMakeupImageVO> hm_image_list=StudioDAO.hmDetailImageData(Integer.parseInt(mno));
+		
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		boolean isWish=false;
+		if(id!=null) {
+			Map map=new HashMap();
+			map.put("cno", mno);
+			map.put("cate", 5);
+			map.put("id", id);
+			int existWish=WishDAO.wishCheck(map);
+			if(existWish!=0) {
+				isWish=true;
+			}			
+		}
+		
 		request.setAttribute("hm_vo", hm_vo);
 		request.setAttribute("hm_image_list", hm_image_list);
+		request.setAttribute("isWish", isWish);
 		request.setAttribute("main_jsp", "../studio/hairmakeup_detail.jsp");
 		return "../main/main.jsp";
 	}

@@ -9,21 +9,6 @@ public class WishDAO {
 		ssf=CreateSqlSessionFactory.getSsf();
 	}
 	
-	//중복확인
-	public static int wishGetWnoCount(Map map) {
-		int count=0;
-		SqlSession session=null;
-		try {
-			session=ssf.openSession();
-			count=session.selectOne("wishGetWnoCount",map);
-		}catch(Exception ex) {
-			ex.printStackTrace();
-		}finally {
-			if(session!=null)
-				session.close();
-		}
-		return count;
-	}
 	public static void wishInsert(Map map) {
 		SqlSession session=null;
 		try {
@@ -84,8 +69,20 @@ public class WishDAO {
 	public static void studioWishCountIncrement(Map map) {
 		SqlSession session=null;
 		try {
-			session=ssf.openSession();
+			session=ssf.openSession(true);
 			session.update("studioWishCountIncrement", map);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+	}
+	public static void hairmakeupWishCountIncrement(Map map) {
+		SqlSession session=null;
+		try {
+			session=ssf.openSession(true);
+			session.update("hairmakeupWishCountIncrement", map);
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}finally {
@@ -100,6 +97,19 @@ public class WishDAO {
 		try {
 			session=ssf.openSession(true);
 			session.delete("wishCancel",wno);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+	}
+	
+	public static void wishDetailDelete(Map map) {
+		SqlSession session=null;
+		try {
+			session=ssf.openSession(true);
+			session.delete("wishDetailDelete", map);
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}finally {

@@ -18,24 +18,34 @@ $(function(){
 		if(${sessionScope.id==null}){
 			alert('로그인 후 이용해주세요')
 			location.href="../member/login.do";
-		}
-		let sno=${studio_vo.sno};
-		$.ajax({
-			type:'POST',
-			url:'../wish/insert.do',
-			data:{"cno":sno, "cate":4},
-			success:function(result){
-				if(result==="OK"){
-					$('.wish').addClass('active');
-					location.href="../studio/studio_detail.do?sno="+sno;
-				}else{
-					//취소
+		}else{
+			let sno=${studio_vo.sno};
+			$.ajax({
+				type:'POST',
+				url:'../wish/control.do',
+				data:{"cno":sno, "cate":4}, //각자 no, 카테고리 번호로 
+				success:function(result){
+					if(result==="OK"){
+						$('.wish').addClass('active');
+					}else{
+						$('.wish').removeClass('active');
+					}
+				},
+				error:function(request, status, error){
+					console.log(error)
 				}
-			},
-			error:function(request, status, error){
-				console.log(error)
-			}
-		})
+			})			
+		}
+	})
+	$('.share').click(function(){
+		let temp=document.createElement("textarea");
+		document.body.appendChild(temp);
+		let current_url=window.document.location.href;
+		temp.value = current_url;
+		temp.select();
+		document.execCommand("copy");
+		document.body.removeChild(temp);
+		alert("현재 URL이 복사되었습니다.");
 	})
 })
 </script>
