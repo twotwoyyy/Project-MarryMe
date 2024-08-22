@@ -218,4 +218,44 @@ public class MemberDAO {
          }   
          return bCheck;
       }
+      /*
+       *<select id="pwCheckData" resultType="int" parameterType="java.util.Map">
+			SELECT COUNT(*) FROM member
+			WHERE id=#{id} AND pw=#{pw}
+		</select>
+		<update id="pwChange" parameterType="java.util.Map">
+			UPDATE member SET
+			pw=#{pw}
+			WHERE id=#{id}
+		</update>
+       */
+     // 비밀번호 수정
+     // 1-1 비밀번호 확인
+	public static int pwCheckData(Map map) {
+		int count=0;
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			count=session.selectOne("pwCheckData",map);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return count;
+	}
+	// 1-2 비밀번호 업데이트 
+	public static void pwChange(Map map) {
+		SqlSession session=null;
+		try {
+			session=ssf.openSession(true);
+			session.update("pwChange",map);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+	}
 }

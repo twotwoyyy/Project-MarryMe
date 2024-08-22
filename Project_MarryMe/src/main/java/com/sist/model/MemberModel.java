@@ -2,7 +2,7 @@ package com.sist.model;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -171,6 +171,41 @@ public class MemberModel {
 		request.setAttribute("type", "pw");
 		request.setAttribute("result", result);
 		return "../member/member_find_result.jsp";
+	}
+	@RequestMapping("member/pw_change.do")
+	public String member_pw_change(HttpServletRequest request, HttpServletResponse response) {
+		request.setAttribute("title", "비밀번호 변경");
+		request.setAttribute("mypage_jsp", "../member/pw_change.jsp");
+		request.setAttribute("main_jsp", "../mypage/mypage_main.jsp");
+		return "../main/main.jsp";
+	}
+	
+	@RequestMapping("member/pw_change_ok.do")
+	public String member_pw_change_ok(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		String oldpw=request.getParameter("oldpw");
+		String newpw=request.getParameter("newpw");
+		Map map=new HashMap();
+		map.put("id", id);
+		map.put("pw", oldpw);
+		int count=MemberDAO.pwCheckData(map);
+		if(count!=0) {
+			map=new HashMap();
+			map.put("id", id);
+			map.put("pw", newpw);
+			MemberDAO.pwChange(map);
+			session.invalidate();
+		}
+		request.setAttribute("count", count);
+		return "../member/pw_change_ok.jsp";
+	}
+	@RequestMapping("member/member_delete.do")
+	public String member_delete(HttpServletRequest request, HttpServletResponse response) {
+		request.setAttribute("title", "회원 탈퇴");
+		request.setAttribute("mypage_jsp", "../member/member_delete.jsp");
+		request.setAttribute("main_jsp", "../mypage/mypage_main.jsp");
+		return "../main/main.jsp";
 	}
 	
 }

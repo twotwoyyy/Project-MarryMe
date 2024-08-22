@@ -38,8 +38,8 @@
                 <ul>
                     <li><a href="../mypage/mypage_main.do">정보확인</a></li>
                     <li><a href="../member/join_update.do">회원수정</a></li>
-                    <li><a href="#">회원탈퇴</a></li>
-                    <li><a href="">비밀번호 변경</a></li>
+                    <li><a href="../member/member_delete.do">회원탈퇴</a></li>
+                    <li><a href="../member/pw_change.do">비밀번호 변경</a></li>
                 </ul>
             </div>
             <div>
