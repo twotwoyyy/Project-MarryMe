@@ -49,7 +49,7 @@
                     <li><a href="#">예약내역 조회</a></li>
                     <li><a href="#">게시판관리</a></li>
                     <li><a href="#">댓글관리</a></li>
-                    <li><a href="#">장바구니 관리</a></li>
+                    <li><a href="../mypage/mypage_cart.do">장바구니 관리</a></li>
                 </ul>
             </div>
         </section>

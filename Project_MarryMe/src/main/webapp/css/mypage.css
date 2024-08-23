@@ -225,4 +225,117 @@ h1 {
 	object-fit: cover;
 	object-position: center;
 }
+/* 카트 CSS */
+.action-buttons {
+    display: inline-block;
+    gap: 10px; /* 버튼 사이의 간격 조정 */
+    margin-left: 40px; /* 제목과 버튼 사이의 간격 조정 */
+}
+
+.action-buttons button {
+    width: 100px;
+    height: 50px;
+    border: 1px solid #e7e7e7;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 50px;
+    font-size: 16px;
+    background-color: #f4f4f4;
+}
+
+.action-buttons button:hover {
+    background-color: #FF5A5A;
+    color: white;
+}
+
+.cart-container {
+    width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    padding-top: 50px;
+    
+}
+.all-cart-item{
+	border: 1px;
+	border-radius: 6px;
+	background-color: rgb(250, 253, 240);
+	
+}
+.cart-item {
+    display: flex;
+    align-items: center;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    border-top: 1px solid rgb(211, 231, 173);
+    border-radius: 6px;
+    padding-top: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 50px;
+    justify-content: space-between; /* 항목 사이에 공간을 추가 */
+    
+}
+
+
+.cart-item img {
+    width: 100px;
+    height: auto;
+    margin-right: 20px;
+}
+
+.cart-item label {
+    flex: 1;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.cart-item input[type="number"] {
+    width: 60px;
+    text-align: center;
+    margin: 0 10px;
+}
+
+.cart-item .action-buttons {
+    margin-left: auto;
+}
+
+.cart-item span {
+    margin-right: 20px; /* 가격과 버튼 사이의 간격 조정 */
+}
+
+
+.cart-summary {
+    text-align: right;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-radius: 5px;
+    max-width: 1000px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    border-top: 1px solid rgb(211, 231, 173);
+    border: 1px solid rgb(211, 231, 173);
+    background-color: white;
+}
+
+.cart-summary span {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.cart-summary button {
+    margin-top: 10px;
+    width: 150px;
+    height: 50px;
+    background-color: #57a016;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    
+    cursor: pointer;
+    font-size: 16px;
+}
+.cart-summary button:hover {
+    background-color: #4d8e14;
+}
 

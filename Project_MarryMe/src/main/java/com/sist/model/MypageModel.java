@@ -129,4 +129,19 @@ public class MypageModel {
 		
 	}
 	
+	@RequestMapping("mypage/mypage_cart.do")
+	public String mypage_cart(HttpServletRequest request, HttpServletResponse response) {
+		
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		//List<GoodsVO> list=GoodsDAO.cartListData(id);
+		//request.setAttribute("cartList", list);
+		//request.setAttribute("count", list.size());
+		request.setAttribute("title", "장바구니");
+		request.setAttribute("mypage_jsp", "../mypage/mypage_cart.jsp");
+		request.setAttribute("main_jsp", "../mypage/mypage_main.jsp");
+		return "../main/main.jsp";
+	}
+	
+	
 }

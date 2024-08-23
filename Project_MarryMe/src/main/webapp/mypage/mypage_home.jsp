@@ -9,7 +9,7 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
 <style type="text/css">
-h1 {
+#myh1 {
     text-align: center;
     margin-bottom: 20px;
 }
@@ -167,7 +167,7 @@ window.onload = showWeddingDay;
 </head>
 <body>
     <section class="mycontent">
-        <div class="sixth">
+        <div class="sixth" id="myh1">
             <h1>${sessionScope.name}&nbsp;${sessionScope.gender}님 마이페이지</h1>
         </div>
         <div id="weddingDayInfo">
