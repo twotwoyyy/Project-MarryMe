@@ -30,7 +30,7 @@ $(function(){
 						time_btn.each(function(){
 							if($(this).text()===reserve_list[i].rtime){
 								$(this).addClass("impossible");
-								$('.time_print').text("")
+								$('.time_print').text("") 
 							}else{
 								
 							}
