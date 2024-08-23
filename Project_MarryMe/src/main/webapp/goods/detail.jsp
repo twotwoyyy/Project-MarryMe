@@ -183,9 +183,9 @@
                 </section>
             </div>
             <div class="right">
-                <aside class="reservation">
+                <aside class="reservation" style="width: 535px">
                     <div class="tops">
-                        <div>
+                        <div style="width: 393px">
                             <h3>${vo.title }</h3>
                             <c:if test="${reviewtotal!=0 }">
                             <div style="display: flex;">

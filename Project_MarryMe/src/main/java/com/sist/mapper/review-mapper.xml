@@ -12,9 +12,9 @@
 	</resultMap>
 	<!-- 목록 -->
 	<select id="reviewListData" resultMap="ReviewMap" parameterType="hashmap">
-		SELECT review_no,image,msg,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,cate,name,score,hit,num
-		FROM (SELECT review_no,image,msg,regdate,cate,name,score,hit,rownum as num
-		FROM (SELECT review_no,image,msg,review.regdate as regdate,cate,member.name as name,score,hit
+		SELECT review_no,image,msg,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,cate,name,score,hit,id,num
+		FROM (SELECT review_no,image,msg,regdate,cate,name,score,hit,id,rownum as num
+		FROM (SELECT review_no,image,msg,review.regdate as regdate,cate,member.name as name,score,hit,review.id as id
 		FROM review,member 
 		WHERE review.id=member.id
 		AND review.pno=#{pno}
@@ -36,6 +36,15 @@
 	</select>
 	<update id="reviewUpdate" parameterType="ReviewVO">
 		UPDATE review SET
-		
+		image=#{image},msg=#{msg},score=#{score}
+		WHERE review_no=#{review_no}
 	</update>
+	<select id="reviewInfo" resultType="String" parameterType="int">
+		SELECT image FROM review
+		WHERE review_no=#{review_no}
+	</select>
+	<delete id="reviewDelete" parameterType="int">
+		DELETE FROM review
+		WHERE review_no=#{review_no}
+	</delete>
 </mapper>

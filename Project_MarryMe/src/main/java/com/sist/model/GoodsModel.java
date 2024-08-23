@@ -37,7 +37,6 @@ public class GoodsModel {
 		ServletContext context = request.getServletContext();
 		  
 		  realFolder = context.getRealPath("");
-		  System.out.println(realFolder);
 		Map map=new HashMap();
 		if(cno.equals("1")) {
 			map.put("category", "");
