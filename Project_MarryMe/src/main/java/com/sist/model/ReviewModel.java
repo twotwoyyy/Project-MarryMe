@@ -37,7 +37,7 @@ public class ReviewModel {
 
 		  // 파일이 업로드 되는 폴더를 지정한다.
 		  //String saveFolder = "JSP_File/01_file_basic";
-
+		  
 		  // 인코딩 타입
 		  String encType = "utf-8";
 
@@ -117,64 +117,64 @@ public class ReviewModel {
 		map.put("cate", Integer.parseInt(cate));
 		map.put("pno", Integer.parseInt(pno));
 		try {
-		List<ReviewVO> list=ReviewDAO.reviewListData(map);
-		
-		
-		int total=ReviewDAO.reviewTotalPage(map);
-		//System.out.println(total+"개 있음");
-		int totalpage=(int)(Math.ceil(total/(double)rowSize));
-		
-		// 페이지 개수 표시
-		final int BLOCK=5;
-		
-		
-		int startpage=((curpage-1)/BLOCK*BLOCK)+1;
-		int endpage=((curpage-1)/BLOCK*BLOCK)+BLOCK;
-		
-		if(endpage>totalpage)
-			endpage=totalpage;
-		
-		
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-		Date date=new Date();
-		String today=sdf.format(date);
-		  // new SimpleDateFormat("yyyy-MM-dd").format(new Date())
-		HttpSession session=request.getSession();
-		String sid=(String)session.getAttribute("id");
-		if(sid==null) {
-			sid="guest";
-		}
-		
-		ServletContext context = request.getServletContext();
-		String realFolder="";
-		realFolder = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Project_MarryMe\\img\\review_img";
-		//review_no,image,msg,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,cate,name,score,hit,num
-		JSONArray arr=new JSONArray();
-		int h=0;
-		for(ReviewVO vo:list) {
-			JSONObject obj=new JSONObject();
-			obj.put("rno", vo.getReview_no());
+			List<ReviewVO> list=ReviewDAO.reviewListData(map);
 			
-			obj.put("img", vo.getImage());
-			obj.put("id", vo.getId());
-			obj.put("name", vo.getMvo().getName());
-			obj.put("dbday", vo.getDbday());
-			obj.put("cate", vo.getCate());
-			obj.put("score", vo.getScore());
-			obj.put("hit", vo.getHit());
-			obj.put("msg", vo.getMsg());
-			obj.put("today", today);
-			if(h==0) {
-			obj.put("startpage", startpage);
-			obj.put("endpage", endpage);
-			obj.put("totalpage", totalpage);
-			obj.put("curpage", curpage);
-			h=1;
+			
+			int total=ReviewDAO.reviewTotalPage(map);
+			//System.out.println(total+"개 있음");
+			int totalpage=(int)(Math.ceil(total/(double)rowSize));
+			
+			// 페이지 개수 표시
+			final int BLOCK=5;
+			
+			
+			int startpage=((curpage-1)/BLOCK*BLOCK)+1;
+			int endpage=((curpage-1)/BLOCK*BLOCK)+BLOCK;
+			
+			if(endpage>totalpage)
+				endpage=totalpage;
+			
+			
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+			Date date=new Date();
+			String today=sdf.format(date);
+			  // new SimpleDateFormat("yyyy-MM-dd").format(new Date())
+			HttpSession session=request.getSession();
+			String sid=(String)session.getAttribute("id");
+			if(sid==null) {
+				sid="guest";
 			}
-			obj.put("sessionId", sid);
-			arr.add(obj);
-		}
-//		System.out.println(arr.toJSONString());
+			
+			ServletContext context = request.getServletContext();
+			String realFolder="";
+			realFolder = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Project_MarryMe\\img\\review_img";
+			//review_no,image,msg,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,cate,name,score,hit,num
+			JSONArray arr=new JSONArray();
+			int h=0;
+			for(ReviewVO vo:list) {
+				JSONObject obj=new JSONObject();
+				obj.put("rno", vo.getReview_no());
+				
+				obj.put("img", vo.getImage());
+				obj.put("id", vo.getId());
+				obj.put("name", vo.getMvo().getName());
+				obj.put("dbday", vo.getDbday());
+				obj.put("cate", vo.getCate());
+				obj.put("score", vo.getScore());
+				obj.put("hit", vo.getHit());
+				obj.put("msg", vo.getMsg());
+				obj.put("today", today);
+				if(h==0) {
+				obj.put("startpage", startpage);
+				obj.put("endpage", endpage);
+				obj.put("totalpage", totalpage);
+				obj.put("curpage", curpage);
+				h=1;
+				}
+				obj.put("sessionId", sid);
+				arr.add(obj);
+			}
+	//		System.out.println(arr.toJSONString());
 			response.setContentType("text/plain;charset=UTF-8");
 			PrintWriter out=response.getWriter();
 			out.write(arr.toJSONString());
