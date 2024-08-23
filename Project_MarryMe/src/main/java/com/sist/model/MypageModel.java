@@ -100,13 +100,20 @@ public class MypageModel {
 		String id=(String)session.getAttribute("id");
 		
 		List<WishVO> hallList=WishDAO.hallWishMypageData(id);
-
+		List<WishVO> studioList=WishDAO.studioMypageData(id);
+		List<WishVO> hairmakeList=WishDAO.hairmakeupMypageData(id);
 		int hSize=hallList.size();
-		int totalWish=hSize;
+		int sSize=studioList.size();
+		int mSize=hairmakeList.size();
+		int totalWish=hSize+sSize+mSize;
 		request.setAttribute("hCount", hallList.size());
+		request.setAttribute("sCount", studioList.size());
+		request.setAttribute("mCount", hairmakeList.size());
 		request.setAttribute("totalWish", totalWish);
 		request.setAttribute("title", "나의 위시리스트");
 		request.setAttribute("hallList", hallList);
+		request.setAttribute("studioList", studioList);
+		request.setAttribute("hairmakeList", hairmakeList);
 		request.setAttribute("mypage_jsp", "../mypage/mypage_wish.jsp");
 		request.setAttribute("main_jsp", "../mypage/mypage_main.jsp");
 		return "../main/main.jsp";
@@ -115,6 +122,7 @@ public class MypageModel {
 	@RequestMapping("mypage/mypage_wish_cancel.do")
 	public String mypage_wish_cancel(HttpServletRequest request, HttpServletResponse response) {
 		String wno=request.getParameter("wno");
+		String cno=request.getParameter("cno");
 		// 데이터베이스 연동 
 		WishDAO.wishCancel(Integer.parseInt(wno));
 		return "redirect:../mypage/mypage_wish.do";

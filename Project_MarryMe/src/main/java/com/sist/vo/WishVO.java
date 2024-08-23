@@ -19,4 +19,6 @@ public class WishVO {
 	private String id,dbday;
 	private Date regdate;
 	HallVO hvo=new HallVO();
+	StudioVO svo=new StudioVO();
+	HairMakeupVO mvo=new HairMakeupVO();
 }

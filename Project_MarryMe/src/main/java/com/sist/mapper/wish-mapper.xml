@@ -39,16 +39,42 @@
 	</delete>
 	
 	<!-- 마이페이지 출력 -->
-	<resultMap type="com.sist.vo.WishVO" id="wishMap">
+	<resultMap type="com.sist.vo.WishVO" id="hallMap">
 		<result property="hvo.hno" column="hno"/>
 		<result property="hvo.name" column="name"/>
 		<result property="hvo.image" column="image"/>
 	</resultMap>
-	<select id="hallWishMypageData" resultMap="wishMap" parameterType="string">
+	<resultMap type="com.sist.vo.WishVO" id="hmMap">
+		<result property="mvo.mno" column="mno"/>
+		<result property="mvo.name" column="name"/>
+		<result property="mvo.thumb" column="thumb"/>
+		<result property="mvo.tel" column="tel"/>
+	</resultMap>
+	<resultMap type="com.sist.vo.WishVO" id="studioMap">
+		<result property="svo.sno" column="sno"/>
+		<result property="svo.thumb" column="thumb"/>
+		<result property="svo.name" column="name"/>
+		<result property="svo.tel" column="tel"/>
+	</resultMap>
+	<select id="hallWishMypageData" resultMap="hallMap" parameterType="string">
 		SELECT wno,cno,regdate,h.hno,h.name,h.image
 		FROM wish_list w, hall h
 		WHERE w.cno=h.hno
-		AND id=#{id}
+		AND id=#{id} AND w.cate=1
+		ORDER BY wno DESC
+	</select>
+	<select id="hairmakeupMypageData" resultMap="hmMap" parameterType="string">
+		SELECT wno,cno,regdate,hm.mno,hm.name,hm.thumb,hm.tel
+		FROM wish_list w, hair_makeup hm
+		WHERE w.cno=hm.mno
+		AND id=#{id} AND w.cate=5
+		ORDER BY wno DESC
+	</select>
+	<select id="studioMypageData" resultMap="studioMap" parameterType="string">
+		SELECT wno,cno,regdate,s.sno,s.name,s.thumb,s.tel
+		FROM wish_list w, studio s
+		WHERE w.cno=s.sno
+		AND id=#{id} AND w.cate=4
 		ORDER BY wno DESC
 	</select>
 	<!-- 마이페이지 삭제 -->
@@ -56,5 +82,5 @@
 		DELETE FROM wish_list
 		WHERE wno=#{wno}
 	</delete>
-	
+	<select id=""></select>
 </mapper>

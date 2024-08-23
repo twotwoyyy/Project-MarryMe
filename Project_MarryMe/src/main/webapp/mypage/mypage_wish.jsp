@@ -126,6 +126,17 @@
 	font-size: 20px;
 	font-weight: bold;
 }
+
+.stline{
+	display: flex;
+}
+
+.ws_info{
+	flex: 1;
+}
+.tel{
+	margin-left: 60px;
+}
     </style>
     <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
     <script type="text/javascript">
@@ -148,11 +159,12 @@
             // 취소 버튼 클릭 이벤트 핸들러
             $('.cancel').click(function() {
             	alert('위시가 삭제되었습니다')
-                window.location.href = $(this).data('href');
+            	let wno=$(this).attr('data-href')
+                location.href="../mypage/mypage_wish_cancel.do?wno="+wno
             });
             $('.view-details').click(function() {
             	alert('상세보기로 이동합니다')
-                window.location.href = $(this).data('href');
+            	window.location.href = $(this).data('href');
             });
         });
     </script>
@@ -195,12 +207,12 @@
 					                <img src="${vo.hvo.image}" alt="${vo.hvo.name}">
 					            </a>
 					            <div class="wishname">
-					                <img src="../mypage/jjim.png" class="wishBtn" data-wno="${vo.hvo.hno}" alt="찜 취소">
+					                <img src="../mypage/jjim.png" class="wishBtn">
 					                <span>${vo.hvo.name}</span>
 					            </div>
 					            <div class="action-buttons">
 					                <button class="view-details" data-href="../hall/detail.do?hno=${vo.hvo.hno}">상세보기</button>
-					                <button class="cancel" data-href="../mypage/mypage_wish_cancel.do?wno=${vo.wno}">취소</button>
+					                <button class="cancel" data-href="${vo.wno}">취소</button>
 					            </div>
 					        </div>
 					    </c:forEach>
@@ -217,11 +229,75 @@
         <div id="table3" class="tab_contents">
             <!-- 예복 관련 내용 추가 -->
         </div>
-        <div id="table4" class="tab_contents">
-            <!-- 스튜디오 관련 내용 추가 -->
-        </div>
+		 <div id="table4" class="tab_contents">
+		    <!-- 스튜디오 관련 내용 추가 -->
+		    <div class="tab_contents_area">
+		        <p class="titbox">스튜디오 위시 리스트는 총 <span id="count" style="color: #228B22;">${sCount}</span>개입니다.</p>
+		    </div>
+		    <c:choose>
+		        <c:when test="${empty studioList}">
+		            <div class="empty">나의 위시 목록이 없습니다.</div>
+		        </c:when>
+		        <c:otherwise>
+		            <div class="wishdetail">
+		                <c:forEach var="vo" items="${studioList}">
+	                    	<div class="stline">
+		                        <a class="wishimage" href="../hall/detail.do?hno=${vo.svo.sno}">
+		                            <img src="${vo.svo.thumb}" alt="${vo.svo.name}">
+		                        </a>
+		                        <div class="ws_info">
+			                        <div class="wishname">
+			                            <img src="../mypage/jjim.png" class="wishBtn">
+			                            <span>${vo.svo.name}</span>
+			                        </div>
+			                        <div class="tel"> <!-- tel 위치 변경 -->
+			                            <span>☎ ${vo.svo.tel}</span>
+			                        </div>
+		                        </div>
+		                        <div class="action-buttons">
+		                            <button class="view-details" data-href="../studio/studio_detail.do?sno=${vo.svo.sno}">상세보기</button>
+		                            <button class="cancel" data-href="${vo.wno}">취소</button>
+		                        </div>
+	                        </div>
+		                </c:forEach>
+		            </div>
+		        </c:otherwise>
+		    </c:choose>
+		</div>
         <div id="table5" class="tab_contents">
             <!-- 헤어/메이크업 관련 내용 추가 -->
+            <div class="tab_contents_area">
+		        <p class="titbox">헤어/메이크업 위시 리스트는 총 <span id="count" style="color: #228B22;">${mCount}</span>개입니다.</p>
+		    </div>
+		    <c:choose>
+		        <c:when test="${empty hairmakeList}">
+		            <div class="empty">나의 위시 목록이 없습니다.</div>
+		        </c:when>
+		        <c:otherwise>
+		            <div class="wishdetail">
+		                <c:forEach var="vo" items="${hairmakeList}">
+	                    	<div class="stline">
+		                        <a class="wishimage" href="../hall/detail.do?hno=${vo.mvo.mno}">
+		                            <img src="${vo.mvo.thumb}" alt="${vo.mvo.name}">
+		                        </a>
+		                        <div class="ws_info">
+			                        <div class="wishname">
+			                            <img src="../mypage/jjim.png" class="wishBtn">
+			                            <span>${vo.mvo.name}</span>
+			                        </div>
+			                        <div class="tel"> <!-- tel 위치 변경 -->
+			                            <span>☎ ${vo.mvo.tel}</span>
+			                        </div>
+		                        </div>
+		                        <div class="action-buttons">
+		                            <button class="view-details" data-href="../studio/hairmakeup_detail.do?mno=${vo.mvo.mno}">상세보기</button>
+		                            <button class="cancel" data-href="${vo.wno}">취소</button>
+		                        </div>
+	                        </div>
+		                </c:forEach>
+		            </div>
+		        </c:otherwise>
+		    </c:choose>
         </div>
         <div id="table6" class="tab_contents">
             <!-- 혼수 관련 내용 추가 -->

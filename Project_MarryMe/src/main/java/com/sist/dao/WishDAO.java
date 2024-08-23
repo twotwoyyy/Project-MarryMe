@@ -50,6 +50,7 @@ public class WishDAO {
 				session.close();
 		}
 	}
+	// 마이페이지
 	// 홀 마이페이지 위시 리스트
 	public static List<WishVO> hallWishMypageData(String id){
 		List<WishVO> list=new ArrayList<WishVO>();
@@ -57,6 +58,36 @@ public class WishDAO {
 		try {
 			session=ssf.openSession();
 			list=session.selectList("hallWishMypageData",id);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return list;
+	}
+	// 헤어 메이크업 마이페이지 위시 리스트
+	public static List<WishVO> hairmakeupMypageData(String id){
+		List<WishVO> list=new ArrayList<WishVO>();
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			list=session.selectList("hairmakeupMypageData",id);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return list;
+	}
+	// 스튜디오 마이페이지 위시 리스트
+	public static List<WishVO> studioMypageData(String id){
+		List<WishVO> list=new ArrayList<WishVO>();
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			list=session.selectList("studioMypageData",id);
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}finally {
