@@ -13,7 +13,7 @@
   	SELECT CEIL(COUNT(*)/12.0) 
    	FROM dress
   </select>
-  <select id="dressDetailData" parameterType="HashMap">
+  <select id="dressDetailData" resultType="DressVO" parameterType="int">
     SELECT * 
     FROM dress
     WHERE d_no = #{d_no}
@@ -30,7 +30,7 @@
   	SELECT CEIL(COUNT(*)/12.0)
   	FROM suit
   </select>
-  <select id="suitDetailData" parameterType="HashMap"> 
+  <select id="suitDetailData" resultType="SuitVO" parameterType="int"> 
     SELECT * 
     FROM suit 
     WHERE su_no=#{su_no}

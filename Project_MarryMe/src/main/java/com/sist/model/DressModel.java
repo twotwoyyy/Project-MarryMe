@@ -8,10 +8,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.sist.controller.RequestMapping;
 import com.sist.dao.DressDAO;
 import com.sist.dao.SuitDAO;
+import com.sist.dao.WishDAO;
 import com.sist.vo.DressVO;
 import com.sist.vo.SuitVO;
 
@@ -39,18 +41,9 @@ public class DressModel {
         List<DressVO> dress_list = DressDAO.dressListData(map);
         int totalPage = DressDAO.dressTotalPage();
         
-        // 상대적 URL을 가지고 있는 데이터를 절대적 URL로 변경, 이미지 출력
-        // d_image가 NULL값이 아니거니 공백이 아닌 데이터 중 http, https로 시작하지 않으면 https:를 앞에 붙여서 출력
-        for (DressVO vo : dress_list) {
-            String d_image = vo.getD_image();
-            if (d_image != null && !d_image.trim().isEmpty()) {
-                if (!d_image.startsWith("http:") && !d_image.startsWith("https:")) {
-                    d_image = "https:" + d_image;
-                }
-                vo.setD_image(d_image);
-            }
+        for(DressVO vo : dress_list) {
+        	System.out.println(vo.getD_subject());
         }
-
         final int BLOCK = 5;
         int startPage = ((curPage - 1) / BLOCK * BLOCK) + 1;
         int endPage = ((curPage - 1) / BLOCK * BLOCK) + BLOCK;
@@ -74,8 +67,23 @@ public class DressModel {
         String d_no = request.getParameter("d_no");
         DressVO vo = DressDAO.dressDetailData(Integer.parseInt(d_no));
         
-        request.setAttribute("vo", vo);
-        request.setAttribute("dress_list", dress_list(request, response));
+        HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("id");
+		boolean isWish = false;
+		if (id != null) {
+			Map map = new HashMap();
+			map.put("cno", d_no);
+			map.put("cate", 4);
+			map.put("id", id);
+			int existWish = WishDAO.wishCheck(map);
+			if (existWish != 0) {
+				isWish = true;
+			}			
+		}
+        
+        request.setAttribute("dress_vo", vo);
+//        request.setAttribute("dress_list", dress_list);
+		request.setAttribute("isWish", isWish);
         request.setAttribute("main_jsp", "../dress/dress_detail.jsp");
 //		 CommonsModel.footerPrint(request); // 각 return "main.jsp"마다 footer에 내용 출력하는 코드
         return "../main/main.jsp";
