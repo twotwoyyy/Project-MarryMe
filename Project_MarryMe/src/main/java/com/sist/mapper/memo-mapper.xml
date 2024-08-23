@@ -8,18 +8,18 @@
 		)
 	</insert>
 	<select id="memoListData" resultType="MemoVO" parameterType="java.util.Map">
-		SELECT mno,cno,cate,id,name,msg,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') as dbday
-		FROM memo
-		WHERE cno=#{cno} AND cate=#{cate}
-		ORDER BY mno DESC
+	    SELECT mno, cno, cate, id, name, msg, TO_CHAR(regdate, 'YYYY-MM-DD HH24:MI:SS') as dbday
+	    FROM memo
+	    WHERE id=#{id}
 	</select>
+	
 	<delete id="memoDelete" parameterType="int">
 		DELETE FROM memo
-		WHERE mno=#{mno}
+		WHERE id=${id}
 	</delete>
 	<update id="memoUpdate" parameterType="java.util.Map">
 		UPDATE memo SET 
 		msg=#{msg}
-		WHERE mno=#{mno}
+		WHERE id=${id}
 	</update>
 </mapper>

@@ -38,11 +38,11 @@ public class MemoDAO {
 		}
 		return list;
 	}
-	public static void memoDelete(int rno) {
+	public static void memoDelete(int mno) {
 		SqlSession session=null;
 		try {
 			session=ssf.openSession(true);
-			session.delete("memoDelete",rno);
+			session.delete("memoDelete",mno);
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}finally {

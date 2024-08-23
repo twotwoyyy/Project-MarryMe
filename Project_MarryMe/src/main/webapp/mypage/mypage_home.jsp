@@ -70,71 +70,101 @@
     color: #0b3a1e; /* 원하는 색상으로 설정 */
 }
 
-.comment-section {
-    width: 80%;
-    margin: 20px auto; /* 중앙 정렬 */
+#memoForm {
+    margin-bottom: 20px;
+    display: flex;
 }
 
-.comment-box {
-    width: calc(100% - 20px);
-    height: 100px;
+#memoInput {
+    flex: 1;
     padding: 10px;
-    border-radius: 5px;
+    font-size: 16px;
     border: 1px solid #ddd;
-    font-family: 'SCoreDream', sans-serif;
-    box-sizing: border-box;
-    resize: vertical; /* 수직으로만 조절 가능 */
+    border-radius: 4px;
+    margin-right: 10px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
 }
 
-.comment-button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #28a745;
-    color: white;
+#submitButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
-    font-family: 'SCoreDream', sans-serif;
-    margin-top: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-.comment-button:hover {
-    background-color: #218838;
+#submitButton:hover {
+    background-color: #0056b3;
 }
 
-.comment-list {
-    margin-top: 20px;
-    font-family: 'SCoreDream', sans-serif;
+#memoList {
+    list-style: none;
+    padding: 0;
 }
 
-.comment {
-    border-bottom: 1px solid #ddd;
-    padding: 10px 0;
+#memoList li {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    font-family: 'Courier New', Courier, monospace;
 }
 
-.comment .comment-content {
-    white-space: pre-wrap; /* 댓글의 줄바꿈을 유지합니다 */
+.memo-header {
+    font-size: 1.1em;
     margin-bottom: 5px;
+    color: #333;
 }
 
-.comment .comment-actions {
+.memo-content {
+    font-size: 1em;
+    color: #666;
+}
+
+.memoListItem {
+    position: relative; /* 상대 위치 지정 */
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    background: #f9f9f9;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.actions {
+    margin-top: 10px;
     text-align: right;
 }
 
-.comment .comment-actions button {
-    background-color: #007bff;
-    color: white;
-    border: none;
+.actions button {
+    margin-left: 10px;
     padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
     font-size: 14px;
-    margin-left: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #fff;
 }
 
-.comment .comment-actions button:hover {
+.actions .editMemo {
+    background-color: #007bff;
+}
+
+.actions .editMemo:hover {
     background-color: #0056b3;
+}
+
+.actions .deleteMemo {
+    background-color: #dc3545;
+}
+
+.actions .deleteMemo:hover {
+    background-color: #c82333;
 }
 </style>
 <script>
@@ -163,7 +193,67 @@ function showWeddingDay() {
 window.onload = showWeddingDay;
 
 
+
+function loadMemoList() {
+    const sessionId = $('#sessionId').val(); 
+
+    // sessionId가 유효한지 확인
+    if (!sessionId) {
+        console.error('세션 ID를 가져올 수 없습니다.');
+        $('#memoList').html('<li><h3>세션 ID를 가져올 수 없습니다.</h3></li>');
+        return;
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: '../memo/list.do',
+        data: { "id": sessionId }, // 세션 ID를 서버에 전달
+        success: function(response) {
+            try {
+                var json = typeof response === 'string' ? JSON.parse(response) : response;
+
+                var html = '';
+
+                // 데이터가 없을 경우 처리
+                if (Array.isArray(json) && json.length === 0) {
+                    html += '<li><h3>작성된 메모가 없습니다</h3></li>';
+                } else {
+                    // JSON 데이터 배열을 map을 사용하여 HTML로 변환
+                    for (var i = 0; i < json.length; i++) {
+                        var memo = json[i];
+                        html += '<li class="memoListItem" data-mno="' + memo.mno + '">';
+                        html += '    <div class="top">';
+                        html += '        <div class="profile">';
+                        html += '        </div>';
+                        html += '    </div>';
+                        html += '    <div class="memo-content">' + memo.msg + '</div>'; // 내용
+                        html += '    <div class="actions">';
+                        html += '        <button class="editMemo">수정</button>';
+                        html += '        <button class="deleteMemo">삭제</button>';
+                        html += '    </div>';
+                        html += '</li>';
+                    }
+                }
+
+                // HTML 업데이트
+                $('#memoList').html(html);
+            } catch (e) {
+                console.error('JSON 처리 오류:', e);
+                $('#memoList').html('<li><h3>메모 목록을 불러오는 데 오류가 발생했습니다</h3></li>');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX 오류:', status, error);
+            $('#memoList').html('<li><h3>메모 목록을 불러오는 데 오류가 발생했습니다</h3></li>');
+        }
+    });
+}
+
+$(document).ready(function() {
+    loadMemoList();
+});
 </script>
+
 </head>
 <body>
     <section class="mycontent">
@@ -178,6 +268,7 @@ window.onload = showWeddingDay;
             <div class="info-item">
                 <label for="id" class="infos">아이디</label>
                 <div class="info-value">${sessionScope.id}</div>
+	        	<input type="hidden" id="sessionId" value="${sessionScope.id}">
             </div>
             <div class="info-item">
                 <label for="name" class="infos">이름</label>
@@ -204,7 +295,16 @@ window.onload = showWeddingDay;
                 <div class="info-value">${vo.address2}</div>
             </div>
         </div>
-		
+		<div class="memocontainer">
+	        <div id="memoForm">
+	            <input type="text" id="memoInput" placeholder="여기에 메모를 입력하세요">
+	            <button id="submitButton">메모 추가</button>
+	        </div>
+        	<h3>나의 메모</h3>
+	        <ul id="memoList">
+	            <!-- 메모 내용이 여기에 추가됩니다 -->
+	        </ul>
+       </div>
     </section>
 </body>
 </html>
