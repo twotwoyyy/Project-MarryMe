@@ -16,16 +16,33 @@
 		<result property="mvo.name" column="name"/>
 	</resultMap>
 	<!-- 목록 -->
- 	<select id="qnaListData" resultMap="QnaMap" parameterType="hashmap">
- 		SELECT qna_no,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,cate,group_id,tab,name,num
- 		FROM (SELECT qna_no,regdate,cate,group_id,tab,name,rownum as num
- 		FROM (SELECT qna_no,regdate,cate,group_id,tab,name
+ 	<select id="qnaUserListData" resultMap="QnaMap" parameterType="hashmap">
+ 		SELECT qna_no,msg,TO_CHAR(regdate,'YYYY-MM-DD:HH24:MI:SS') as dbday,cate,group_id,tab,name,num
+ 		FROM (SELECT qna_no,msg,regdate,cate,group_id,tab,name,rownum as num
+ 		FROM (SELECT qna_no,msg,qna.regdate as regdate,cate,group_id,tab,member.name as name
  		FROM qna,member 
  		WHERE qna.id=member.id
+ 		AND tab=#{tab}
+ 		AND pno=#{pno}
+ 		AND cate=#{cate}
  		ORDER BY group_id))
  		WHERE num BETWEEN #{start} AND #{end}
  	</select>
- 	<select id="qnaTotalPage" resultType="int">
- 		SELECT COUNT(*) FROM qna
+ 	<select id="qnaAdminData" resultMap="QnaMap" parameterType="hashmap">
+ 	   SELECT qna_no,msg,TO_CHAR(qna.regdate,'YYYY-MM-DD:HH24:MI:SS') as dbday,cate,group_id,tab,member.name as name
+ 	    FROM qna,member
+ 		WHERE qna.id=member.id
+ 		AND qna.group_id=#{group_id}
+ 		AND tab=#{tab}
+ 	</select>
+ 	<select id="qnaTotalPage" resultType="int" parameterType="hashmap">
+ 		SELECT COUNT(*) FROM qna 
+ 		WHERE cate=#{cate}
+ 		AND pno=#{pno}
+ 	</select>
+ 	<!-- 비번확인 -->
+ 	<select id="passwordData" resultType="String" parameterType="int">
+ 		SELECT pwd FROM qna
+ 		WHERE qna_no=#{qna_no}
  	</select>
 </mapper>

@@ -408,7 +408,7 @@ function replyList(pno,page,cate)
           	}
 		})
 	//	console.log(html2)
-		$('ul.page:first').html(html2)	
+		$('#reviewPage').html(html2)	
 		},
 		error:function(request,status,error)
 		{
@@ -454,7 +454,7 @@ function replyList(pno,page,cate)
    <ul class="review_list">
    <!-- 리뷰출력 -->
    </ul>
-   <ul class="page">
+   <ul class="page" id="reviewPage">
    <!-- 페이징 -->
    </ul>
 </div>

@@ -1,10 +1,14 @@
 package com.sist.model;
 import java.io.File;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -42,28 +46,44 @@ public class QnaModel {
 	 
 	
 	@RequestMapping("qna/list.do")
-	public String qna_list(HttpServletRequest request,HttpServletResponse response) {
+	public void qna_list(HttpServletRequest request,HttpServletResponse response) {
 		String page=request.getParameter("page");
 		if(page==null)
 			page="1";
-		String cno=request.getParameter("cno");
-		if(cno==null)
-			cno="1";
+		String pno=request.getParameter("pno");
+		String cate=request.getParameter("cate");
 		int curpage=Integer.parseInt(page);
-		int rowSize=12;
+		int rowSize=3;
 		int start=(rowSize*curpage)-(rowSize-1);
 		int end=rowSize*curpage;
-		
+		int tab=0;
 		Map map=new HashMap();
 		map.put("start", start);
 		map.put("end", end);
-		List<QnaVO> list=QnaDAO.qnaListData(map);
+		map.put("tab", tab);
+		map.put("pno", pno);
+		map.put("cate", cate);
+		List<QnaVO> ulist=QnaDAO.qnaUserListData(map);
+		tab=1;
+		map.put("tab" , tab);
 		
+		List<QnaVO> qnaList=new ArrayList<QnaVO>();
 		
-		int total=QnaDAO.qnaTotalPage();
-		
-		int totalpage=(int)(Math.ceil(total/rowSize));
-		
+		for(QnaVO vo:ulist) {
+			qnaList.add(vo);
+			map.put("group_id", vo.getGroup_id());
+			
+			QnaVO avo=QnaDAO.qnaAdminData(map);
+			if(avo!=null) {
+				qnaList.add(avo);
+			}
+		}
+		int total=QnaDAO.qnaTotalPage(map);
+		System.out.println(total);
+		int totalpage=(int)(Math.ceil(total/(double)rowSize));
+		for(QnaVO vo:qnaList) {
+			System.out.println(vo.getMsg());
+		}
 		// 페이지 개수 표시
 		final int BLOCK=5;
 		
@@ -74,20 +94,72 @@ public class QnaModel {
 		if(endpage>totalpage)
 			endpage=totalpage;
 		
-		request.setAttribute("list", list);
-		request.setAttribute("cno", cno);
-		request.setAttribute("curpage", curpage);
-		request.setAttribute("startpage", startpage);
-		request.setAttribute("endpage", endpage);
-		request.setAttribute("totalpage", totalpage);
-		request.setAttribute("total", total);
+		
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 		  Date date=new Date();
 		  String today=sdf.format(date);
 		  // new SimpleDateFormat("yyyy-MM-dd").format(new Date())
-		  request.setAttribute("today", today);
+		JSONArray arr=new JSONArray();
+		int h=0;
+		int count=0;
+		try {
+		for(QnaVO vo:qnaList) {
+			JSONObject obj=new JSONObject();
+		//SELECT qna_no,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,cate,group_id,tab,name,num
+			obj.put("qno", vo.getQna_no());
+			obj.put("name", vo.getMvo().getName());
+			obj.put("dbday", vo.getDbday().substring(0,vo.getDbday().indexOf(":")));
+			obj.put("dayDetail", vo.getDbday().substring(vo.getDbday().indexOf(":")+1));
+			obj.put("cate", vo.getCate());
+			obj.put("msg", vo.getMsg());
+			obj.put("today", today);
+			obj.put("group_id", vo.getGroup_id());
+			obj.put("tab", vo.getTab());
+			obj.put("count", total-count);
+			if(h==0) {
+			obj.put("startpage", startpage);
+			obj.put("endpage", endpage);
+			obj.put("totalpage", totalpage);
+			obj.put("curpage", curpage);
+			
+			h=1;
+			}
+			arr.add(obj);
+		}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		System.out.println(arr.toJSONString());
 		
-		request.setAttribute("main_jsp", "../qna/list.jsp");
-		return "../main/main.jsp";
+		try {
+			
+			response.setContentType("text/plain;charset=UTF-8");
+			PrintWriter out=response.getWriter();
+			out.write(arr.toJSONString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		}
+	}
+	@RequestMapping("qna/password.do")
+	public void qna_password(HttpServletRequest request,HttpServletResponse response) {
+		try {
+			request.setCharacterEncoding("UTF-8");
+			String result="";
+			String qno=request.getParameter("qno");
+			String pwd=request.getParameter("pwd");
+			String dbpwd=QnaDAO.passwordData(Integer.parseInt(qno));
+			if(pwd.equals(dbpwd)) {
+				result="OK";
+			}else {
+				result="NO";
+			}
+			response.setContentType("text/plain;charset=UTF-8");
+			PrintWriter out=response.getWriter();
+			out.write(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		}
 	}
 }

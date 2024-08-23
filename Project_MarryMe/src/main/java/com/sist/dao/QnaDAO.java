@@ -41,12 +41,12 @@ public class QnaDAO {
  		WHERE num BETWEEN #{start} AND #{end}
  	</select>
  */
-	public static List<QnaVO> qnaListData(Map map){
+	public static List<QnaVO> qnaUserListData(Map map){
 		List<QnaVO> list=new ArrayList<QnaVO>();
 		SqlSession session=null;
 		try {
 		session=ssf.openSession();
-		list=session.selectList("qnaListData",map);
+		list=session.selectList("qnaUserListData",map);
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}finally {
@@ -55,12 +55,26 @@ public class QnaDAO {
 		}
 		return list;
 	}
-	public static int qnaTotalPage() {
+	public static QnaVO qnaAdminData(Map map) {
+		QnaVO vo=new QnaVO();
+		SqlSession session=null;
+		try {
+		session=ssf.openSession();
+		vo=session.selectOne("qnaAdminData",map);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return vo;
+	}
+	public static int qnaTotalPage(Map map) {
 		int total=0;
 		SqlSession session=null;
 		try {
 		session=ssf.openSession();
-		total=session.selectOne("qnaTotalpage");
+		total=session.selectOne("qnaTotalPage",map);
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}finally {
@@ -68,5 +82,19 @@ public class QnaDAO {
 				session.close();
 		}
 		return total;
+	}
+	public static String passwordData(int qno) {
+		String pwd="";
+		SqlSession session=null;
+		try {
+		session=ssf.openSession();
+		pwd=session.selectOne("passwordData",qno);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return pwd;
 	}
 }
