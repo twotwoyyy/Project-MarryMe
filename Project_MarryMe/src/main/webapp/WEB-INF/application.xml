@@ -12,4 +12,5 @@
 	<bean id="wish" class="com.sist.model.WishModel"/>
 	<bean id="mypage" class="com.sist.model.MypageModel"/>
 	<bean id="memo" class="com.sist.model.MemoModel"/>
+	<bean id="reserve" class="com.sist.model.ReserveModel"/>
 </beans>

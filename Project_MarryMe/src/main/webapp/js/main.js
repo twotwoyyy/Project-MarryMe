@@ -150,11 +150,13 @@ if($('#detail').length > 0){
             date_input.css("visibility","visible");
             $("#ui-datepicker-div td .ui-state-default").removeClass('active');
             $(this).addClass('active');
+            $('.reservation .time_btn').removeClass('active');
+            $('.reservation .time_print').text("");
         });
     }
     date_click();
     let datepicker=$('#ui-datepicker-div');
-    $('#detail form .date').append(datepicker);
+    $('#detail .reserve_form .date').append(datepicker);
 
     /* ----- RESERVATION ----- */
     let reserve_box=$('#detail aside.reservation'),
@@ -175,18 +177,15 @@ if($('#detail').length > 0){
         }
     })
 
-	/*
-    $('#detail .reservation .wish').click(function(){
-        $(this).toggleClass('active');
-    })
-    */
-    $('#detail .reservation .time_btn').click(function(e){
-        e.preventDefault();
-        $('#detail .reservation .time_btn').removeClass('active');
-        $(this).addClass('active');
-        let target=$(this).text();
-        $('#detail .reservation .time_print').text(target);
-    })
+	    $('#detail .reservation .time_btn').click(function(e){
+	        e.preventDefault();
+	        $('#detail .reservation .time_btn').removeClass('active');
+			if(!$(this).hasClass('impossible')){
+		        $(this).addClass('active');
+		        let target=$(this).text();
+		        $('#detail .reservation .time_print').text(target);				
+	        }
+	    })
 
     /* ----- TAB SCROLL ----- */
     let detail_tab=$('#detail .detail_tab > li a');

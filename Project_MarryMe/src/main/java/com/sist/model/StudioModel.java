@@ -12,6 +12,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import com.sist.controller.RequestMapping;
+import com.sist.dao.ReserveDAO;
 import com.sist.dao.StudioDAO;
 import com.sist.dao.WishDAO;
 import com.sist.vo.*;
@@ -135,6 +136,7 @@ public class StudioModel {
 				isWish=true;
 			}			
 		}
+	
 		request.setAttribute("studio_vo", studio_vo);
 		request.setAttribute("studio_image_list", studio_image_list);
 		request.setAttribute("isWish", isWish);

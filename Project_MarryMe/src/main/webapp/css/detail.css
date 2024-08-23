@@ -433,7 +433,7 @@ font-family: "Monsieur La Doulaise", cursive;
 #detail .reservation .top .icons .share:hover{
     background-image:url(../img/share_link_hover.png);
 }
-#detail .reservation form{
+#detail .reservation .reserve_form{
     padding-top:30px;
 }
 #detail .reservation .date{
@@ -557,10 +557,28 @@ html .ui-button.ui-state-disabled:active{
     padding:5px;
     border:1px solid #303030;
     cursor:pointer;
+    transition:.3s;
 }
 #detail .time .reserve_time button.active{
     background:#303A1F;
     color:#dcdcdc;
+}
+#detail .time .reserve_time button.impossible{
+	color:#9d9d9d;
+	border-color:#9d9d9d;
+	background:none;
+	cursor:auto;
+	position:relative;
+}
+#detail .time .reserve_time button.impossible::after{
+	content:'';
+	width:60px;
+	height:1px;
+	background:#9d9d9d;
+    transform: rotate(27deg);
+    transform-origin: top left;
+	position:absolute;
+	top:0; left:0;
 }
 #detail .reservation .total{
     margin-bottom:30px;
@@ -569,11 +587,11 @@ html .ui-button.ui-state-disabled:active{
     display:inline;
     margin-right:10px;
 }
-#detail .reservation form .bottom{
+#detail .reservation .reserve_form .bottom{
     display:flex;
     justify-content:space-between;
 }
-#detail .reservation form input[type="submit"]{
+#detail .reservation .reserve_form input[type="submit"]{
     width:100%;
     height:40px;
     line-height:40px;
@@ -590,7 +608,7 @@ html .ui-button.ui-state-disabled:active{
     #detail .reservation{
         padding:20px;
     }
-    #detail .reservation form {
+    #detail .reservation .reserve_from{
         padding-top: 15px;
     }
     #ui-datepicker-div{

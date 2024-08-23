@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.reserve-mapper">
+	<!-- 
+		RESNO   NOT NULL NUMBER       
+		ID               VARCHAR2(20) 
+		PNO              NUMBER       
+		RDATE   NOT NULL VARCHAR2(20) 
+		RTIME   NOT NULL VARCHAR2(20) 
+		CATE             NUMBER       
+		REGDATE          DATE         
+		CONFIRM          CHAR(1)
+	 -->
+	<select id="reserveCheck" resultType="int" parameterType="ReserveVO">
+		SELECT COUNT(*) FROM reserve
+		WHERE id=#{id} AND cate=#{cate} AND pno=#{pno} AND rdate=#{rdate} AND rtime=#{rtime} 
+	</select>
+	<insert id="reserveInsert" parameterType="ReserveVO">
+		INSERT INTO reserve VALUES(res_resno_seq.nextval, #{id}, #{pno}, #{rdate}, #{rtime}, #{cate}, SYSDATE, 'n')
+	</insert>
+	<select id="reserveExist" resultType="ReserveVO" parameterType="hashmap">
+		SELECT rdate, rtime FROM reserve
+		WHERE cate=#{cate} AND pno=#{pno}
+	</select>
+</mapper>

@@ -137,6 +137,9 @@ font-family: "Monsieur La Doulaise", cursive; 400
 #header .right_menu input[type="submit"]:hover{
     color:#dcdcdc;
 }
+#header .right_menu .name{
+	font-family: 'SCoreDream', sans-serif;
+}
 #header .right_menu .name span{
 	font-weight:600;
 }
