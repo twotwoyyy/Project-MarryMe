@@ -168,7 +168,7 @@ window.onload = showWeddingDay;
 <body>
     <section class="mycontent">
         <div class="sixth" id="myh1">
-            <h1>${sessionScope.name}&nbsp;${sessionScope.gender}님 마이페이지</h1>
+            <h1>💐${sessionScope.name}&nbsp;${sessionScope.gender}님 마이페이지💐</h1>
         </div>
         <div id="weddingDayInfo">
             <!-- 메시지가 여기 출력됩니다. -->

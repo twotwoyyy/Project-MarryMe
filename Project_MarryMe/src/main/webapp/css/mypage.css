@@ -13,9 +13,8 @@ body {
 .mypage_menu {
 	width: 250px;
 	/* 메뉴의 너비 설정 */
-	background-color: #f4f4f4;
+	border: none;
 	padding: 20px;
-	box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 	font-family: 'SCoreDream', sans-serif;
 
 }
@@ -39,25 +38,35 @@ h1 {
 	margin-bottom: 50px;
 }
 
+#mypmenu {
+	background-color:#EFF3EA;
+	border: none;
+	border-radius: 7px;
+	padding: 30px;
+	
+}
+
 .mypage_menu ul li {
 	padding: 8px;
 	/* 패딩 설정 */
 	margin-bottom: 4px;
 	/* 아래쪽 마진 설정 */
-	background: #EFF3EA;
+	background: rgb(68, 125, 72);
 	/* 호버 시 배경색 변경 */
 	text-align: center;
 	/* 텍스트 중앙 정렬 */
+	border: none;
+	border-radius: 5px;
 }
 
 .mypage_menu ul li:hover {
-	background: rgb(148, 186, 158);
+	background: rgb(169, 198, 162);
 }
 
 .mypage_menu ul li a {
 	text-decoration: none;
 	/* 텍스트 장식 제거 */
-	color: black;
+	color: rgb(255, 255, 255);
 	/* 텍스트 색상 설정 */
 	display: block;
 	/* 블록 레벨 요소로 설정 */

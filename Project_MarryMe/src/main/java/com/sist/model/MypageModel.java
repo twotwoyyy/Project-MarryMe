@@ -26,7 +26,7 @@ public class MypageModel {
 	    
 	    request.setAttribute("vo", vo);
 	    request.setAttribute("weddingday", weddingdayStr); // 날짜를 문자열로 전달
-	    request.setAttribute("title", "마이페이지");
+	    request.setAttribute("title", "💐마이페이지💐");
 	    request.setAttribute("mypage_jsp", "../mypage/mypage_home.jsp");
 	    request.setAttribute("main_jsp", "../mypage/mypage_main.jsp");
 	    return "../main/main.jsp";
@@ -40,7 +40,7 @@ public class MypageModel {
       email = email.substring(0, email.lastIndexOf("@"));
       vo.setEmail(email);
       request.setAttribute("vo", vo);
-      request.setAttribute("title", "회원정보 수정");
+      request.setAttribute("title", "📝회원정보 수정📝");
       request.setAttribute("mypage_jsp", "../member/join_update.jsp");
       request.setAttribute("main_jsp", "../mypage/mypage_main.jsp");
       return "../main/main.jsp";
@@ -137,7 +137,7 @@ public class MypageModel {
 		//List<GoodsVO> list=GoodsDAO.cartListData(id);
 		//request.setAttribute("cartList", list);
 		//request.setAttribute("count", list.size());
-		request.setAttribute("title", "장바구니");
+		request.setAttribute("title", "🛒장바구니🛒");
 		request.setAttribute("mypage_jsp", "../mypage/mypage_cart.jsp");
 		request.setAttribute("main_jsp", "../mypage/mypage_main.jsp");
 		return "../main/main.jsp";
