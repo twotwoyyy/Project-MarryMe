@@ -16,35 +16,50 @@
 $(function(){
 	let sno=${studio_vo.sno};
 	
+	//이미 예약된 날짜, 시간 비활성화 
 	$.ajax({
 		type:'POST',
 		url:'../reserve/reserve_exist.do',
-		data:{"sno":sno, "cate":4},
+		data:{"pno":sno, "cate":4}, //각자 no, 카테고리 번호로
 		success:function(json){
 			let reserve_list=JSON.parse(json);
-			$('.ui-datepicker-calendar td[data-handler="selectDay"]').click(function(){
-				let time_btn=$('.reserve_time .time_btn');
-				time_btn.removeClass("impossible");
-				for(i=0;i<reserve_list.length;i++){
-					if($('.date_print').text()===reserve_list[i].rdate){
-						time_btn.each(function(){
-							if($(this).text()===reserve_list[i].rtime){
-								$(this).addClass("impossible");
-								$('.time_print').text("") 
-							}else{
-								
-							}
-						})							
-					}else{
-						;
-					}
-				}
+			time_btn_impossible(reserve_list);
+			$(document).on("click", '.ui-datepicker-next', function(){
+				time_btn_impossible(reserve_list);
+			})
+			$(document).on("click", '.ui-datepicker-prev', function(){
+				time_btn_impossible(reserve_list);
 			})
 		},
 		error:function(request, status, error){
 			console.log(error)
 		}
 	})
+	function time_btn_impossible(reserve_list){
+		$('.ui-datepicker-calendar td[data-handler="selectDay"]').click(function(){
+			let time_btn=$('.reserve_time .time_btn');
+			let oneday_count=0;
+			time_btn.removeClass("impossible");
+			for(i=0;i<reserve_list.length;i++){
+				if($('.date_print').text()===reserve_list[i].rdate){
+					time_btn.each(function(){
+					if($(this).text()===reserve_list[i].rtime){
+							$(this).addClass("impossible");
+							$('.time_print').text("") 
+						}
+					})
+					oneday_count++;
+					if(oneday_count===time_btn.length){
+						$(this).addClass('ui-datepicker-unselectable');
+						$(this).addClass('ui-state-disabled');
+						$('.date_print').text("해당 일자는 예약이 마감되었습니다");
+					}
+				}
+			}
+		})
+	}
+	
+	//위시리스트 
 	$('.wish').click(function(){
 		if(${sessionScope.id==null}){
 			alert('로그인 후 이용해주세요')
@@ -67,6 +82,8 @@ $(function(){
 			})			
 		}
 	})
+	
+	//공유 버튼  
 	$('.share').click(function(){
 		let temp=document.createElement("textarea");
 		document.body.appendChild(temp);
@@ -77,6 +94,8 @@ $(function(){
 		document.body.removeChild(temp);
 		alert("현재 URL이 복사되었습니다.");
 	})
+	
+	//예약 버튼 
 	$('.reserve_form .reserve_btn').click(function(){
 		if(${sessionScope.id==null}){
 			alert('로그인 후 이용해주세요')
@@ -95,7 +114,7 @@ $(function(){
 			$.ajax({
 				type:'POST',
 				url:'../reserve/reserve.do',
-				data:{"sno":sno, "rdate":date_print, "rtime":time_print, "cate":4},
+				data:{"pno":sno, "rdate":date_print, "rtime":time_print, "cate":4}, //각자 no, 카테고리 번호로
 				success:function(result){
 					if(result=="OK"){
 						alert("예약요청 되었습니다\n마이페이지 예약내역에서 확인 가능합니다");

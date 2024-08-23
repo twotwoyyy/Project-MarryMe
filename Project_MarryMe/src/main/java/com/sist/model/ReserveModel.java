@@ -21,7 +21,7 @@ public class ReserveModel {
 		try {
 			request.setCharacterEncoding("UTF-8");
 		}catch(Exception ex) {}
-		String pno=request.getParameter("sno");
+		String pno=request.getParameter("pno");
 		String rdate=request.getParameter("rdate");
 		String rtime=request.getParameter("rtime");
 		String cate=request.getParameter("cate");
@@ -53,11 +53,11 @@ public class ReserveModel {
 	
 	@RequestMapping("reserve/reserve_exist.do")
 	public void reserve_exist(HttpServletRequest request, HttpServletResponse response) {
-		String sno=request.getParameter("sno");
+		String pno=request.getParameter("pno");
 		String cate=request.getParameter("cate");
 		Map reserve_map=new HashMap();
 		reserve_map.put("cate", Integer.parseInt(cate));
-		reserve_map.put("pno", sno);
+		reserve_map.put("pno", pno);
 		List<ReserveVO> reserve_list=ReserveDAO.reserveExist(reserve_map);
 		
 		JSONArray reserve_arr=new JSONArray();

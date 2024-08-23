@@ -118,6 +118,47 @@ if($('#list').length > 0){
 }
 /* --------------- DETAIL ----------------- */
 if($('#detail').length > 0){
+   /* ----- TAB SCROLL ----- */
+	let tab_box=$('#detail .detail_tab'),
+        tabOST=tab_box.offset().top;
+    $(window).scroll(function(){
+        let scrollAmt=$(window).scrollTop();
+        if(scrollAmt > tabOST - 100){
+            tab_box.css({position:'fixed'});
+            tab_box.addClass('fixed');
+        }else{
+            tab_box.css({position:'static'})
+            tab_box.removeClass('fixed');
+        }
+    })
+    
+    let detail_tab=$('#detail .detail_tab > li a'),
+    	detail_content=$('#detail .bottom_content > div');
+    detail_tab.click(function(e){
+        e.preventDefault();
+        $(this).addClass('active');
+        $(this).parent().siblings('li').children('a').removeClass('active');
+        let target_link = $(this).attr('href'),
+        targetOST = $(target_link).offset().top;
+        $('html, body').animate({scrollTop:targetOST-130,});
+    });
+    $(window).scroll(function(){
+        let scrollAmt=$(window).scrollTop()
+        detail_content.each(function(){
+			let detail_con_top=$(this).offset().top,
+				target='#'+$(this).attr("id");
+	        if(scrollAmt > detail_con_top-150){
+				detail_tab.each(function(i){
+					if(target==detail_tab.eq(i).attr('href')){
+						detail_tab.eq(i).addClass('active');
+					}else{
+						detail_tab.eq(i).removeClass('active');
+					}
+				})
+	        }		
+		})
+    })
+    
 	if($('#detail #image .masonry_wrap').length>0){
     /* ------ MASONRY ------ */
    		let img_masonry=$('#detail #image .masonry_wrap');
@@ -177,24 +218,17 @@ if($('#detail').length > 0){
         }
     })
 
-	    $('#detail .reservation .time_btn').click(function(e){
-	        e.preventDefault();
-	        $('#detail .reservation .time_btn').removeClass('active');
-			if(!$(this).hasClass('impossible')){
-		        $(this).addClass('active');
-		        let target=$(this).text();
-		        $('#detail .reservation .time_print').text(target);				
-	        }
-	    })
-
-    /* ----- TAB SCROLL ----- */
-    let detail_tab=$('#detail .detail_tab > li a');
-    detail_tab.click(function(e){
+    $('#detail .reservation .time_btn').click(function(e){
         e.preventDefault();
-        let target_link = $(this).attr('href'),
-        targetOST = $(target_link).offset().top;
-        $('html, body').animate({scrollTop:targetOST-80,});
-    });
+        $('#detail .reservation .time_btn').removeClass('active');
+		if(!$(this).hasClass('impossible')){
+	        $(this).addClass('active');
+	        let target=$(this).text();
+	        $('#detail .reservation .time_print').text(target);				
+        }
+    })
+
+
   
     /* ----- REVIEW / QNA INPUT----- */
     let insert_btn=$('#detail .board_top button');

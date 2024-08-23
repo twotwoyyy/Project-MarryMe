@@ -87,6 +87,10 @@ font-family: "Monsieur La Doulaise", cursive;
 #detail .bottom_wrap .detail_tab{
     display:flex;
 }
+#detail .bottom_wrap .detail_tab.fixed{
+    top:100px;
+    z-index:2;
+}
 #detail .bottom_wrap .detail_tab > li > a{
     display:block;
     padding:10px 15px;
@@ -587,6 +591,10 @@ html .ui-button.ui-state-disabled:active{
     display:inline;
     margin-right:10px;
 }
+#detail .reservation .total span{
+	background:#a5c278;
+	color:#303030;
+}
 #detail .reservation .reserve_form .bottom{
     display:flex;
     justify-content:space-between;
@@ -622,6 +630,12 @@ html .ui-button.ui-state-disabled:active{
     }
     #detail .reservation .total {
         margin-bottom: 15px;
+    }
+    #detail .reservation .total .label{
+    	margin-right:2px;
+    }
+    #detail .reservation .total span{
+    	font-size:14px;
     }
     #detail .detail_wrap .thumbnail .img_wrap{
         height:643px;

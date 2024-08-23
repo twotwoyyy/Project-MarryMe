@@ -14,12 +14,56 @@
 <script defer src="../js/main.js"></script>
 <script type="text/javascript">
 $(function(){
+	let mno=${hm_vo.mno};
+	
+	//이미 예약된 날짜, 시간 비활성화 
+	$.ajax({
+		type:'POST',
+		url:'../reserve/reserve_exist.do',
+		data:{"pno":mno, "cate":5}, //각자 no, 카테고리 번호로
+		success:function(json){
+			let reserve_list=JSON.parse(json);
+			time_btn_impossible(reserve_list);
+			$(document).on("click", '.ui-datepicker-next', function(){
+				time_btn_impossible(reserve_list);
+			})
+			$(document).on("click", '.ui-datepicker-prev', function(){
+				time_btn_impossible(reserve_list);
+			})
+		},
+		error:function(request, status, error){
+			console.log(error)
+		}
+	})
+	function time_btn_impossible(reserve_list){
+		$('.ui-datepicker-calendar td[data-handler="selectDay"]').click(function(){
+			let time_btn=$('.reserve_time .time_btn');
+			let oneday_count=0;
+			time_btn.removeClass("impossible");
+			for(i=0;i<reserve_list.length;i++){
+				if($('.date_print').text()===reserve_list[i].rdate){
+					time_btn.each(function(){
+					if($(this).text()===reserve_list[i].rtime){
+							$(this).addClass("impossible");
+							$('.time_print').text("") 
+						}
+					})
+					oneday_count++;
+					if(oneday_count===time_btn.length){
+						$(this).addClass('ui-datepicker-unselectable');
+						$(this).addClass('ui-state-disabled');
+						$('.date_print').text("해당 일자는 예약이 마감되었습니다");
+					}
+				}
+			}
+		})
+	}
+	//위시리스트 
 	$('.wish').click(function(){
 		if(${sessionScope.id==null}){
 			alert('로그인 후 이용해주세요')
 			location.href="../member/login.do";
 		}else{
-			let mno=${hm_vo.mno};
 			$.ajax({
 				type:'POST',
 				url:'../wish/control.do',
@@ -37,6 +81,8 @@ $(function(){
 			})			
 		}
 	})
+	
+	//공유 버튼  	
 	$('.share').click(function(){
 		let temp=document.createElement("textarea");
 		document.body.appendChild(temp);
@@ -46,6 +92,40 @@ $(function(){
 		document.execCommand("copy");
 		document.body.removeChild(temp);
 		alert("현재 URL이 복사되었습니다.");
+	})
+	
+	//예약 버튼 
+	$('.reserve_form .reserve_btn').click(function(){
+		if(${sessionScope.id==null}){
+			alert('로그인 후 이용해주세요')
+			location.href="../member/login.do";
+		}else{
+			let	date_print=$('.date_print').text(),
+				time_print=$('.time_print').text();
+			if(date_print==""){
+				alert("상담 날짜를 선택해주세요");
+				return;
+			}
+			if(time_print==""){
+				alert("상담 시간을 선택해주세요");
+				return;
+			}
+			$.ajax({
+				type:'POST',
+				url:'../reserve/reserve.do',
+				data:{"pno":mno, "rdate":date_print, "rtime":time_print, "cate":5}, //각자 no, 카테고리 번호로
+				success:function(result){
+					if(result=="OK"){
+						alert("예약요청 되었습니다\n마이페이지 예약내역에서 확인 가능합니다");
+					}else{
+						alert("이미 요청된 예약입니다");
+					}
+				},
+				error:function(request, status, error){
+					console.log(error)
+				}
+			})
+		}
 	})
 })
 </script>
@@ -375,7 +455,7 @@ $(function(){
                             <button class="share">share link</button>
                         </div>
                     </div>
-                    <form method="POST" action="">
+                    <div class="reserve_form">
                         <div class="date">
                             <label for="calendar">예약 날짜</label>
                             <input type="text" name="reserve_date" id="calendar">
@@ -400,8 +480,8 @@ $(function(){
                             <span class="date_print"></span>
                             <span class="time_print"></span>
                         </div>
-                        <input type="submit" value="예약">
-                    </form>
+                    	<input type="submit" value="예약" class="reserve_btn">
+                    </div>
                 </aside>
             </div>
         </div>

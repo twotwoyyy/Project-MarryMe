@@ -15,12 +15,11 @@
         </section> 
        </c:if>
         <section class="list_sc">
-            <!--
             <ul class="cate_list">
-                <li data-list="studio" class="active">스튜디오</li>
-                <li data-list="hair">헤어/메이크업</li>
+                <li data-list="studio" class="active"><a href="#">가구</a></li>
+                <li data-list="hair"><a href="#">가전</a></li>
+                <li data-list="hair"><a href="#">청첩장</a></li>
             </ul>
-            -->
             <ul class="brand_list container studio active">
             <c:set var="delay" value="0"></c:set>
               <c:forEach var="vo" items="${list }">
