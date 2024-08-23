@@ -36,6 +36,15 @@
 	</select>
 	<update id="reviewUpdate" parameterType="ReviewVO">
 		UPDATE review SET
-		
+		image=#{image},msg=#{msg},score=#{score}
+		WHERE review_no=#{review_no}
 	</update>
+	<select id="reviewInfo" resultType="String" parameterType="int">
+		SELECT image FROM review
+		WHERE review_no=#{review_no}
+	</select>
+	<delete id="reviewDelete" parameterType="int">
+		DELETE FROM review
+		WHERE review_no=#{review_no}
+	</delete>
 </mapper>

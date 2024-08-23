@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import javax.naming.Context;
 import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +33,7 @@ public class ReviewModel {
 		  try {
 				request.setCharacterEncoding("UTF-8");
 		  
-		  String path = "C:\\Users\\user\\git\\Project_MarryMe\\Project_MarryMe\\src\\main\\webapp\\img\\review_img";
+		  String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Project_MarryMe\\img\\review_img";
 
 		  // 파일이 업로드 되는 폴더를 지정한다.
 		  //String saveFolder = "JSP_File/01_file_basic";
@@ -69,7 +70,9 @@ public class ReviewModel {
 		  vo.setPno(Integer.parseInt(pno));
 		  vo.setScore(Integer.parseInt(score));
 		  vo.setImage(image);
-		  
+		  if(vo.getImage()==null) {
+			  vo.setImage("NOIMAGE");
+		  }
 		  String result="";
 		  try {
 		  	ReviewDAO.reviewInsert(vo);
@@ -141,9 +144,10 @@ public class ReviewModel {
 		if(sid==null) {
 			sid="guest";
 		}
+		
 		ServletContext context = request.getServletContext();
 		String realFolder="";
-		realFolder = context.getRealPath("");
+		realFolder = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Project_MarryMe\\img\\review_img";
 		//review_no,image,msg,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,cate,name,score,hit,num
 		JSONArray arr=new JSONArray();
 		int h=0;
@@ -182,7 +186,94 @@ public class ReviewModel {
 			e.printStackTrace();
 		}
 	}
-	
-	
+	@RequestMapping("review/update.do")
+	public void review_update(HttpServletRequest request,HttpServletResponse response) {
+		
+		  try {
+				request.setCharacterEncoding("UTF-8");
+		  
+		 // String path = "C:\\Users\\user\\git\\Project_MarryMe\\Project_MarryMe\\src\\main\\webapp\\img\\review_img";
+		  String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Project_MarryMe\\img\\review_img";
+		  // 파일이 업로드 되는 폴더를 지정한다.
+		  //String saveFolder = "JSP_File/01_file_basic";
+
+		  // 인코딩 타입
+		  String encType = "utf-8";
+
+		  // 최대 업로드 될 파일의 크기
+		  int maxSize = 1 * 1024 * 1024; // 1메가바이트
+
+		  // 현재 jsp 페이지의 웹 어플리케이션 상의 경로를 구한다.
+		  
+		  MultipartRequest mr=
+				  new MultipartRequest(request, path,maxSize,encType,
+						  new DefaultFileRenamePolicy());
+		  HttpSession session=request.getSession();
+		  
+		  String msg=mr.getParameter("msg");
+		  String rno=mr.getParameter("rno");
+		  String score=mr.getParameter("score");
+		  String image=mr.getFilesystemName("upload");
+		  if(image==null) {
+			  image=mr.getParameter("img");
+		  }
+		  
+		  
+		  
+		  // a.jpg
+		  // a.jpg => a1.jpg
+		  
+		  ReviewVO vo=new ReviewVO();
+		  
+		  vo.setMsg(msg);
+		  vo.setReview_no(Integer.parseInt(rno));
+		  vo.setScore(Integer.parseInt(score));
+		  vo.setImage(image);
+		  String result="";
+		  try {
+		  	ReviewDAO.reviewUpdate(vo);
+		  	result="OK";
+		  }catch(Exception ex) {
+			  result=ex.getMessage();
+		  }
+		  
+		  JSONObject obj=new JSONObject();
+		  obj.put("result", result);
+		  obj.put("fileName", image);
+		  
+		  try {
+				
+				PrintWriter out=response.getWriter();
+				out.write(obj.toJSONString());
+			}catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		 }catch(Exception ex) {
+			 ex.printStackTrace();
+		 }
+	}
+	@RequestMapping("review/delete.do")
+	public void review_delete(HttpServletRequest request,HttpServletResponse response) {
+		String rno=request.getParameter("rno");
+		String image=ReviewDAO.reviewInfo(Integer.parseInt(rno));
+		ReviewDAO.reviewDelete(Integer.parseInt(rno));
+		String result="";
+		try
+		  {
+			  if(image!="NOIMAGE")
+			  {
+				  File file=new File("C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Project_MarryMe\\img\\review_img\\"+image);
+				  file.delete();
+			  }
+			  result="OK";
+		  }catch(Exception ex) {}
+		  // 결과값을 받아서 Ajax로 전송 
+		  try
+		  {
+			  PrintWriter out=response.getWriter();
+			  out.write(result);
+		  }catch(Exception ex) {}
+	}
 }
 

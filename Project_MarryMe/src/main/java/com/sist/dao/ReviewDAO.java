@@ -69,4 +69,47 @@ public class ReviewDAO {
 		}
 		return list;
 	}
+	public static void reviewUpdate(ReviewVO vo) {
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			session.update("reviewUpdate", vo);
+			session.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+	}
+	public static String reviewInfo(int rno) {
+		String img="";
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			img=session.selectOne("reviewInfo", rno);
+		} catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return img;
+	}
+	public static void reviewDelete(int rno) {
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			session.delete("reviewDelete", rno);
+			session.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+	}
 }
