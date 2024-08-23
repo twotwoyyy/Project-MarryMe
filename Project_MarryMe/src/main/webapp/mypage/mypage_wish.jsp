@@ -171,7 +171,7 @@
 </head>
 <body>
     <div class="myWish">
-        <div class="sixth">
+        <div class="sixth"> 
             <h1>나의 위시리스트</h1>
         </div>
         <div class="tab_contents_area">
