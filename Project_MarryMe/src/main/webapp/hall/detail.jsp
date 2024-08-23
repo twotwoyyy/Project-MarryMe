@@ -12,56 +12,43 @@
 <link rel="stylesheet" href="../css/detail.css">
 <script defer src="../js/main.js"></script>
 <script type="text/javascript">
-$(function() {
-    $('#wishBtn').on('click', function() {
-        let cno = $(this).attr("data-cno");
-        
-        $.ajax({
-            type: 'post',
-            url: '../wish/checklogin.do',
-            success: function(loginResult) {
-                if (loginResult === 'NO') {  
-                    alert("로그인이 필요합니다!!");
-                    window.location.href = "../member/login.do";
-                } else {
-                    $.ajax({
-                        type: 'post',
-                        url: '../wish/insert.do',
-                        data: {"cno": cno, "cate": 1},
-                        success: function(result) {
-                            if (result === 'OK') {
-                                alert("위시리스트에 저장되었습니다");
-                                location.href = "../hall/detail.do?hno=" + cno;
-                            } else {
-                                alert("위시 저장 실패");
-                            }
-                        },
-                        error: function(request, status, error) {
-                            console.log(error);
-                        }
-                    });
-                }
-            }
-        });
-    });
-
-    $(document).ready(function() {
-        var check = '${check}'; // JSP에서 전달된 값
-        // check 값을 Boolean으로 변환
-        if (check === 'true') {
-            check = true;
-        } else if (check === 'false') {
-            check = false;
-        }
-
-        // 체크 값을 사용하여 버튼 상태 설정
-        if (check) {
-            $('#wishBtn').addClass('active');
-        } else {
-            $('#wishBtn').removeClass('active');
-        }
-    });
-});
+$(function(){
+	$('.wish').click(function(){
+		if(${sessionScope.id==null}){
+			alert('로그인 후 이용해주세요')
+			location.href="../member/login.do";
+		}else{
+			let hno=${vo.hno};
+			$.ajax({
+				type:'POST',
+				url:'../wish/control.do',
+				data:{"cno":hno, "cate":1},
+				success:function(result){
+					if(result==="OK"){
+						$('.wish').addClass('active');
+						alert('위시 리스트에 저장되었습니다')
+					}else{
+						$('.wish').removeClass('active');
+						alert('위시 리스트가 삭제되었습니다')
+					}
+				},
+				error:function(request, status, error){
+					console.log(error)
+				}
+			})			
+		}
+	})
+	$('.share').click(function(){
+		let temp=document.createElement("textarea");
+		document.body.appendChild(temp);
+		let current_url=window.document.location.href;
+		temp.value = current_url;
+		temp.select();
+		document.execCommand("copy");
+		document.body.removeChild(temp);
+		alert("현재 URL이 복사되었습니다.");
+	})
+})
 </script>
 <style type="text/css">
 #hallimg{
@@ -360,7 +347,7 @@ $(function() {
                             <p>원하는 상담 예약 날짜를 선택해주세요</p>
                         </div>
                         <div class="icons">
-                            <button class="wish" id="wishBtn" data-cno="${vo.hno }">wish list</button>
+                            <button class="wish ${isWish==true?'active':''}">wish list</button>
                             <button class="share">share link</button>
                         </div>
                     </div>

@@ -78,27 +78,26 @@ public class HallModel {
 	@RequestMapping("hall/detail.do")
 	public String hall_detail(HttpServletRequest request, HttpServletResponse response) {
 		String hno=request.getParameter("hno");
-		int cate=1;
 		HallVO vo=HallDAO.hallDetailData(Integer.parseInt(hno));
-		request.setAttribute("vo", vo);
-		request.setAttribute("cate", cate);
 		
-		boolean bCheck=false;
 		HttpSession session=request.getSession();
 		String id=(String)session.getAttribute("id");
+		boolean isWish=false;
 		if(id!=null) {
 			Map map=new HashMap();
 			map.put("cno", hno);
-			map.put("cate", cate);
+			map.put("cate", 1);
 			map.put("id", id);
-			int count=WishDAO.wishCheck(map);
-			if(count==1) {
-				bCheck=true;
+			int existWish=WishDAO.wishCheck(map);
+			if(existWish!=0) {
+				isWish=true;
 			}else {
-				bCheck=false;
+				isWish=false;
 			}
-			request.setAttribute("check", bCheck);
+			request.setAttribute("isWish", isWish);
 		}
+		request.setAttribute("vo", vo);
+		request.setAttribute("cate", 1);
 		request.setAttribute("main_jsp", "../hall/detail.jsp");
 		return "../main/main.jsp";
 	}

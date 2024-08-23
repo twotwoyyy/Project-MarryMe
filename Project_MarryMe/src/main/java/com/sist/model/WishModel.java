@@ -10,7 +10,8 @@ import com.sist.controller.RequestMapping;
 import com.sist.dao.*;
 import com.sist.vo.*;
 public class WishModel {
-	@RequestMapping("wish/insert.do")
+	
+	@RequestMapping("wish/control.do")
 	public void wish_insert(HttpServletRequest request, HttpServletResponse response) {
 		String cno=request.getParameter("cno");
 		String cate=request.getParameter("cate");
@@ -20,16 +21,29 @@ public class WishModel {
 		map.put("cno", cno);
 		map.put("cate", cate);
 		map.put("id", id);
-		String result="";
-
-		try {
-			WishDAO.wishInsert(map);
-			WishDAO.hallWishCountIncrement(map);
-			result="OK";
-		}catch(Exception ex) {
-			result=ex.getMessage();
-		}
 		
+		int wnoCount=WishDAO.wishCheck(map);
+		String result="";
+		if(wnoCount==0) {
+			WishDAO.wishInsert(map);
+			switch(Integer.parseInt(cate)) {
+				case 1:
+					WishDAO.hallWishCountIncrement(map);
+					break;
+				case 4:
+					WishDAO.studioWishCountIncrement(map);
+					break;
+				case 5:
+					WishDAO.hairmakeupWishCountIncrement(map);
+					break;
+			}	
+			result="OK";			
+		}else {
+			result="delete";
+			WishDAO.wishDetailDelete(map);
+			WishDAO.studioWishCountIncrement(map);
+		}
+
 		try {
 			PrintWriter out=response.getWriter();
 			out.write(result);

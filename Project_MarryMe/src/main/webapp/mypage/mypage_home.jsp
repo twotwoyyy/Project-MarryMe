@@ -162,75 +162,7 @@ function showWeddingDay() {
 
 window.onload = showWeddingDay;
 
-$(function() {
-    function loadComments() {
-        $.ajax({
-            type: 'POST',
-            url: '../memo/list.do',
-            data: { "cno": 1, "cate": 1 }, // cno와 cate 값을 실제로 사용하세요
-            success: function(json) {
-                var comments = JSON.parse(json);
-                var loggedInId = comments.length > 0 ? comments[0].sessionId : 'guest'; // sessionId를 사용하여 현재 로그인한 ID 확인
 
-                var html = comments
-                    .filter(function(comment) {
-                        return comment.id === loggedInId; // 로그인한 사용자와 ID가 일치하는 댓글만 필터링
-                    })
-                    .map(function(comment) {
-                        return `
-                            <div class="comment" id="comment-${comment.mno}">
-                                <div class="comment-content">${msg}</div>
-                                <div class="comment-info">
-                                    작성자: ${comment.name} | 작성일: ${comment.dbday}
-                                </div>
-                                <div class="comment-actions">
-                                    <button onclick="editComment(${comment.mno})">수정</button>
-                                    <button onclick="deleteComment(${comment.mno})">삭제</button>
-                                </div>
-                            </div>
-                        `;
-                    })
-                    .join('');
-
-                $('#commentList').html(html);
-            },
-            error: function(request, status, error) {
-                console.log(error);
-            }
-        });
-    }
-
-    function addComment() {
-        var commentText = $('#commentInput').val();
-        if (commentText.trim() === '') {
-            alert('메모를 입력하세요.');
-            return;
-        }
-
-        $.ajax({
-            type: 'POST',
-            url: '../memo/insert.do',
-            data: { "cno": "1", "cate": "1", "msg": commentText },
-            success: function(result) {
-                if (result === 'OK') {
-                    $('#commentInput').val('');
-                    loadComments(); // 메모 추가 후 목록을 다시 로드
-                } else {
-                    alert('메모 추가 실패: ' + result);
-                }
-            },
-            error: function(request, status, error) {
-                console.log(error);
-            }
-        });
-    }
-
-    // 이벤트 바인딩
-    $('.comment-button').click(addComment);
-    
-    // 페이지 로드 시 댓글 목록을 불러옴
-    loadComments();
-});
 </script>
 </head>
 <body>
@@ -272,14 +204,7 @@ $(function() {
                 <div class="info-value">${vo.address2}</div>
             </div>
         </div>
-        <!-- 댓글 입력 및 출력 부분 -->
-        <div class="comment-section">
-            <textarea id="commentInput" class="comment-box" placeholder="여기에 메모를 입력하세요..."></textarea>
-            <button class="comment-button">메모 추가</button>
-            <div id="commentList" class="comment-list">
-
-            </div>
-        </div>
+		
     </section>
 </body>
 </html>

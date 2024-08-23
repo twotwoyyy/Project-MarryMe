@@ -1,22 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sist.mapper.scrap-mapper">
+	<!-- 추가 -->
 	<insert id="wishInsert" parameterType="java.util.Map">
 		INSERT INTO wish_list VALUES(
 			(SELECT NVL(MAX(wno)+1,1) FROM wish_list),
 			#{cno},#{cate},#{id},SYSDATE
 		)
 	</insert>
+	
+	<!-- 중복체크 -->
     <select id="wishCheck" resultType="int" parameterType="java.util.Map">
         SELECT COUNT(*) FROM wish_list
         WHERE cno=#{cno} AND cate=#{cate} AND id=#{id}
     </select>
 	
+	<!-- 카테고리별 wish column 증가 -->
 	<update id="hallWishCountIncrement" parameterType="java.util.Map">
 		UPDATE hall SET
 		wishcount=(SELECT COUNT(*) FROM wish_list WHERE cate=#{cate} AND cno=#{cno})
 		WHERE hno=#{cno}
 	</update>
+	<update id="studioWishCountIncrement" parameterType="hashmap">
+		UPDATE studio SET
+		wish=(SELECT COUNT(*) FROM wish_list WHERE cate=#{cate} AND cno=#{cno})
+		WHERE sno=#{cno}
+	</update>
+	<update id="hairmakeupWishCountIncrement" parameterType="hashmap">
+		UPDATE hair_makeup SET
+		wish=(SELECT COUNT(*) FROM wish_list WHERE cate=#{cate} AND cno=#{cno})
+		WHERE mno=#{cno}
+	</update>
+	
+	<!-- Detail 위시 해제 -->
+	<delete id="wishDetailDelete" parameterType="hashmap">
+		DELETE FROM wish_list
+		WHERE cno=#{cno} AND cate=#{cate} AND id=#{id}
+	</delete>
+	
+	<!-- 마이페이지 출력 -->
 	<resultMap type="com.sist.vo.WishVO" id="wishMap">
 		<result property="hvo.hno" column="hno"/>
 		<result property="hvo.name" column="name"/>
@@ -29,8 +51,10 @@
 		AND id=#{id}
 		ORDER BY wno DESC
 	</select>
+	<!-- 마이페이지 삭제 -->
 	<delete id="wishCancel" parameterType="int">
 		DELETE FROM wish_list
 		WHERE wno=#{wno}
 	</delete>
+	
 </mapper>

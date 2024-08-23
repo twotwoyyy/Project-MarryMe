@@ -169,7 +169,7 @@ $(function(){
                 <h2 class="cate_tt"><span>S </span>tudio &<br> <span>H</span>air Makeup</h2>
                 <p class="cate_desc">시간이 지나도 변하지 않을 순간</p>
                 <p class="cate_desc">가장 사랑받는 베스트 스튜디오 & 헤어메이크업</p>
-                <a href="../studio/list.do" class="viewmore">view more</a>
+                <a href="../studio/studio_list.do" class="viewmore">view more</a>
             </div>
             <div class="studio_slide">
             	<c:forEach var="hair_makeup" items="${hair_makeup_list}">

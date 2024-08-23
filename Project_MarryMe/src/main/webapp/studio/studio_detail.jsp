@@ -12,6 +12,43 @@
 <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
 <link rel="stylesheet" href="../css/detail.css">
 <script defer src="../js/main.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('.wish').click(function(){
+		if(${sessionScope.id==null}){
+			alert('로그인 후 이용해주세요')
+			location.href="../member/login.do";
+		}else{
+			let sno=${studio_vo.sno};
+			$.ajax({
+				type:'POST',
+				url:'../wish/control.do',
+				data:{"cno":sno, "cate":4}, //각자 no, 카테고리 번호로 
+				success:function(result){
+					if(result==="OK"){
+						$('.wish').addClass('active');
+					}else{
+						$('.wish').removeClass('active');
+					}
+				},
+				error:function(request, status, error){
+					console.log(error)
+				}
+			})			
+		}
+	})
+	$('.share').click(function(){
+		let temp=document.createElement("textarea");
+		document.body.appendChild(temp);
+		let current_url=window.document.location.href;
+		temp.value = current_url;
+		temp.select();
+		document.execCommand("copy");
+		document.body.removeChild(temp);
+		alert("현재 URL이 복사되었습니다.");
+	})
+})
+</script>
 </head>
 <body>
 	<div id="detail" class="studio">
@@ -346,7 +383,7 @@
                             <p>원하는 상담 예약 날짜를 선택해주세요</p>
                         </div>
                         <div class="icons">
-                            <button class="wish">wish list</button>
+                            <button class="wish ${isWish==true?'active':''}">wish list</button>
                             <button class="share">share link</button>
                         </div>
                     </div>

@@ -162,3 +162,10 @@ font-family: "Monsieur La Doulaise", cursive; 400
 #footer .info p:last-of-type{
     font-weight:500;
 }
+
+/* ----------------- RESPONSIVE ------------------- */
+@media (max-width:1500px){
+	#header .container{
+		width:100%;
+	}
+}

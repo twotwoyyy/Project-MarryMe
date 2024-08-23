@@ -16,18 +16,19 @@ public class MemoModel {
 	@RequestMapping("memo/list.do")
 	public void memo_list(HttpServletRequest request, HttpServletResponse response) {
 		String cno=request.getParameter("cno");
-		String cate=request.getParameter("cate");
 		Map map=new HashMap();
-		map.put("cno", cno);
-		map.put("cate", cate);
+		map.put("cno", Integer.parseInt(cno));
+		map.put("cate", 1);
 		List<MemoVO> list=MemoDAO.memoListData(map);
-		JSONArray arr=new JSONArray();
 		int i=0;
+		
+		
 		HttpSession session=request.getSession();
 		String sid=(String)session.getAttribute("id");
 		if(sid==null) {
 			sid="guest";
 		}
+		JSONArray arr=new JSONArray();
 		for(MemoVO vo:list) {
 			JSONObject obj=new JSONObject();
 			obj.put("mno", vo.getMno()); // 댓글 번호
@@ -79,7 +80,10 @@ public class MemoModel {
 		try {
 			PrintWriter out=response.getWriter();
 			out.write(result);
-		}catch(Exception ex) {}
+		}catch(Exception ex) {
+			
+			ex.printStackTrace();
+		}
 	}
 	@RequestMapping("memo/delete.do")
 	public void memo_delete(HttpServletRequest request,HttpServletResponse response){
