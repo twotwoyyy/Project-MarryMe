@@ -59,7 +59,14 @@
     color:#dcdcdc;
     cursor: pointer;
 }
-
+.reviewList .start_btn{
+	display:flex;
+	justify-content:space-between;
+}
+.reviewList .start_btn div:last-child{
+	display:flex;
+	gap:5px;
+}
 #rplupdate .detail_update {
     padding-bottom:20px;
     margin-bottom:20px;
@@ -83,10 +90,6 @@
 }
 .detail_update input[type="file"]{
     font-size:14px;
-}
-.detail_update .button{
-	margin-left: 575px;
-    
 }
 .detail_update input[type="button"]{
 	
@@ -305,7 +308,7 @@ function replyList(pno,page,cate)
 		 {
 			
 			 json=JSON.parse(json)
-			// console.log(json)
+			//console.log(json)
 			 let html=''
 			 
 			 if(json.length === 0){
@@ -322,6 +325,7 @@ function replyList(pno,page,cate)
              html+='<p>'+reply.dbday+'</p>'//날짜
          html+='</div>'
          html+='<div class="content">'
+         	 html+='<div class="start_btn">'
              html+='<div class="star">'//별점
              		for(let i=0;i<reply.score;i++){
                  		html+='<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20" class="crema_product_reviews_score_star_wrapper__star active">'
@@ -339,9 +343,12 @@ function replyList(pno,page,cate)
                			html+='<use xlink:href="#star-full"></use>'
              			html+='</svg>'
 					}
+					html+='</div>'
 				if(reply.id===reply.sessionId){
-					html+='<input style="margin-left: 510px; margin-right: 1px;" type="button" value="수정" class="Btn" onclick="replyUpdateData('+reply.rno+')">'
-		            html+='<input style="margin-top: auto;" type="button" value="삭제" class="Btn replyDelete" data-rno="'+reply.rno+'">'
+					html+='<div>'
+					html+='<input type="button" value="수정" class="Btn" onclick="replyUpdateData('+reply.rno+')">'
+		            html+='<input type="button" value="삭제" class="Btn replyDelete" data-rno="'+reply.rno+'">'
+		            html+='</div>'
 				}
 		     html+='</div>'
              html+='<div class="content_text">'//내용
@@ -351,6 +358,10 @@ function replyList(pno,page,cate)
             	html+='<div class="img_box">'//이미지
                 html+='<img src="../img/review_img/'+reply.img+'" alt="">'
             	html+='</div>'	
+            }else{
+            	html+='<div class="img_box">'//이미지
+                html+='<img src="../img/no_image.png" alt="">'
+               	html+='</div>'	
             }
           //http://localhost/Project_MarryMe/img/review_img/
          html+='</div>'
@@ -409,6 +420,10 @@ function replyList(pno,page,cate)
 		})
 	//	console.log(html2)
 		$('#reviewPage').html(html2)	
+
+		let review_count=json.length;
+	    $('.detail_tab a[href="#review"]').text('후기('+review_count+')')		
+
 		},
 		error:function(request,status,error)
 		{
