@@ -22,7 +22,7 @@ public class DressModel {
     // 드레스 목록 화면을 처리하는 메서드
     @RequestMapping("dress/dress_list.do") 
     public String dress_list(HttpServletRequest request, HttpServletResponse response) {
-    	// 첫 페이지를 1페이지로 지정 (페이지의 값이 없는 경우 1페이지로 지정)
+    	// 첫 페이지를 1페이지로 지정
         String page = request.getParameter("page"); 
         if (page == null) {
             page = "1";    
@@ -73,7 +73,7 @@ public class DressModel {
 		if (id != null) {
 			Map map = new HashMap();
 			map.put("cno", d_no);
-			map.put("cate", 4);
+			map.put("cate", 2);
 			map.put("id", id);
 			int existWish = WishDAO.wishCheck(map);
 			if (existWish != 0) {
@@ -92,7 +92,7 @@ public class DressModel {
     // 수트 목록 화면을 처리하는 메서드
     @RequestMapping("dress/suit_list.do")
     public String suit_list(HttpServletRequest request, HttpServletResponse response) {
-    	// 첫 페이지를 1페이지로 지정 (페이지의 값이 없는 경우 1페이지로 지정)
+    	// 첫 페이지를 1페이지로 지정
         String page = request.getParameter("page");
         if (page == null) {
             page = "1";
@@ -131,7 +131,7 @@ public class DressModel {
             endPage = totalPage;
         }
         
-        // 드레스 목록추가, 시작, 현재, 끝, 전체 페이지 등록
+        // 수트 목록추가, 시작, 현재, 끝, 전체 페이지 등록
         request.setAttribute("suit_list", suit_list);
         request.setAttribute("curPage", curPage);
         request.setAttribute("totalPage", totalPage);
@@ -145,7 +145,30 @@ public class DressModel {
     // 수트 상세 보기 화면을 처리하는 메서드
     @RequestMapping("dress/suit_detail.do")
     public String suit_detail(HttpServletRequest request, HttpServletResponse response) {
+    	String su_no = request.getParameter("su_no");
+        DressVO su_vo = DressDAO.dressDetailData(Integer.parseInt(su_no));
+
+        HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("id");
+		
+		boolean isWish = false;
+		if (id != null) {
+			Map map = new HashMap();
+			map.put("cno", su_no);
+			map.put("cate", 3);
+			map.put("id", id);
+			int existWish = WishDAO.wishCheck(map);
+			if (existWish != 0) {
+				isWish = true;
+			}			
+		}
+		
+
+        request.setAttribute("suit_vo", su_vo);
+		request.setAttribute("isWish", isWish);
+        
         request.setAttribute("main_jsp", "../dress/suit_detail.jsp");
         return "../main/main.jsp";
     }
+
 }

@@ -43,14 +43,12 @@ public class SuitDAO {
 		  return total;
 	  }
 	  
-	  public static SuitVO suitDetailData(Map map) {
+	  public static SuitVO suitDetailData(int su_no) {
 		  SuitVO vo = new SuitVO();
 		  SqlSession session = null;
 		  try {
 			  session = ssf.openSession();
-			  session.update("suitHitIncrement", map);
-			  session.commit();
-			  vo = session.selectOne("suitDetailData", map);
+			  vo = session.selectOne("suitDetailData", su_no);
 		  } catch(Exception ex) {
 			  ex.printStackTrace();
 		  } finally {
