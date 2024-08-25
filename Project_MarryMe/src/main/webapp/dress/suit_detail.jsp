@@ -152,31 +152,37 @@ $(function(){
                         <li><a href="#review">후기()</a></li>
                         <li><a href="#qna">문의()</a></li>
                     </ul>
+                    
                     <div class="bottom_content">
+<!--                         <div id="image"> -->
+<!--                             <h3>상세 이미지</h3> -->
+<!--                             <table> -->
+<!--                                 <tbody> -->
+<!--                                     <tr> -->
+<!--                                         <th scope="row"></th> -->
+<!--                                         <td> -->
+<%--                                         	<c:out value="${'https:' + su_vo.su_detail_image}" />		 --%>
+<!--                                        	</td> -->
+<!--                                     </tr> -->
+<!--                                 </tbody> -->
+<!--                             </table> -->
+<!--                         </div> -->
+                        <hr>
+                        
                         <div id="image">
                             <h3>상세 이미지</h3>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row"></th>
-                                        <td>
-                                        	<c:out value="${'https:' + su_vo.su_detail_image}" />
-                                       	</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-<!--                         <hr> -->
-<!--                         <div id="image"> -->
-<!--                             <h3>이미지</h3> -->
-<!--                             <div class="masonry_wrap"> -->
+                            <div class="masonry_wrap">
 <%--                             	<c:forEach var="i" begin="0" end="${hm_image_list.size()-1}"> --%>
-<!-- 	                                <div class="img_wrap"> -->
-<%-- 	                                    <img src="${hm_image_list[i].image}" alt="${hm_vo.name} 이미지">  --%>
-<!-- 	                                </div> -->
+	                                <div class="img_wrap">
+	                                    <img src="${suit_vo.su_detail_image}" alt="${suit_vo.su_subject} 이미지">
+	                                    <img src="${suit_vo.su_detail_image2}" alt="${suit_vo.su_subject} 이미지">
+	                                    <img src="${suit_vo.su_detail_image3}" alt="${suit_vo.su_subject} 이미지">
+	                                    <img src="${suit_vo.su_detail_image4}" alt="${suit_vo.su_subject} 이미지">
+	                                    <img src="${suit_vo.su_detail_image5}" alt="${suit_vo.su_subject} 이미지">
+	                                </div>
 <%--                              	</c:forEach> --%>
-<!--                             </div> -->
-<!--                         </div> -->
+                            </div>
+                        </div>
 <!--                         <hr> -->
 <%--                         <c:if test="${hm_vo.video!=null}"> --%>
 <!-- 	                        <div id="video"> -->
@@ -190,31 +196,110 @@ $(function(){
                                 <tbody>
                                     <tr>
                                         <th scope="row">교환 / 반품 안내</th>
-                                        <td>${hm_vo.concept}</td>
+                                        <td>
+									    본 제품은 1:1 주문제작(선주문 후 제작) 상품으로 <br>
+									    주문 취소 및 환불, 교환이 불가능하니 신중한 구매 부탁드립니다.<br>
+						                <br>
+						                고객센터와 제품 확인 후 제품 불량으로 판명되어 교환이 불가피할 경우<br>
+						                같은 상품으로 재제작해 드립니다.<br>
+						                <br>
+						                
+						               	빠른 해결을 위해 상품 하자 발견 즉시 고객센터로 연락 부탁드립니다.<br>
+						               	<br>
+						               	
+						                
+						                사전 협의 없이 상품을 보내시는 경우에는 수취 거부되오니<br>
+						                반드시 게시판 접수 및 고객센터 연락 후 보내주시기 바랍니다.<br>
+						                <br>
+						                
+						                상품을 공급 받으신 날로부터 7일 이내 접수해 주셔야 합니다.<br>
+						                <br>
+						                
+						                당사 택배를 이용하여 주셔야 하며<br>
+						                타 택배 이용 시 선불로 지불하신 후 보내주셔야 합니다.
+
+						                상품은 출고 후 어떠한 경우에도 취소/교환/환불이 불가합니다.<br>
+						                <br>
+						                소모품은 분실 시 유상 구입을 원칙으로 합니다.<br>
+						                <br>
+						                <br>
+						                
+						                <h4>화이트 원단 및 기타 주의 사항</h4>
+						                <br><br>
+						                
+										화이트 원단 특성상(더블 구입, 단순 변심) 교환, 반품, 환불이 불가하니<br>
+										신중한 선택과 충분한 상담 후 구입해 주세요.<br>
+										<br>
+										
+										냄새(향수), 구김이 심한 경우, 기타 오염, 판매 상품으로<br>
+										가치가 상실된 경우 교환 및 반품이 불가합니다.<br>
+										<br>
+										
+										인수 후에는 제품 하자나 오배송의 경우를 제외한 <br>
+										고객님의 단순 변심에 의한 교환, 반품이 불가능할 수 있습니다.<br>
+										<br>
+										보낸 상태(포장, 택) 유지되어 있어야 교환 및 반품이 가능합니다.
+
+						            </td>
                                     </tr>
                                     <tr>
                                         <th scope="row">주문 취소 안내</th>
-                                        <td>${hm_vo.point}</td>
+                                        <td>
+개인적인 견해는 불량 사유가 아닙니다.<br>
+(예: 원단이 뻣뻣하다 / 덜 반짝인다 등)<br>
+<br>
+상품 택 불량 / 배송 중 상품의 구김, 펄 비즈 떨어짐 / 제작 중 발생한 실밥, 올풀림 <br>
+세탁 후 지워지는 가벼운 얼룩, 초크 자국 / 경미한 바느질 미흡 등은<br>
+불량의 사유가 아닙니다.<br>
+<br>
+측정 위치나 원단, 디자인에 따라 약간의 오차는 발생될 수 있습니다.<br>
+이는 불량의 사유가 아닙니다.<br>
+<br>
+화이트와 같은 밝은 색상의 상품은 원단 생산 과정에서 발생되는<br>
+미세한 이염이나 잡사가 있을 수 있습니다.<br>
+<br>
+이용 전 주의 사항 및 약관 사항을 읽지 않아 생기는 불이익에 대해서는<br>
+본사의 책임이 없음을 알려드립니다.<br>
+<br>
+
+한 달 전 취소 - 100% 환불<br>
+<br>
+3주 전 취소 - 80% 환불<br>
+<br>
+2주 전 취소 - 50% 환불<br>
+<br>
+1주 전 취소 - 20% 환불<br>
+<br>
+6일 이내 환불 불가
+
+									</td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">매장 운영 정보</th>
-                                        <td>${hm_vo.notice}</td>
-                                    </tr>
+<!--                                     <tr> -->
+<!--                                         <th scope="row">매장 운영 정보</th> -->
+<%--                                         <td>${hm_vo.notice}</td> --%>
+<!--                                     </tr> -->
                                     <tr>
                                         <th scope="row">영업 시간</th>
-                                        <td>${hm_vo.cancel}</td>
+                                        <td> 
+<%--                                         ${suit_vo.su_hour } --%>
+	월~금 10:00~18:00<br>
+						            </td>
                                     </tr>
                                     <tr>
                                         <th scope="row">영업 / 휴무일</th>
-                                        <td>${hm_vo.refund}</td>
+                                        <td>
+<%--                                         ${suit_vo.su_dayoff} --%>
+	토요일, 일요일, 공휴일 휴무<br>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
+                        
                         <hr>
                         <div id="map">
                             <h3>위치</h3>
-                            <address>${su_vo.address}</address>
+                            <address>${su_vo.su_address}</address>
                             <div id="detail_map" style="width:100%;height:350px;"></div> 
                         </div>
                         <hr>
@@ -446,7 +531,6 @@ $(function(){
                         <div class="time">
                             <label for="time">예약 시간</label>
                             <ul class="reserve_time">
-                                <li><button class="time_btn">09:00</button></li>
                                 <li><button class="time_btn">10:00</button></li>
                                 <li><button class="time_btn">11:00</button></li>
                                 <li><button class="time_btn">12:00</button></li>
@@ -455,7 +539,6 @@ $(function(){
                                 <li><button class="time_btn">15:00</button></li>
                                 <li><button class="time_btn">16:00</button></li>
                                 <li><button class="time_btn">17:00</button></li>
-                                <li><button class="time_btn">18:00</button></li>
                             </ul>
                         </div>
                         <div class="total">

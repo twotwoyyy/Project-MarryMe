@@ -112,17 +112,17 @@ public class DressModel {
         List<SuitVO> suit_list = SuitDAO.suitListData(map);
         int totalPage = SuitDAO.suitTotalPage();
         
-        // 상대적 URL을 가지고 있는 데이터를 절대적 URL로 변경, 이미지 출력
-        // d_image가 NULL값이 아니거니 공백이 아닌 데이터 중 http, https로 시작하지 않으면 https:를 앞에 붙여서 출력
-        for (SuitVO su : suit_list) {
-    		String su_image = su.getSu_image();
-    		if (su_image != null && !su_image.trim().isEmpty()) {
-    			if (!su_image.startsWith("http:") && !su_image.startsWith("https:")) {
-    				su_image = "https:" + su_image;
-    			}
-    			su.setSu_image(su_image);
-    		}
-    	}
+        // 상대적 URL을 가지고 있는 데이터를 절대적 URL로 변경
+        // su_image가 NULL값이 아니거니 공백이 아닌 데이터 중 http, https로 시작하지 않으면 https:를 앞에 붙여서 출력
+//        for (SuitVO su : suit_list) {
+//    		String su_image = su.getSu_image();
+//    		if (su_image != null && !su_image.trim().isEmpty()) {
+//    			if (!su_image.startsWith("http:") && !su_image.startsWith("https:")) {
+//    				su_image = "https:" + su_image;
+//    			}
+//    			su.setSu_image(su_image);
+//    		}
+//    	}
 
         final int BLOCK = 5;
         int startPage = ((curPage - 1) / BLOCK * BLOCK) + 1;
