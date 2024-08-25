@@ -1,20 +1,25 @@
 package com.sist.model;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.sist.controller.RequestMapping;
 import com.sist.dao.DressDAO;
+import com.sist.dao.StudioDAO;
 import com.sist.dao.SuitDAO;
 import com.sist.dao.WishDAO;
 import com.sist.vo.DressVO;
+import com.sist.vo.HairMakeupVO;
+import com.sist.vo.StudioVO;
 import com.sist.vo.SuitVO;
 
 public class DressModel {
@@ -56,10 +61,33 @@ public class DressModel {
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("startPage", startPage); 
         request.setAttribute("endPage", endPage); 
-
+        
+        // 쿠키
+        Cookie[] cookies = request.getCookies();
+		List<DressVO> dress_cookies = new ArrayList<DressVO>();
+		if (cookies != null) {
+			for (int i = cookies.length - 1; i >= 0; i--) {
+				if (cookies[i].getName().startsWith("dress_")) {
+					String d_no = cookies[i].getValue();
+					DressVO d_vo = DressDAO.dressDetailData(Integer.parseInt(d_no));
+					dress_cookies.add(d_vo);
+				}
+			}
+		}
+		request.setAttribute("dress_cookies", dress_cookies);
         request.setAttribute("main_jsp", "../dress/dress_list.jsp");
         return "../main/main.jsp";
     }
+    
+    @RequestMapping("dress/dress_detail_before.do")
+    	public String dress_detail_before (HttpServletRequest request, HttpServletResponse response) {
+    		String d_no = request.getParameter("d_no");
+    		Cookie cookie = new Cookie("dress_" + d_no, d_no);
+    		cookie.setMaxAge(60*60*24);
+    		cookie.setPath("/");
+    		response.addCookie(cookie);
+    		return "redirect:../dress/dress_detail.do?d_no=" + d_no;
+    	}
 
     // 드레스 상세 보기 화면을 처리하는 메서드
     @RequestMapping("dress/dress_detail.do")
@@ -137,9 +165,33 @@ public class DressModel {
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("startPage", startPage);
         request.setAttribute("endPage", endPage);
+        
+        // 쿠키
+        Cookie[] cookies=request.getCookies();
+		List<SuitVO> suit_cookies = new ArrayList<SuitVO>();
+		if(cookies!=null) {
+			for (int i = cookies.length-1; i >= 0; i--) {
+				if (cookies[i].getName().startsWith("studio_")) {
+					String su_no = cookies[i].getValue();
+					SuitVO su_vo = SuitDAO.suitDetailData(Integer.parseInt(su_no));
+					suit_cookies.add(su_vo);
+				}
+			}
+		}
+		request.setAttribute("suit_cookies", suit_cookies);
 
         request.setAttribute("main_jsp", "../dress/suit_list.jsp");
         return "../main/main.jsp";
+    }
+    
+    @RequestMapping("dress/suit_deteail_before.do")
+    public String suit_detail_before(HttpServletRequest request, HttpServletResponse response) {
+    	String su_no = request.getParameter("su_no");
+    	Cookie cookie = new Cookie("suit_" + su_no, su_no);
+    	cookie.setMaxAge(60 * 60 * 24);
+    	cookie.setPath("/");
+    	response.addCookie(cookie);
+    	return "redirect:../suit/suit_detail.do?su_no=" + su_no;
     }
     
     // 수트 상세 보기 화면을 처리하는 메서드
@@ -162,11 +214,8 @@ public class DressModel {
 				isWish = true;
 			}			
 		}
-		
-
         request.setAttribute("suit_vo", su_vo);
 		request.setAttribute("isWish", isWish);
-        
         request.setAttribute("main_jsp", "../dress/suit_detail.jsp");
         return "../main/main.jsp";
     }
