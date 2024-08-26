@@ -45,5 +45,6 @@
 		<mapper resource="com/sist/mapper/memo-mapper.xml"/>
 		<mapper resource="com/sist/mapper/reserve-mapper.xml"/>
 		<mapper resource="com/sist/mapper/find-mapper.xml"/>
+		<mapper resource="com/sist/mapper/admin-mapper.xml"/>
 	</mappers>
 </configuration>
