@@ -6,6 +6,7 @@ import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -16,32 +17,52 @@ import com.sist.controller.RequestMapping;
 import com.sist.dao.*;
 import com.sist.vo.*;
 public class QnaModel {
-	@RequestMapping("qna/insert.do")
-	public String qna_insert(HttpServletRequest request,HttpServletResponse response) {
-		request.setAttribute("main_jsp", "../qna/insert.jsp");
-		return "../main/main.jsp";
-	}
-	
-	@RequestMapping("qna/insert_ok.do")
-	public String qna_insert_ok(HttpServletRequest request,HttpServletResponse response) {
+	@RequestMapping("qna/userInsert.do")
+	public void qna_insert_ok(HttpServletRequest request,HttpServletResponse response) {
 		try
-	  {
+		{
 		  request.setCharacterEncoding("UTF-8");
+		}catch(Exception ex){}
 		  
-		  String id=request.getParameter("id");
 		  String msg=request.getParameter("msg");
+		  String pwd=request.getParameter("pwd");
+		  String pno=request.getParameter("pno");
 		  String cate=request.getParameter("cate");
+		  HttpSession session=request.getSession();
+		  String id=session.getId();
+		  String tab=request.getParameter("tab");
 		  // a.jpg
 		  // a.jpg => a1.jpg
 		  
 		  QnaVO vo=new QnaVO();
+		  
 		  vo.setId(id);
 		  vo.setMsg(msg);
+		  vo.setPwd(pwd);
+		  vo.setPno(Integer.parseInt(pno));
 		  vo.setCate(Integer.parseInt(cate));
-		  QnaDAO.qnaInsert(vo);
-	  }catch(Exception ex){}
-		 
-		return "redirect:../qna/list.do";
+		  // user = tab(0) admin = tab(1)
+		  vo.setTab(Integer.parseInt(tab));
+		  String result="";
+		  
+		  try {
+			QnaDAO.qnaInsert(vo);
+			result="OK";
+		 } catch (Exception e) {
+			result="NO";
+			// TODO: handle exception
+		 }
+		  
+		  try {
+				
+				response.setContentType("text/plain;charset=UTF-8");
+				PrintWriter out=response.getWriter();
+				out.write(result);
+		   } catch (Exception e) {
+				e.printStackTrace();
+				// TODO: handle exception
+		   }
+		
 	}
 	 
 	
@@ -56,7 +77,7 @@ public class QnaModel {
 		int rowSize=3;
 		int start=(rowSize*curpage)-(rowSize-1);
 		int end=rowSize*curpage;
-		int tab=0;
+		int tab=0; // 사용자
 		Map map=new HashMap();
 		map.put("start", start);
 		map.put("end", end);
@@ -64,7 +85,7 @@ public class QnaModel {
 		map.put("pno", pno);
 		map.put("cate", cate);
 		List<QnaVO> ulist=QnaDAO.qnaUserListData(map);
-		tab=1;
+		tab=1; // 어드민
 		map.put("tab" , tab);
 		
 		List<QnaVO> qnaList=new ArrayList<QnaVO>();
@@ -101,7 +122,6 @@ public class QnaModel {
 		  // new SimpleDateFormat("yyyy-MM-dd").format(new Date())
 		JSONArray arr=new JSONArray();
 		int h=0;
-		int count=0;
 		try {
 		for(QnaVO vo:qnaList) {
 			JSONObject obj=new JSONObject();
@@ -115,7 +135,6 @@ public class QnaModel {
 			obj.put("today", today);
 			obj.put("group_id", vo.getGroup_id());
 			obj.put("tab", vo.getTab());
-			obj.put("count", total-count);
 			if(h==0) {
 			obj.put("startpage", startpage);
 			obj.put("endpage", endpage);

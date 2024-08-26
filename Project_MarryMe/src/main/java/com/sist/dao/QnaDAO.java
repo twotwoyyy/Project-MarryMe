@@ -21,6 +21,7 @@ public class QnaDAO {
 		try {
 		session=ssf.openSession();
 		session.insert("qnaInsert",vo);
+		session.commit();
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}finally {

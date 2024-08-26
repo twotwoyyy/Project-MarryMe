@@ -9,7 +9,7 @@
  -->
  	<insert id="qnaInsert" parameterType="QnaVO">
  		INSERT INTO qna VALUES((SELECT NVL(MAX(qna_no)+1,1) FROM qna),
- 		 #{msg},SYSDATE,#{cate},#{group_id},#{tab},#{id}
+ 		 #{msg},SYSDATE,#{cate},#{group_id},#{tab},#{id},#{pno},#{pwd}
  		)
  	</insert>
  	<resultMap type="com.sist.vo.QnaVO" id="QnaMap">
@@ -25,7 +25,7 @@
  		AND tab=#{tab}
  		AND pno=#{pno}
  		AND cate=#{cate}
- 		ORDER BY group_id))
+ 		ORDER BY group_id DESC))
  		WHERE num BETWEEN #{start} AND #{end}
  	</select>
  	<select id="qnaAdminData" resultMap="QnaMap" parameterType="hashmap">

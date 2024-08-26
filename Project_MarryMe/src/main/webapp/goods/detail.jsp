@@ -61,6 +61,45 @@
             clip-path: inset(0 0 0 50%); /* 왼쪽 절반을 잘라냅니다 */
         }
 </style>
+<script type="text/javascript">
+$(function(){
+	$('.wish').click(function(){
+		if(${sessionScope.id==null}){
+			alert('로그인 후 이용해주세요')
+			location.href="../member/login.do";
+		}else{
+			let pno=$('#postNo');
+			$.ajax({
+				type:'POST',
+				url:'../wish/control.do',
+				data:{"hno":pno, "cate":6},
+				success:function(result){
+					if(result==="OK"){
+						$('.wish').addClass('active');
+						alert('위시 리스트에 저장되었습니다')
+					}else{
+						$('.wish').removeClass('active');
+						alert('위시 리스트가 삭제되었습니다')
+					}
+				},
+				error:function(request, status, error){
+					console.log(error)
+				}
+			})			
+		}
+	})
+	$('.share').click(function(){
+		let temp=document.createElement("textarea");
+		document.body.appendChild(temp);
+		let current_url=window.document.location.href;
+		temp.value = current_url;
+		temp.select();
+		document.execCommand("copy");
+		document.body.removeChild(temp);
+		alert("현재 URL이 복사되었습니다.");
+	})
+})
+</script>
 </head>
 <body>
 	<div id="detail" class="studio">

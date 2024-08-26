@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +15,35 @@ $(function(){
 	let page=1
 	qnaList(pno,page,cate)
 	
+	$('#qnaBtn').on('click',function(){
+		let msg=$('#qna_content').val()
+		if(msg.trim()==="")
+		{
+			 $('#qna_content').focus()
+			 return
+		}
+		let pwd=$('#qna_pw').val()
+		if(pwd.trim()==="")
+		{
+			 $('#qna_pw').focus()
+			 return
+		}
+		$.ajax({
+			type:'post',
+   			url:'../qna/userInsert.do',
+   			data:{"msg":msg,"pwd":pwd,"pno":pno,"cate":cate,"tab":1},
+   			success:function(result){
+   				if(result==="OK"){
+   					$('#qna_detail').removeClass('active');
+   					qnaList(pno,page,cate)
+   				}
+   				else{
+   					alert('잘못된 입력입니다')
+   				}
+   			}
+		})
+			
+	})
 	
     $(document).on('click','.bimil',function(){
     	let qno=$(this).data('qno');
@@ -36,7 +66,7 @@ $(function(){
     	$.ajax({
     		type:'post',
    			url:'../qna/password.do',
-   			data:{"qno":qno,"pwd":pwd,},
+   			data:{"qno":qno,"pwd":pwd},
    			success:function(result){
    				if(result==="OK"){
    					$('#write_pw'+qno).removeClass('active');
@@ -48,6 +78,7 @@ $(function(){
    			}
     	})
     })
+    
     
 })
 function qnaList(pno,page,cate)
@@ -126,9 +157,13 @@ function qnaList(pno,page,cate)
 <div id="qna">
   <div class="board_top">
        <h3>문의</h3>
-       <button>문의 작성</button>
+       <c:if test="${sessionScope.id!=null }">
+         <c:if test="${sessionScope.admin=='n' }">
+	   	    <button>문의 작성</button>
+   	     </c:if>
+   	   </c:if>
    </div>
-   <div class="detail_input">
+   <div class="detail_input" id="qna_detail">
        <label for="qna_content">문의를 작성해주세요</label>
        <textarea name="qna_content" id="qna_content"></textarea>
        <div>
@@ -136,7 +171,7 @@ function qnaList(pno,page,cate)
                <label for="qna_pw">비밀번호</label>
                <input type="password" id="qna_pw">
            </div>
-           <input type="button" value="작성완료">
+           <input type="button" value="작성완료" id="qnaBtn">
        </div>
    </div>
    <ul class="qna_list">
