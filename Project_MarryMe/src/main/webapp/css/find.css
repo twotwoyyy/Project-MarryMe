@@ -1,0 +1,55 @@
+@charset "UTF-8";
+
+#find{
+    background:#EFF3EA;
+    font-family: 'SCoreDream', sans-serif;
+}
+#find .dress_list{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+}
+#find .product_name{
+    font-weight:500;
+    margin-bottom:5px;
+}
+#find .pro_link{
+    display:block;
+}
+#find img:not(.banner_img){
+	width:100%;
+    object-fit:cover;
+	object-position:center;
+    margin-bottom:10px;
+    opacity:.8;
+    transition:.3s;
+}
+#find .pro_link:hover img{
+    opacity:1;
+}
+
+/* --------------- PAGINATION ----------------- */
+#find .page{
+    padding:50px 0 80px;
+    display:flex;
+    justify-content:center;
+    gap:10px;
+}
+#find .page > li a{
+    display:block;
+    width:30px;
+    height:30px;
+    line-height:30px;
+    text-align:center;
+    border:1px solid #303030; 
+    transition:.3s;
+}
+#find .page > li a:hover{
+    background:#303A1F;
+    color:#dcdcdc;
+}
+#find .page > li.active > a{
+    background:#303A1F;
+    color:#dcdcdc;
+}

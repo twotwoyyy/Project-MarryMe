@@ -122,6 +122,7 @@ font-family: "Monsieur La Doulaise", cursive; 400
     gap:30px;
 }
 #header .right_menu input[type="search"]{
+	font-family: 'SCoreDream', sans-serif;
     background:none;
     border:none;
     border-bottom:1px solid #303030;

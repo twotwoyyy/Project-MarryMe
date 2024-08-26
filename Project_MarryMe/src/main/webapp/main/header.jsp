@@ -6,6 +6,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+$(function(){
+	$('.search_btn').click(function(e){
+		if($('#header #search').val().trim()===""){
+			e.preventDefault();
+			alert('검색어를 입력해주세요')
+			$('#header #search').focus()
+		}
+	})
+})
+</script>
 </head>
 <body>
     <header id="header">
@@ -48,10 +59,10 @@
             <div class="right">
                 <ul class="right_menu">
                     <li>
-                        <form method="GET" action="#">
+                        <form method="GET" action="../main/find.do">
                             <label for="search" class="hidden">검색</label>
                             <input type="search" id="search" name="search">
-                            <input type="submit" value="검색">
+                            <input type="submit" value="검색" class="search_btn">
                         </form>
                     </li>
                     <c:if test="${sessionScope.id==null}">
