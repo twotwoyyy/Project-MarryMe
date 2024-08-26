@@ -273,7 +273,7 @@
                                         <img src="../mypage/jjim.png" class="reserveBtn">
                                         <span>${vo.svo.name}</span>
                                     </div>
-                                    <div class="tel">
+                                    <div class="tel"> 
                                     <div class="date-info">☎ ${vo.svo.address}</div>
                                         <div class="date-info" style="color:red">예약일: ${vo.rdate}</div>
                                         <div class="date-info">예약시간: ${vo.rtime }</div>
