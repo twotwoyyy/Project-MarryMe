@@ -383,7 +383,7 @@
 			                        </div>
 		                        </div>
 		                        <div class="action-buttons">
-		                            <button class="view-details" data-href="../goods/detail.do?mgno=${vo.gvo.mgno}">상세보기</button>
+		                            <button class="view-details" data-href="../goods/detail.do?cate=6&pno=${vo.gvo.mgno}">상세보기</button>
 		                            <button class="cancel" data-href="${vo.wno}">취소</button>
 		                        </div>
 	                        </div>

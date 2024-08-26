@@ -15,6 +15,12 @@ import lombok.Data;
 @Data
 public class ReserveVO {
 	private int resno, pno, cate;
-	private String id, rdate, rtime, confirm, dbresday;
+	private String id, rdate, rtime, confirm, dbresday, dbday;
 	private Date regdate;
+	HallVO hvo=new HallVO();
+	StudioVO svo=new StudioVO();
+	HairMakeupVO mvo=new HairMakeupVO();
+	DressVO dvo=new DressVO();
+	SuitVO suvo=new SuitVO();
+	GoodsVO gvo=new GoodsVO();
 }

@@ -22,4 +22,80 @@
 		SELECT rdate, rtime FROM reserve
 		WHERE cate=#{cate} AND pno=#{pno}
 	</select>
+	
+	<!-- 마이페이지 -->
+	<resultMap type="com.sist.vo.ReserveVO" id="hallMap">
+		<result property="hvo.hno" column="hno"/>
+		<result property="hvo.name" column="name"/>
+		<result property="hvo.image" column="image"/>
+		<result property="hvo.addr" column="addr"/>
+	</resultMap>
+	<resultMap type="com.sist.vo.ReserveVO" id="hmMap">
+		<result property="mvo.mno" column="mno"/>
+		<result property="mvo.name" column="name"/>
+		<result property="mvo.thumb" column="thumb"/>
+		<result property="mvo.tel" column="tel"/>
+		<result property="mvo.address" column="address"/>
+	</resultMap>
+	<resultMap type="com.sist.vo.ReserveVO" id="studioMap">
+		<result property="svo.sno" column="sno"/>
+		<result property="svo.thumb" column="thumb"/>
+		<result property="svo.name" column="name"/>
+		<result property="svo.address" column="address"/>
+	</resultMap>
+	<resultMap type="com.sist.vo.ReserveVO" id="suitMap">
+		<result property="suvo.su_no" column="su_no"/>
+		<result property="suvo.su_subject" column="su_subject"/>
+		<result property="suvo.su_price" column="su_price"/>
+		<result property="suvo.su_image" column="su_image"/>
+		<result property="suvo.su_address" column="su_address"/>
+	</resultMap>
+	<resultMap type="com.sist.vo.ReserveVO" id="dressMap">
+		<result property="dvo.d_no" column="d_no"/>
+		<result property="dvo.d_subject" column="d_subject"/>
+		<result property="dvo.d_price" column="d_price"/>
+		<result property="dvo.d_image" column="d_image"/>
+		<result property="dvo.d_address" column="d_address"/>
+	</resultMap>
+
+	
+	<select id="hallReserveMypageData" resultMap="hallMap" parameterType="string">
+		SELECT resno,pno,rdate,rtime,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,confirm,h.hno,h.name,h.image,h.addr
+		FROM reserve r, hall h
+		WHERE r.pno=h.hno
+		AND id=#{id} AND r.cate=1
+		ORDER BY resno DESC
+	</select>
+	<select id="dressReserveMypageData" resultMap="dressMap" parameterType="string">
+		SELECT resno,pno,rdate,rtime,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,confirm,d.d_price,d.d_image,d.d_address
+		FROM reserve r, dress d
+		WHERE r.pno=d.d_no
+		AND id=#{id} AND r.cate=2
+		ORDER BY resno DESC
+	</select>
+	<select id="suitReserveMypageData" resultMap="suitMap" parameterType="string">
+		SELECT resno,pno,rdate,rtime,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,confirm,su.su_no,su.su_subject,su.su_price,su.su_image,su.su_address
+		FROM reserve r, suit su
+		WHERE r.pno=su.su_no
+		AND id=#{id} AND r.cate=3
+		ORDER BY resno DESC
+	</select>
+	<select id="studioReserveMypageData" resultMap="studioMap" parameterType="string">
+		SELECT resno,pno,rdate,rtime,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,confirm,s.sno,s.name,s.thumb,s.tel,s.address
+		FROM reserve r, studio s
+		WHERE r.pno=s.sno
+		AND id=#{id} AND r.cate=4
+		ORDER BY resno DESC
+	</select>
+	<select id="hairmakeupReserveMypageData" resultMap="hmMap" parameterType="string">
+		SELECT resno,pno,rdate,rtime,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,confirm,hm.mno,hm.name,hm.thumb,hm.tel,hm.address
+		FROM reserve r, hair_makeup hm
+		WHERE r.pno=hm.mno
+		AND id=#{id} AND r.cate=5
+		ORDER BY resno DESC
+	</select>
+		<delete id="reserveCancel" parameterType="int">
+			DELETE FROM reserve
+			WHERE resno=#{resno}
+		</delete>
 </mapper>

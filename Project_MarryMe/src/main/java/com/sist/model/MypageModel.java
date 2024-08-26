@@ -9,10 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.sist.controller.RequestMapping;
-import com.sist.dao.MemberDAO;
-import com.sist.dao.WishDAO;
-import com.sist.vo.MemberVO;
-import com.sist.vo.WishVO;
+import com.sist.dao.*;
+import com.sist.vo.*;
 public class MypageModel {
 	@RequestMapping("mypage/mypage_main.do")
 	public String mypage_main(HttpServletRequest request, HttpServletResponse response) {
@@ -155,5 +153,49 @@ public class MypageModel {
 		return "../main/main.jsp";
 	}
 	
+	@RequestMapping("mypage/mypage_reserve.do")
+	public String mypage_reserve(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		
+		
+		
+		List<ReserveVO> hallrList=ReserveDAO.hallReserveMypageData(id);
+		List<ReserveVO> suitrList=ReserveDAO.suitReserveMypageData(id);
+		List<ReserveVO> dressrList=ReserveDAO.dressReserveMypageData(id);
+		List<ReserveVO> studiorList=ReserveDAO.studioReserveMypageData(id);
+		List<ReserveVO> hairmakeuprList=ReserveDAO.hairmakeupReserveMypageData(id);
+		
+		int hSize=hallrList.size();
+		int dSize=dressrList.size();
+		int suSize=suitrList.size();
+		int sSize=studiorList.size();
+		int mSize=hairmakeuprList.size();
+		int totalRes=hSize+dSize+suSize+sSize+mSize;
+		
+		request.setAttribute("hCount", hallrList.size());
+		request.setAttribute("dCount", dressrList.size());
+		request.setAttribute("suCount", suitrList.size());
+		request.setAttribute("sCount", studiorList.size());
+		request.setAttribute("mCount", hairmakeuprList.size());
+		request.setAttribute("totalRes", totalRes);
+		
+		request.setAttribute("title", "🕦예약내역🕦");
+		request.setAttribute("hallrList", hallrList);
+		request.setAttribute("suitrList", suitrList);
+		request.setAttribute("dressrList", dressrList);
+		request.setAttribute("studiorList", studiorList);
+		request.setAttribute("hairmakeuprList", hairmakeuprList);
+		request.setAttribute("mypage_jsp", "../mypage/mypage_reserve.jsp");
+		request.setAttribute("main_jsp", "../mypage/mypage_main.jsp");
+		return "../main/main.jsp";
+	}
 	
+	@RequestMapping("mypage/mypage_reserve_cancel.do")
+	public String mupage_reserve_cancel(HttpServletRequest request, HttpServletResponse response) {
+		
+		String resno=request.getParameter("resno");
+		ReserveDAO.reserveCancel(Integer.parseInt(resno));
+		return "redirect:../mypage/mypage_reserve.do";
+	}
 }
