@@ -33,8 +33,7 @@ public class ReviewModel {
 		  try {
 				request.setCharacterEncoding("UTF-8");
 			
-		  //String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Project_MarryMe\\img\\review_img";
-		  String path="/Users/zeroland/Desktop/class/project_marryme";
+		  String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Project_MarryMe\\img\\review_img";
 		  
 		  // 파일이 업로드 되는 폴더를 지정한다.
 		  //String saveFolder = "JSP_File/01_file_basic";
@@ -194,8 +193,7 @@ public class ReviewModel {
 				request.setCharacterEncoding("UTF-8");
 		  
 		 // String path = "C:\\Users\\user\\git\\Project_MarryMe\\Project_MarryMe\\src\\main\\webapp\\img\\review_img";
-		  //String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Project_MarryMe\\img\\review_img";
-		  String path="/Users/zeroland/Desktop/class/project_marryme";
+		  String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Project_MarryMe\\img\\review_img";
 		  
 		  // 파일이 업로드 되는 폴더를 지정한다.
 		  //String saveFolder = "JSP_File/01_file_basic";
