@@ -291,7 +291,7 @@ font-family: "Monsieur La Doulaise", cursive;
 }
 #detail #qna .qna_list .close{
     display:grid;
-    grid-template-columns:40px 1fr 50px 70px;
+    grid-template-columns:40px 1fr 40px 50px 70px;
     text-align:center;
     align-items:center;
     gap:10px;
