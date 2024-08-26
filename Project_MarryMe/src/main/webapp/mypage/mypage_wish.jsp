@@ -37,6 +37,9 @@
             font-size: 16px;
             background-color: #f4f4f4;
         }
+        .tab_box button:hover{
+        background-color: #8FBC8B;
+        }
         .tab_box button.on {
             background-color: #8FBC8B;
             color: white;

@@ -71,48 +71,74 @@
 }
 
 #memoForm {
+    display: none; /* 기본적으로 숨김 */
     margin-bottom: 20px;
-    display: flex;
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out; /* 부드러운 전환 효과 */
+    overflow: hidden; /* 내용이 넘치면 숨김 */
+    max-height: 0; /* 기본 최대 높이 설정 */
+    padding: 0; /* 기본 패딩 설정 */
 }
 
-#memoInput {
-    flex: 1;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    margin-right: 10px;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+#memoForm.open {
+    display: block; /* 폼을 보이게 함 */
+    max-height: 150px; /* 입력 폼의 최대 높이 설정 */
+    padding: 10px; /* 폼 내부 여백 설정 */
 }
 
 #submitButton {
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #007bff;
+    background-color: #b5e7b5; /* 연녹색 배경 */
+    color: #fff;
+    border: none;
+    border-radius: 50px; /* 둥근 버튼 */
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease; /* 부드러운 색상 변화 */
+}
+
+#submitButton:hover {
+    background-color: #a3d3a1; /* 호버 시 더 연한 색상 */
+}
+
+#addMemoButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff; /* 기본 버튼 색상 */
     color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease; /* 부드러운 색상 변화 */
 }
 
-#submitButton:hover {
-    background-color: #0056b3;
+#addMemoButton:hover {
+    background-color: #0056b3; /* 호버 시 색상 변화 */
 }
 
 #memoList {
-    list-style: none;
+    display: flex;
+    flex-wrap: wrap; /* 메모를 두 줄씩 배치 */
+    gap: 20px; /* 메모 간의 간격 설정 */
     padding: 0;
+    list-style: none;
 }
 
 #memoList li {
-    background: #f9f9f9;
-    border: 1px solid #ddd;
-    margin-bottom: 10px;
+    background: #f0fdf0; /* 연한 연두색 배경 */
+    border: 1px solid #b5e7b5; /* 연한 연두색 테두리 */
     padding: 10px;
-    border-radius: 4px;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    border-radius: 10px; /* 테두리 둥글게 */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
     font-family: 'Courier New', Courier, monospace;
+    width: calc(50% - 20px); /* 메모의 너비를 50%로 설정하고 간격을 고려해 조정 */
+}
+
+.memo-date {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 5px; /* 날짜와 메모 내용 간의 간격 */
 }
 
 .memo-header {
@@ -139,7 +165,9 @@
 .actions {
     margin-top: 10px;
     text-align: right;
+    display: none; /* 기본적으로 감춤 */
 }
+
 
 .actions button {
     margin-left: 10px;
@@ -166,6 +194,8 @@
 .actions .deleteMemo:hover {
     background-color: #c82333;
 }
+
+
 </style>
 <script>
 // 서버에서 전달된 날짜 문자열을 JavaScript 변수에 할당
@@ -184,7 +214,7 @@ function showWeddingDay() {
     } else if (daysLeft === 0) {
         message = "오늘은 두 사람의 특별한 날, 결혼을 진심으로 축하드립니다!!";
     } else {
-        message = "웨딩이 끝나셨군요. 행복한 하루하루를 보내세요.";
+        message = "웨딩이 끝나셨군요. 행복한 결혼생활이 되시길 바랍니다.";
     }
 
     document.getElementById("weddingDayInfo").innerHTML = message;
@@ -196,13 +226,6 @@ window.onload = showWeddingDay;
 
 function loadMemoList() {
     const sessionId = $('#sessionId').val(); 
-
-    // sessionId가 유효한지 확인
-    if (!sessionId) {
-        console.error('세션 ID를 가져올 수 없습니다.');
-        $('#memoList').html('<li><h3>세션 ID를 가져올 수 없습니다.</h3></li>');
-        return;
-    }
 
     $.ajax({
         type: 'POST',
@@ -226,8 +249,9 @@ function loadMemoList() {
                         html += '        <div class="profile">';
                         html += '        </div>';
                         html += '    </div>';
-                        html += '    <div class="memo-content">' + memo.msg + '</div>'; // 내용
-                        html += '    <div class="actions">';
+                        html += '    <div class="memo-content">' + memo.msg + '</div>'; // 메모 내용
+                        html += '    <div class="memo-date" style="display:none;">' + memo.dbday + '</div>'; // 메모 날짜 숨김
+                        html += '    <div class="actions" id="memoBtn" style="display:none;">';
                         html += '        <button class="editMemo">수정</button>';
                         html += '        <button class="deleteMemo">삭제</button>';
                         html += '    </div>';
@@ -251,7 +275,19 @@ function loadMemoList() {
 
 $(document).ready(function() {
     loadMemoList();
+
+    $(document).on('click', '.memoListItem', function() {
+        $(this).find('.actions, .memo-date').slideToggle('slow'); // 버튼과 날짜가 함께 부드럽게 나타남
+    });
+    $('#addMemoButton').click(function() {
+        $('#memoForm').toggleClass('open'); // 'open' 클래스 토글
+        $(this).hide(); // 버튼 숨기기
+    });
+
+
 });
+
+
 </script>
 
 </head>
@@ -296,10 +332,14 @@ $(document).ready(function() {
             </div>
         </div>
 		<div class="memocontainer">
-	        <div id="memoForm">
-	            <input type="text" id="memoInput" placeholder="여기에 메모를 입력하세요">
-	            <button id="submitButton">메모 추가</button>
-	        </div>
+			<div id="memoForm">
+			    <input type="text" id="memoInput" placeholder="여기에 메모를 입력하세요">
+			    <button id="submitButton">메모 추가</button>
+			</div>
+			<!-- 추가 버튼 -->
+			<button id="addMemoButton">메모장</button>
+		</div>
+		<div>
         	<h3>나의 메모</h3>
 	        <ul id="memoList">
 	            <!-- 메모 내용이 여기에 추가됩니다 -->
