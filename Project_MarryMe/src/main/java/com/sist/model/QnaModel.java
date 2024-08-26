@@ -29,7 +29,7 @@ public class QnaModel {
 		  String pno=request.getParameter("pno");
 		  String cate=request.getParameter("cate");
 		  HttpSession session=request.getSession();
-		  String id=session.getId();
+		  String id=(String)session.getAttribute("id");
 		  String tab=request.getParameter("tab");
 		  // a.jpg
 		  // a.jpg => a1.jpg
@@ -148,7 +148,7 @@ public class QnaModel {
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}
-		System.out.println(arr.toJSONString());
+		
 		
 		try {
 			

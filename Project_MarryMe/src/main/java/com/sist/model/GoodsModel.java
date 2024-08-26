@@ -131,6 +131,7 @@ public class GoodsModel {
 		
 		//System.out.println("score: "+score);
 		//System.out.println("point: "+point);
+		request.setAttribute("isWish", isWish);
 		request.setAttribute("fPrice", fPrice);
 		request.setAttribute("score", score);
 		request.setAttribute("point", point);

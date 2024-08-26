@@ -31,7 +31,7 @@ $(function(){
 		$.ajax({
 			type:'post',
    			url:'../qna/userInsert.do',
-   			data:{"msg":msg,"pwd":pwd,"pno":pno,"cate":cate,"tab":1},
+   			data:{"msg":msg,"pwd":pwd,"pno":pno,"cate":cate,"tab":0},
    			success:function(result){
    				if(result==="OK"){
    					$('#qna_detail').removeClass('active');
