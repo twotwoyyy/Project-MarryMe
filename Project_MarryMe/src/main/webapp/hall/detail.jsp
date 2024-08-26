@@ -9,10 +9,53 @@
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
 <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
 <link rel="stylesheet" href="../css/detail.css">
 <script defer src="../js/main.js"></script>
 <script type="text/javascript">
 $(function(){
+	let hno=${vo.hno};
+	$.ajax({
+		type:'POST',
+		url:'../reserve/reserve_exist.do',
+		data:{"pno":hno, "cate":1}, 
+		success:function(json){
+			let reserve_list=JSON.parse(json);
+			time_btn_impossible(reserve_list);
+			$(document).on("click", '.ui-datepicker-next', function(){
+				time_btn_impossible(reserve_list);
+			})
+			$(document).on("click", '.ui-datepicker-prev', function(){
+				time_btn_impossible(reserve_list);
+			})
+		},
+		error:function(request, status, error){
+			console.log(error)
+		}
+	})
+	function time_btn_impossible(reserve_list){
+		$('.ui-datepicker-calendar td[data-handler="selectDay"]').click(function(){
+			let time_btn=$('.reserve_time .time_btn');
+			let oneday_count=0;
+			time_btn.removeClass("impossible");
+			for(i=0;i<reserve_list.length;i++){
+				if($('.date_print').text()===reserve_list[i].rdate){
+					time_btn.each(function(){
+					if($(this).text()===reserve_list[i].rtime){
+							$(this).addClass("impossible");
+							$('.time_print').text("") 
+						}
+					})
+					oneday_count++;
+					if(oneday_count===time_btn.length){
+						$(this).addClass('ui-datepicker-unselectable');
+						$(this).addClass('ui-state-disabled');
+						$('.date_print').text("해당 일자는 예약이 마감되었습니다");
+					}
+				}
+			}
+		})
+	}
 	$('.wish').click(function(){
 		if(${sessionScope.id==null}){
 			alert('로그인 후 이용해주세요')
@@ -47,6 +90,39 @@ $(function(){
 		document.execCommand("copy");
 		document.body.removeChild(temp);
 		alert("현재 URL이 복사되었습니다.");
+	})
+	//예약 버튼 
+	$('.reserve_form .reserve_btn').click(function(){
+		if(${sessionScope.id==null}){
+			alert('로그인 후 이용해주세요')
+			location.href="../member/login.do";
+		}else{
+			let	date_print=$('.date_print').text(),
+				time_print=$('.time_print').text();
+			if(date_print==""){
+				alert("상담 날짜를 선택해주세요");
+				return;
+			}
+			if(time_print==""){
+				alert("상담 시간을 선택해주세요");
+				return;
+			}
+			$.ajax({
+				type:'POST',
+				url:'../reserve/reserve.do',
+				data:{"pno":hno, "rdate":date_print, "rtime":time_print, "cate":1}, 
+				success:function(result){
+					if(result=="OK"){
+						alert("예약요청 되었습니다\n마이페이지 예약내역에서 확인 가능합니다");
+					}else{
+						alert("이미 요청된 예약입니다");
+					}
+				},
+				error:function(request, status, error){
+					console.log(error)
+				}
+			})
+		}
 	})
 })
 </script>
@@ -131,138 +207,9 @@ $(function(){
                             <p class="mapinfo">${vo.map }</p> 
                         </div>
                         <hr>
-                        <div id="review">
-                            <div class="board_top">
-                                <h3>후기</h3>
-                                <button>후기 작성</button>
-                            </div>
-                            <div class="detail_input">
-                                <label for="review_content">후기를 작성해주세요</label>
-                                <textarea name="review_content" id="review_content"></textarea>
-                                <label for="review_photo" class="hidden">파일업로드</label>
-                                <input type="file" id="review_photo">
-                                <input type="button" value="작성완료">
-                            </div>
-                            <ul class="review_list">
-                                <li>
-                                    <div class="top">
-                                        <div class="profile">
-                                            <img src="../img/profile_img.png" alt="">
-                                            <p class="name">작성자이름</p>
-                                        </div>
-                                        <p>2024-00-00</p>
-                                    </div>
-                                    <div class="content">
-                                        <div class="star">
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20" class="crema_product_reviews_score_star_wrapper__star active">
-                                                <defs>
-                                                    <path id="star-full" d="M7.157 6.698l2.165-4.59a.743.743 0 0 1 1.358 0l2.165 4.59 4.84.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l4.84-.74z"></path>
-                                                </defs>
-                                                <use xlink:href="#star-full"></use>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20" class="crema_product_reviews_score_star_wrapper__star active">
-                                                <defs>
-                                                    <path id="star-full" d="M7.157 6.698l2.165-4.59a.743.743 0 0 1 1.358 0l2.165 4.59 4.84.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l4.84-.74z"></path>
-                                                </defs>
-                                                <use xlink:href="#star-full"></use>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20" class="crema_product_reviews_score_star_wrapper__star active">
-                                                <defs>
-                                                    <path id="star-full" d="M7.157 6.698l2.165-4.59a.743.743 0 0 1 1.358 0l2.165 4.59 4.84.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l4.84-.74z"></path>
-                                                </defs>
-                                                <use xlink:href="#star-full"></use>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20" class="crema_product_reviews_score_star_wrapper__star active">
-                                                <defs>
-                                                    <path id="star-full" d="M7.157 6.698l2.165-4.59a.743.743 0 0 1 1.358 0l2.165 4.59 4.84.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l4.84-.74z"></path>
-                                                </defs>
-                                                <use xlink:href="#star-full"></use>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20" class="crema_product_reviews_score_star_wrapper__star active">
-                                                <defs>
-                                                    <path id="star-full" d="M7.157 6.698l2.165-4.59a.743.743 0 0 1 1.358 0l2.165 4.59 4.84.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l4.84-.74z"></path>
-                                                </defs>
-                                                <use xlink:href="#star-full"></use>
-                                            </svg>
-                                        </div>
-                                        <div class="content_text">
-                                            <pre>상세 너무 길어ㅠㅠ 잠와죽겠넴 아앙아아아아ㅏ아아
-요고 너무 제 위주로 만들었는데 각자 상세에 맞게 수정해서 사용하시고 어려운 부분있으시면 언제든지 괜찮으니까 같이해결해봐욤
-저 이제 문의 만들러 갈게요 😩
-                                            </pre>
-                                        </div>
-                                        <div class="img_box">
-                                            <img src="../img/banner_02.jpg" alt="">
-                                            <img src="../img/dress_demo.jpg" alt="">
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="top">
-                                        <div class="profile">
-                                            <img src="../img/profile_img.png" alt="">
-                                            <p class="name">작성자이름</p>
-                                        </div>
-                                        <p>2024-00-00</p>
-                                    </div>
-                                    <div class="content">
-                                        <div class="star">
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20" class="crema_product_reviews_score_star_wrapper__star active">
-                                                <defs>
-                                                    <path id="star-full" d="M7.157 6.698l2.165-4.59a.743.743 0 0 1 1.358 0l2.165 4.59 4.84.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l4.84-.74z"></path>
-                                                </defs>
-                                                <use xlink:href="#star-full"></use>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20" class="crema_product_reviews_score_star_wrapper__star active">
-                                                <defs>
-                                                    <path id="star-full" d="M7.157 6.698l2.165-4.59a.743.743 0 0 1 1.358 0l2.165 4.59 4.84.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l4.84-.74z"></path>
-                                                </defs>
-                                                <use xlink:href="#star-full"></use>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20" class="crema_product_reviews_score_star_wrapper__star active">
-                                                <defs>
-                                                    <path id="star-full" d="M7.157 6.698l2.165-4.59a.743.743 0 0 1 1.358 0l2.165 4.59 4.84.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l4.84-.74z"></path>
-                                                </defs>
-                                                <use xlink:href="#star-full"></use>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20" class="crema_product_reviews_score_star_wrapper__star active">
-                                                <defs>
-                                                    <path id="star-full" d="M7.157 6.698l2.165-4.59a.743.743 0 0 1 1.358 0l2.165 4.59 4.84.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l4.84-.74z"></path>
-                                                </defs>
-                                                <use xlink:href="#star-full"></use>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20" class="crema_product_reviews_score_star_wrapper__star ">
-                                                <defs>
-                                                    <path id="star-full" d="M7.157 6.698l2.165-4.59a.743.743 0 0 1 1.358 0l2.165 4.59 4.84.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l4.84-.74z"></path>
-                                                </defs>
-                                                <use xlink:href="#star-full"></use>
-                                            </svg>
-                                        </div>
-                                        <div class="content_text">
-                                            <pre>그래도 두개는 만들어야 리스트 모양이 나오겠지..
-                                            </pre>
-                                        </div>
-                                        <div class="img_box">
-                                            <img src="../img/hanbok_demo.jpg" alt="">
-                                            <img src="../img/bouquet_demo.jpg" alt="">
-                                            <img src="../img/banner_01.jpg" alt="">
-                                            <img src="../img/hanbok_demo.jpg" alt="">
-                                            <img src="../img/bouquet_demo.jpg" alt="">
-                                            <img src="../img/banner_01.jpg" alt="">
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                            <ul class="page">
-                                <li><a href="">&lt;</a></li>
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li><a href="#">&gt;</a></li>
-                            </ul>
-                        </div>
+                       	<jsp:include page="../review/list.jsp"></jsp:include>
+                       	<input type="hidden" value="${vo.hno}" id="postNo">
+ 					 	<input type="hidden" value="1" id="rCate">
                         <hr>
                         <div id="qna">
                             <div class="board_top">
@@ -351,7 +298,7 @@ $(function(){
                             <button class="share">share link</button>
                         </div>
                     </div>
-                    <form method="POST" action="">
+                    <div class="reserve_form">
                         <div class="date">
                             <label for="calendar">예약 날짜</label>
                             <input type="text" name="reserve_date" id="calendar">
@@ -376,8 +323,8 @@ $(function(){
                             <span class="date_print"></span>
                             <span class="time_print"></span>
                         </div>
-                        <input type="submit" value="예약">
-                    </form>
+                        <input type="submit" value="예약" class="reserve_btn">
+                    </div>
                 </aside>
             </div>
         </div>

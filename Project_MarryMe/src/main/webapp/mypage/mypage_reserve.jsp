@@ -74,12 +74,12 @@
             height: 25px;
             display: inline-block;
         }
-        .action-buttons {
+        .rebtn {
             display: flex;
             gap: 10px;
             margin-left: 20px;
         }
-        .action-buttons button {
+        .rebtn button {
             width: 100px;
             height: 50px;
             border: 1px solid #e7e7e7;
@@ -90,14 +90,22 @@
             font-size: 16px;
             background-color: #f4f4f4;
         }
-        .action-buttons button:hover {
-            background-color: #8FBC8B;
+
+        .rebtn .cancel {
+            background-color:  #FF5A5A;;
             color: white;
         }
-        .action-buttons .cancel:hover {
-            background-color: #DC143C;
-            color: white;
+        
+
+        .rebtn .status-button {
+        	background-color: ##f4f4f4;
+        	color:black;
         }
+        
+        .rebtn .status-button.approved {
+		    background-color: #8FBC8B;
+		    color: white;
+		}
         .sixth {
             margin-top: 20px;
             margin-bottom: 20px;
@@ -130,11 +138,19 @@
                 let resno = $(this).attr('data-href');
                 location.href = "../mypage/mypage_reserve_cancel.do?resno=" + resno;
             });
-            $('.view-details').click(function() {
-                alert('상세보기로 이동합니다');
-                window.location.href = $(this).data('href');
+         
+            $('.status-button').each(function() {
+                const confirmStatus = $(this).data('confirm');
+                if (confirmStatus === 'y') {
+                    $(this).text('예약 완료');
+                    $(this).addClass('approved');  
+                } else {
+                    $(this).text('예약 대기');
+                }
             });
         });
+        
+        
     </script>
 </head>
 <body>
@@ -156,20 +172,24 @@
                 <c:otherwise>
                     <div class="reservedetail">
                         <c:forEach var="vo" items="${hallrList}">
-                            <div>
+                            <div class="stline">
                                 <a class="reserveimage" href="../hall/detail.do?hno=${vo.hvo.hno}">
                                     <img src="${vo.hvo.image}" alt="${vo.hvo.name}">
                                 </a>
-                                <div class="reservename">
-                                    <img src="../mypage/jjim.png" class="reserveBtn">
-                                    <span>${vo.hvo.name}</span>
+                                <div class="ws_info">
+                                    <div class="reservename">
+                                        <img src="../mypage/jjim.png" class="reserveBtn">
+                                        <span>${vo.hvo.name}</span>
+                                    </div>
+                                    <div class="tel">
+                                    <div class="date-info">☎ ${vo.hvo.addr}</div>
+                                        <div class="date-info" style="color:red">예약일: ${vo.rdate}</div>
+                                        <div class="date-info" style="color:green">예약시간: ${vo.rtime }</div>
+                                        <div class="date-info">등록일: ${vo.dbday}</div>
+                                    </div>
                                 </div>
-                                <div class="tel">
-                                    <div class="date-info">예약 날짜: ${vo.rdate}</div>
-                                    <div class="date-info">등록 날짜: ${vo.regdate}</div>
-                                </div>
-                                <div class="action-buttons">
-                                    <button class="view-details" data-href="../hall/detail.do?hno=${vo.hvo.hno}">상세보기</button>
+                                <div class="rebtn">
+                                    <button class="status-button" data-confirm="${vo.confirm}">예약 대기</button>
                                     <button class="cancel" data-href="${vo.resno}">예약 취소</button>
                                 </div>
                             </div>
@@ -200,13 +220,14 @@
                                         <span>${vo.dvo.d_subject}</span>
                                     </div>
                                     <div class="tel">
-                                        <div class="date-info">예약 날짜: ${vo.rdate}</div>
-                                        <div class="date-info">등록 날짜: ${vo.regdate}</div>
+                                        <div class="date-info" style="color:red">예약일: ${vo.rdate}</div>
+                                        <div class="date-info" style="color:green">예약시간: ${vo.rtime }</div>
+                                        <div class="date-info">등록일: ${vo.dbday}</div>
                                     </div>
                                     <div class="date-info">${vo.dvo.d_price}</div>
                                 </div>
-                                <div class="action-buttons">
-                                    <button class="view-details" data-href="../dress/dress_detail.do?d_no=${vo.dvo.d_no}">상세보기</button>
+                                <div class="rebtn">
+                                    <button class="status-button" data-confirm="${vo.confirm}">예약 대기</button>
                                     <button class="cancel" data-href="${vo.resno}">예약 취소</button>
                                 </div>
                             </div>
@@ -237,13 +258,14 @@
                                         <span>${vo.suvo.su_subject}</span>
                                     </div>
                                     <div class="tel">
-                                        <div class="date-info">예약 날짜: ${vo.rdate}</div>
-                                        <div class="date-info">등록 날짜: ${vo.regdate}</div>
+                                        <div class="date-info" style="color:red">예약일: ${vo.rdate}</div>
+                                        <div class="date-info" style="color:green">예약시간: ${vo.rtime }</div>
+                                        <div class="date-info">등록일: ${vo.dbday}</div>
                                     </div>
                                     <div class="date-info">${vo.suvo.su_price}</div>
                                 </div>
-                                <div class="action-buttons">
-                                    <button class="view-details" data-href="../suit/suit_detail.do?su_no=${vo.suvo.su_no}">상세보기</button>
+                                <div class="rebtn">
+                                    <button class="status-button" data-confirm="${vo.confirm}">예약 대기</button>
                                     <button class="cancel" data-href="${vo.resno}">예약 취소</button>
                                 </div>
                             </div>
@@ -276,12 +298,12 @@
                                     <div class="tel"> 
                                     <div class="date-info">☎ ${vo.svo.address}</div>
                                         <div class="date-info" style="color:red">예약일: ${vo.rdate}</div>
-                                        <div class="date-info">예약시간: ${vo.rtime }</div>
+                                        <div class="date-info" style="color:green">예약시간: ${vo.rtime }</div>
                                         <div class="date-info">등록일: ${vo.dbday}</div>
                                     </div>
                                 </div>
-                                <div class="action-buttons">
-                                    <button class="view-details" data-href="../studio/studio_detail.do?sno=${vo.svo.sno}">상세보기</button>
+                                <div class="rebtn">
+                                    <button class="status-button" data-confirm="${vo.confirm}">예약 대기</button>
                                     <button class="cancel" data-href="${vo.resno}">예약 취소</button>
                                 </div>
                             </div>
@@ -312,13 +334,14 @@
                                         <span>${vo.mvo.name}</span>
                                     </div>
                                     <div class="tel">
-                                        <div class="date-info">예약 날짜: ${vo.rdate}</div>
-                                        <div class="date-info">등록 날짜: ${vo.regdate}</div>
+                                    	<div class="date-info">☎ ${vo.mvo.address}</div>
+                                        <div class="date-info" style="color:red">예약일: ${vo.rdate}</div>
+                                        <div class="date-info" style="color:green">예약시간: ${vo.rtime }</div>
+                                        <div class="date-info">등록일: ${vo.dbday}</div>
                                     </div>
-                                    <div class="date-info">☎ ${vo.mvo.address}</div>
                                 </div>
-                                <div class="action-buttons">
-                                    <button class="view-details" data-href="../hairmakeup/hairmakeup_detail.do?mno=${vo.mvo.mno}">상세보기</button>
+                                <div class="rebtn">
+                                    <button class="status-button" data-confirm="${vo.confirm}">예약 대기</button>
                                     <button class="cancel" data-href="${vo.resno}">예약 취소</button>
                                 </div>
                             </div>
