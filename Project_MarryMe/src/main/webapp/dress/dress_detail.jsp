@@ -425,7 +425,7 @@ $(function(){
                             <button class="share">share link</button>
                         </div>
                     </div>
-                    <form method="POST" action="">
+                    <div class="reserve_form">
                         <div class="date">
                             <label for="calendar">예약 날짜</label>
                             <input type="text" name="reserve_date" id="calendar">
@@ -450,7 +450,7 @@ $(function(){
                             <span class="time_print"></span>
                         </div>
                         <input type="submit" value="예약">
-                    </form>
+                    </div>
                 </aside>
             </div>
         </div>

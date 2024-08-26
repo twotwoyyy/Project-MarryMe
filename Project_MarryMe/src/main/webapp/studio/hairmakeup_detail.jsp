@@ -351,7 +351,7 @@ $(function(){
                             <span class="date_print"></span>
                             <span class="time_print"></span>
                         </div>
-                    	<input type="submit" value="예약" class="reserve_btn">
+                    	<input type="submit" value="예약">
                     </div>
                 </aside>
             </div>
