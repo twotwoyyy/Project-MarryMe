@@ -139,18 +139,6 @@ public class DressModel {
 
         List<SuitVO> suit_list = SuitDAO.suitListData(map);
         int totalPage = SuitDAO.suitTotalPage();
-        
-        // 상대적 URL을 가지고 있는 데이터를 절대적 URL로 변경
-        // su_image가 NULL값이 아니거니 공백이 아닌 데이터 중 http, https로 시작하지 않으면 https:를 앞에 붙여서 출력
-//        for (SuitVO su : suit_list) {
-//    		String su_image = su.getSu_image();
-//    		if (su_image != null && !su_image.trim().isEmpty()) {
-//    			if (!su_image.startsWith("http:") && !su_image.startsWith("https:")) {
-//    				su_image = "https:" + su_image;
-//    			}
-//    			su.setSu_image(su_image);
-//    		}
-//    	}
 
         final int BLOCK = 5;
         int startPage = ((curPage - 1) / BLOCK * BLOCK) + 1;
@@ -160,21 +148,21 @@ public class DressModel {
         }
         
         // 수트 목록추가, 시작, 현재, 끝, 전체 페이지 등록
-        request.setAttribute("suit_list", suit_list);
         request.setAttribute("curPage", curPage);
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("startPage", startPage);
         request.setAttribute("endPage", endPage);
+        request.setAttribute("suit_list", suit_list);
         
         // 쿠키
         Cookie[] cookies=request.getCookies();
 		List<SuitVO> suit_cookies = new ArrayList<SuitVO>();
 		if(cookies!=null) {
 			for (int i = cookies.length-1; i >= 0; i--) {
-				if (cookies[i].getName().startsWith("studio_")) {
+				if (cookies[i].getName().startsWith("suit_")) {
 					String su_no = cookies[i].getValue();
-					SuitVO su_vo = SuitDAO.suitDetailData(Integer.parseInt(su_no));
-					suit_cookies.add(su_vo);
+					SuitVO vo = SuitDAO.suitDetailData(Integer.parseInt(su_no));
+					suit_cookies.add(vo);
 				}
 			}
 		}
@@ -191,14 +179,14 @@ public class DressModel {
     	cookie.setMaxAge(60 * 60 * 24);
     	cookie.setPath("/");
     	response.addCookie(cookie);
-    	return "redirect:../suit/suit_detail.do?su_no=" + su_no;
+    	return "redirect:../dress/suit_detail.do?su_no=" + su_no;
     }
     
     // 수트 상세 보기 화면을 처리하는 메서드
     @RequestMapping("dress/suit_detail.do")
     public String suit_detail(HttpServletRequest request, HttpServletResponse response) {
     	String su_no = request.getParameter("su_no");
-        DressVO su_vo = DressDAO.dressDetailData(Integer.parseInt(su_no));
+        SuitVO suit_vo = SuitDAO.suitDetailData(Integer.parseInt(su_no));
 
         HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
@@ -214,7 +202,7 @@ public class DressModel {
 				isWish = true;
 			}			
 		}
-        request.setAttribute("suit_vo", su_vo);
+        request.setAttribute("suit_vo", suit_vo);
 		request.setAttribute("isWish", isWish);
         request.setAttribute("main_jsp", "../dress/suit_detail.jsp");
         return "../main/main.jsp";

@@ -14,7 +14,7 @@
 <script defer src="../js/main.js"></script>
 <script type="text/javascript">
 $(function(){
-	let su_no=${su_vo.su_no};
+	let su_no=${suit_vo.su_no};
 	
 	//이미 예약된 날짜, 시간 비활성화 
 	$.ajax({
@@ -140,7 +140,7 @@ $(function(){
             <div class="left">
                 <section class="thumbnail">
                     <div class="img_wrap">
-                        <img src="${su_vo.su_image}" alt="">
+                        <img src="${suit_vo.su_image}" alt="" style="width: 650px; height: auto;">
                     </div>
                 </section>
                 <section class="bottom_wrap">
@@ -174,11 +174,10 @@ $(function(){
                             <div class="masonry_wrap">
 <%--                             	<c:forEach var="i" begin="0" end="${hm_image_list.size()-1}"> --%>
 	                                <div class="img_wrap">
-	                                    <img src="${suit_vo.su_detail_image}" alt="${suit_vo.su_subject} 이미지">
-	                                    <img src="${suit_vo.su_detail_image2}" alt="${suit_vo.su_subject} 이미지">
-	                                    <img src="${suit_vo.su_detail_image3}" alt="${suit_vo.su_subject} 이미지">
-	                                    <img src="${suit_vo.su_detail_image4}" alt="${suit_vo.su_subject} 이미지">
-	                                    <img src="${suit_vo.su_detail_image5}" alt="${suit_vo.su_subject} 이미지">
+	                                    <img src="${suit_vo.su_detail_image}" alt="${suit_vo.su_subject}" style="width: 700px; height: auto;">
+	                                    <img src="${suit_vo.su_detail_image2}" alt="${suit_vo.su_subject}" style="width: 700px; height: auto;">
+	                                    <img src="${suit_vo.su_detail_image3}" alt="${suit_vo.su_subject}" style="width: 700px; height: auto;">
+	                                    <img src="${suit_vo.su_detail_image5}" alt="${suit_vo.su_subject}" style="width: 700px; height: auto;">
 	                                </div>
 <%--                              	</c:forEach> --%>
                             </div>
@@ -197,11 +196,12 @@ $(function(){
                                     <tr>
                                         <th scope="row">교환 / 반품 안내</th>
                                         <td>
-									    본 제품은 1:1 주문제작(선주문 후 제작) 상품으로 <br>
-									    주문 취소 및 환불, 교환이 불가능하니 신중한 구매 부탁드립니다.<br>
+									    본 제품은 대여 / 구매 상품 입니다. <br>
+									    대여 시 단순 변심으로 인한 교환이 불가능하니<br>
+									    신중한 결정 부탁드립니다.<br>
 						                <br>
-						                고객센터와 제품 확인 후 제품 불량으로 판명되어 교환이 불가피할 경우<br>
-						                같은 상품으로 재제작해 드립니다.<br>
+						                고객센터와 제품 확인 후 제품 불량으로 판명되는 경우<br>
+						                같은 상품으로 재배송 해드립니다.<br>
 						                <br>
 						                
 						               	빠른 해결을 위해 상품 하자 발견 즉시 고객센터로 연락 부탁드립니다.<br>
@@ -217,9 +217,8 @@ $(function(){
 						                
 						                당사 택배를 이용하여 주셔야 하며<br>
 						                타 택배 이용 시 선불로 지불하신 후 보내주셔야 합니다.
-
-						                상품은 출고 후 어떠한 경우에도 취소/교환/환불이 불가합니다.<br>
-						                <br>
+										<br>
+						               
 						                소모품은 분실 시 유상 구입을 원칙으로 합니다.<br>
 						                <br>
 						                <br>
@@ -236,10 +235,8 @@ $(function(){
 										<br>
 										
 										인수 후에는 제품 하자나 오배송의 경우를 제외한 <br>
-										고객님의 단순 변심에 의한 교환, 반품이 불가능할 수 있습니다.<br>
+										고객님의 단순 변심에 의한 교환, 반품은 불가합니다.<br>
 										<br>
-										보낸 상태(포장, 택) 유지되어 있어야 교환 및 반품이 가능합니다.
-
 						            </td>
                                     </tr>
                                     <tr>
@@ -248,7 +245,7 @@ $(function(){
 개인적인 견해는 불량 사유가 아닙니다.<br>
 (예: 원단이 뻣뻣하다 / 덜 반짝인다 등)<br>
 <br>
-상품 택 불량 / 배송 중 상품의 구김, 펄 비즈 떨어짐 / 제작 중 발생한 실밥, 올풀림 <br>
+상품 택 불량 / 배송 중 상품의 구김 / 제작 중 발생한 실밥, 올풀림 <br>
 세탁 후 지워지는 가벼운 얼룩, 초크 자국 / 경미한 바느질 미흡 등은<br>
 불량의 사유가 아닙니다.<br>
 <br>
@@ -299,9 +296,14 @@ $(function(){
                         <hr>
                         <div id="map">
                             <h3>위치</h3>
-                            <address>${su_vo.su_address}</address>
+                            <address>${suit_vo.su_address}</address>
                             <div id="detail_map" style="width:100%;height:350px;"></div> 
                         </div>
+                        <hr>
+                       	<jsp:include page="../review/list.jsp"></jsp:include>
+                       	<input type="hidden" value="${suit_vo.su_no}" id="postNo">
+ 					 	<input type="hidden" value="3" id="rCate">
+                        <hr>
                         <hr>
                         <div id="review">
                             <div class="board_top">

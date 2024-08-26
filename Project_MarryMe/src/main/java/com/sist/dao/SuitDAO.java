@@ -64,17 +64,17 @@ public class SuitDAO {
 	  
 	  // 슈트 상세보기
 	  public static SuitVO suitDetailData(int su_no) {
-		  SuitVO su_vo = new SuitVO();
+		  SuitVO vo = new SuitVO();
 		  SqlSession session = null;
 		  try {
 			  session = ssf.openSession();
-			  su_vo = session.selectOne("suitDetailData", su_no);
+			  vo = session.selectOne("suitDetailData", su_no);
 		  } catch(Exception ex) {
 			  ex.printStackTrace();
 		  } finally {
 			  if (session != null)
 				  session.close();
 		  }
-		  return su_vo;
+		  return vo;
 	  }
 }
