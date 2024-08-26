@@ -16,11 +16,11 @@ public class QnaDAO {
  		 #{msg},SYSDATE,#{cate},#{group_id},#{tab},#{id}
  		)
  	</insert>*/
-	public static void qnaInsert(QnaVO vo) {
+	public static void qnaUserInsert(QnaVO vo) {
 		SqlSession session=null;
 		try {
 		session=ssf.openSession();
-		session.insert("qnaInsert",vo);
+		session.insert("qnaUserInsert",vo);
 		session.commit();
 		}catch(Exception ex) {
 			ex.printStackTrace();

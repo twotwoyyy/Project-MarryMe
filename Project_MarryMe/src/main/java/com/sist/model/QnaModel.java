@@ -18,7 +18,7 @@ import com.sist.dao.*;
 import com.sist.vo.*;
 public class QnaModel {
 	@RequestMapping("qna/userInsert.do")
-	public void qna_insert_ok(HttpServletRequest request,HttpServletResponse response) {
+	public void qna_userinsert_ok(HttpServletRequest request,HttpServletResponse response) {
 		try
 		{
 		  request.setCharacterEncoding("UTF-8");
@@ -46,7 +46,7 @@ public class QnaModel {
 		  String result="";
 		  
 		  try {
-			QnaDAO.qnaInsert(vo);
+			QnaDAO.qnaUserInsert(vo);
 			result="OK";
 		 } catch (Exception e) {
 			result="NO";
@@ -100,11 +100,8 @@ public class QnaModel {
 			}
 		}
 		int total=QnaDAO.qnaTotalPage(map);
-		System.out.println(total);
 		int totalpage=(int)(Math.ceil(total/(double)rowSize));
-		for(QnaVO vo:qnaList) {
-			System.out.println(vo.getMsg());
-		}
+
 		// 페이지 개수 표시
 		final int BLOCK=5;
 		
@@ -121,6 +118,8 @@ public class QnaModel {
 		  String today=sdf.format(date);
 		  // new SimpleDateFormat("yyyy-MM-dd").format(new Date())
 		JSONArray arr=new JSONArray();
+		HttpSession session=request.getSession();
+		String sessionId=(String)session.getAttribute("id");
 		int h=0;
 		try {
 		for(QnaVO vo:qnaList) {
@@ -135,6 +134,8 @@ public class QnaModel {
 			obj.put("today", today);
 			obj.put("group_id", vo.getGroup_id());
 			obj.put("tab", vo.getTab());
+			obj.put("id", vo.getId());
+			obj.put("sessionId", sessionId);
 			if(h==0) {
 			obj.put("startpage", startpage);
 			obj.put("endpage", endpage);

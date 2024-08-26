@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.find-mapper">
+	<resultMap type="com.sist.vo.FindVO" id="findMap">
+		<result property="hallVO.hno" column="hno"/>
+		<result property="hallVO.image" column="image"/>
+		<result property="hallVO.name" column="name"/>
+		<result property="hallVO.type" column="type"/>
+		<result property="dressVO.d_no" column="d_no"/>
+		<result property="dressVO.d_image" column="d_image"/>
+		<result property="dressVO.d_subject" column="d_subject"/>
+		<result property="dressVO.d_price" column="d_price"/>
+		<result property="suitVO.su_no" column="su_no"/>
+		<result property="suitVO.su_image" column="su_image"/>
+		<result property="suitVO.su_subject" column="su_subject"/>
+		<result property="suitVO.su_price" column="su_price"/>
+		<result property="studioVO.sno" column="sno"/>
+		<result property="studioVO.thumb" column="thumb"/>
+		<result property="studioVO.name" column="name"/>
+		<result property="studioVO.keyword" column="keyword"/>
+		<result property="hmVO.mno" column="mno"/>
+		<result property="hmVO.thumb" column="thumb"/>
+		<result property="hmVO.name" column="name"/>
+		<result property="hmVO.keyword" column="keyword"/>
+		<result property="goodsVO.mgno" column="mgno"/>
+		<result property="goodsVO.poster" column="poster"/>
+		<result property="goodsVO.title" column="title"/>
+		<result property="goodsVO.price" column="price"/>
+	</resultMap>
+	<select id="findListData" resultMap="findMap" parameterType="hashmap"> 
+		SELECT hno, hall.image, hall.name, type, d_no, d_image, d_subject, d_price, su_no, su.image, su_subject, su_price,
+			sno, studio.thumb, studio.name, studio.keyword, mno, hm.thumb, hm.name, hm.keyword, mgno, poster, title, goods.price, num
+		FROM (SELECT hno, hall.image, hall.name, type, d_no, d_image, d_subject, d_price, su_no, su.image, su_subject, su_price,
+			sno, studio.thumb, studio.name, studio.keyword, mno, hm.thumb, hm.name, hm.keyword, mgno, poster, title, goods.price, rownum as num
+		FROM (SELECT hno, hall.image, hall.name, type, d_no, d_image, d_subject, d_price, su_no, su.image, su_subject, su_price,
+			sno, studio.thumb, studio.name, studio.keyword, mno, hm.thumb, hm.name, hm.keyword, mgno, poster, title, goods.price
+		FROM hall, dress, suit, studio, hair_makeup as hm, goods
+		WHERE hall.name LIKE '%'||#{keyword}||'%'
+		OR hall.addr LIKE '%'||#{keyword}||'%'
+		OR hall.point LIKE '%'||#{keyword}||'%'
+		OR dress.d_subject LIKE '%'||#{keyword}||'%'
+		OR dress.d_content LIKE '%'||#{keyword}||'%'
+		OR suit.su_subject LIKE '%'||#{keyword}||'%'
+		OR suit.su_content LIKE '%'||#{keyword}||'%'
+		OR studio.name LIKE '%'||#{keyword}||'%'
+		OR studio.keyword LIKE '%'||#{keyword}||'%'
+		OR studio.address LIKE '%'||#{keyword}||'%'
+		OR hm.name LIKE '%'||#{keyword}'%'
+		OR hm.keyword LIKE '%'||#{keyword}||'%'
+		OR hm.address LIKE '%'||#{keyword}||'%'
+		OR goods.title LIKE '%'||#{keyword}||'%'))
+		WHERE num BETWEEN #{start} AND #{end}
+	</select>
+	<select id="findTotalPage" resultType="int" parameterType="string">
+		SELECT CEIL(COUNT(*)/12.0)
+		FROM hall, dress, suit, studio, hair_makeup as hm, goods
+		WHERE hall.name LIKE '%'||#{keyword}||'%'
+		OR hall.addr LIKE '%'||#{keyword}||'%'
+		OR hall.point LIKE '%'||#{keyword}||'%'
+		OR dress.d_subject LIKE '%'||#{keyword}||'%'
+		OR dress.d_content LIKE '%'||#{keyword}||'%'
+		OR suit.su_subject LIKE '%'||#{keyword}||'%'
+		OR suit.su_content LIKE '%'||#{keyword}||'%'
+		OR studio.name LIKE '%'||#{keyword}||'%'
+		OR studio.keyword LIKE '%'||#{keyword}||'%'
+		OR studio.address LIKE '%'||#{keyword}||'%'
+		OR hm.name LIKE '%'||#{keyword}||'%'
+		OR hm.keyword LIKE '%'||#{keyword||}'%'
+		OR hm.address LIKE '%'||#{keyword}||'%'
+		OR goods.title LIKE '%'||#{keyword}||'%'
+	</select>
+</mapper>

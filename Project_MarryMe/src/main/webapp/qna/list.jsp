@@ -6,6 +6,28 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+.pageinfoQna:hover{
+	
+	cursor: pointer;
+	background-color: #303A1F;
+	color: #dcdcdc
+}
+.pageinfoQna{
+	margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+	display:block;
+    width:24px;
+    height:24px;
+    line-height:24px;
+    text-align:center;
+    transition:.3s;
+}
+</style>
 <script type="text/javascript">
 $(function(){
 	let pno=$('#postNo').val()
@@ -78,7 +100,11 @@ $(function(){
    			}
     	})
     })
-    
+    $(document).on('click', '.pageinfoQna', function() {
+        page = $(this).data('page');
+   //     console.log(page); //
+        qnaList(pno, page, cate); // 클릭한 페이지로 갱신
+    });
     
 })
 function qnaList(pno,page,cate)
@@ -109,6 +135,12 @@ function qnaList(pno,page,cate)
 		                         html+='<img src="../img/qna_lock.gif" alt="">'
 		                         html+='<p class="bimil" data-qno="'+qna.qno+'">비밀글입니다</p>'
 		                     html+='</div>'
+		                     if(qna.id===qna.sessionId){
+		                    	html+='<div>'
+		                    	html+='<input type="button" value="수정" class="Btn" onclick="replyUpdateData('+qna.qno+')">'
+		     		            html+='<input type="button" value="삭제" class="Btn replyDelete" data-rno="'+qna.qno+'">'
+		     		            html+='</div>'
+		                     }
 		                     html+='<p class="writer">'+qna.name+'</p>'
 		                     html+='<p class="regdate">'+qna.dbday+'<br>'+qna.dayDetail+'</p>'
 		                 html+='</div>'
@@ -128,18 +160,18 @@ function qnaList(pno,page,cate)
 			 
 			 json.map(function(page){
 				if(page.startpage>1){
-					html2+='<li><input type="button" class="pageinfo" value="&lt;" data-page="'+(page.startpage-1)+'"></li>'
+					html2+='<li><input type="button" class="pageinfoQna" value="&lt;" data-page="'+(page.startpage-1)+'"></li>'
 				}
 	          	for(i=page.startpage;i<=page.endpage;i++){
 				  	if(page.curpage===i){
-	          		  html2+='<li><input type="button" value='+i+' class="pageinfo" id="curpage" data-page='+i+'></li>'
+	          		  html2+='<li><input type="button" value='+i+' class="pageinfoQna" id="curpage" data-page='+i+'></li>'
 					}
 					else{
-					  html2+='<li><input type="button" value='+i+' class="pageinfo" data-page='+i+'></li>'
+					  html2+='<li><input type="button" value='+i+' class="pageinfoQna" data-page='+i+'></li>'
 					}
 	        	}
 	          	if(page.endpage<page.totalpage){
-	   	        	html2+='<li><input type="button" class="pageinfo" value="&gt;" data-page="'+(page.endpage+1)+'"></li>'
+	   	        	html2+='<li><input type="button" class="pageinfoQna" value="&gt;" data-page="'+(page.endpage+1)+'"></li>'
 	          	}
 			})
 		//	console.log(html2)

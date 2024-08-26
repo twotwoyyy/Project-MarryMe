@@ -10,7 +10,7 @@
 <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
 <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 <link rel="stylesheet" href="../css/detail.css">
-<script defer src="../js/main.js"></script>
+
 <style type="text/css">
 #detail .reservation .tops{
     display:flex;
@@ -41,6 +41,19 @@
 }
 #detail .reservation .tops .icons .share:hover{
     background-image:url(../img/share_link_hover.png);
+}
+.buyBtn{
+	display: flex;
+	width: 225px ;;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background: #303A1F;
+    align-items: center; /* 텍스트 수직 가운데 정렬 */
+    justify-content: center; /* 텍스트 수평 가운데 정렬 */
+    color: #dcdcdc;
+    cursor: pointer;
+    position: relative;
 }
  .star-container {
             position: relative;
@@ -299,8 +312,8 @@ $(function(){
                             <span class="date_print"></span>
                             <span class="time_print"></span>
                         </div>
-                        <input type="submit" value="장바구니" style="width: 225px ;float: left ;margin-right: 20px">
-                        <input type="submit" value="바로구매" style="width: 225px ;display: flex">
+                      <a href="#" class="buyBtn" style="float: left ;margin-right: 20px">장바구니</a>
+                      <a href="#" class="buyBtn">바로구매</a>
                     </form>
                 </aside>
             </div>

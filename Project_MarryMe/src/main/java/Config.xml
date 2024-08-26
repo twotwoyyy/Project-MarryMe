@@ -20,6 +20,7 @@
 		<typeAlias type="com.sist.vo.WishVO" alias="WishVO"/>
 		<typeAlias type="com.sist.vo.MemoVO" alias="MemoVO"/>
 		<typeAlias type="com.sist.vo.ReserveVO" alias="ReserveVO"/>
+		<typeAlias type="com.sist.vo.FindVO" alias="FindVO"/>
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
@@ -44,5 +45,6 @@
 		<mapper resource="com/sist/mapper/wish-mapper.xml"/>
 		<mapper resource="com/sist/mapper/memo-mapper.xml"/>
 		<mapper resource="com/sist/mapper/reserve-mapper.xml"/>
+		<mapper resource="com/sist/mapper/find-mapper.xml"/>
 	</mappers>
 </configuration>

@@ -7,9 +7,9 @@
 	private Date regdate;
 }
  -->
- 	<insert id="qnaInsert" parameterType="QnaVO">
+ 	<insert id="qnaUserInsert" parameterType="QnaVO">
  		INSERT INTO qna VALUES((SELECT NVL(MAX(qna_no)+1,1) FROM qna),
- 		 #{msg},SYSDATE,#{cate},#{group_id},#{tab},#{id},#{pno},#{pwd}
+ 		 #{msg},SYSDATE,#{cate},(SELECT NVL(MAX(group_id)+1,1) FROM qna),#{tab},#{id},#{pno},#{pwd}
  		)
  	</insert>
  	<resultMap type="com.sist.vo.QnaVO" id="QnaMap">
@@ -17,9 +17,9 @@
 	</resultMap>
 	<!-- 목록 -->
  	<select id="qnaUserListData" resultMap="QnaMap" parameterType="hashmap">
- 		SELECT qna_no,msg,TO_CHAR(regdate,'YYYY-MM-DD:HH24:MI:SS') as dbday,cate,group_id,tab,name,num
- 		FROM (SELECT qna_no,msg,regdate,cate,group_id,tab,name,rownum as num
- 		FROM (SELECT qna_no,msg,qna.regdate as regdate,cate,group_id,tab,member.name as name
+ 		SELECT qna_no,msg,TO_CHAR(regdate,'YYYY-MM-DD:HH24:MI:SS') as dbday,cate,group_id,tab,name,id,num
+ 		FROM (SELECT qna_no,msg,regdate,cate,group_id,tab,name,id,rownum as num
+ 		FROM (SELECT qna_no,msg,qna.regdate as regdate,cate,group_id,tab,member.name as name,qna.id as id
  		FROM qna,member 
  		WHERE qna.id=member.id
  		AND tab=#{tab}
@@ -29,14 +29,14 @@
  		WHERE num BETWEEN #{start} AND #{end}
  	</select>
  	<select id="qnaAdminData" resultMap="QnaMap" parameterType="hashmap">
- 	   SELECT qna_no,msg,TO_CHAR(qna.regdate,'YYYY-MM-DD:HH24:MI:SS') as dbday,cate,group_id,tab,member.name as name
+ 	   SELECT qna_no,msg,TO_CHAR(qna.regdate,'YYYY-MM-DD:HH24:MI:SS') as dbday,cate,group_id,tab,member.name as name,qna.id as id
  	    FROM qna,member
  		WHERE qna.id=member.id
  		AND qna.group_id=#{group_id}
  		AND tab=#{tab}
  	</select>
  	<select id="qnaTotalPage" resultType="int" parameterType="hashmap">
- 		SELECT COUNT(*) FROM qna 
+ 		SELECT MAX(group_id) FROM qna 
  		WHERE cate=#{cate}
  		AND pno=#{pno}
  	</select>
