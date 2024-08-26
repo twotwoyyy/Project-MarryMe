@@ -10,6 +10,7 @@
 <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
 <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 <link rel="stylesheet" href="../css/detail.css">
+<script defer src="../js/main.js"></script>
 <style type="text/css">
 #detail .reservation .tops{
     display:flex;
@@ -63,16 +64,16 @@
 </style>
 <script type="text/javascript">
 $(function(){
+	let pno=${pno}
 	$('.wish').click(function(){
 		if(${sessionScope.id==null}){
 			alert('로그인 후 이용해주세요')
 			location.href="../member/login.do";
 		}else{
-			let pno=$('#postNo');
 			$.ajax({
 				type:'POST',
 				url:'../wish/control.do',
-				data:{"hno":pno, "cate":6},
+				data:{"cno":pno, "cate":6},
 				success:function(result){
 					if(result==="OK"){
 						$('.wish').addClass('active');
@@ -256,7 +257,7 @@ $(function(){
                             </c:if>
                         </div>
                         <div class="icons">
-                            <button class="wish">wish list</button>
+                            <button class="wish ${isWish==true?'active':''}">wish list</button>
                             <button class="share">share link</button>
                         </div>
                     </div>

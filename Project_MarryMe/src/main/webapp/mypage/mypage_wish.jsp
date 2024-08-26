@@ -191,7 +191,6 @@
             </div>
         </div>
 
-        <!-- 탭 내용 섹션 -->
         <div id="table1" class="tab_contents active">
             <div class="tab_contents_area">
                 <p class="titbox">웨딩홀 위시 리스트는 총 <span id="count" style="color: #228B22;">${hCount}</span>개입니다.</p>
@@ -223,17 +222,75 @@
                 </c:otherwise>
             </c:choose>
         </div>
-
-        <!-- 각 탭에 맞는 내용 추가 -->
         <div id="table2" class="tab_contents">
-            <!-- 드레스 관련 내용 추가 -->
-            
+       		<div class="tab_contents_area">
+		        <p class="titbox">드레스 위시 리스트는 총 <span id="count" style="color: #228B22;">${dCount}</span>개입니다.</p>
+		    </div>
+		    <c:choose>
+		        <c:when test="${empty dressList}">
+		            <div class="empty">나의 위시 목록이 없습니다.</div>
+		        </c:when>
+		        <c:otherwise>
+		            <div class="wishdetail">
+		                <c:forEach var="vo" items="${dressList}">
+	                    	<div class="stline">
+		                        <a class="wishimage" href="../hall/detail.do?hno=${vo.dvo.d_no}">
+		                            <img src="${vo.dvo.d_image}" alt="${vo.dvo.d_subject}">
+		                        </a>
+		                        <div class="ws_info">
+			                        <div class="wishname">
+			                            <img src="../mypage/jjim.png" class="wishBtn">
+			                            <span>${vo.dvo.d_subject}</span>
+			                        </div>
+			                        <div class="tel"> <!-- tel 위치 변경 -->
+			                            <span> ${vo.dvo.d_price}</span>
+			                        </div>
+		                        </div>
+		                        <div class="action-buttons">
+		                            <button class="view-details" data-href="../dress/dress_detail.do?d_no=${vo.dvo.d_no}">상세보기</button>
+		                            <button class="cancel" data-href="${vo.wno}">취소</button>
+		                        </div>
+	                        </div>
+		                </c:forEach>
+		            </div>
+		        </c:otherwise>
+		    </c:choose>
         </div>
         <div id="table3" class="tab_contents">
-            <!-- 예복 관련 내용 추가 -->
+            <div class="tab_contents_area">
+		        <p class="titbox">예복 위시 리스트는 총 <span id="count" style="color: #228B22;">${suCount}</span>개입니다.</p>
+		    </div>
+		    <c:choose>
+		        <c:when test="${empty suitList}">
+		            <div class="empty">나의 위시 목록이 없습니다.</div>
+		        </c:when>
+		        <c:otherwise>
+		            <div class="wishdetail">
+		                <c:forEach var="vo" items="${suitList}">
+	                    	<div class="stline">
+		                        <a class="wishimage" href="../hall/detail.do?hno=${vo.suvo.su_no}">
+		                            <img src="${vo.suvo.su_image}" alt="${vo.suvo.su_subject}">
+		                        </a>
+		                        <div class="ws_info">
+			                        <div class="wishname">
+			                            <img src="../mypage/jjim.png" class="wishBtn">
+			                            <span>${vo.suvo.su_subject}</span>
+			                        </div>
+			                        <div class="tel"> <!-- tel 위치 변경 -->
+			                            <span> ${vo.suvo.su_price}</span>
+			                        </div>
+		                        </div>
+		                        <div class="action-buttons">
+		                            <button class="view-details" data-href="../dress/dress_detail.do?su_no=${vo.suvo.su_no}">상세보기</button>
+		                            <button class="cancel" data-href="${vo.wno}">취소</button>
+		                        </div>
+	                        </div>
+		                </c:forEach>
+		            </div>
+		        </c:otherwise>
+		    </c:choose>
         </div>
 		 <div id="table4" class="tab_contents">
-		    <!-- 스튜디오 관련 내용 추가 -->
 		    <div class="tab_contents_area">
 		        <p class="titbox">스튜디오 위시 리스트는 총 <span id="count" style="color: #228B22;">${sCount}</span>개입니다.</p>
 		    </div>
@@ -268,7 +325,6 @@
 		    </c:choose>
 		</div>
         <div id="table5" class="tab_contents">
-            <!-- 헤어/메이크업 관련 내용 추가 -->
             <div class="tab_contents_area">
 		        <p class="titbox">헤어/메이크업 위시 리스트는 총 <span id="count" style="color: #228B22;">${mCount}</span>개입니다.</p>
 		    </div>
@@ -303,7 +359,38 @@
 		    </c:choose>
         </div>
         <div id="table6" class="tab_contents">
-            <!-- 혼수 관련 내용 추가 -->
+            <div class="tab_contents_area">
+		        <p class="titbox">혼수 위시 리스트는 총 <span id="count" style="color: #228B22;">${gCount}</span>개입니다.</p>
+		    </div>
+		    <c:choose>
+		        <c:when test="${empty goodsList}">
+		            <div class="empty">나의 위시 목록이 없습니다.</div>
+		        </c:when>
+		        <c:otherwise>
+		            <div class="wishdetail">
+		                <c:forEach var="vo" items="${goodsList}">
+	                    	<div class="stline">
+		                        <a class="wishimage" href="../hall/detail.do?hno=${vo.gvo.mgno}">
+		                            <img src="${vo.gvo.poster}" alt="${vo.gvo.title}">
+		                        </a>
+		                        <div class="ws_info">
+			                        <div class="wishname">
+			                            <img src="../mypage/jjim.png" class="wishBtn">
+			                            <span>${vo.gvo.title}</span>
+			                        </div>
+			                        <div class="tel"> <!-- tel 위치 변경 -->
+			                            <span>${vo.gvo.price}</span>
+			                        </div>
+		                        </div>
+		                        <div class="action-buttons">
+		                            <button class="view-details" data-href="../goods/detail.do?mgno=${vo.gvo.mgno}">상세보기</button>
+		                            <button class="cancel" data-href="${vo.wno}">취소</button>
+		                        </div>
+	                        </div>
+		                </c:forEach>
+		            </div>
+		        </c:otherwise>
+		    </c:choose>
         </div>
     </div>
 </body>

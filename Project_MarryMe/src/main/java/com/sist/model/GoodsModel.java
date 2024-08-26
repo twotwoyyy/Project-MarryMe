@@ -77,6 +77,21 @@ public class GoodsModel {
 		String cate=request.getParameter("cate");
 		GoodsVO vo=GoodsDAO.goodsDetailData(Integer.parseInt(pno));
 		List<String> list=GoodsDAO.goodsContentData(Integer.parseInt(pno));
+		
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		boolean isWish=false;
+		
+		if(id!=null) {
+			Map map=new HashMap();
+			map.put("cno", pno);
+			map.put("cate", 6);
+			map.put("id", id);
+			int existWish=WishDAO.wishCheck(map);
+			if(existWish!=0) {
+				isWish=true;
+			}			
+		}
 		int price=Integer.parseInt(vo.getPrice().replaceAll("[^0-9]", ""));
 		int discount=0;
 		if(!vo.getDiscount().equals("할인없음")){

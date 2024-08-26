@@ -30,12 +30,22 @@ public class WishModel {
 				case 1:
 					WishDAO.hallWishCountIncrement(map);
 					break;
+				case 2:
+					WishDAO.dressWishCountIncrement(map);
+					break;
+				case 3:
+					//WishDAO.WishCountIncrement(map);
+					break;
 				case 4:
 					WishDAO.studioWishCountIncrement(map);
 					break;
 				case 5:
 					WishDAO.hairmakeupWishCountIncrement(map);
 					break;
+				case 6:
+					WishDAO.goodsWishCountIncrement(map);
+					break;
+				
 			}	
 			result="OK";			
 		}else {

@@ -20,12 +20,11 @@ public class MypageModel {
 	    String id = (String) session.getAttribute("id");
 	    MemberVO vo = MemberDAO.memberUpdateData(id);
 
-	    // 날짜를 문자열 형식으로 변환
-	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // 원하는 형식으로 변경
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
 	    String weddingdayStr = sdf.format(vo.getWeddingday());
 	    
 	    request.setAttribute("vo", vo);
-	    request.setAttribute("weddingday", weddingdayStr); // 날짜를 문자열로 전달
+	    request.setAttribute("weddingday", weddingdayStr); 
 	    request.setAttribute("title", "💐마이페이지💐");
 	    request.setAttribute("mypage_jsp", "../mypage/mypage_home.jsp");
 	    request.setAttribute("main_jsp", "../mypage/mypage_main.jsp");
@@ -68,7 +67,6 @@ public class MypageModel {
       try {
          weddingday = wedding_form.parse(wedding_date);
       } catch (ParseException e) {
-         // TODO Auto-generated catch block
          e.printStackTrace();
       }
       
@@ -83,11 +81,11 @@ public class MypageModel {
       vo.setAddress2(address2);
       vo.setGender(gender);
       vo.setWeddingday(weddingday);
-      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // 원하는 형식으로 변경
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
       String weddingdayStr = sdf.format(vo.getWeddingday());
       
       boolean bCheck=MemberDAO.memberUpdate(vo);
-      request.setAttribute("weddingday", weddingdayStr); // 날짜를 문자열로 전달
+      request.setAttribute("weddingday", weddingdayStr);
       request.setAttribute("result", bCheck);
       
       return "../member/join_update_ok.jsp";
@@ -100,20 +98,34 @@ public class MypageModel {
 		String id=(String)session.getAttribute("id");
 		
 		List<WishVO> hallList=WishDAO.hallWishMypageData(id);
+		List<WishVO> dList=WishDAO.dressMypageData(id);
+		List<WishVO> suList=WishDAO.suitMypageData(id);
 		List<WishVO> studioList=WishDAO.studioMypageData(id);
 		List<WishVO> hairmakeList=WishDAO.hairmakeupMypageData(id);
+		List<WishVO> gList=WishDAO.goodsMypageData(id);
+		
 		int hSize=hallList.size();
+		int dSize=dList.size();
+		int suSize=suList.size();
 		int sSize=studioList.size();
 		int mSize=hairmakeList.size();
-		int totalWish=hSize+sSize+mSize;
+		int gSize=gList.size();
+		int totalWish=hSize+dSize+suSize+sSize+mSize+gSize;
+		
 		request.setAttribute("hCount", hallList.size());
+		request.setAttribute("dCount", dList.size());
+		request.setAttribute("suCount", suList.size());
 		request.setAttribute("sCount", studioList.size());
 		request.setAttribute("mCount", hairmakeList.size());
+		request.setAttribute("gCount", gList.size());
 		request.setAttribute("totalWish", totalWish);
 		request.setAttribute("title", "나의 위시리스트");
 		request.setAttribute("hallList", hallList);
+		request.setAttribute("dressList", dList);
+		request.setAttribute("suitList", suList);
 		request.setAttribute("studioList", studioList);
 		request.setAttribute("hairmakeList", hairmakeList);
+		request.setAttribute("goodsList", gList);
 		request.setAttribute("mypage_jsp", "../mypage/mypage_wish.jsp");
 		request.setAttribute("main_jsp", "../mypage/mypage_main.jsp");
 		return "../main/main.jsp";

@@ -37,19 +37,6 @@ public class WishDAO {
 		return count;
 	}
 	
-	// 홀 위시 개수
-	public static void hallWishCountIncrement(Map map) {
-		SqlSession session=null;
-		try {
-			session=ssf.openSession(true);
-			session.update("hallWishCountIncrement",map);
-		}catch(Exception ex) {
-			ex.printStackTrace();
-		}finally {
-			if(session!=null)
-				session.close();
-		}
-	}
 	// 마이페이지
 	// 홀 마이페이지 위시 리스트
 	public static List<WishVO> hallWishMypageData(String id){
@@ -66,6 +53,37 @@ public class WishDAO {
 		}
 		return list;
 	}
+	// 수트 마이페이지 위시 리스트 
+	public static List<WishVO> suitMypageData(String id){
+		List<WishVO> list=new ArrayList<WishVO>();
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			list=session.selectList("suitMypageData",id);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return list;
+	}
+	// 드레스 마이페이지 위시 리스트
+	public static List<WishVO> dressMypageData(String id){
+		List<WishVO> list=new ArrayList<WishVO>();
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			list=session.selectList("dressMypageData",id);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return list;
+	}
+	
 	// 헤어 메이크업 마이페이지 위시 리스트
 	public static List<WishVO> hairmakeupMypageData(String id){
 		List<WishVO> list=new ArrayList<WishVO>();
@@ -96,7 +114,59 @@ public class WishDAO {
 		}
 		return list;
 	}
+	// 혼수 마이페이지 위시 리스트
+	public static List<WishVO> goodsMypageData(String id){
+		List<WishVO> list=new ArrayList<WishVO>();
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			list=session.selectList("goodsMypageData",id);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return list;
+	}
+	// 위시 개수 증가
+	public static void hallWishCountIncrement(Map map) {
+		SqlSession session=null;
+		try {
+			session=ssf.openSession(true);
+			session.update("hallWishCountIncrement",map);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+	}
 	
+	public static void suitCountIncrement(Map map) {
+		SqlSession session=null;
+		try {
+			session=ssf.openSession(true);
+			session.update("suitWishCountIncrement", map);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+	}
+	public static void dressWishCountIncrement(Map map) {
+		SqlSession session=null;
+		try {
+			session=ssf.openSession(true);
+			session.update("dressWishCountIncrement", map);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+	}
 	public static void studioWishCountIncrement(Map map) {
 		SqlSession session=null;
 		try {
@@ -114,6 +184,18 @@ public class WishDAO {
 		try {
 			session=ssf.openSession(true);
 			session.update("hairmakeupWishCountIncrement", map);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+	}
+	public static void goodsWishCountIncrement(Map map) {
+		SqlSession session=null;
+		try {
+			session=ssf.openSession(true);
+			session.update("goodsWishCountIncrement", map);
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}finally {

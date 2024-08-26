@@ -31,6 +31,21 @@
 		wish=(SELECT COUNT(*) FROM wish_list WHERE cate=#{cate} AND cno=#{cno})
 		WHERE mno=#{cno}
 	</update>
+	<update id="dressWishCountIncrement" parameterType="hashmap">
+		UPDATE dress SET
+		wish=(SELECT COUNT(*) FROM wish_list WHERE cate=#{cate} AND cno=#{cno})
+		WHERE d_no=#{cno}
+	</update>
+	<update id="suitWishCountIncrement" parameterType="hashmap">
+		UPDATE suit SET
+		wish=(SELECT COUNT(*) FROM wish_list WHERE cate=#{cate} AND cno=#{cno})
+		WHERE su_no=#{cno}
+	</update>
+	<update id="goodsWishCountIncrement" parameterType="hashmap">
+		UPDATE goods SET
+		wish=(SELECT COUNT(*) FROM wish_list WHERE cate=#{cate} AND cno=#{cno})
+		WHERE mgno=#{cno}
+	</update>
 	
 	<!-- Detail 위시 해제 -->
 	<delete id="wishDetailDelete" parameterType="hashmap">
@@ -56,6 +71,24 @@
 		<result property="svo.name" column="name"/>
 		<result property="svo.tel" column="tel"/>
 	</resultMap>
+	<resultMap type="com.sist.vo.WishVO" id="suitMap">
+		<result property="suvo.su_no" column="su_no"/>
+		<result property="suvo.su_subject" column="su_subject"/>
+		<result property="suvo.su_price" column="su_price"/>
+		<result property="suvo.su_image" column="su_image"/>
+	</resultMap>
+	<resultMap type="com.sist.vo.WishVO" id="dressMap">
+		<result property="dvo.d_no" column="d_no"/>
+		<result property="dvo.d_subject" column="d_subject"/>
+		<result property="dvo.d_price" column="d_price"/>
+		<result property="dvo.d_image" column="d_image"/>
+	</resultMap>
+	<resultMap type="com.sist.vo.WishVO" id="goodsMap">
+		<result property="gvo.mgno" column="mgno"/>
+		<result property="gvo.title" column="title"/>
+		<result property="gvo.price" column="price"/>
+		<result property="gvo.poster" column="poster"/>
+	</resultMap>
 	<select id="hallWishMypageData" resultMap="hallMap" parameterType="string">
 		SELECT wno,cno,regdate,h.hno,h.name,h.image
 		FROM wish_list w, hall h
@@ -63,11 +96,18 @@
 		AND id=#{id} AND w.cate=1
 		ORDER BY wno DESC
 	</select>
-	<select id="hairmakeupMypageData" resultMap="hmMap" parameterType="string">
-		SELECT wno,cno,regdate,hm.mno,hm.name,hm.thumb,hm.tel
-		FROM wish_list w, hair_makeup hm
-		WHERE w.cno=hm.mno
-		AND id=#{id} AND w.cate=5
+	<select id="dressMypageData" resultMap="dressMap" parameterType="string">
+		SELECT wno,cno,regdate,d.d_no,d.d_subject,d.d_price,d.d_image
+		FROM wish_list w, dress d
+		WHERE w.cno=d.d_no
+		AND id=#{id} AND w.cate=2
+		ORDER BY wno DESC
+	</select>
+	<select id="suitMypageData" resultMap="suitMap" parameterType="string">
+		SELECT wno,cno,regdate,su.su_no,su.su_subject,su.su_price,su.su_image
+		FROM wish_list w, suit su
+		WHERE w.cno=su.su_no
+		AND id=#{id} AND w.cate=3
 		ORDER BY wno DESC
 	</select>
 	<select id="studioMypageData" resultMap="studioMap" parameterType="string">
@@ -77,10 +117,23 @@
 		AND id=#{id} AND w.cate=4
 		ORDER BY wno DESC
 	</select>
+	<select id="hairmakeupMypageData" resultMap="hmMap" parameterType="string">
+		SELECT wno,cno,regdate,hm.mno,hm.name,hm.thumb,hm.tel
+		FROM wish_list w, hair_makeup hm
+		WHERE w.cno=hm.mno
+		AND id=#{id} AND w.cate=5
+		ORDER BY wno DESC
+	</select>
+	<select id="goodsMypageData" resultMap="goodsMap" parameterType="string">
+		SELECT wno,cno,regdate,g.mgno,g.title,g.price,g.poster
+		FROM wish_list w, goods g
+		WHERE w.cno=g.mgno
+		AND id=#{id} AND w.cate=6
+		ORDER BY wno DESC
+	</select>
 	<!-- 마이페이지 삭제 -->
 	<delete id="wishCancel" parameterType="int">
 		DELETE FROM wish_list
 		WHERE wno=#{wno}
 	</delete>
-	<select id=""></select>
 </mapper>

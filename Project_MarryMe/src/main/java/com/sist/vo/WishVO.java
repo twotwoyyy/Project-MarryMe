@@ -21,4 +21,7 @@ public class WishVO {
 	HallVO hvo=new HallVO();
 	StudioVO svo=new StudioVO();
 	HairMakeupVO mvo=new HairMakeupVO();
+	DressVO dvo=new DressVO();
+	SuitVO suvo=new SuitVO();
+	GoodsVO gvo=new GoodsVO();
 }
