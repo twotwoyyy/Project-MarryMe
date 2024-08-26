@@ -44,17 +44,23 @@ public class MainModel {
 			page="1";
 		}
 		int curpage=Integer.parseInt(page);
-		Map map=new HashMap();
-		int rowSize=12;
-		int start=(rowSize*curpage)-(rowSize-1);
-		int end=rowSize*curpage;
-		map.put("keyword", keyword);
-		map.put("start", start);
-		map.put("end", end);
 		
-		List<FindVO> find_list=FindDAO.findListData(map);
-		System.out.println(find_list);
-		int totalpage=FindDAO.findTotalpage(keyword);
+		List<HallVO> find_hall=FindDAO.findHallListData(keyword);
+		List<DressVO> find_dress=FindDAO.findDressListData(keyword);
+		List<SuitVO> find_suit=FindDAO.findSuitListData(keyword);
+		List<StudioVO> find_studio=FindDAO.findStudioListData(keyword);
+		List<HairMakeupVO> find_hm=FindDAO.findHairMakeupListData(keyword);
+		List<GoodsVO> find_goods=FindDAO.findGoodsListData(keyword);
+
+		int hall_count=FindDAO.findHallCount(keyword);
+		int dress_count=FindDAO.findDressCount(keyword);
+		int suit_count=FindDAO.findSuitCount(keyword);
+		int studio_count=FindDAO.findStudioCount(keyword);
+		int hm_count=FindDAO.findHairMakeupCount(keyword);
+		int goods_count=FindDAO.findGoodsCount(keyword);
+		
+		int count=hall_count+dress_count+suit_count+studio_count+hm_count+goods_count;
+		int totalpage=(int)(Math.ceil(count/12.0));
 		
 		final int BLOCK=5;
 		int startpage=((curpage-1)/BLOCK*BLOCK)+1;
@@ -67,7 +73,12 @@ public class MainModel {
 		request.setAttribute("totalpage", totalpage);
 		request.setAttribute("startpage", startpage);
 		request.setAttribute("endpage", endpage);
-		request.setAttribute("find_list", find_list);
+		request.setAttribute("find_hall", find_hall);
+		request.setAttribute("find_dress", find_dress);
+		request.setAttribute("find_suit", find_suit);
+		request.setAttribute("find_studio", find_studio);
+		request.setAttribute("find_hm", find_hm);
+		request.setAttribute("find_goods", find_goods);
 		request.setAttribute("main_jsp", "../main/find.jsp");
 		return "../main/main.jsp";
 	}
