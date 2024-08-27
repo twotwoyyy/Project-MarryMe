@@ -139,12 +139,12 @@ $(function(){
     	let pwd=$('#qna_pw'+qno).val()
     	if(msg.trim()==="")
 		{
-			 $('#qna_content').focus()
+			 $('#qna_content'+qno).focus()
 			 return
 		}
 		if(pwd.trim()==="")
 		{
-			 $('#qna_pw').focus()
+			 $('#qna_pw'+qno).focus()
 			 return
 		}
 		$.ajax({

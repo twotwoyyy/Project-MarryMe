@@ -361,7 +361,9 @@ function requestPay(json,name,price) {
                                 <li>${vo.delivery }</li>
                             </ul>
                             <input type="number" id="sel" class="collect" value="1" min="1" max="${vo.EA }" style="font-weight: bold;" data-price="${price }">
+                        	
                         	<span id="total">${vo.price}원</span>
+                        
                         </div>  
                       <a href="#" class="buyBtn" style="float: left ;margin-right: 20px">장바구니</a>
                       <a href="#" class="buyBtn" id="buy">바로구매</a>
