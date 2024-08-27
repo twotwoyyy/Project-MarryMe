@@ -133,8 +133,8 @@ $(function(){
 <body>
 	<div id="detail" class="studio">
         <div class="tt_box">
-            <h2>제이진 슈트</h2>
-            <p>주인공의 자신감을 예복에 담다</p>
+            <h2>${suit_vo.su_subject }</h2>
+            <p>${suit_vo.su_content }</p>
         </div>
         <div class="detail_wrap">
             <div class="left">

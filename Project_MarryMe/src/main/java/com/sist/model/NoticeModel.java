@@ -23,6 +23,7 @@ public class NoticeModel {
 		request.setAttribute("main_jsp", "../notice/insert.jsp");
 		return "../main/main.jsp";
 	}
+	
 	@RequestMapping("notice/insert_ok.do")
 	public String notice_insert_ok(HttpServletRequest request,HttpServletResponse response) {
 		try

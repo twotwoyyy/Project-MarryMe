@@ -14,7 +14,7 @@ public class NoticeDAO {
 		if(session!=null)
 			session.close();
 	}
-	/*
+	/*	공지 추가
 	 * <insert id="noticeInsert" parameterType="NoticeVO">
 		INSERT INTO notice VALUES(
 		(SELECT NVL(MAX(notice_no)+1,1) FROM notice),
@@ -22,7 +22,6 @@ public class NoticeDAO {
 		)
 	</insert>
 	*/
-	// 공지 추가
 	public static void noticeInsert(NoticeVO vo) {
 		SqlSession session=null;
 		try {
@@ -31,12 +30,12 @@ public class NoticeDAO {
 			session.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
-			// TODO: handle exception
 		}finally {
 			ssfDisconnection(session);
 		}
 	}
-	/*
+	
+	/*	공지 목록
 	<!-- JOIN -->
 	<resultMap type="com.sist.vo.NoticeVO" id="NoticeMap">
 		<result property="mvo.name" column="name"/>
@@ -57,7 +56,6 @@ public class NoticeDAO {
 		WHERE num BETWEEN #{start} AND #{end}
 	</select>
 	 */
-	// 공지 목록
 	public static List<NoticeVO> noticeListData(Map map){
 		List<NoticeVO> list=new ArrayList<NoticeVO>();
 		SqlSession session=null;

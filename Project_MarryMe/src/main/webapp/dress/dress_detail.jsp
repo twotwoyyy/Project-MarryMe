@@ -137,8 +137,8 @@ $(function(){
 <body>
 	<div id="detail" class="dress">
         <div class="tt_box">
-            <h2>라비토로사</h2>
-            <p>드레스에 장미의 아름다움을 담다.</p>
+            <h2>${dress_vo.d_subject }</h2>
+            <p>${dress_vo.d_content }</p>
         </div>
         <div class="detail_wrap">
             <div class="left">
