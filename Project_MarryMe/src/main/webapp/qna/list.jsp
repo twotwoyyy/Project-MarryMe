@@ -39,6 +39,7 @@
     text-align:center;
     transition:.3s;
 }
+
 </style>
 <script type="text/javascript">
 $(function(){

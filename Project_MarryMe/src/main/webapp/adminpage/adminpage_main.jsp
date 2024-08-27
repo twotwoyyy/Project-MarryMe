@@ -4,10 +4,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>기본 레이아웃</title>
-    <!-- 외부 CSS 파일 링크 -->
-    <link rel="stylesheet" type="text/css" href="styles.css">
-   <style type="text/css">
+<title>기본 레이아웃</title>
+<!-- 외부 CSS 파일 링크 -->
+<link rel="stylesheet" type="text/css" href="../css/mypage.css">
+<style type="text/css">
+*{
+	font-family: 'SCoreDream', sans-serif;
+}
       .h3{
          text-align: center;
       }
@@ -24,14 +27,14 @@
         <section class="mypage_menu">
             <!-- 사이드바 메뉴 영역 -->
             <div id="mypmenu">
-            <h1 id="my_title">${title }</h1>
-                <h3>관리자 메뉴</h3>
+            <h1 id="my_title">관리자 메뉴</h1>
+                <h3></h3>
                 <ul>
                     <li><a href="../adminpage/member_list.do">회원 관리</a></li>
                     <li><a href="../adminpage/notice_list.do">공지사항 관리</a></li>
-                    <li><a href="#">리뷰 관리</a></li>
+<!--                     <li><a href="#">리뷰 관리</a></li> -->
                     <li><a href="../adminpage/adminpage_reserve.do">예약 관리</a></li>
-                    <li><a href="../adminpage/reply_list.do">QnA 관리</a></li>
+                    <li><a href="../adminpage/qna_list.do">QnA 관리</a></li>
                 </ul>
             </div>
 <!--             <div id="adminmenu"> -->
@@ -45,7 +48,7 @@
 <!--                 </ul> -->
 <!--             </div> -->
         </section>
-    <jsp:include page="${admin_jsp }"></jsp:include>
+    	<jsp:include page="${admin_jsp }"></jsp:include>
     </div>
 </body>
 </html>

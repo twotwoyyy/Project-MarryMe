@@ -30,18 +30,18 @@ public class QnaDAO {
 		}
 	}
 	
-	/*
-	<!-- 목록 -->
- 	<select id="qnaListData" resultMap="QnaMap" parameterType="hashmap">
- 		SELECT qna_no,TO_CHAR(regdate,'YYYY-MM-DD'),cate,group_id,tab,name,num
- 		FROM (SELECT qna_no,regdate,cate,group_id,tab,name,rownum as num
- 		FROM (SELECT qna_no,regdate,cate,group_id,tab,name
- 		FROM qna,member 
- 		WHERE qna.id=member.id
- 		ORDER BY group_id))
- 		WHERE num BETWEEN #{start} AND #{end}
- 	</select>
- */
+
+//	<!-- 목록 -->
+// 	<select id="qnaListData" resultMap="QnaMap" parameterType="hashmap">
+// 		SELECT qna_no,TO_CHAR(regdate,'YYYY-MM-DD'),cate,group_id,tab,name,num
+// 		FROM (SELECT qna_no,regdate,cate,group_id,tab,name,rownum as num
+// 		FROM (SELECT qna_no,regdate,cate,group_id,tab,name
+// 		FROM qna,member 
+// 		WHERE qna.id=member.id
+// 		ORDER BY group_id))
+// 		WHERE num BETWEEN #{start} AND #{end}
+// 	</select>
+ 	
 	public static List<QnaVO> qnaUserListData(Map map){
 		List<QnaVO> list=new ArrayList<QnaVO>();
 		SqlSession session=null;

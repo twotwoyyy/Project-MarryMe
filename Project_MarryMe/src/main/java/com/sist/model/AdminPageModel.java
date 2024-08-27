@@ -23,7 +23,7 @@ public class AdminPageModel {
 	    
 	    request.setAttribute("vo", vo);
 	    request.setAttribute("title", "💐관리자 페이지💐");
-		request.setAttribute("adminpage_jsp", "../adminpage/adminpage_home.jsp");
+		request.setAttribute("admin_jsp", "../adminpage/adminpage_home.jsp");
 		request.setAttribute("main_jsp", "../adminpage/adminpage_main.jsp");
 		
 		return "../main/main.jsp";
@@ -139,37 +139,6 @@ public class AdminPageModel {
 		   return "redirect:../adminpage/notice_list.do";
 	   }
 	   
-	   @RequestMapping("adminpage/reply_list.do")
-	   public String reply_list(HttpServletRequest request,HttpServletResponse response)
-	   {
-		   String page=request.getParameter("page");
-		   if(page==null)
-			   page="1";
-		   
-		   int curpage=Integer.parseInt(page);
-		   Map map=new HashMap();
-		   int rowSize=15;
-		   int start=(rowSize*curpage)-(rowSize-1);
-		   int end=rowSize*curpage;
-		   
-		   map.put("start", start);
-		   map.put("end", end);
-		   
-		   List<ReplyBoardVO> list=ReplyBoardDAO.adminReplyBoardListData(map);
-		   int count=ReplyBoardDAO.replyBoardRowCount();
-		   int totalpage=(int)(Math.ceil(count/15.0));
-		   
-		   request.setAttribute("arList", list);
-		   request.setAttribute("curpage", curpage);
-		   request.setAttribute("totalpage", totalpage);
-		   request.setAttribute("count", count);
-		   
-		   request.setAttribute("admin_jsp", "../adminpage/adminpage_reply_list.jsp");
-		   request.setAttribute("main_jsp", "../adminpage/adminpage_main.jsp");
-
-		   return "../main/main.jsp";
-	   }
-	   
 	   @RequestMapping("adminpage/reply_insert.do")
 	   public String reply_insert(HttpServletRequest request,HttpServletResponse response)
 	   {
@@ -181,40 +150,22 @@ public class AdminPageModel {
 		   return "../main/main.jsp";
 	   }
 	   
-	   @RequestMapping("adminpage/reply_insert_ok.do")
-	   public String reply_insert_ok(HttpServletRequest request,HttpServletResponse response)
+	   @RequestMapping("adminpage/qna_list.do")
+	   public String qna_list(HttpServletRequest request,HttpServletResponse response)
 	   {
-		   try
-		   {
-			   request.setCharacterEncoding("UTF-8");
-		   }catch(Exception ex) {}
-		   String no=request.getParameter("no");
-		   String subject=request.getParameter("subject");
-		   String content=request.getParameter("content");
-		   HttpSession session=request.getSession();
-		   String id=(String)session.getAttribute("id");
-		   String name=(String)session.getAttribute("name");
-		   ReplyBoardVO rvo=ReplyBoardDAO.adminReplyInfoData(Integer.parseInt(no));
-		   
-		   ReplyBoardVO vo=new ReplyBoardVO();
-		   vo.setId(id);
-		   vo.setSubject(subject);
-		   vo.setContent(content);
-		   vo.setName(name);
-		   vo.setGroup_id(rvo.getGroup_id());
-		   
-		   ReplyBoardDAO.adminReplyBoardInsert(Integer.parseInt(no), vo);
-		   
-		   return "redirect:../adminpage/reply_list.do";
-	   }
-	   
-	   @RequestMapping("adminpage/reply_delete.do")
-	   public String reply_delete(HttpServletRequest request,HttpServletResponse response)
-	   {
-		   String no=request.getParameter("no");
-		   String group_id=request.getParameter("group_id");
-		   //DB연동 
-		   ReplyBoardDAO.adminReplyDelete(Integer.parseInt(no),Integer.parseInt(group_id));
-		   return "redirect:../adminpage/reply_list.do";
+		  String no=request.getParameter("no");
+		  String page=request.getParameter("page");
+		  if(page==null) {
+			  page="1";
+		  }
+		  int curpage=Integer.parseInt(page);
+		   request.setAttribute("no", no);
+		   request.setAttribute("pno", 2);
+		   request.setAttribute("cate", 6);
+		   request.setAttribute("curpate", curpage);
+		   request.setAttribute("admin_jsp", "../adminpage/admin_qna.jsp");
+		   request.setAttribute("main_jsp", "../adminpage/adminpage_main.jsp");
+
+		   return "../main/main.jsp";
 	   }
 }
