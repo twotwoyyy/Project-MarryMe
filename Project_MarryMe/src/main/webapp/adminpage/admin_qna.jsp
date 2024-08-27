@@ -39,7 +39,7 @@
                         <p class="number">번호</p>
                      	<div class="subject">
                           <p style="margin: 0px auto;">제목</p>
-                        </div>
+                        </div> 
                         <p class="writer">작성자</p>
                         <p class="regdate">작성일</p>
                       </div>
