@@ -420,11 +420,13 @@ function replyList(pno,page,cate)
 		})
 	//	console.log(html2)
 		$('#reviewPage').html(html2)	
-
-		let review_count=json.length;
+		json.map(function(count){
+		let review_count=count.total;
+		console.log(review_count)
 	    $('.detail_tab a[href="#review"]').text('후기('+review_count+')')		
-
-		},
+		})
+		}
+		,
 		error:function(request,status,error)
 		{
 		   console.log(error)

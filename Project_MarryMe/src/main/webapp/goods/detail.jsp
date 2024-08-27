@@ -233,6 +233,7 @@ $(function(){
                         </div> -->
                         <hr>
                         <jsp:include page="../qna/list.jsp"></jsp:include>
+                   </div>
                 </section>
             </div>
             <div class="right">

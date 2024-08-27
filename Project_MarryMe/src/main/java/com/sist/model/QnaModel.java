@@ -182,4 +182,57 @@ public class QnaModel {
 			// TODO: handle exception
 		}
 	}
+	@RequestMapping("qna/userUpdate.do")
+	public void qna_userUpdate(HttpServletRequest request,HttpServletResponse response) {
+		try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		String qno=request.getParameter("qno");
+		String msg=request.getParameter("msg");
+		String pwd=request.getParameter("pwd");
+		
+		QnaVO vo=new QnaVO();
+		vo.setQna_no(Integer.parseInt(qno));
+		vo.setMsg(msg);
+		vo.setPwd(pwd);
+		String result="";
+		try {
+			QnaDAO.qnaUpdate(vo);
+			result="OK";
+		}catch(Exception ex){
+			result="NO";
+		}
+		try {
+			response.setContentType("text/plain;charset=UTF-8");
+			PrintWriter out=response.getWriter();
+			out.write(result);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	@RequestMapping("qna/delete.do")
+	public void qna_delete(HttpServletRequest request,HttpServletResponse response) {
+		try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		String qno=request.getParameter("qno");
+		String result="";
+		try {
+			QnaDAO.qnaDelete(Integer.parseInt(qno));
+			result="OK";
+		}catch(Exception ex){
+			result="NO";
+		}
+		try {
+			response.setContentType("text/plain;charset=UTF-8");
+			PrintWriter out=response.getWriter();
+			out.write(result);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
 }

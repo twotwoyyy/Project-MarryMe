@@ -164,18 +164,21 @@ public class ReviewModel {
 				obj.put("hit", vo.getHit());
 				obj.put("msg", vo.getMsg());
 				obj.put("today", today);
+				obj.put("total", total);
 				if(h==0) {
 				obj.put("startpage", startpage);
 				obj.put("endpage", endpage);
 				obj.put("totalpage", totalpage);
 				obj.put("curpage", curpage);
+				
 				h=1;
 				}
 				obj.put("sessionId", sid);
 				arr.add(obj);
 			}
-	//		System.out.println(arr.toJSONString());
+			//System.out.println(arr.toJSONString());
 			response.setContentType("text/plain;charset=UTF-8");
+			
 			PrintWriter out=response.getWriter();
 			out.write(arr.toJSONString());
 			

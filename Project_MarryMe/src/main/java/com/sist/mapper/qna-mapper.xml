@@ -45,4 +45,15 @@
  		SELECT pwd FROM qna
  		WHERE qna_no=#{qna_no}
  	</select>
+ 	<!-- 수정 -->
+ 	<update id="qnaUpdate" parameterType="QnaVO">
+ 		UPDATE qna SET
+ 		msg=#{msg} , pwd=#{pwd}
+ 		WHERE qna_no=#{qna_no}
+ 	</update>
+ 	<!-- 삭제 -->
+ 	<delete id="qnaDelete" parameterType="int">
+ 		DELETE FROM qna
+ 		WHERE group_id=(SELECT group_id FROM qna WHERE qna_no=#{qna_no})
+ 	</delete>
 </mapper>

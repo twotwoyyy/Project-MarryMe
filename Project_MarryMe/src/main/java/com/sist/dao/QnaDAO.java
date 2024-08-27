@@ -98,4 +98,30 @@ public class QnaDAO {
 		}
 		return pwd;
 	}
+	public static void qnaUpdate(QnaVO vo) {
+		SqlSession session=null;
+		try {
+		session=ssf.openSession();
+		session.update("qnaUpdate",vo);
+		session.commit();
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+	}
+	public static void qnaDelete(int qna_no) {
+		SqlSession session=null;
+		try {
+		session=ssf.openSession();
+		session.delete("qnaDelete",qna_no);
+		session.commit();
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+	}
 }
