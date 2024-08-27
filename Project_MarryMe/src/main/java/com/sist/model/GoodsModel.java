@@ -2,6 +2,7 @@ package com.sist.model;
 
 import javax.naming.spi.DirStateFactory.Result;
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -60,6 +61,23 @@ public class GoodsModel {
 		if(endpage>totalpage)
 			endpage=totalpage;
 		
+		// 쿠키
+		Cookie[] cookies=request.getCookies(); // 브라우저에 저장된 쿠키 읽어올 때 사용
+		List<GoodsVO> cookieList=new ArrayList<GoodsVO>();
+		if(cookies!=null) {
+			for(int i=cookies.length-1;i>=0;i--) {
+				if(cookies[i].getName().startsWith("goods_")) {
+					String pno=cookies[i].getValue();
+					GoodsVO vo=GoodsDAO.goodsDetailData(Integer.parseInt(pno));
+					cookieList.add(vo);
+				}
+			}
+		}
+		
+		
+		
+		
+		
 		request.setAttribute("list", list);
 		request.setAttribute("cno", cno);
 		request.setAttribute("curpage", curpage);
@@ -67,9 +85,19 @@ public class GoodsModel {
 		request.setAttribute("endpage", endpage);
 		request.setAttribute("totalpage", totalpage);
 		request.setAttribute("total", total);	
+		request.setAttribute("cookieList", cookieList);
 		
 		request.setAttribute("main_jsp", "../goods/list.jsp");
 		return "../main/main.jsp";
+	}
+	@RequestMapping("goods/detail_before.do")
+	public String food_detail_before(HttpServletRequest request,HttpServletResponse response) {
+		String pno=request.getParameter("pno");
+		Cookie cookie=new Cookie("goods_"+pno,pno);
+		cookie.setMaxAge(60*60*24);
+		cookie.setPath("/");
+		response.addCookie(cookie);
+		return "redirect:../goods/detail.do?pno="+pno+"&cate=6";
 	}
 	@RequestMapping("goods/detail.do")
 	public String goods_detail(HttpServletRequest request,HttpServletResponse response) {
@@ -77,7 +105,14 @@ public class GoodsModel {
 		String cate=request.getParameter("cate");
 		GoodsVO vo=GoodsDAO.goodsDetailData(Integer.parseInt(pno));
 		List<String> list=GoodsDAO.goodsContentData(Integer.parseInt(pno));
-		
+		if(vo.getDelivery().equals("무료배송 무료배송")) {
+			
+			vo.setDelivery("무료배송");
+		}
+		if(vo.getDelivery().equals("착불배송 착불배송")) {
+			
+			vo.setDelivery("착불배송");
+		}
 		HttpSession session=request.getSession();
 		String id=(String)session.getAttribute("id");
 		boolean isWish=false;
@@ -140,6 +175,7 @@ public class GoodsModel {
 		request.setAttribute("vo", vo);
 		request.setAttribute("pno", pno);
 		request.setAttribute("cate", cate);
+		request.setAttribute("price", price);
 		request.setAttribute("main_jsp", "../goods/detail.jsp");
 		return "../main/main.jsp";
 	}

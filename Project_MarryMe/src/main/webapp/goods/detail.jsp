@@ -12,6 +12,9 @@
 <link rel="stylesheet" href="../css/detail.css">
 
 <style type="text/css">
+.collect:hover{
+	background-color: #bbbbbb;
+}
 #detail .reservation .tops{
     display:flex;
     justify-content:space-between;
@@ -75,7 +78,11 @@
             clip-path: inset(0 0 0 50%); /* 왼쪽 절반을 잘라냅니다 */
         }
 </style>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <script type="text/javascript">
+let sel=0;
+var IMP = window.IMP; 
+IMP.init("imp68206770"); 
 $(function(){
 	let pno=${pno}
 	$('.wish').click(function(){
@@ -112,13 +119,68 @@ $(function(){
 		document.body.removeChild(temp);
 		alert("현재 URL이 복사되었습니다.");
 	})
+	$('#sel').change(function(){
+		let account=$('#sel').val()
+		let EA=$('#ea').data('ea')
+		if(account===0)
+		{
+			alert("수량을 선택하세요")
+			return
+		}
+		if(EA!==0){
+		let price=$('#sel').attr("data-price")
+		let total=Number(price)*Number(account)
+		$('#total').text(total.toLocaleString()+"원")
+		$('#account').val(account)
+		sel=1;
+		}
+	})
+	$('#buy').click(function(){
+		if(sel===0)
+		{
+			alert("수량을 선택하세요")
+			return
+		}
+		
+		let gno=$('#pno').val()
+		let price=$('#sel').data('price')
+		let account=$('#sel').val()
+		let name=$('#title').text()
+		$.ajax({
+			type:'post',
+			url:'../goods/buy_insert.do',
+			data:{"gno":gno,"price":price,"account":account},
+			success:function(result)
+			{
+				let json=JSON.parse(result)
+			    console.log(json)
+				requestPay(json,name,price)
+			}
+		})
+	})
 })
+function requestPay(json,name,price) {
+    IMP.request_pay({
+        pg: "html5_inicis",
+        pay_method: "card",
+        merchant_uid: "ORD20180131-0000011",   // 주문번호
+        name: name,
+        amount: price,         // 숫자 타입
+        buyer_email: json.email,
+        buyer_name: json.name,
+        buyer_tel: json.phone,
+        buyer_addr: json.address,
+        buyer_postcode: json.post
+    }, function (rsp) { // callback
+    	location.href='http://localhost/JSPLastProject/mypage/mypage_buy.do' 
+    });
+}
 </script>
 </head>
 <body>
 	<div id="detail" class="studio">
         <div class="tt_box">
-            <h2>${vo.title }</h2>
+            <h2 id="title">${vo.title }</h2>
             <p>${vo.category }</p>
         </div>
         <div class="detail_wrap">
@@ -285,36 +347,24 @@ $(function(){
                             <p>${vo.price }</p>
                             <c:choose>
                               <c:when test="${vo.EA!=0 }">
-                            	<p>남은 수량:&nbsp;${vo.EA }</p>
+                            	<p id="ea" data-ea="${vo.EA }">남은 수량:&nbsp;${vo.EA }</p>
                               </c:when>	
                           	  <c:when test="${vo.EA==0 }">
-                          	    <p>품절</p>
+                          	    <p id="ea" data-ea="${vo.EA }">품절</p>
                           	  </c:when>
                           	</c:choose>
                           </div>
                         </div>
                         <div class="time">
-                            <label for="time">예약 시간</label>
+                            <label for="time">배송사항</label>
                             <ul class="reserve_time">
-                                <li><button class="time_btn">09:00</button></li>
-                                <li><button class="time_btn">10:00</button></li>
-                                <li><button class="time_btn">11:00</button></li>
-                                <li><button class="time_btn">12:00</button></li>
-                                <li><button class="time_btn">13:00</button></li>
-                                <li><button class="time_btn">14:00</button></li>
-                                <li><button class="time_btn">15:00</button></li>
-                                <li><button class="time_btn">16:00</button></li>
-                                <li><button class="time_btn">17:00</button></li>
-                                <li><button class="time_btn">18:00</button></li>
+                                <li>${vo.delivery }</li>
                             </ul>
-                        </div>
-                        <div class="total">
-                            <p class="label">희망 상담 예약 일시</p>
-                            <span class="date_print"></span>
-                            <span class="time_print"></span>
-                        </div>
+                            <input type="number" id="sel" class="collect" value="1" min="1" max="${vo.EA }" style="font-weight: bold;" data-price="${price }">
+                        	<span id="total">${vo.price}원</span>
+                        </div>  
                       <a href="#" class="buyBtn" style="float: left ;margin-right: 20px">장바구니</a>
-                      <a href="#" class="buyBtn">바로구매</a>
+                      <a href="#" class="buyBtn" id="buy">바로구매</a>
                     </form>
                 </aside>
             </div>

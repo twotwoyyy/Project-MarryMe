@@ -87,8 +87,8 @@ public class ReviewModel {
 		  
 		  try {
 				
-				PrintWriter out=response.getWriter();
-				out.write(obj.toJSONString());
+			  PrintWriter out=response.getWriter();
+			  out.write(obj.toJSONString());
 			}catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();

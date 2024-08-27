@@ -99,7 +99,11 @@ public class QnaModel {
 				qnaList.add(avo);
 			}
 		}
-		int total=QnaDAO.qnaTotalPage(map);
+		
+		int total=0;
+		if(qnaList.size()!=0){
+			total=QnaDAO.qnaTotalPage(map);
+		}
 		int totalpage=(int)(Math.ceil(total/(double)rowSize));
 
 		// 페이지 개수 표시
