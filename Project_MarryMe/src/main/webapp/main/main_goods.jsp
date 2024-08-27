@@ -10,7 +10,7 @@
 <body>
 	<c:forEach var="goods" items="${goods_list}">
 	    <li>
-	        <a href="#" class="pro_link active">
+	        <a href="../goods/detail_before.do?cate=6&pno=${goods.mgno}" class="pro_link active">
 	            <img src="${goods.poster}" alt="${goods.title}">
 	            <p class="product_name">${goods.title}</p>
 	            <p class="product_sub">${goods.price}</p>

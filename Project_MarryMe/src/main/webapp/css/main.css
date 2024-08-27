@@ -227,6 +227,9 @@ main .viewmore:hover::after{
     display:flex;
     gap:20px;
 }
+#goods .product_list > li{
+	flex:1;
+}
 #goods .product_list img{
     height:250px;
 }

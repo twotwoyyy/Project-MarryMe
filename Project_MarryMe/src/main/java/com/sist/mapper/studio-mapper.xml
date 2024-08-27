@@ -5,14 +5,14 @@
 	<select id="mainStudioData" resultType="StudioVO">
 		SELECT sno, name, thumb, keyword, rownum
 		FROM (SELECT sno, name, thumb, keyword
-		FROM studio ORDER BY sno ASC)
+		FROM studio ORDER BY wish DESC)
 		WHERE rownum&lt;=5
 	</select>
 	<!-- 메인페이지 헤어메이크업 -->
 	<select id="mainHairMakeupData" resultType="HairMakeupVO">
  		SELECT mno, name, thumb, keyword, rownum 
 		FROM (SELECT mno, name, thumb, keyword 
-		FROM hair_makeup ORDER BY mno ASC) 
+		FROM hair_makeup ORDER BY wish DESC) 
 		WHERE rownum&lt;=5
 	</select>
 	

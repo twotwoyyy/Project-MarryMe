@@ -152,8 +152,8 @@ $(function(){
                         </c:if>
                         <li><a href="#info">상세안내</a></li>
                         <li><a href="#map">위치</a></li>
-                        <li><a href="#review">후기()</a></li>
-                        <li><a href="#qna">문의()</a></li>
+                        <li><a href="#review">후기(0)</a></li>
+                        <li><a href="#qna">문의(0)</a></li>
                     </ul>
                     <div class="bottom_content">
                         <div id="brand">

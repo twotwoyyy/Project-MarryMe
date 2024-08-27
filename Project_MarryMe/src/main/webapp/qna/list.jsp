@@ -280,7 +280,7 @@ function qnaList(pno,page,cate)
 			json.map(function(count){
 				let qna_count=count.total;
 				console.log(qna_count)
-	   	 	$('.detail_tab a[href="#qna"]').text('후기('+qna_count+')')		
+	   	 	$('.detail_tab a[href="#qna"]').text('문의('+qna_count+')')		
 		})
 		},
 		error:function(request,status,error)

@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sist.mapper.dress-mapper">
+	<select id="mainDressData" resultType="DressVO">
+		SELECT d_no, d_subject, d_image, d_price, rownum
+		FROM (SELECT d_no, d_subject, d_image, d_price
+		FROM dress ORDER BY wish DESC)
+		WHERE rownum&lt;=5
+	</select>
+	<select id="mainSuitData" resultType="SuitVO">
+		SELECT su_no, su_subject, su_image, su_price, rownum
+		FROM (SELECT su_no, su_subject, su_image, su_price
+		FROM suit ORDER BY wish DESC)
+		WHERE rownum&lt;=5
+	</select>
   <!-- 드레스 목록 -->
   <select id="dressListData" resultType="DressVO" parameterType="HashMap">
 	SELECT d_no, d_image, d_subject, d_price, num

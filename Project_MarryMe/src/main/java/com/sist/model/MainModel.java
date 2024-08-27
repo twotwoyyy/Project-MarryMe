@@ -17,10 +17,14 @@ public class MainModel {
 	public String main_page(HttpServletRequest request, HttpServletResponse response) {
 
 		List<HallVO> hall_list=HallDAO.mainHallData();
+		List<DressVO> dress_list=DressDAO.mainDressData();
+		List<SuitVO> suit_list=SuitDAO.mainSuitData();
 		List<StudioVO> studio_list=StudioDAO.mainStudioData();
 		List<HairMakeupVO> hair_makup_list=StudioDAO.mainHairMakeupData();
 		
 		request.setAttribute("hall_list", hall_list);
+		request.setAttribute("dress_list", dress_list);
+		request.setAttribute("suit_list", suit_list);
 		request.setAttribute("studio_list", studio_list);
 		request.setAttribute("hair_makeup_list", hair_makup_list);
 		request.setAttribute("main_jsp", "../main/home.jsp");

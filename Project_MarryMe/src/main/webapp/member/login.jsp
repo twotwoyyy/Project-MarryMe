@@ -70,9 +70,21 @@ $(function(){
 })
     function loginWithKakao() {
 		Kakao.Auth.login({
+			scope:'openid, profile_nickname, account_email, gender',
 	        success: function (authObj) {
+	        	console.log(authObj);
 	            Kakao.Auth.setAccessToken(authObj.access_token); // access토큰값 저장
-	            getInfo();
+	            Kakao.API.request({
+	                url: '/v2/user/me',
+	                success: function (res) {
+	                	let kakao_account=res.kakao_account;
+	                    //let profile_nickname = res.kakao_account.profile.nickname;
+	                    //console.log(profile_nickname);
+	                },
+	                fail: function (error) {
+	                    alert('카카오 로그인에 실패했습니다. 관리자에게 문의하세요.' + JSON.stringify(error));
+	                }
+	            });
 	           	location.href="../main/main.do"
 	        },
 	        fail: function (err) {
@@ -101,18 +113,6 @@ $(function(){
         } 
       }
       */
-      function getInfo() {
-          Kakao.API.request({
-              url: '/v2/user/me',
-              success: function (res) {
-                  var profile_nickname = res.kakao_account.profile.nickname;
-                  console.log(profile_nickname);
-              },
-              fail: function (error) {
-                  alert('카카오 로그인에 실패했습니다. 관리자에게 문의하세요.' + JSON.stringify(error));
-              }
-          });
-      }
 
       function getCookie(name) {
         var parts = document.cookie.split(name + '=');

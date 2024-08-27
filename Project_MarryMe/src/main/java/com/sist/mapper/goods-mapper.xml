@@ -7,7 +7,7 @@
  	<select id="mainGoodsData" resultType="GoodsVO" parameterType="string">
  		SELECT mgno, title, poster, price, rownum 
 		FROM (SELECT mgno, title, poster, price 
-		FROM goods WHERE category LIKE '%'||#{cate}||'%' ORDER BY mgno ASC) 
+		FROM goods WHERE category LIKE '%'||#{cate}||'%' ORDER BY wish DESC) 
 		WHERE rownum&lt;=5
 	</select>
 	<!-- 목록 -->

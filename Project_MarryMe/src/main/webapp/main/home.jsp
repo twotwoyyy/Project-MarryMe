@@ -69,110 +69,42 @@ $(function(){
         </section>
         <section id="dress">
             <ul class="dress_list">
-                <li>
-                    <a href="#" class="pro_link">
-                        <div class="img_wrap">
-                            <img src="../img/dress_demo.jpg" alt="">
-                        </div>
-                        <p class="product_name">드레스 이름</p>
-                        <p class="product_sub">드레스 설명</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="pro_link">
-                        <div class="img_wrap">
-                            <img src="../img/dress_demo.jpg" alt="">
-                        </div>
-                        <p class="product_name">드레스 이름</p>
-                        <p class="product_sub">드레스 설명</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="pro_link">
-                        <div class="img_wrap">
-                            <img src="../img/dress_demo.jpg" alt="">
-                        </div>
-                        <p class="product_name">드레스 이름</p>
-                        <p class="product_sub">드레스 설명</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="pro_link">
-                        <div class="img_wrap">
-                            <img src="../img/dress_demo.jpg" alt="">
-                        </div>
-                        <p class="product_name">드레스 이름</p>
-                        <p class="product_sub">드레스 설명</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="pro_link">
-                        <div class="img_wrap">
-                            <img src="../img/dress_demo.jpg" alt="">
-                        </div>
-                        <p class="product_name">드레스 이름</p>
-                        <p class="product_sub">드레스 설명</p>
-                    </a>
-                </li>
+            	<c:forEach var="dress" items="${dress_list}">
+	                <li>
+	                    <a href="../dress/dress_detail.do?d_no=${dress.d_no}" class="pro_link">
+	                        <div class="img_wrap">
+	                            <img src="${dress.d_image}" alt="${dress.d_subject}">
+	                        </div>
+	                        <p class="product_name">${dress.d_subject}</p>
+	                        <p class="product_sub">${dress.d_price}</p>
+	                    </a>
+	                </li>
+                </c:forEach>
             </ul>
             <div class="tt_box">
                 <h2 class="cate_tt"><span>D </span>ress & <span>T</span>uxedo</h2>
                 <p class="cate_desc">누구보다 빛나는 주인공</p>
                 <p class="cate_desc">가장 사랑받는 베스트 드레스 & 예복</p>
-                <a href="../dress/list.do" class="viewmore">view more</a>
+                <a href="../dress/dress_list.do" class="viewmore">view more</a>
             </div>
             <ul class="dress_list">
-                <li>
-                    <a href="#" class="pro_link">
-                        <div class="img_wrap">
-                            <img src="../img/suit_demo.jpg" alt="">
-                        </div>
-                        <p class="product_name">예복 이름</p>
-                        <p class="product_sub">예복 설명</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="pro_link">
-                        <div class="img_wrap">
-                            <img src="../img/suit_demo.jpg" alt="">
-                        </div>
-                        <p class="product_name">예복 이름</p>
-                        <p class="product_sub">예복 설명</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="pro_link">
-                        <div class="img_wrap">
-                            <img src="../img/suit_demo.jpg" alt="">
-                        </div>
-                        <p class="product_name">예복 이름</p>
-                        <p class="product_sub">예복 설명</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="pro_link">
-                        <div class="img_wrap">
-                            <img src="../img/suit_demo.jpg" alt="">
-                        </div>
-                        <p class="product_name">예복 이름</p>
-                        <p class="product_sub">예복 설명</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="pro_link">
-                        <div class="img_wrap">
-                            <img src="../img/suit_demo.jpg" alt="">
-                        </div>
-                        <p class="product_name">예복 이름</p>
-                        <p class="product_sub">예복 설명</p>
-                    </a>
-                </li>
+            	<c:forEach var="suit" items="${suit_list}">
+	                <li>
+	                    <a href="../dress/suit_detail.do?su_no=${suit.su_no}" class="pro_link">
+	                        <div class="img_wrap">
+	                            <img src="${suit.su_image}" alt="${suit.su_subject}">
+	                        </div>
+	                        <p class="product_name">${suit.su_subject}</p>
+	                        <p class="product_sub">${suit.su_price}</p>
+	                    </a>
+	                </li>
+                </c:forEach>
             </ul>
         </section>
         <section id="studio">
             <div class="studio_slide">
             	<c:forEach var="studio" items="${studio_list}">
-	                <a href="#" class="pro_link">
+	                <a href="../studio/studio_detail_before.do?sno=${studio.sno}" class="pro_link">
 	                   	<img src="${studio.thumb}" alt="${studio.name}">
 	                    <p class="product_name">${studio.name}</p>
 	                    <p class="product_sub">${studio.keyword}</p>
@@ -187,7 +119,7 @@ $(function(){
             </div>
             <div class="studio_slide">
             	<c:forEach var="hair_makeup" items="${hair_makeup_list}">
-	                <a href="#" class="pro_link">
+	                <a href="../studio/hairmakeup_detail_before.do?mno=${hair_makeup.mno}" class="pro_link">
 	                    <div class="img_wrap">
 	                        <img src="${hair_makeup.thumb}" alt="${hair_makeup.name}">
 	                    </div>
@@ -213,18 +145,6 @@ $(function(){
             </div>
             <div class="product">
                 <ul class="product_list">
-                	<%-- <c:forEach var="goods" items="${goods_list}">
-	                    <li>
-	                    	<p>${goods_list}</p>
-	                        <a href="#" class="pro_link active">
-	                            <div class="img_wrap">
-	                                <img src="${goods.poster}" alt="${goods.title}">
-	                            </div>
-	                            <p class="product_name">${goods.title}</p>
-	                            <p class="product_sub">${goods.price}</p>
-	                        </a>
-	                    </li>
-                    </c:forEach> --%>
                 </ul>
             </div>
         </section>
