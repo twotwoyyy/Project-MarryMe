@@ -128,11 +128,11 @@ $(function(){
 			return
 		}
 		if(EA!==0){
-		let price=$('#sel').attr("data-price")
-		let total=Number(price)*Number(account)
-		$('#total').text(total.toLocaleString()+"원")
-		$('#account').val(account)
-		sel=1;
+			let price=$('#sel').attr("data-price")
+			let total=Number(price)*Number(account)
+			$('#total').text(total.toLocaleString()+"원")
+			$('#account').val(account)
+			sel=1;
 		}
 	})
 	$('#buy').click(function(){
@@ -362,7 +362,7 @@ function requestPay(json,name,price) {
                             </ul>
                             <input type="number" id="sel" class="collect" value="1" min="1" max="${vo.EA }" style="font-weight: bold;" data-price="${price }">
                         	
-                        	<span id="total">${vo.price}원</span>
+                        	<span id="total">${vo.price}</span>
                         
                         </div>  
                       <a href="#" class="buyBtn" style="float: left ;margin-right: 20px">장바구니</a>

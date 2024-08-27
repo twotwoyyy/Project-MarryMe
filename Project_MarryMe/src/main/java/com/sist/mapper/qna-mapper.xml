@@ -36,9 +36,10 @@
  		AND tab=#{tab}
  	</select>
  	<select id="qnaTotalPage" resultType="int" parameterType="hashmap">
- 		SELECT MAX(group_id) FROM qna 
+ 		SELECT COUNT(*) FROM qna 
  		WHERE cate=#{cate}
  		AND pno=#{pno}
+ 		AND tab=0
  	</select>
  	<!-- 비번확인 -->
  	<select id="passwordData" resultType="String" parameterType="int">

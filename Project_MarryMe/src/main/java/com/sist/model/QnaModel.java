@@ -140,6 +140,7 @@ public class QnaModel {
 			obj.put("tab", vo.getTab());
 			obj.put("id", vo.getId());
 			obj.put("sessionId", sessionId);
+			obj.put("total", total);
 			if(h==0) {
 			obj.put("startpage", startpage);
 			obj.put("endpage", endpage);

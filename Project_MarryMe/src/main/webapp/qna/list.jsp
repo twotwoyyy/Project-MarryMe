@@ -133,7 +133,6 @@ $(function(){
     })
     // 수정
     $(document).on('click','.qnaUpdateOK', function(){
-    	console.log('aaa')
     	let qno=$(this).data('qno')
     	let msg=$('#qna_content'+qno).val()
     	let pwd=$('#qna_pw'+qno).val()
@@ -276,7 +275,12 @@ function qnaList(pno,page,cate)
 	          	}
 			})
 		//	console.log(html2)
-			$('#qnaPage').html(html2)	
+			$('#qnaPage').html(html2)
+			json.map(function(count){
+				let qna_count=count.total;
+				console.log(review_count)
+	   	 	$('.detail_tab a[href="#qna"]').text('후기('+qna_count+')')		
+		})
 		},
 		error:function(request,status,error)
 		{
