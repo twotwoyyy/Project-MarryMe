@@ -48,7 +48,7 @@
                          <p>${vo.notice_no }</p>
                          <div>
                            <p>${vo.subject }</p>
-                         </div>
+                         </div>  
                          <p>${vo.name }</p>
                          <p>${vo.dbday }</p>
                         </c:forEach>
