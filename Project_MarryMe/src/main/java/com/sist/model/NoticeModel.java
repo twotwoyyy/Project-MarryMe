@@ -15,6 +15,8 @@ import com.sist.controller.RequestMapping;
 import com.sist.dao.*;
 import com.sist.vo.*;
 public class NoticeModel {
+	private String[] types={"","공지1","공지2","공지3","공지4"};
+	
 	@RequestMapping("notice/insert.do")
 	public String notice_insert(HttpServletRequest request,HttpServletResponse response) {
 	
@@ -68,11 +70,16 @@ public class NoticeModel {
 		  page="1";
 	  
 	  int curpage=Integer.parseInt(page);
+	  
 	  Map map=new HashMap();
 	  map.put("start", (curpage*10)-9);
 	  map.put("end", curpage*10);
 	  
 	  List<NoticeVO> list=NoticeDAO.noticeListData(map);
+//	  for(NoticeVO vo:list)
+//	   {
+//		   vo.setNotice_type(types[vo.getType()]);
+//	   }
 	  int count=NoticeDAO.noticeTotal();
 	  int totalpage=(int)(Math.ceil(count/10.0));
 	  count=count-((curpage*10)-10);
@@ -101,4 +108,15 @@ public class NoticeModel {
 		return "../main/main.jsp";
 	}
 	
+	// 상세보기 
+	   @RequestMapping("notice/detail.do")
+	   public String notice_detail(HttpServletRequest request,HttpServletResponse response)
+	   {
+		   String no=request.getParameter("no");
+		   NoticeVO vo=NoticeDAO.noticeDetilData(Integer.parseInt(no));
+		   vo.setNotice_type(types[vo.getType()]);
+		   request.setAttribute("vo", vo);
+		   request.setAttribute("main_jsp", "../notice/detail.jsp");
+		   return "../main/main.jsp";
+	   }
 }

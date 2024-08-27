@@ -15,6 +15,7 @@ public class MemberDAO {
 		SELECT COUNT(*) FROM member WHERE id=#{id}
 	</select> 
 	*/
+	// 아이디 중복 체크
 	public static int memberIdCheck(String id) {
 		int count=0;
 		SqlSession session=null;
@@ -36,6 +37,7 @@ public class MemberDAO {
 		INSERT INTO member VALUES(#{id}, #{pw}, #{name}, #{phone}, #{email}, #{post}, #{address1}, #{address2}, #{gender}, #{weddingday}, 'n', SYSDATE)
 	</insert> 
 	 */
+	// 신규 가입 (아이디 추가)
 	public static void memberInsert(MemberVO vo) {
 		SqlSession session=null;
 		try {

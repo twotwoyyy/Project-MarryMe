@@ -10,14 +10,13 @@
 <body>
 <div class="wrapper row3">
   <main class="container clear">
-   <h2 class="sectiontitle">답변하기</h2>
-   <form method=post action="../adminpage/reply_insert_ok.do">
+   <h2 class="sectiontitle">등록하기</h2>
+   <form method=post action="../replyboard/insert_ok.do">
    <table class="table">
     <tr>
       <th width=20% class="text-center">제목</th>
       <td width=80%>
        <input type=text name=subject class="input-sm" size=50>
-       <input type=hidden name=no value="${no }">
       </td>
     </tr>
     <tr>

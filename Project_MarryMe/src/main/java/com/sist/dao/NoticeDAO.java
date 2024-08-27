@@ -22,6 +22,7 @@ public class NoticeDAO {
 		)
 	</insert>
 	*/
+	// 공지 추가
 	public static void noticeInsert(NoticeVO vo) {
 		SqlSession session=null;
 		try {
@@ -56,6 +57,7 @@ public class NoticeDAO {
 		WHERE num BETWEEN #{start} AND #{end}
 	</select>
 	 */
+	// 공지 목록
 	public static List<NoticeVO> noticeListData(Map map){
 		List<NoticeVO> list=new ArrayList<NoticeVO>();
 		SqlSession session=null;
@@ -67,12 +69,13 @@ public class NoticeDAO {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			// TODO: handle exception
 		}finally {
 			ssfDisconnection(session);
 		}
 		return list;
 	}
+	
+	// 공지사항 총 개수
 	public static int noticeTotal() {
 		int total=0;
 		SqlSession session=null;
@@ -83,10 +86,112 @@ public class NoticeDAO {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			// TODO: handle exception
 		}finally {
 			ssfDisconnection(session);
 		}
 		return total;
 	}
+	
+	// 중요 공지사항 (할인, 이벤트, 등)
+	public static List<NoticeVO> noticeTop5Data()
+    {
+    	List<NoticeVO> list=new ArrayList<NoticeVO>();
+    	SqlSession session=null;
+    	try
+    	{
+    		session=ssf.openSession(true);
+    		list=session.selectList("noticeTop5Data");
+    	}catch(Exception ex)
+    	{
+    		ex.printStackTrace();
+    	}
+    	finally
+    	{
+    		if(session!=null)
+    			session.close(); //DBCP => 반환 (재사용)
+    	}
+    	return list;
+    }
+	
+	// 공지 추가
+	public static NoticeVO noticeUpdateData(int no)
+    {
+    	NoticeVO vo=new NoticeVO();
+    	SqlSession session=null;
+    	try
+    	{
+    		session=ssf.openSession();
+    		vo=session.selectOne("noticeUpdateData",no);
+    	}catch(Exception ex)
+    	{
+    		ex.printStackTrace();
+    	}
+    	finally
+    	{
+    		if(session!=null)
+    			session.close(); //DBCP => 반환 (재사용)
+    	}
+    	return vo;
+    }
+	
+	// 공지 수정
+	 public static void noticeUpdate(NoticeVO vo)
+	    {
+	    	SqlSession session=null;
+	    	try
+	    	{
+	    		session=ssf.openSession(true);
+	    		session.update("noticeUpdate",vo);
+	    	}catch(Exception ex)
+	    	{
+	    		ex.printStackTrace();
+	    	}
+	    	finally
+	    	{
+	    		if(session!=null)
+	    			session.close(); //DBCP => 반환 (재사용)
+	    	}
+	    }
+	 
+	 // 공지 삭제
+	 public static void noticeDelete(int no)
+	    {
+	    	SqlSession session=null;
+	    	try
+	    	{
+	    		session=ssf.openSession(true);
+	    		session.delete("noticeDelete",no);
+	    	}catch(Exception ex)
+	    	{
+	    		ex.printStackTrace();
+	    	}
+	    	finally
+	    	{
+	    		if(session!=null)
+	    			session.close(); //DBCP => 반환 (재사용)
+	    	}
+	    }
+	 
+	 // 잘 모름 왜있는거지..?
+	 public static NoticeVO noticeDetilData(int no)
+	    {
+	    	NoticeVO vo=new NoticeVO();
+	    	SqlSession session=null;
+	    	try
+	    	{
+	    		session=ssf.openSession();
+	    		session.update("noticeHitIncrement",no);
+	    		session.commit();
+	    		vo=session.selectOne("noticeUpdateData",no);
+	    	}catch(Exception ex)
+	    	{
+	    		ex.printStackTrace();
+	    	}
+	    	finally
+	    	{
+	    		if(session!=null)
+	    			session.close(); //DBCP => 반환 (재사용)
+	    	}
+	    	return vo;
+	    }
 }

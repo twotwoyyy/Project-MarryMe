@@ -7,31 +7,31 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<style type="text/css">
-.adminRow{
-  width: 900px;
-}
-</style>
 </head>
 <body>
 <div class="wrapper row3">
   <main class="container clear">
-   <div class="adminRow">
    <h2 class="sectiontitle">묻고 답하기</h2>
+   <table class=table>
+    <tr>
+     <td> 
+      <a href="../replyboard/insert.do" class="btn btn-sm btn-primary">등록</a>
+     </td>
+    </tr>
+   </table>
    <table class="table">
     <tr>
       <th width="10%" class="text-center">번호</th>
-      <th width="35%" class="text-center">제목</th>
+      <th width="45%" class="text-center">제목</th>
       <th width="15%" class="text-center">작성자</th>
-      <th width="15%" class="text-center">작성일</th>
-      <th width="8%" class="text-center">조회수</th>
-      <th width=17% class="text-center"></th>
+      <th width="20%" class="text-center">작성일</th>
+      <th width="10%" class="text-center">조회수</th>
     </tr>
     <c:set var="count" value="${count }"/>
-    <c:forEach var="vo" items="${arList }">
+    <c:forEach var="vo" items="${rbList }">
      <tr>
       <td width="10%" class="text-center">${count }</td>
-      <td width="35%">
+      <td width="45%">
        <c:if test="${vo.group_step>0 }">
         &nbsp;&nbsp;
         <img src="../replyboard/re_icon.png">
@@ -39,17 +39,8 @@
        ${vo.subject}
       </td>
       <td width="15%" class="text-center">${vo.name }</td>
-      <td width="15%" class="text-center">${vo.dbday }</td>
-      <td width="8%" class="text-center">${vo.hit }</td>
-      <td width="17%" class="text-center inline">
-       <c:if test="${vo.isreply==0 }">
-         <a href="../adminpage/reply_insert.do?no=${vo.no }" class="btn btn-sm btn-danger">답변대기</a>
-       </c:if>
-        <c:if test="${vo.isreply!=0 }">
-         <a href="../adminpage/reply_update.do?no=${vo.no }" class="btn btn-sm btn-default">수정</a>
-         <a href="../adminpage/reply_delete.do?group_id=${vo.group_id }&no=${vo.no}" class="btn btn-sm btn-default">삭제</a>
-       </c:if>
-      </td>
+      <td width="20%" class="text-center">${vo.dbday }</td>
+      <td width="10%" class="text-center">${vo.hit }</td>
     </tr>
     <c:set var="count" value="${count-1}"/>
     </c:forEach>
@@ -63,7 +54,6 @@
        </td>
      </tr>
    </table>
-   </div>
   </main>
 </div>
 </body>

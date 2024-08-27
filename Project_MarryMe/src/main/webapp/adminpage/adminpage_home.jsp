@@ -199,28 +199,28 @@
 </style>
 <script>
 // 서버에서 전달된 날짜 문자열을 JavaScript 변수에 할당
-var weddingdayString = "<%= request.getAttribute("weddingday") %>";
+<%-- var weddingdayString = "<%= request.getAttribute("weddingday") %>"; --%>
 
-function showWeddingDay() {
-    var weddingday = new Date(weddingdayString + "T00:00:00");
-    var today = new Date();
+// function showWeddingDay() {
+//     var weddingday = new Date(weddingdayString + "T00:00:00");
+//     var today = new Date();
     
-    var timeDiff = weddingday.getTime() - today.getTime();
-    var daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+//     var timeDiff = weddingday.getTime() - today.getTime();
+//     var daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
     
-    var message = "";
-    if (daysLeft > 0) {
-        message = '<div id="merry">설레는 그 날까지 <span style="color:#006400; font-weight:bold; font-size:24px;">' + daysLeft + '</span>일!<br><span id="ppm">Project MerryMe</span>가 돕겠습니다</div>';
-    } else if (daysLeft === 0) {
-        message = "오늘은 두 사람의 특별한 날, 결혼을 진심으로 축하드립니다!!";
-    } else {
-        message = "웨딩이 끝나셨군요. 행복한 결혼생활이 되시길 바랍니다.";
-    }
+    var message = "관리자들 모두모두 파이팅!";
+//     if (daysLeft > 0) {
+//         message = '<div id="merry">설레는 그 날까지 <span style="color:#006400; font-weight:bold; font-size:24px;">' + daysLeft + '</span>일!<br><span id="ppm">Project MerryMe</span>가 돕겠습니다</div>';
+//     } else if (daysLeft === 0) {
+//         message = "오늘은 두 사람의 특별한 날, 결혼을 진심으로 축하드립니다!!";
+//     } else {
+//         message = "웨딩이 끝나셨군요. 행복한 결혼생활이 되시길 바랍니다.";
+//     }
 
-    document.getElementById("weddingDayInfo").innerHTML = message;
+//     document.getElementById("weddingDayInfo").innerHTML = message;
 }
 
-window.onload = showWeddingDay;
+// window.onload = showWeddingDay;
 
 
 
@@ -239,7 +239,7 @@ function loadMemoList() {
 
                 // 데이터가 없을 경우 처리
                 if (Array.isArray(json) && json.length === 0) {
-                    html += '<li><h3>작성된 메모가 없습니다</h3></li>';
+                    html += '<li><h3>관리자 대나무 숲</h3></li>';
                 } else {
                     // JSON 데이터 배열을 map을 사용하여 HTML로 변환
                     for (var i = 0; i < json.length; i++) {
@@ -294,7 +294,8 @@ $(document).ready(function() {
 <body>
     <section class="mycontent">
         <div class="sixth" id="myh1">
-            <h1>💐${sessionScope.name}&nbsp;${sessionScope.gender}님 마이페이지💐</h1>
+<%--             <h1>💐${sessionScope.name}&nbsp;${sessionScope.gender}님 마이페이지💐</h1> --%>
+            <h1>💐관리자 페이지💐</h1>
         </div>
         <div id="weddingDayInfo">
             <!-- 메시지가 여기 출력됩니다. -->
@@ -337,10 +338,10 @@ $(document).ready(function() {
 			    <button id="submitButton">메모 추가</button>
 			</div>
 			<!-- 추가 버튼 -->
-			<button id="addMemoButton">메모장</button>
+			<button id="addMemoButton">대나무 숲</button>
 		</div>
 		<div>
-        	<h3>나의 메모</h3>
+        	<h3>대나무 숲</h3>
 	        <ul id="memoList">
 	            <!-- 메모 내용이 여기에 추가됩니다 -->
 	        </ul>

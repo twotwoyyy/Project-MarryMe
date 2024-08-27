@@ -14,7 +14,9 @@ import lombok.Data;
 @Data
 public class NoticeVO {
 	private int no,hit,filesize;
+	private int type;
 	private String subject,content,id,dbday,filename;
+	private String name, notice_type;
 	private Date regdate;
 	private MemberVO mvo=new MemberVO();
 }
