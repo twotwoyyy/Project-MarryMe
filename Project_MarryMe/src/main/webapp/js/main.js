@@ -236,6 +236,7 @@ if($('#detail').length > 0){
         $(this).parent().siblings('.detail_input').toggleClass('active');
         $(this).parent().siblings('.detail_input').children('textarea').val("");
         $(this).parent().siblings('.detail_input').find('.star').removeClass('active');
+        $('#qna_pw').val("");
     })
     /*
     $(window).onload=function(){

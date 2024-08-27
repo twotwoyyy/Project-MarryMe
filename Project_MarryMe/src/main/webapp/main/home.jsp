@@ -23,6 +23,20 @@ $(function(){
 		})
 	})
 	$('#goods .goods_tab > li:first-child').trigger('click');
+	 function requestUserInfo() {
+ 	    Kakao.API.request({
+ 	      url: '/v2/user/me',
+ 	    })
+ 	      .then(function(res) {
+ 	        //alert(JSON.stringify(res));
+ 	      })
+ 	      .catch(function(err) {
+ 	        //alert('failed to request user information: ' + JSON.stringify(err));
+ 	      });
+ 	  }
+	Kakao.init('dee4629f5156da2c49e694161e31a96a');
+    console.log( Kakao.isInitialized() );
+	 requestUserInfo()
 })
 </script>
 </head>

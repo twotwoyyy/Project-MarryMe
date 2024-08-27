@@ -17,9 +17,7 @@ $(function(){
 		find_tabs.removeClass('active');
 		$(this).addClass('active');
 		if(target==="all"){
-			//find_li.css({display:'block'})
 			find_li.addClass('show')
-			$(this).siblings('li').removeClass('active');
 			$('.find_list .no_list').css({display:'none'})
 			$('.find_list .no_list').removeClass('show');
 		}else{
@@ -30,7 +28,7 @@ $(function(){
 					$('.find_list').append('<li class="no_list">해당 카테고리에 검색결과가 없습니다<br><span>😢</span></li>')
 					$('.find_list .no_list').css({display:'block'})
 					$('.find_list .no_list').addClass('show')
-					readmore()
+					
 				}else{
 					find_li.css({display:'none'})
 					find_li.removeClass('show')
@@ -40,15 +38,14 @@ $(function(){
 			}else{
 				find_li.css({display:'none'})
 				find_li.removeClass('show')
-				//$('.find_list li.'+target).css({display:'block'})
 				$('.find_list li.'+target).addClass('show')
 				$('.find_list .no_list').css({display:'none'})
 				$('.find_list .no_list').removeClass('show')
-				readmore()
 			}		
 		}
 		readmore()
 	})
+})
 	function readmore(){
 		let find_li_show=$('#find .find_list li.show');
 		if(find_li_show.length < 16){
@@ -58,21 +55,23 @@ $(function(){
 			$('#find .readmore').css({display:'block'});
 			find_li_show.hide();
 			find_li_show.slice(0,16).show();
-			$('#find .readmore').click(function(e){
+			$('#find .readmore').off().click(function(e){
 				e.preventDefault();
 				$('.find_list li.show:hidden').slice(0,16).fadeIn(300).show();
 				if($('.find_list li.show:hidden').length===0){
 					$('#find .readmore').css({display:'none'});
 				}
-			})		
+			})
 		}
 	}
-})
 </script>
 </head>
 <body>
 	<div id="find">
 		<div class="container">
+			<div class="tt_box">
+	            <h2>검색결과</h2>
+	        </div>
 			<ul class="find_tab">
 				<li data-cate="all" class="active">통합</li>
 				<li data-cate="hall">웨딩홀</li>

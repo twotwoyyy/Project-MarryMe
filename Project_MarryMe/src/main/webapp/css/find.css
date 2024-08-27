@@ -8,13 +8,32 @@
 #find .container{
 	padding:0 15%;
 }
-
+#find .tt_box{
+    margin-bottom:80px;
+    text-align:center;
+}
+#find .tt_box h2{
+    display:inline-block;
+    font-size:30px;
+    font-weight:500;
+    position:relative;
+    z-index:1;
+}
+#find .tt_box h2::after{
+    content:'';
+    width:100%;
+    height:20px;
+    background:rgba(79, 123, 79, .6);
+    position:absolute;
+    top:50%;
+    left:20px;
+    z-index:-1;
+}
 #find .find_tab{
     display:flex;
     justify-content:center;
     align-items:center;
     gap:20px;
-    padding-top:80px;
 }
 #find .find_tab > li{
 	display:block;
@@ -52,6 +71,13 @@
 #find .product_name{
     font-weight:500;
     margin-bottom:5px;
+    line-height: 18px;
+	height: 36px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-box-orient: vertical; 
+	-webkit-line-clamp: 2;
 }
 #find .pro_link{
     display:block;

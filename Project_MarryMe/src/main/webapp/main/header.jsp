@@ -67,8 +67,8 @@ $(function(){
                     <c:if test="${sessionScope.id!=null}">
                     	<li class="name"><span>${sessionScope.name}</span>${sessionScope.gender}님</li>
                     	<li><a href="../member/logout.do">로그아웃</a></li>
-                    	<li><a href="../mypage/mypage_cart.do">장바구니</a></li>
                     	<c:if test="${sessionScope.admin=='n'}">
+                    		<li><a href="../mypage/mypage_cart.do">장바구니</a></li>
 	                    	<li><a href="../mypage/mypage_main.do">마이페이지</a></li>
 	                    </c:if>
 	                    <c:if test="${sessionScope.admin=='y'}">

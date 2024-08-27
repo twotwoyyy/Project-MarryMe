@@ -64,7 +64,61 @@ $(function(){
 			}
 		})
 	})
+	
+	Kakao.init('dee4629f5156da2c49e694161e31a96a');
+    console.log( Kakao.isInitialized() );
 })
+    function loginWithKakao() {
+		Kakao.Auth.login({
+	        success: function (authObj) {
+	            Kakao.Auth.setAccessToken(authObj.access_token); // access토큰값 저장
+	            getInfo();
+	           	location.href="../main/main.do"
+	        },
+	        fail: function (err) {
+	            console.log(err);
+	        }
+	    });
+      }
+
+      // 아래는 데모를 위한 UI 코드입니다.
+      /*
+      displayToken()
+      function displayToken() {
+        var token = getCookie('authorize-access-token');
+		
+        if(token) {
+          Kakao.Auth.setAccessToken(token);
+          Kakao.Auth.getStatusInfo()
+            .then(function(res) {
+              if (res.status === 'connected') {
+                alert('login success, token: '+Kakao.Auth.getAccessToken())
+              }
+            })
+            .catch(function(err) {
+              Kakao.Auth.setAccessToken(null);
+            });
+        } 
+      }
+      */
+      function getInfo() {
+          Kakao.API.request({
+              url: '/v2/user/me',
+              success: function (res) {
+                  var profile_nickname = res.kakao_account.profile.nickname;
+                  console.log(profile_nickname);
+              },
+              fail: function (error) {
+                  alert('카카오 로그인에 실패했습니다. 관리자에게 문의하세요.' + JSON.stringify(error));
+              }
+          });
+      }
+
+      function getCookie(name) {
+        var parts = document.cookie.split(name + '=');
+        if (parts.length === 2) { return parts[1].split(';')[0]; }
+      }
+      
 </script>
 </head>
 <body>
@@ -96,11 +150,12 @@ $(function(){
         </ul>
         <ul class="sns_btns">
             <li onclick="">
-                <a href="j">카카오톡 로그인
+                <a href="javascript:loginWithKakao()">카카오톡 로그인
                     <!-- <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M0.519531 8.61196C0.519531 11.4975 2.37093 14.0321 5.1607 15.4739L4.21824 19.0958C4.18323 19.203 4.20964 19.3196 4.28698 19.3991C4.3427 19.4564 4.41616 19.4854 4.48968 19.4854C4.55233 19.4854 4.61492 19.4648 4.66753 19.4221L8.72156 16.6072C9.30482 16.693 9.90582 16.7384 10.5195 16.7384C16.0423 16.7384 20.5195 13.1004 20.5195 8.61196C20.5195 4.12404 16.0423 0.485352 10.5195 0.485352C4.99677 0.485352 0.519531 4.12404 0.519531 8.61196Z" fill="#4E2828"/>
                     </svg> -->
                 </a>
+                <p id="token-result"></p>
             </li>
             <li>
                 <a href="">네이버 로그인
