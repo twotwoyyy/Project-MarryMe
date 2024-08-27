@@ -13,7 +13,7 @@ import java.util.*;
 import lombok.Data;
 @Data
 public class QnaVO {
-	private int qna_no,cate,tab,group_id,pno,num,groupCount;
+	private int qna_no,cate,tab,group_id,pno;
 	private String msg,dbday,id,pwd;
 	private Date regdate;
 	private MemberVO mvo=new MemberVO();
