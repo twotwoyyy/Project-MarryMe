@@ -117,6 +117,9 @@
         .answer-row.active {
             display: table-row;
         }
+        .answerContent{
+        	margin-left: 210px;
+        }
         .btn-msg{
         	background-color: #8FBC8B;
         	border: none;
@@ -225,7 +228,7 @@
                         <c:if test="${reply.group_id == qna.group_id}">
                             <tr class="answer-row">
                                 <td colspan="6">
-                                    <div class="answerContent">${reply.msg}</div>
+                                    <div class="answerContent" style="text-align: left;">➡️[관리자] ${reply.msg}</div>
                                 </td>
                             </tr>
                         </c:if>
