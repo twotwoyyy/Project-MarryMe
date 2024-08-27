@@ -122,7 +122,7 @@
                     let rno = $(this).attr('data-href');
                     location.href = "../mypage/mypage_review_delete.do?rno="+rno;
                 }
-            });
+            });  
         });
     </script>
 </head>
