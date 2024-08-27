@@ -40,8 +40,8 @@
                 <ul>
                     <li><a href="../mypage/mypage_wish.do">나의 위시리스트</a></li>
                     <li><a href="../mypage/mypage_reserve.do">예약 내역</a></li>
-                    <li><a href="#">문의 내역</a></li>
-                    <li><a href="#">리뷰 내역</a></li>
+                    <li><a href="../mypage/mypage_qna.do">문의 내역</a></li>
+                    <li><a href="../mypage/mypage_review.do">리뷰 내역</a></li>
                     <li><a href="../mypage/mypage_cart.do">장바구니 관리</a></li>
                 </ul>
             </div>

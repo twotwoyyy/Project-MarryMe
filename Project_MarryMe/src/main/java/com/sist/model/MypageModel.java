@@ -152,6 +152,50 @@ public class MypageModel {
 		request.setAttribute("main_jsp", "../mypage/mypage_main.jsp");
 		return "../main/main.jsp";
 	}
+	@RequestMapping("mypage/mypage_review.do")
+	public String mypage_review(HttpServletRequest request, HttpServletResponse response) {
+		
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		
+		String page=request.getParameter("page");
+		if(page==null)
+			page="1";
+		int curpage=Integer.parseInt(page);
+		Map map=new HashMap();
+		map.put("id", id);
+		map.put("start", (curpage*10)-9);
+		map.put("end", curpage*10);
+		
+		List<ReviewVO> list=ReviewDAO.mypageReviewListData(map);
+		
+		int count=ReviewDAO.mypageTotalPage(id);
+		int totalpage=(int)(Math.ceil(count/10.0));
+		count=count-((curpage*10)-10);
+		
+		request.setAttribute("myrSize", list.size());
+		request.setAttribute("curpage", curpage);
+		request.setAttribute("totalpage", totalpage);
+		request.setAttribute("myrList", list);
+		request.setAttribute("title", "리뷰 내역");
+		request.setAttribute("mypage_jsp", "../mypage/mypage_review.jsp");
+		request.setAttribute("main_jsp", "../mypage/mypage_main.jsp");
+		return "../main/main.jsp";
+	}
+	
+	@RequestMapping("mypage/mypage_qna.do")
+	public String mypage_qna(HttpServletRequest request, HttpServletResponse response) {
+		
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		//List<GoodsVO> list=GoodsDAO.cartListData(id);
+		//request.setAttribute("cartList", list);
+		//request.setAttribute("count", list.size());
+		request.setAttribute("title", "문의 내역");
+		request.setAttribute("mypage_jsp", "../mypage/mypage_qna.jsp");
+		request.setAttribute("main_jsp", "../mypage/mypage_main.jsp");
+		return "../main/main.jsp";
+	}
 	
 	@RequestMapping("mypage/mypage_reserve.do")
 	public String mypage_reserve(HttpServletRequest request, HttpServletResponse response) {
@@ -197,5 +241,12 @@ public class MypageModel {
 		String resno=request.getParameter("resno");
 		ReserveDAO.reserveCancel(Integer.parseInt(resno));
 		return "redirect:../mypage/mypage_reserve.do";
+	}
+	@RequestMapping("mypage/mypage_review_delete.do")
+	public String mypage_review_delete(HttpServletRequest request, HttpServletResponse response) {
+		
+		String rno=request.getParameter("rno");
+		ReviewDAO.reviewDelete(Integer.parseInt(rno));
+		return "redirect:../mypage/mypage_review.do";
 	}
 }

@@ -47,4 +47,16 @@
 		DELETE FROM review
 		WHERE review_no=#{review_no}
 	</delete>
+	<select id="mypageReviewListData" resultType="ReviewVO" parameterType="hashmap">
+		SELECT review_no,msg,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,cate,image,score,hit,id,pno,num
+		FROM (SELECT review_no,msg,regdate,cate,image,score,hit,id,pno,rownum as num
+		FROM (SELECT /*+ INDEX_ASC(review review_pk)*/review_no,msg,regdate,cate,image,score,hit,id,pno
+		FROM review WHERE id=#{id}))
+		WHERE num BETWEEN #{start} AND #{end}
+	</select>
+	<select id="mypageTotalPage" resultType="int" parameterType="string">
+		SELECT COUNT(*) i
+		FROM review 
+		WHERE id=#{id}
+	</select>
 </mapper>

@@ -39,6 +39,21 @@ public class ReviewDAO {
 		}
 		return list;
 	}
+	public static List<ReviewVO> mypageReviewListData(Map map){
+		List<ReviewVO> list=new ArrayList<ReviewVO>();
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			list=session.selectList("mypageReviewListData",map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return list;
+	}
 	public static int reviewTotalPage(Map map) {
 		int total=0;
 		SqlSession session=null;
@@ -111,5 +126,20 @@ public class ReviewDAO {
 			if(session!=null)
 				session.close();
 		}
+	}
+	public static int mypageTotalPage(String id) {
+		int total=0;
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			total=session.selectOne("mypageTotalPage",id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return total;
 	}
 }
