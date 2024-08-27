@@ -183,19 +183,67 @@ public class MypageModel {
 		return "../main/main.jsp";
 	}
 	
+	@RequestMapping("mypage/mypage_review_delete.do")
+	public String mypage_review_delete(HttpServletRequest request, HttpServletResponse response) {
+		
+		String rno=request.getParameter("rno");
+		ReviewDAO.reviewDelete(Integer.parseInt(rno));
+		return "redirect:../mypage/mypage_review.do";
+	}
+	
 	@RequestMapping("mypage/mypage_qna.do")
 	public String mypage_qna(HttpServletRequest request, HttpServletResponse response) {
 		
 		HttpSession session=request.getSession();
 		String id=(String)session.getAttribute("id");
-		//List<GoodsVO> list=GoodsDAO.cartListData(id);
-		//request.setAttribute("cartList", list);
-		//request.setAttribute("count", list.size());
+		String group_id=request.getParameter("group_id");
+		if(group_id==null)
+			group_id="1";
+		String page=request.getParameter("page");
+		if(page==null)
+			page="1";
+		int curpage=Integer.parseInt(page);
+		Map map=new HashMap();
+		map.put("id", id);
+		map.put("start", (curpage*10)-9);
+		map.put("end", curpage*10);
+		
+		List<QnaVO> list=QnaDAO.mypageQnaListData(map);
+	    List<QnaVO> relist = new ArrayList();
+	    for (QnaVO qna : list) {
+	        int groupId = qna.getGroup_id();
+	        List<QnaVO> replies = QnaDAO.mypageQnaListReData(groupId);
+	        relist.addAll(replies); // 답변 리스트를 모읍니다
+	    }
+		
+		int count=QnaDAO.mypageQnaTotalPage(id);
+		int totalpage=(int)(Math.ceil(count/10.0));
+		count=count-((curpage*10)-10);
+
+		for (QnaVO qna : list) {
+		    int groupCount = QnaDAO.getGroupIdCount(qna.getGroup_id());  // group_id를 사용하여 count 조회
+		    qna.setGroupCount(groupCount);  // 조회된 count 값을 QnaVO 객체에 설정
+		}
+		
+		request.setAttribute("myqSize", list.size());
+		request.setAttribute("curpage", curpage);
+		request.setAttribute("totalpage", totalpage);
+		request.setAttribute("myqList", list);
+		request.setAttribute("reList", relist);
 		request.setAttribute("title", "문의 내역");
 		request.setAttribute("mypage_jsp", "../mypage/mypage_qna.jsp");
 		request.setAttribute("main_jsp", "../mypage/mypage_main.jsp");
 		return "../main/main.jsp";
 	}
+	
+	@RequestMapping("mypage/mypage_qna_delete.do")
+	public String mypage_qna_delete(HttpServletRequest request, HttpServletResponse response) {
+		
+		String qna_no=request.getParameter("qna_no");
+		QnaDAO.mypageQnaDelete(Integer.parseInt(qna_no));
+		return "redirect:../mypage/mypage_qna.do";
+	}
+	
 	
 	@RequestMapping("mypage/mypage_reserve.do")
 	public String mypage_reserve(HttpServletRequest request, HttpServletResponse response) {
@@ -241,12 +289,5 @@ public class MypageModel {
 		String resno=request.getParameter("resno");
 		ReserveDAO.reserveCancel(Integer.parseInt(resno));
 		return "redirect:../mypage/mypage_reserve.do";
-	}
-	@RequestMapping("mypage/mypage_review_delete.do")
-	public String mypage_review_delete(HttpServletRequest request, HttpServletResponse response) {
-		
-		String rno=request.getParameter("rno");
-		ReviewDAO.reviewDelete(Integer.parseInt(rno));
-		return "redirect:../mypage/mypage_review.do";
 	}
 }
