@@ -278,7 +278,7 @@ function qnaList(pno,page,cate)
 			$('#qnaPage').html(html2)
 			json.map(function(count){
 				let qna_count=count.total;
-				console.log(review_count)
+				console.log(qna_count)
 	   	 	$('.detail_tab a[href="#qna"]').text('후기('+qna_count+')')		
 		})
 		},
