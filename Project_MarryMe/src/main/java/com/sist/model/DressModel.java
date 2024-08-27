@@ -46,34 +46,34 @@ public class DressModel {
         List<DressVO> dress_list = DressDAO.dressListData(map);
         int totalPage = DressDAO.dressTotalPage();
         
-        for(DressVO vo : dress_list) {
-        	System.out.println(vo.getD_subject());
-        }
+//        for(DressVO vo : dress_list) {
+//        	System.out.println(vo.getD_subject());
+//        }
         final int BLOCK = 5;
         int startPage = ((curPage - 1) / BLOCK * BLOCK) + 1;
         int endPage = ((curPage - 1) / BLOCK * BLOCK) + BLOCK;
         if (endPage > totalPage) 
             endPage = totalPage;
         
+        // 쿠키
+        Cookie[] cookies = request.getCookies();
+        List<DressVO> dress_cookies = new ArrayList<DressVO>();
+        if (cookies != null) {
+        	for (int i = cookies.length - 1; i >= 0; i--) {
+        		if (cookies[i].getName().startsWith("dress_")) {
+        			String d_no = cookies[i].getValue();
+        			DressVO vo = DressDAO.dressDetailData(Integer.parseInt(d_no));
+        			dress_cookies.add(vo);
+        		}
+        	}
+        }
+        
         // 드레스 목록추가, 시작, 현재, 끝, 전체 페이지 등록
-        request.setAttribute("dress_list", dress_list);
         request.setAttribute("curPage", curPage);
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("startPage", startPage); 
         request.setAttribute("endPage", endPage); 
-        
-        // 쿠키
-        Cookie[] cookies = request.getCookies();
-		List<DressVO> dress_cookies = new ArrayList<DressVO>();
-		if (cookies != null) {
-			for (int i = cookies.length - 1; i >= 0; i--) {
-				if (cookies[i].getName().startsWith("dress_")) {
-					String d_no = cookies[i].getValue();
-					DressVO d_vo = DressDAO.dressDetailData(Integer.parseInt(d_no));
-					dress_cookies.add(d_vo);
-				}
-			}
-		}
+        request.setAttribute("dress_list", dress_list);
 		request.setAttribute("dress_cookies", dress_cookies);
         request.setAttribute("main_jsp", "../dress/dress_list.jsp");
         return "../main/main.jsp";
@@ -110,10 +110,8 @@ public class DressModel {
 		}
         
         request.setAttribute("dress_vo", vo);
-//        request.setAttribute("dress_list", dress_list);
 		request.setAttribute("isWish", isWish);
         request.setAttribute("main_jsp", "../dress/dress_detail.jsp");
-//		 CommonsModel.footerPrint(request); // 각 return "main.jsp"마다 footer에 내용 출력하는 코드
         return "../main/main.jsp";
     }
 

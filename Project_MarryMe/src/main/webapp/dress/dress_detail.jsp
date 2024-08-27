@@ -14,7 +14,7 @@
 <script defer src="../js/main.js"></script>
 <script type="text/javascript">
 $(function(){
-	let su_no=${dress_vo.d_no};
+	let dress_no=${dress_vo.d_no};
 	
 	//이미 예약된 날짜, 시간 비활성화 
 	$.ajax({
@@ -35,10 +35,11 @@ $(function(){
 			console.log(error)
 		}
 	})
+	
 	function time_btn_impossible(reserve_list){
 		$('.ui-datepicker-calendar td[data-handler="selectDay"]').click(function(){
-			let time_btn=$('.reserve_time .time_btn');
-			let oneday_count=0;
+			let time_btn = $('.reserve_time .time_btn');
+			let oneday_count = 0;
 			time_btn.removeClass("impossible");
 			for(i=0;i<reserve_list.length;i++){
 				if($('.date_print').text()===reserve_list[i].rdate){
@@ -58,6 +59,7 @@ $(function(){
 			}
 		})
 	}
+	
 	//위시리스트 
 	$('.wish').click(function(){
 		if(${sessionScope.id==null}){
@@ -82,6 +84,7 @@ $(function(){
 		}
 	})
 	
+	// 공유 버튼 (주소 복사)
 	$('.share').click(function(){
 		let temp=document.createElement("textarea");
 		document.body.appendChild(temp);
@@ -156,19 +159,17 @@ $(function(){
                     <div class="bottom_content">
                         <div id="image">
 						    <h3>상세 이미지</h3>
-						    <div id="image">
-						        <div class="masonry_wrap">
-						            <!-- 첫 번째 이미지 -->
-						            <div class="img_wrap">
-						                <img src="${dress_vo.d_detail_image}" alt="" style="width: 700px; height: auto;">
-						                <img src="${dress_vo.d_detail_image3}" alt="" style="width: 700px; height: auto;">
-						            </div>
-						            
-						            <div class="content_description">
-								        <p></p> <!-- d_content를 <p> 태그로 감싸서 내용 출력 -->
-								    </div>
-						        </div>
-						    </div>
+					        <div class="masonry_wrap">
+					            <!-- 첫 번째 이미지 -->
+					            <div class="img_wrap">
+					                <img src="${dress_vo.d_detail_image}" alt="" style="width: 700px; height: auto;">
+					                <img src="${dress_vo.d_detail_image3}" alt="" style="width: 700px; height: auto;">
+					            </div>
+					            
+					            <div class="content_description">
+							        <p></p> <!-- d_content를 <p> 태그로 감싸서 내용 출력 -->
+							    </div>
+					        </div>
 						</div>
 
                         <hr>
@@ -274,7 +275,7 @@ $(function(){
 						    </table>
 						</div>
 
-                                                <hr>
+                        <hr>
                         <div id="map">
                             <h3>위치</h3>
                             <address>${dress_vo.d_address}</address>
