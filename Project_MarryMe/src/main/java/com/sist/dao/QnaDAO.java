@@ -124,4 +124,79 @@ public class QnaDAO {
 				session.close();
 		}
 	}
+	
+
+	public static List<QnaVO> mypageQnaListData(Map map){
+		List<QnaVO> list=new ArrayList<QnaVO>();
+		SqlSession session=null;
+		try {
+		session=ssf.openSession();
+		list=session.selectList("mypageQnaListData",map);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return list;
+	}
+	public static List<QnaVO> mypageQnaListReData(int group_id){
+		List<QnaVO> list=new ArrayList<QnaVO>();
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			list=session.selectList("mypageQnaListReData",group_id);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return list;
+	}
+
+	public static int mypageQnaTotalPage(String id) {
+		int total=0;
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			total=session.selectOne("mypageQnaTotalPage",id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return total;
+	}
+	public static void mypageQnaDelete(int qna_no) {
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			session.delete("mypageQnaDelete",qna_no);
+			session.commit();
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+	}
+	public static int getGroupIdCount(int gid) {
+		int groupCount=0;
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			groupCount=session.selectOne("getGroupIdCount",gid);
+		} catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return groupCount;
+	}
+
 }

@@ -38,7 +38,6 @@
             margin-bottom: 20px;
             font-size: 20px;
             text-align: center;
-            font-weight: bold;
         }
         table {
             width: 100%;

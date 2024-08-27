@@ -57,4 +57,39 @@
  		DELETE FROM qna
  		WHERE group_id=(SELECT group_id FROM qna WHERE qna_no=#{qna_no})
  	</delete>
+ 	
+ 	<!-- 마이페이지 qna 목록 -->
+ 	<select id="mypageQnaListData" resultType="QnaVO" parameterType="hashmap">
+ 	 	SELECT qna_no,msg,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,cate,group_id,tab,pno,num
+ 		FROM (SELECT qna_no,msg,regdate,cate,group_id,tab,pno,rownum as num
+ 		FROM (SELECT qna_no,msg,qna.regdate as regdate,cate,group_id,tab,pno
+ 		FROM qna
+ 		WHERE id=#{id}
+ 		ORDER BY group_id DESC))
+ 		WHERE num BETWEEN #{start} AND #{end}
+ 	</select>
+ 	<select id="mypageQnaListReData" resultType="QnaVO" parameterType="int">
+ 		SELECT qna_no,msg,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,cate,group_id,tab,num
+ 		FROM (SELECT qna_no,msg,regdate,cate,group_id,tab,rownum as num
+ 		FROM (SELECT qna_no,msg,qna.regdate as regdate,cate,group_id,tab
+ 		FROM qna
+ 		WHERE tab=1
+ 		ORDER BY group_id DESC))
+ 		WHERE group_id=#{group_id}
+ 	</select>
+ 	<select id="mypageQnaTotalPage" resultType="int" parameterType="string">
+ 		SELECT COUNT(*) i
+ 		FROM qna
+ 		WHERE id=#{id}
+ 	</select>
+ 	<delete id="mypageQnaDelete" parameterType="int">
+ 		DELETE FROM qna
+ 		WHERE qna_no=#{qna_no}
+ 	</delete>
+
+ 	<select id="getGroupIdCount" resultType="int">
+        SELECT COUNT(*) AS re
+        FROM qna
+        WHERE group_id = #{gid}
+    </select>
 </mapper>

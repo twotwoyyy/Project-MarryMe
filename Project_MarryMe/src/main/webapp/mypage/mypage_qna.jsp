@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>My Review List</title>
+    <title>My qna List</title>
     <link rel="stylesheet" type="text/css" href="../css/mypage.css">
     <style type="text/css">
         body {
@@ -38,7 +38,6 @@
             margin-bottom: 20px;
             font-size: 20px;
             text-align: center;
-            font-weight: bold;
         }
         table {
             width: 100%;
@@ -79,9 +78,9 @@
             color: #000;
             font-weight: bold;
         }
-       	.pagination a:hover {
-       		background-color: #8FBC8B;
-       	}
+        .pagination a:hover {
+            background-color: #8FBC8B;
+        }
         .btn-delete {
             border: none;
             background-color: #FF5A5A;
@@ -94,100 +93,152 @@
         .btn-delete:hover {
             background-color: #e14b4b;
         }
-		#rmsg:hover{
-			background-color: #efefef;
-		}
+        #rmsg:hover {
+            background-color: #efefef;
+        }
         #count {
             color: #DC143C;
             font-size: 20px;
             font-weight: bold;
         }
-        .titbox{
-            margin-top : 10px;
-        
+        .titbox {
+            margin-top: 10px;
         }
         th:nth-child(1) { width: 20px; } /* 번호 */
         th:nth-child(2) { width: 80px; } /* 카테고리 */
-        th:nth-child(3) { width: 400px; } /* 리뷰 */
+        th:nth-child(3) { width: 350px; } /* 문의 내용 */
         th:nth-child(4) { width: 80px; } /* 날짜 */
-        th:nth-child(5) { width: 40px; } /* 평점 */
+        th:nth-child(5) { width: 80px; } /* 관리자 답변 */
         th:nth-child(6) { width: 80px; } /* 삭제 버튼 */
-        
+        .answer-row {
+            display: none;
+            background-color: #f9f9f9;
+        }
+        .answer-row.active {
+            display: table-row;
+        }
+        .btn-msg{
+        	background-color: #8FBC8B;
+        	border: none;
+            color: white;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .Redefault{
+            border: none;
+            background-color: #efefef;
+            color: black;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
     </style>
     <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
     <script type="text/javascript">
-        $(function() {
-            $('.btn-delete').click(function() {
-                if (confirm('리뷰를 삭제하시겠습니까?')) {
-                    let rno = $(this).attr('data-href');
-                    location.href = "../mypage/mypage_review_delete.do?rno="+rno;
-                }
-            });  
+    $(function() {
+        $('.btn-msg').click(function() {
+            var $row = $(this).closest('tr');
+            var $answerRow = $row.next('.answer-row');
+
+            if ($answerRow.hasClass('active')) {
+                $answerRow.removeClass('active');
+            } else {
+                $('.answer-row').removeClass('active'); // 모든 답변 행 숨기기
+                $answerRow.addClass('active'); // 선택된 답변 행 보이기
+            }
         });
+
+        $('.btn-delete').click(function() {
+            if (confirm('문의 글을 삭제하시겠습니까?')) {
+                let qna_no = $(this).data('href');
+                location.href = "../mypage/mypage_qna_delete.do?qna_no=" + qna_no;
+            }
+        });
+    });
     </script>
 </head>
 <body>
     <div class="myreserve">
         <div class="sixth"> 
-            <h1>나의 리뷰 내역</h1>
+            <h1>나의 문의 내역</h1>
         </div>
         <p class="titbox">
-            내가 쓴 총 <span id="count">${myrSize}</span>개의 리뷰가 있습니다
+            내가 쓴 총 <span id="count">${myqSize}</span>개의 문의가 있습니다
         </p>
-        <p>*리뷰 내용을 누르면 상세 페이지로 이동합니다*</p>
+        <p>*문의 내용을 누르면 해당 상세 페이지로 이동합니다*</p>
 
         <table>
             <thead>
                 <tr id="rcate">
                     <th>번호</th>
                     <th>카테고리</th>
-                    <th>리뷰</th>
+                    <th>문의 내용</th>
                     <th>날짜</th>
-                    <th>평점</th>
+                    <th>관리자 답변</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody class="rList">
-                <c:forEach var="review" items="${myrList}">
+                <c:forEach var="qna" items="${myqList}">
                     <tr id="myr">
-                        <td>${review.num}</td>
+                        <td>${qna.num}</td>
                         <td>
                             <c:choose>
-                                <c:when test="${review.cate == 1}">웨딩홀</c:when>
-                                <c:when test="${review.cate == 2}">드레스</c:when>
-                                <c:when test="${review.cate == 3}">예복</c:when>
-                                <c:when test="${review.cate == 4}">스튜디오</c:when>
-                                <c:when test="${review.cate == 5}">헤어/메이크업</c:when>
-                                <c:when test="${review.cate == 6}">혼수</c:when>
+                                <c:when test="${qna.cate == 1}">웨딩홀</c:when>
+                                <c:when test="${qna.cate == 2}">드레스</c:when>
+                                <c:when test="${qna.cate == 3}">예복</c:when>
+                                <c:when test="${qna.cate == 4}">스튜디오</c:when>
+                                <c:when test="${qna.cate == 5}">헤어/메이크업</c:when>
+                                <c:when test="${qna.cate == 6}">혼수</c:when>
                                 <c:otherwise>기타</c:otherwise>
                             </c:choose>
                         </td>
                         <td id="rmsg" style="text-align: left;">
-                        	<c:choose>
-	                        	<c:when test="${review.cate==1 }"><a href="../hall/detail.do?hno=${review.pno }">${review.msg}</a></c:when>
-	                        	<c:when test="${review.cate==2 }"><a href="../dress/dress_detail.do?d_no=${review.pno }">${review.msg}</a></c:when>
-	                        	<c:when test="${review.cate==3 }"><a href="../dress/suit_detail.do?su_no=${review.pno }">${review.msg}</a></c:when>
-	                        	<c:when test="${review.cate==4 }"><a href="../studio/studio_detail.do?sno=${review.pno }">${review.msg}</a></c:when>
-	                        	<c:when test="${review.cate==5 }"><a href="../studio/hairmakeup_detail.do?mno=${review.pno }">${review.msg}</a></c:when>
-	                        	<c:when test="${review.cate==6 }"><a href="../goods/detail.do?mgno=${review.pno }">${review.msg}</a></c:when>
-                        	</c:choose>
-                        	
+                            <c:choose>
+                                <c:when test="${qna.cate==1 }"><a href="../hall/detail.do?hno=${qna.pno }">${qna.msg}</a></c:when>
+                                <c:when test="${qna.cate==2 }"><a href="../dress/dress_detail.do?d_no=${qna.pno }">${qna.msg}</a></c:when>
+                                <c:when test="${qna.cate==3 }"><a href="../dress/suit_detail.do?su_no=${qna.pno }">${qna.msg}</a></c:when>
+                                <c:when test="${qna.cate==4 }"><a href="../studio/studio_detail.do?sno=${qna.pno }">${qna.msg}</a></c:when>
+                                <c:when test="${qna.cate==5 }"><a href="../studio/hairmakeup_detail.do?mno=${qna.pno }">${qna.msg}</a></c:when>
+                                <c:when test="${qna.cate==6 }"><a href="../goods/detail.do?mgno=${qna.pno }">${qna.msg}</a></c:when>
+                            </c:choose>
                         </td>
-                        <td class="date-info">${review.dbday}</td>
-                        <td>${review.score}</td>
+                        <td class="date-info">${qna.dbday}</td>
                         <td>
-                            <button class="btn-delete" data-href="${review.review_no}">삭제</button>
+                            <c:choose>
+                                <c:when test="${qna.groupCount == 2}">
+                                    <button class="btn-msg" data-qna_no="${qna.qna_no}" data-group_id="${qna.group_id}">답변 보기</button>
+                                </c:when>
+                                <c:otherwise>
+                                    <button class="Redefault">답변 대기</button>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td>
+                            <button class="btn-delete" data-href="${qna.qna_no}">삭제</button>
                         </td>
                     </tr>
+                  <c:forEach var="reply" items="${reList}">
+                        <c:if test="${reply.group_id == qna.group_id}">
+                            <tr class="answer-row">
+                                <td colspan="6">
+                                    <div class="answerContent">${reply.msg}</div>
+                                </td>
+                            </tr>
+                        </c:if>
+                    </c:forEach>
                 </c:forEach>
             </tbody>
         </table>
-		
+
         <!-- Pagination -->
         <div class="pagination">
-                <a href="../mypage/mypage_review.do?page=${curpage-1}">이전</a>
-						${curpage } page / ${totalpage } pages
-                <a href="../mypage/mypage_review.do?page=${curpage+1}">다음</a>
+            <a href="../mypage/mypage_qna.do?page=${curpage-1}">이전</a>
+            ${curpage} page / ${totalpage} pages
+            <a href="../mypage/mypage_qna.do?page=${curpage+1}">다음</a>
         </div>
     </div>
 </body>
