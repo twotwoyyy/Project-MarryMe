@@ -302,7 +302,9 @@ font-family: "Monsieur La Doulaise", cursive;
     gap:5px;
     justify-content: start;
     align-items:center;
-    cursor: pointer;
+}
+#detail #qna .qna_list .close .subject .bimil{
+	cursor:pointer;
 }
 #detail #qna .qna_list .close .subject .reply{
     padding:5px;

@@ -22,7 +22,7 @@
               <c:set var="delay" value="0"/>
                <c:forEach var="dress" items="${dress_list }">
                 <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="${delay}">
-                    <a href="../dress/dress_detail.do?d_no=${dress.d_no }">
+                    <a href="../dress/dress_detail_before.do?d_no=${dress.d_no }">
                         <div class="img_wrap">
                             <img src="${dress.d_image}" alt="${dress.d_subject }">
                         </div>
@@ -51,72 +51,19 @@
         <section class="latest container">
             <h3>최근 본 목록</h3>
             <div class="latest_slide">
-                <div class="slides">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/dress_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="slides">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/dress_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="slides">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/dress_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="slides">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/dress_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="slides">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/dress_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="slides">
-                    <a href="detail.html">
-                        <div class="img_wrap">
-                            <img src="../img/dress_demo.jpg" alt="">
-                        </div>
-                        <div class="text_box">
-                            <p class="brand_name">업체 이름</p>
-                            <p class="brand_sub">브랜드 부제</p>
-                        </div>
-                    </a>
-                </div>
+            	<c:forEach var="dress_ck" items="${dress_cookies}">
+	                <div class="slides">
+	                    <a href="detail.html">
+	                        <div class="img_wrap">
+	                            <img src="${dress_ck.d_image}" alt="${dress_ck.d_subject}">
+	                        </div>
+	                        <div class="text_box">
+	                            <p class="brand_name">${dress_ck.d_subject}</p>
+	                            <p class="brand_sub">${dress_ck.d_price}</p>
+	                        </div>
+	                    </a>
+	                </div>
+                </c:forEach>
             </div>
         </section>
     </div>

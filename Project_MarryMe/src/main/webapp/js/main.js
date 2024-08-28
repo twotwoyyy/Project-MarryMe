@@ -238,23 +238,4 @@ if($('#detail').length > 0){
         $(this).parent().siblings('.detail_input').find('.star').removeClass('active');
         $('#qna_pw').val("");
     })
-    /*
-    $(window).onload=function(){
-	    let review_count=$('#review .reveiw_list .reviewList').length
-	    console.log(review_count)
-	    $('.detail_tab a[href="#review"]').text('후기('+review_count+')')
-    }
-    */
-
-    /* ----- QNA ACCODIAN----- */
-    let qna_title=$('#detail #qna .qna_list .subject');
-    qna_title.click(function(){
-        let pwbox=$(this).parent().siblings('.write_pw');
-        if(pwbox.hasClass('active')){
-            pwbox.removeClass('active');    
-        }else{
-            $('#qna .qna_list .write_pw').removeClass('active');
-            $(this).parent().siblings('.write_pw').addClass('active');
-        }
-    })
 }

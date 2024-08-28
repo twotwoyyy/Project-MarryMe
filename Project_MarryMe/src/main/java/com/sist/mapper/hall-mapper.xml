@@ -5,7 +5,7 @@
 	<select id="mainHallData" resultType="HallVO">
 		SELECT hno, name, image, type, rownum
 		FROM (SELECT hno, name, image, type
-		FROM hall ORDER BY hit DESC)
+		FROM hall ORDER BY wishcount DESC)
 		WHERE rownum&lt;=10
 	</select>
 	<!-- 홀 목록 출력 -->

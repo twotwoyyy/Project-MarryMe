@@ -81,6 +81,7 @@ $(function(){
 	})
 	
     $(document).on('click','.bimil',function(){
+    	$('.write_pw input[type="password"]').val("");
     	let qno=$(this).data('qno');
     	console.log('qno:'+qno)
         let pwbox=$('#write_pw'+qno);
