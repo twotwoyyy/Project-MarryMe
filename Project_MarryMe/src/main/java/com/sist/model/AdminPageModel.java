@@ -38,17 +38,6 @@ public class AdminPageModel {
 		return "../main/main.do";
 	}
 	   
-	   @RequestMapping("adminpage/reply_insert.do")
-	   public String reply_insert(HttpServletRequest request,HttpServletResponse response)
-	   {
-		   String no=request.getParameter("no");
-		   request.setAttribute("no", no);
-		   request.setAttribute("admin_jsp", "../adminpage/adminpage_reply_insert.jsp");
-		   request.setAttribute("main_jsp", "../adminpage/adminpage_main.jsp");
-
-		   return "../main/main.jsp";
-	   }
-	   
 	   @RequestMapping("adminpage/adminpage_qna.do")
 	   public String qna_list(HttpServletRequest request,HttpServletResponse response) {
 		   	HttpSession session=request.getSession();

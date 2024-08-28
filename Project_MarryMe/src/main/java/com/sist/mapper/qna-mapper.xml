@@ -92,4 +92,36 @@
         FROM qna
         WHERE group_id = #{gid}
     </select>
+    
+    <!-- 관리자 페이지 qna 목록 -->
+ 	<select id="adminQnaListData" resultType="QnaVO" parameterType="hashmap">
+ 	 	SELECT qna_no,msg,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,cate,group_id,tab,pno,num
+ 		FROM (SELECT qna_no,msg,regdate,cate,group_id,tab,pno,rownum as num
+ 		FROM (SELECT qna_no,msg,qna.regdate as regdate,cate,group_id,tab,pno
+ 		FROM qna
+ 		WHERE id != 'hong'
+ 		ORDER BY regdate DESC))
+ 		WHERE num BETWEEN #{start} AND #{end}
+ 	</select>
+ 	<select id="getTabCount" resultType="int">
+        SELECT COUNT(*) AS retab
+        FROM qna
+        WHERE tab = #{tab}
+    </select>
+ 	<select id="adminQnaListReData" parameterType="int" resultType="QnaVO">
+        SELECT qna_no, msg, regdate, cate, group_id, tab, id
+        FROM qna
+        WHERE group_id = #{group_id}
+        ORDER BY regdate DESC
+    </select>
+ 	<select id="adminQnaTotalPage" resultType="int" parameterType="string">
+ 		SELECT COUNT(*) i
+ 		FROM qna
+ 		WHERE id != 'hong'
+ 	</select>
+	<select id="qnaUpdateData" resultType="QnaVO" parameterType="int">
+		SELECT qna_no,cate,hit,id,msg,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') as dbday 
+		FROM qna
+		WHERE qna_no=#{qna_no}
+	</select>
 </mapper>

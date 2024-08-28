@@ -217,28 +217,15 @@ public class QnaModel {
 			// TODO: handle exception
 		}
 	}
-	@RequestMapping("qna/delete.do")
-	public void qna_delete(HttpServletRequest request,HttpServletResponse response) {
-		try {
-			request.setCharacterEncoding("UTF-8");
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		String qno=request.getParameter("qno");
-		String result="";
-		try {
-			QnaDAO.qnaDelete(Integer.parseInt(qno));
-			result="OK";
-		}catch(Exception ex){
-			result="NO";
-		}
-		try {
-			response.setContentType("text/plain;charset=UTF-8");
-			PrintWriter out=response.getWriter();
-			out.write(result);
-		} catch (Exception e) {
-		}
+
+	// 관리자 문의 답변 (문의 상세보기)
+	@RequestMapping("qna/admin_update.do")
+	public String qna_update(HttpServletRequest request, HttpServletResponse response) {
+		String no = request.getParameter("no");
+		QnaVO vo = QnaDAO.qnaUpdateData(Integer.parseInt(no));
+		request.setAttribute("vo", vo);
+		request.setAttribute("admin_jsp", "../qna/admin_update.jsp");
+		request.setAttribute("main_jsp", "../adminpage/adminpage_main.jsp");
+		return "../main/main.jsp";
 	}
-	
-	
 }

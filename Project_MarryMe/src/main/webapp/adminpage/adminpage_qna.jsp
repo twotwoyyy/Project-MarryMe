@@ -229,7 +229,7 @@
                         <td class="date-info">${qna.dbday}</td>
                         <td>
                             <c:choose>
-                                <c:when test="${qna.tab == 2}">
+                                <c:when test="${qna.tab == 1}">
                                     <button class="btn-msg" data-qna_no="${qna.qna_no}" data-group_id="${qna.group_id}">답변 보기</button>
                                 </c:when>
                                 <c:otherwise>
@@ -238,8 +238,8 @@
                             </c:choose>
                         </td>
                         <td>
-                            <button class="btn-primary" data-href="${qna.qna_no}">답변하기</button>
-                        </td>
+						    <button class="btn-primary" onclick="location.href='../qna/admin_update.do?qna_no=${qna.qna_no}'">답변하기</button>
+						</td>
                     </tr>
 <!-- ********************************************* 지피티 긁어온 시작 부분 *************************************************** -->
 				    <!-- 기존 답변 내용 -->
@@ -247,7 +247,7 @@
 				        <c:if test="${reply.group_id == qna.group_id}">
 				            <tr class="answer-row">
 				                <td colspan="6">
-				                    <div class="answerContent" style="text-align: left;">➡️[관리자] ${reply.msg}</div>
+				                    <div class="answerContent" style="text-align: left;">➡️[관리자] ${qna.msg}</div>
 				                </td>
 				            </tr>
 				        </c:if>

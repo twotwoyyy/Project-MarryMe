@@ -262,18 +262,36 @@ public class QnaDAO {
       return total;
    }
    
-   // QnA 답변을 출력하는 기능
-   public static void qnaReplyInsert(QnaVO vo) {
-       SqlSession session = null;
-       try {
-           session = ssf.openSession();
-           session.insert("qnaReplyInsert", vo);
-           session.commit();
-       } catch (Exception ex) {
-           ex.printStackTrace();
-       } finally {
-           if (session != null)
-               session.close();
-       }
-   }
+   // 문의 상세 보기 
+	public static QnaVO qnaUpdateData(int no) {
+		QnaVO vo = new QnaVO();
+		SqlSession session = null;
+		try {
+			session = ssf.openSession();
+//			session.update("noticeHitIncrement",no);
+//			session.commit();
+			vo = session.selectOne("qnaUpdateData",no);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (session != null)
+				session.close();
+		}
+		return vo;
+	}
+   
+//   // QnA 답변을 출력하는 기능
+//   public static void qnaReplyInsert(QnaVO vo) {
+//       SqlSession session = null;
+//       try {
+//           session = ssf.openSession();
+//           session.insert("qnaReplyInsert", vo);
+//           session.commit();
+//       } catch (Exception ex) {
+//           ex.printStackTrace();
+//       } finally {
+//           if (session != null)
+//               session.close();
+//       }
+//   }
 }
