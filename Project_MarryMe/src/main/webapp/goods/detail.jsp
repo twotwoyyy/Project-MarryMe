@@ -12,6 +12,10 @@
 <link rel="stylesheet" href="../css/detail.css">
 
 <style type="text/css">
+#cart{
+	float: left ;margin-right: 20px ;
+	
+}
 .collect:hover{
 	background-color: #bbbbbb;
 }
@@ -360,17 +364,17 @@ function requestPay(json,name,price) {
                             <ul class="reserve_time">
                                 <li>${vo.delivery }</li>
                             </ul>
-                            <input type="number" id="sel" class="collect" value="1" min="1" max="${vo.EA }" style="font-weight: bold;" data-price="${price }">
+                            <input type="number" id="sel" class="collect" value="${vo.EA==0?0:1 }" min="0" max="${vo.EA }" style="font-weight: bold;" data-price="${price }">
                         	
                         	<span id="total">${vo.price}</span>
                         
                         </div>
                         <input type="hidden" name="gno" value="${pno}" id="gno">
 		        		<input type="hidden" name="price" value="${vo.price}" id="price2">
-		                <input type="hidden" name="account" value="" id="account">
-		        	    <input type="submit"  class="buyBtn" value="장바구니" id="cart" style="float: left ;margin-right: 20px">
-                      	<a href="#" class="buyBtn" id="buy">바로구매</a>
+		                <input type="hidden" name="account" value="${vo.EA==0?0:1 }" id="account">
+		        	    <input type="submit"  class="buyBtn" value="장바구니" id="cart" ${vo.EA==0?'disabled="disabled" style="opacity:0.5;"':""}>
                     </form>
+                        <button  class="buyBtn" id="buy" ${vo.EA==0?'disabled="disabled" style="opacity:0.5;"':""}>바로구매</button>
                 </aside>
             </div>
         </div>

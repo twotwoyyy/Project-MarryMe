@@ -52,14 +52,15 @@ public class CartModel {
 		  String account=request.getParameter("account");
 		  HttpSession session=request.getSession();
 		  String id=(String)session.getAttribute("id");
+		  int gPrice=Integer.parseInt(price.replaceAll("[^0-9]", ""));
 		  System.out.println("gno="+gno);
-		  System.out.println("price="+price);
+		  System.out.println("price="+gPrice);
 		  System.out.println("account="+account);
 		  // DB연동
 		  CartVO vo=new CartVO();
 		  vo.setGno(Integer.parseInt(gno));
 		  vo.setAccount(Integer.parseInt(account));
-		  vo.setPrice(Integer.parseInt(price));
+		  vo.setPrice(gPrice);
 		  vo.setId(id);
 		  
 		  Map map=new HashMap();
@@ -75,22 +76,31 @@ public class CartModel {
 		  {
 			  int cno=CartDAO.cartGetGno(map);
 			  Map map1=new HashMap();
-			  map1.put("cno", cno);
+			  map1.put("cart_no", cno);
 			  map1.put("account", account);
 			  CartDAO.cartGnoUpdate(map1);
 		  }
 		  
-		  
+		  System.out.println("장바구니");
 		  return "redirect:../mypage/mypage_cart.do";
 	  }
 	  @RequestMapping("mypage/mypage_cart.do")
 	  public String mypage_cart(HttpServletRequest request,HttpServletResponse response)
 	  {
+		  System.out.println("3434");
+		  try {
 		  HttpSession session=request.getSession();
 		  String id=(String)session.getAttribute("id");
 		  List<CartVO> list=CartDAO.cartListData(id);
+		  
+		  for(CartVO vo:list) {
+			  System.out.println(vo.getDbday());
+		  }
 		  request.setAttribute("cartList", list);
 		  request.setAttribute("count", list.size());
+		  }catch(Exception ex) {
+			  ex.printStackTrace();
+		  }
 		  request.setAttribute("mypage_jsp", "../mypage/mypage_cart.jsp");
 		  request.setAttribute("main_jsp","../mypage/mypage_main.jsp");
 		  return "../main/main.jsp";

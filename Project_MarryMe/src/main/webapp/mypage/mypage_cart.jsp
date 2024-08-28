@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,39 +20,20 @@
         </div>
         
         <!-- 장바구니 항목 1 -->
+       
         <div class="all-cart-item">
+          <c:forEach var="vo" items="${cartList }">
 	        <div class="cart-item">
 	            <input type="checkbox">
-	            <img src="https://via.placeholder.com/100" alt="상품 이미지">
-	            <label>가상 상품 1</label>
-	            <input type="number" value="1" min="1">
-	            <span>₩10,000</span>
+	            <img src="${vo.gvo.poster }" alt="상품 이미지">
+	            <label>vo.gvo.title</label>
+	            <input type="number" value="${vo.account }" min="1">
+	            <span>vo.price</span>
 	            <div class="action-buttons">
 	                <button>삭제</button>
 	            </div>
 	        </div>
-	        
-	        <!-- 장바구니 항목 2 -->
-	        <div class="cart-item">
-	            <input type="checkbox">
-	            <img src="https://via.placeholder.com/100" alt="상품 이미지">
-	            <label>가상 상품 2</label>
-	            <input type="number" value="2" min="1">
-	            <span>₩25,000</span>
-	            <div class="action-buttons">
-	                <button>삭제</button>
-	            </div>
-	        </div>
-	        <div class="cart-item">
-	            <input type="checkbox">
-	            <img src="https://via.placeholder.com/100" alt="상품 이미지">
-	            <label>가상 상품 2</label>
-	            <input type="number" value="2" min="1">
-	            <span>₩25,000</span>
-	            <div class="action-buttons">
-	                <button>삭제</button>
-	            </div>
-	        </div>
+	      </c:forEach> 
         </div>
 
         <!-- 총 금액 및 구매 버튼 -->
