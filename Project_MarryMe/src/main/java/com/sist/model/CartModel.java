@@ -157,10 +157,16 @@ public class CartModel {
 		  HttpSession session=request.getSession();
 		  String id=(String)session.getAttribute("id");
 		  List<CartVO> list=CartDAO.buyListData(id);
+		  String fPrice="";
+		  for(CartVO vo:list) {
+			  fPrice=new DecimalFormat("###,###,###").format(vo.getPrice());
+			  vo.setWon(fPrice);
+		  }
 		  int total=CartDAO.buyTotalPrice(id);
+		  String totalform=new DecimalFormat("###,###,###").format(total);
 		  request.setAttribute("buyList", list);
 		  request.setAttribute("count", list.size());
-		  request.setAttribute("total", total);
+		  request.setAttribute("total", totalform);
 		  request.setAttribute("mypage_jsp", "../mypage/mypage_buy.jsp");
 		  request.setAttribute("main_jsp","../mypage/mypage_main.jsp");
 		  return "../main/main.jsp";

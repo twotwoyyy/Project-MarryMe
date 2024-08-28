@@ -41,7 +41,7 @@
    WHERE gno=#{gno} AND id=#{id}
   </select>
   <select id="cartGetGno" resultType="int" parameterType="hashmap">
-   SELECT cart_no FROM cart
+   SELECT gno FROM cart
    WHERE gno=#{gno} AND id=#{id}
   </select>
   <update id="cartGnoUpdate" parameterType="hashmap">
@@ -57,7 +57,7 @@
   </insert>
   <!-- 구매목록 : mypage-->
   <select id="buyListData" resultMap="cartMap" parameterType="string">
-    SELECT cart_no,title,poster,price,account,price
+    SELECT cart_no,title,poster,account,pc.price as price
     FROM cart pc,goods g
     WHERE id=#{id} AND isbuy='y'
     AND pc.gno=g.mgno
