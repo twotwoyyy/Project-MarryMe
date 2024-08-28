@@ -14,8 +14,8 @@ import java.util.*;
 import lombok.Data;
 @Data
 public class CartVO {
-  private int cno,gno,account,price;
-  private String id,isbuy,dbday;
+  private int cart_no,gno,account,price;
+  private String id,isbuy,dbday,won;
   private Date regdate;
   private GoodsVO gvo=new GoodsVO();
 }

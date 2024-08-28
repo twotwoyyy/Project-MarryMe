@@ -22,15 +22,19 @@
         <!-- 장바구니 항목 1 -->
        
         <div class="all-cart-item">
-          <c:forEach var="vo" items="${cartList }">
+          <c:forEach var="vo" items="${cartList }" varStatus="status">
 	        <div class="cart-item">
-	            <input type="checkbox">
+	            <input type="checkbox" data-price="${vo.price }" data-item="Item${status.count }" class="item-checkbox">
 	            <img src="${vo.gvo.poster }" alt="상품 이미지">
-	            <label>vo.gvo.title</label>
-	            <input type="number" value="${vo.account }" min="1">
-	            <span>vo.price</span>
+	            <label>${ vo.gvo.title}</label>
+	            <input type="number" value="${vo.account }" min="1" data-item="Item${status.count }" class="item-quantity">
+	            <span>${ vo.won}₩</span>
+	            <input type="hidden" value="${vo.cart_no }" class="cart">
+	            <input type="hidden" value="${vo.cart_no }" class="cart">
 	            <div class="action-buttons">
+	              <form method="post" action="../mypage/mypage_cart_cancel.do?cno=${vo.cart_no }">
 	                <button>삭제</button>
+	              </form> 
 	            </div>
 	        </div>
 	      </c:forEach> 
@@ -50,22 +54,34 @@
         const totalAmountElem = document.getElementById('totalAmount');
 
         function updateTotal() {
+        	const checkboxes = document.querySelectorAll('.item-checkbox');
             let totalAmount = 0;
-            cartItems.forEach(item => {
-                const checkbox = item.querySelector('input[type="checkbox"]');
-                const price = parseInt(item.querySelector('span').innerText.replace('₩', '').replace(',', ''), 10);
+
+            checkboxes.forEach(checkbox => {
                 if (checkbox.checked) {
-                    totalAmount += price;
+                    const price = parseFloat(checkbox.getAttribute('data-price'));
+                    const item = checkbox.getAttribute('data-item');
+                    const quantityInput = document.querySelector('.item-quantity[data-item="'+item+'"]');
+                    const quantity = parseInt(quantityInput.value, 10);
+
+                    totalAmount += price * quantity;
                 }
             });
-            totalAmountElem.innerText = totalAmount.toLocaleString();
+            const formatter = new Intl.NumberFormat('en-US');
+            document.getElementById('totalAmount').innerText = formatter.format(totalAmount);
         }
 
         cartItems.forEach(item => {
             const checkbox = item.querySelector('input[type="checkbox"]');
             checkbox.addEventListener('change', updateTotal);
         });
-
+		
+        cartItems.forEach(item => {
+            const number = item.querySelector('input[type="number"]');
+            number.addEventListener('change', updateTotal);
+        });
+        
+        
         // 초기 업데이트
         updateTotal();
     </script>

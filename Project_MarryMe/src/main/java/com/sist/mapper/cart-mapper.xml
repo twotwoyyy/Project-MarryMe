@@ -31,7 +31,7 @@
      <result property="gvo.poster" column="poster"/>
   </resultMap>
   <select id="cartListData" resultMap="cartMap" parameterType="string">
-    SELECT cart_no,title,poster,cart.price as price,account,,,,,
+    SELECT cart_no,title,poster,pc.price as price,account
     FROM cart pc,goods g
     WHERE id=#{id} AND isbuy='n'
     AND pc.gno=g.mgno

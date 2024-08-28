@@ -1,6 +1,7 @@
 package com.sist.model;
 
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -87,20 +88,20 @@ public class CartModel {
 	  @RequestMapping("mypage/mypage_cart.do")
 	  public String mypage_cart(HttpServletRequest request,HttpServletResponse response)
 	  {
-		  System.out.println("3434");
-		  try {
+		 
+		  
 		  HttpSession session=request.getSession();
 		  String id=(String)session.getAttribute("id");
 		  List<CartVO> list=CartDAO.cartListData(id);
-		  
+		  String fPrice="";
 		  for(CartVO vo:list) {
-			  System.out.println(vo.getDbday());
+			  fPrice=new DecimalFormat("###,###,###").format(vo.getPrice());
+			  vo.setWon(fPrice);
 		  }
+		  
 		  request.setAttribute("cartList", list);
 		  request.setAttribute("count", list.size());
-		  }catch(Exception ex) {
-			  ex.printStackTrace();
-		  }
+		  
 		  request.setAttribute("mypage_jsp", "../mypage/mypage_cart.jsp");
 		  request.setAttribute("main_jsp","../mypage/mypage_main.jsp");
 		  return "../main/main.jsp";
