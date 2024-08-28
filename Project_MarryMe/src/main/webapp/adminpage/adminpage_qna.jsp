@@ -162,40 +162,10 @@
             border-radius: 5px;
             font-size: 14px;
         }
-/********************************************* 지피티 긁어온 시작 부분 ***************************************************/
-
-        .hidden {
-            display: none;
-        }
-        .btn-edit, .btn-delete {
-            border: none;
-            color: white;
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 12px;
-        }
-        .btn-edit {
-            background-color: #4CAF50;
-        }
-        .btn-edit:hover {
-            background-color: #45a049;
-        }
-        .btn-delete {
-            background-color: #FF5A5A;
-        }
-        .btn-delete:hover {
-            background-color: #e14b4b;
-        }
-        .reply-actions {
-            margin-top: 10px;
-        }
-/********************************************* 지피티 긁어온 끝 부분 ***************************************************/
     </style>
     <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
     <script type="text/javascript">
-/********************************************* 지피티 긁어온 시작 부분 ***************************************************/
-    
+   
     $(function() {
     // 답변 보기 버튼 클릭 시 답변 영역 토글
     $('.btn-msg').click(function() {
@@ -209,52 +179,6 @@
             $answerRow.addClass('active'); // 선택된 답변 행 보이기
         }
     });
-
-    // 답변하기 버튼 클릭 시 답변 입력 공간 표시
-    $('.btn-primary').click(function() {
-        var $row = $(this).closest('tr');
-        var $replySection = $row.next('.reply-section');
-
-        if ($replySection.hasClass('hidden')) {
-            $replySection.removeClass('hidden');
-        } else {
-            $replySection.addClass('hidden');
-        }
-    });
-/********************************************* 지피티 긁어온 시작 부분 ***************************************************/
-    // 답변 제출 버튼 클릭 시 처리
-    $(document).on('click', '.btn-submit', function() {
-	    var $row = $(this).closest('tr').prev('tr'); // 답변 입력 공간 바로 위의 문의 내용 행
-	    var $textarea = $(this).siblings('textarea');
-	    var replyContent = $textarea.val().trim();
-	    var qnaNo = $row.find('.btn-primary').data('href'); // 문의 번호 가져오기
-	
-	    if (replyContent) {
-	        $.post('/path/to/your/submit/endpoint', {
-	            qna_no: qnaNo,
-	            reply: replyContent
-	        }, function(response) {
-	            if (response.success) {
-	                $textarea.val(''); // 입력 필드 비우기
-	                $row.next('.reply-section').addClass('hidden'); // 답변 입력 공간 숨기기
-	                
-	                // 답변을 화면에 추가
-	                var newAnswerHtml = '<tr class="answer-row"><td colspan="6"><div class="answerContent" style="text-align: left;">➡️[관리자] ' + replyContent + '</div></td></tr>';
-	                $row.nextUntil('.reply-section').last().after(newAnswerHtml); // 마지막 답변 위치에 새 답변 추가
-	            } else {
-	                alert('답변 제출에 실패했습니다.');
-	            }
-	        });
-	    } else {
-	        alert('답변 내용을 입력해 주세요.');
-	    }
-	});
-/********************************************* 지피티 긁어온 끝 부분 ***************************************************/
-    // 취소 버튼 클릭 시 답변 입력 공간 숨기기
-    $(document).on('click', '.btn-cancel', function() {
-        $(this).closest('.reply-section').addClass('hidden');
-    });
-});
     </script>
 </head>
 <body>
@@ -277,7 +201,7 @@
                 </tr>
             </thead>
             <tbody class="rList">
-            <c:set var="aqc" value="${count }"/>
+            <c:set var="aqp" value="${count }"/>
                 <c:forEach var="qna" items="${adminqList}">
                     <tr id="myr">
                         <td>${aqp}</td>
@@ -318,18 +242,6 @@
                         </td>
                     </tr>
 <!-- ********************************************* 지피티 긁어온 시작 부분 *************************************************** -->
-                    
-                    
-                 	 <!-- 답변 입력 공간 추가 -->
-				    <tr class="reply-section hidden">
-				        <td colspan="6">
-				            <div class="reply-actions">
-				                <textarea rows="3" cols="50" placeholder="답변을 입력하세요..."></textarea>
-				                <button class="btn-success btn-submit">답변 제출</button>
-				                <button class="btn-delete btn-cancel">취소</button>
-				            </div>
-				        </td>
-				    </tr>
 				    <!-- 기존 답변 내용 -->
 				    <c:forEach var="reply" items="${reList}">
 				        <c:if test="${reply.group_id == qna.group_id}">
