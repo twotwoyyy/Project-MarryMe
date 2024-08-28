@@ -43,8 +43,8 @@
 		WHERE no=#{no}
 	</delete>
 	<select id="noticeTop5Data" resultType="NoticeVO">
-		SELECT no,type,subject,rownum
-		FROM(SELECT no,type,subject
+		SELECT no, type, subject, name, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit, rownum
+		FROM (SELECT no, type, subject, name, regdate, hit
 		FROM notice ORDER BY no DESC)
 		WHERE rownum&lt;=5
 	</select>

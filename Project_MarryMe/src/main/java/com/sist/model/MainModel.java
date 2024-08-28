@@ -15,18 +15,24 @@ import com.sist.vo.*;
 public class MainModel {
 	@RequestMapping("main/main.do")
 	public String main_page(HttpServletRequest request, HttpServletResponse response) {
-
+		String[] cate={"", "전체", "웨딩홀", "드레스/예복", "스튜디오/헤메", "혼수"};
+		
 		List<HallVO> hall_list=HallDAO.mainHallData();
 		List<DressVO> dress_list=DressDAO.mainDressData();
 		List<SuitVO> suit_list=SuitDAO.mainSuitData();
 		List<StudioVO> studio_list=StudioDAO.mainStudioData();
 		List<HairMakeupVO> hair_makup_list=StudioDAO.mainHairMakeupData();
+		List<NoticeVO> notice_list=NoticeDAO.noticeTop5Data();
+		for(NoticeVO notice:notice_list) {
+			notice.setNotice_type(cate[notice.getType()]);
+		}
 		
 		request.setAttribute("hall_list", hall_list);
 		request.setAttribute("dress_list", dress_list);
 		request.setAttribute("suit_list", suit_list);
 		request.setAttribute("studio_list", studio_list);
 		request.setAttribute("hair_makeup_list", hair_makup_list);
+		request.setAttribute("notice_list", notice_list);
 		request.setAttribute("main_jsp", "../main/home.jsp");
 		return "../main/main.jsp";
 	}

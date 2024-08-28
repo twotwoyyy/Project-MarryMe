@@ -31,6 +31,7 @@ if($('#main').length > 0){
 	    autoplaySpeed:2000,
 	    dots:false,
 	    arrows:false,
+	    pauseOnHover:false,
 	    pauseOnFocus:false,
 	});
 	

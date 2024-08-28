@@ -23,20 +23,6 @@ $(function(){
 		})
 	})
 	$('#goods .goods_tab > li:first-child').trigger('click');
-	 function requestUserInfo() {
- 	    Kakao.API.request({
- 	      url: '/v2/user/me',
- 	    })
- 	      .then(function(res) {
- 	        //alert(JSON.stringify(res));
- 	      })
- 	      .catch(function(err) {
- 	        //alert('failed to request user information: ' + JSON.stringify(err));
- 	      });
- 	  }
-	Kakao.init('dee4629f5156da2c49e694161e31a96a');
-    console.log( Kakao.isInitialized() );
-	 requestUserInfo()
 })
 </script>
 </head>
@@ -148,7 +134,41 @@ $(function(){
                 </ul>
             </div>
         </section>
-        <section id="community"></section>
+        <section id="notice">
+        	<div class="tt_box">
+               <h2 class="cate_tt"><span>N</span>otice</h2>
+               <div>
+               	<p class="cate_desc">프로젝트 메리미 이용시 참고하실 최근 공지사항</p>
+               </div>
+               <a href="../notice/list.do" class="viewmore">view more</a>
+           </div>
+           <table>
+           	   <thead>
+           	   		<tr>
+           	   			<th>번호</th>
+           	   			<th>분류</th>
+           	   			<th>제목</th>
+           	   			<th>작성자</th>
+           	   			<th>작성일</th>
+           	   			<th>조회수</th>
+           	   		</tr>
+           	   </thead>
+           	   <tbody>
+           	   		<c:forEach var="notice" items="${notice_list}" varStatus="num">
+	           	   		<tr>
+	           	   			<td>${5-num.index}</td>
+	           	   			<td class="cate"><span>${notice.notice_type}</span></td>
+	           	   			<td class="subject">
+	           	   				<a href="../notice/detail.do?no=${notice.no}">${notice.subject}</a>
+	           	   			</td>
+	           	   			<td>관리자</td>
+	           	   			<td>${notice.dbday}</td>
+	           	   			<td>${notice.hit}</td>
+	           	   		</tr>
+           	   		</c:forEach>
+           	   </tbody>
+           </table>
+        </section>
     </main>
 </body>
 </html>

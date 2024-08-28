@@ -242,3 +242,70 @@ main .viewmore:hover::after{
   	-webkit-box-orient: vertical; 
   	-webkit-line-clamp: 2;
 }
+
+/* --------------- NOTICE ----------------- */
+#notice{
+	background:#CAD6BB;
+	padding:100px 0;
+}
+#notice .tt_box{
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	gap:40px;
+	margin-bottom:50px;
+}
+#notice .cate_tt,
+#notice .cate_desc{
+	margin-bottom:0;
+}
+
+#notice table{
+    width:80%;
+    border-spacing:0;
+    border-bottom:1px solid #5B7B60;
+    margin:0 auto;
+    text-align:center;
+}
+#notice table tr{
+    display:grid;
+    grid-template-columns:1fr 2fr 8fr 1fr 1.5fr 1fr;
+    justify-items:center;
+    align-items:center;
+}
+#notice table thead tr{
+    background:#303A1F;
+}
+#notice table thead th{
+    color:#dcdcdc;	
+}
+#notice table tbody tr{
+    background:rgba(240,240,240,.5);
+    color:#0D2E1A;
+    border-bottom:1px solid #CBD8D2
+}
+#notice table tbody tr > a{
+    display:block;
+}
+#notice table th,
+#notice table td{
+    font-size:16px;
+    padding:20px 0;
+    letter-spacing:-0.005em;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+#notice table td.subject{
+	text-align:left;
+	width:95%;
+}
+#notice table tbody .cate span{
+    display:inline-block;
+    width:115px;
+    height:24px;
+    line-height:24px;
+    background:#b3c5bd;
+}
+
+
