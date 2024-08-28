@@ -124,7 +124,7 @@ th:nth-child(5) {
 <script type="text/javascript">
 	$(function(){
 		$('#noticeBtn').click(function(){
-			location.href="../notice/insert.do"
+			location.href="../notice/notice_insert.do"
 		})
 	})
 </script>
@@ -155,7 +155,7 @@ th:nth-child(5) {
 						<td width="50%" style="text-align: left;">
 							<a href="../notice/detail.do?no=${vo.no}">[${vo.notice_type}]&nbsp;${vo.subject }</a>
 						</td>
-						<td width="10%">${vo.name }</td>
+						<td width="10%">관리자</td>
 						<td width="15%">${vo.dbday }</td>
 						<td width="10%">${vo.hit }</td>
 					</tr>

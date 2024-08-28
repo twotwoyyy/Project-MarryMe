@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,7 +74,6 @@
     cursor: pointer;
     border-radius: 5px;
     font-size: 14px;
-    margin-left: 360px;
     margin-bottom: 5px;
     border: none;
 }
@@ -108,6 +108,11 @@
 				</tr>
 				<tr>
 					<td colspan="4" style="text-align: right; padding-top: 10px;">
+					<c:if test="${sessionScope.id!=null}">
+						<c:if test="${sessionScope.admin=='y'}">
+								<a class="notice-link" href="../notice/notice_update.do?no=${vo.no }">수정</a>
+						</c:if>
+					</c:if>
 						<a class="notice-link" href="../notice/list.do">목록</a>
 					</td>
 				</tr>
