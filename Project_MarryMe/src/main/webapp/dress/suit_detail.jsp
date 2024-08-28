@@ -149,8 +149,8 @@ $(function(){
                         <li><a href="#image">교환 반품 안내</a></li>
                         <li><a href="#info">매장 운영 정보</a></li>
                         <li><a href="#map">위치</a></li>
-                        <li><a href="#review">후기()</a></li>
-                        <li><a href="#qna">문의()</a></li>
+                        <li><a href="#review">후기(0)</a></li>
+                        <li><a href="#qna">문의(0)</a></li>
                     </ul>
                     
                     <div class="bottom_content">
@@ -171,15 +171,15 @@ $(function(){
                         
                         <div id="image">
                             <h3>상세 이미지</h3>
-                            <div class="masonry_wrap">
-<%--                             	<c:forEach var="i" begin="0" end="${hm_image_list.size()-1}"> --%>
+                            <div>
+<%--                          	<c:forEach var="i" begin="0" end="${hm_image_list.size()-1}"> --%>
 	                                <div class="img_wrap">
-	                                    <img src="${suit_vo.su_detail_image}" alt="${suit_vo.su_subject}" style="width: 700px; height: auto;">
-	                                    <img src="${suit_vo.su_detail_image2}" alt="${suit_vo.su_subject}" style="width: 700px; height: auto;">
-	                                    <img src="${suit_vo.su_detail_image3}" alt="${suit_vo.su_subject}" style="width: 700px; height: auto;">
-	                                    <img src="${suit_vo.su_detail_image5}" alt="${suit_vo.su_subject}" style="width: 700px; height: auto;">
+	                                    <img src="${suit_vo.su_detail_image}" alt="${suit_vo.su_subject}" style="width:100%">
+	                                    <img src="${suit_vo.su_detail_image2}" alt="${suit_vo.su_subject}" style="width:100%">
+	                                    <img src="${suit_vo.su_detail_image3}" alt="${suit_vo.su_subject}" style="width:100%">
+	                                    <img src="${suit_vo.su_detail_image5}" alt="${suit_vo.su_subject}" style="width:100%">
 	                                </div>
-<%--                              	</c:forEach> --%>
+<%--                            </c:forEach> --%>
                             </div>
                         </div>
 <!--                         <hr> -->
@@ -304,212 +304,7 @@ $(function(){
                        	<input type="hidden" value="${suit_vo.su_no}" id="postNo">
  					 	<input type="hidden" value="3" id="rCate">
                         <hr>
-                        <hr>
-                        <div id="review">
-                            <div class="board_top">
-                                <h3>후기</h3>
-                                <button>후기 작성</button>
-                            </div>
-                            <div class="detail_input">
-                                <label for="review_content">후기를 작성해주세요</label>
-                                <textarea name="review_content" id="review_content"></textarea>
-                                <label for="review_photo" class="hidden">파일업로드</label>
-                                <input type="file" id="review_photo">
-                                <input type="button" value="작성완료">
-                            </div>
-                            <ul class="review_list">
-                                <li>
-                                    <div class="top">
-                                        <div class="profile">
-                                            <img src="../img/profile_img.png" alt="">
-                                            <p class="name">작성자이름</p>
-                                        </div>
-                                        <p>2024-00-00</p>
-                                    </div>
-                                    <div class="content">
-                                        <div class="star">
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20" class="crema_product_reviews_score_star_wrapper__star active">
-                                                <defs>
-                                                    <path id="star-full" d="M7.157 6.698l2.165-4.59a.743.743 0 0 1 1.358 0l2.165 4.59 4.84.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l4.84-.74z"></path>
-                                                </defs>
-                                                <use xlink:href="#star-full"></use>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20" class="crema_product_reviews_score_star_wrapper__star active">
-                                                <defs>
-                                                    <path id="star-full" d="M7.157 6.698l2.165-4.59a.743.743 0 0 1 1.358 0l2.165 4.59 4.84.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l4.84-.74z"></path>
-                                                </defs>
-                                                <use xlink:href="#star-full"></use>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20" class="crema_product_reviews_score_star_wrapper__star active">
-                                                <defs>
-                                                    <path id="star-full" d="M7.157 6.698l2.165-4.59a.743.743 0 0 1 1.358 0l2.165 4.59 4.84.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l4.84-.74z"></path>
-                                                </defs>
-                                                <use xlink:href="#star-full"></use>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20" class="crema_product_reviews_score_star_wrapper__star active">
-                                                <defs>
-                                                    <path id="star-full" d="M7.157 6.698l2.165-4.59a.743.743 0 0 1 1.358 0l2.165 4.59 4.84.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l4.84-.74z"></path>
-                                                </defs>
-                                                <use xlink:href="#star-full"></use>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20" class="crema_product_reviews_score_star_wrapper__star active">
-                                                <defs>
-                                                    <path id="star-full" d="M7.157 6.698l2.165-4.59a.743.743 0 0 1 1.358 0l2.165 4.59 4.84.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l4.84-.74z"></path>
-                                                </defs>
-                                                <use xlink:href="#star-full"></use>
-                                            </svg>
-                                        </div>
-                                        <div class="content_text">
-                                            <pre>상세 너무 길어ㅠㅠ 잠와죽겠넴 아앙아아아아ㅏ아아
-요고 너무 제 위주로 만들었는데 각자 상세에 맞게 수정해서 사용하시고 어려운 부분있으시면 언제든지 괜찮으니까 같이해결해봐욤
-저 이제 문의 만들러 갈게요 😩
-                                            </pre>
-                                        </div>
-                                        <div class="img_box">
-                                            <img src="../img/banner_02.jpg" alt="">
-                                            <img src="../img/dress_demo.jpg" alt="">
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="top">
-                                        <div class="profile">
-                                            <img src="../img/profile_img.png" alt="">
-                                            <p class="name">작성자이름</p>
-                                        </div>
-                                        <p>2024-00-00</p>
-                                    </div>
-                                    <div class="content">
-                                        <div class="star">
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20" class="crema_product_reviews_score_star_wrapper__star active">
-                                                <defs>
-                                                    <path id="star-full" d="M7.157 6.698l2.165-4.59a.743.743 0 0 1 1.358 0l2.165 4.59 4.84.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l4.84-.74z"></path>
-                                                </defs>
-                                                <use xlink:href="#star-full"></use>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20" class="crema_product_reviews_score_star_wrapper__star active">
-                                                <defs>
-                                                    <path id="star-full" d="M7.157 6.698l2.165-4.59a.743.743 0 0 1 1.358 0l2.165 4.59 4.84.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l4.84-.74z"></path>
-                                                </defs>
-                                                <use xlink:href="#star-full"></use>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20" class="crema_product_reviews_score_star_wrapper__star active">
-                                                <defs>
-                                                    <path id="star-full" d="M7.157 6.698l2.165-4.59a.743.743 0 0 1 1.358 0l2.165 4.59 4.84.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l4.84-.74z"></path>
-                                                </defs>
-                                                <use xlink:href="#star-full"></use>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20" class="crema_product_reviews_score_star_wrapper__star active">
-                                                <defs>
-                                                    <path id="star-full" d="M7.157 6.698l2.165-4.59a.743.743 0 0 1 1.358 0l2.165 4.59 4.84.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l4.84-.74z"></path>
-                                                </defs>
-                                                <use xlink:href="#star-full"></use>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20" class="crema_product_reviews_score_star_wrapper__star ">
-                                                <defs>
-                                                    <path id="star-full" d="M7.157 6.698l2.165-4.59a.743.743 0 0 1 1.358 0l2.165 4.59 4.84.74c.622.096.87.895.42 1.353l-3.503 3.57.827 5.044c.106.647-.544 1.141-1.1.835l-4.328-2.382-4.329 2.382c-.556.306-1.205-.188-1.099-.835l.826-5.044-3.502-3.57c-.45-.458-.202-1.257.42-1.352l4.84-.74z"></path>
-                                                </defs>
-                                                <use xlink:href="#star-full"></use>
-                                            </svg>
-                                        </div>
-                                        <div class="content_text">
-                                            <pre>그래도 두개는 만들어야 리스트 모양이 나오겠지..
-                                            </pre>
-                                        </div>
-                                        <div class="img_box">
-                                            <img src="../img/hanbok_demo.jpg" alt="">
-                                            <img src="../img/bouquet_demo.jpg" alt="">
-                                            <img src="../img/banner_01.jpg" alt="">
-                                            <img src="../img/hanbok_demo.jpg" alt="">
-                                            <img src="../img/bouquet_demo.jpg" alt="">
-                                            <img src="../img/banner_01.jpg" alt="">
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                            <ul class="page">
-                                <li><a href="">&lt;</a></li>
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li><a href="#">&gt;</a></li>
-                            </ul>
-                        </div>
-                        <hr>
-                        <div id="qna">
-                            <div class="board_top">
-                                <h3>문의</h3>
-                                <button>문의 작성</button>
-                            </div>
-                            <div class="detail_input">
-                                <label for="qna_content">문의를 작성해주세요</label>
-                                <textarea name="qna_content" id="qna_content"></textarea>
-                                <div>
-                                    <div class="qna_pwbox">
-                                        <label for="qna_pw">비밀번호</label>
-                                        <input type="password" id="qna_pw">
-                                    </div>
-                                    <input type="button" value="작성완료">
-                                </div>
-                            </div>
-                            <ul class="qna_list">
-                                <li>
-                                    <div class="close">
-                                        <p class="number">2</p>
-                                        <div class="subject">
-                                            <img src="../img/qna_lock.gif" alt="">
-                                            <p>내일하고 싶은데 미뤄도 되나요</p>
-                                        </div>
-                                        <p class="writer">잠만보</p>
-                                        <p class="regdate">2024-00-00<br>00:00:00</p>
-                                    </div>
-                                    <div class="write_pw">
-                                        <form method="POST" action="">
-                                            <label for="review_pw2">비밀번호</label>
-                                            <input type="password" id="review_pw2" name="review_pw" class="review_pw_input">
-                                            <button>확인</button>
-                                        </form>
-                                    </div>
-                                    <div class="open">
-                                        <pre>요기는 비밀번호 관문을 통과한 자에게만 허용된 구역입니당
-아코디언으로 만들까하는데 아몰라 그거 기능이랑 예약폼 픽스랑 작성페이지는 내일할래 수요일까지 다해서 쉬는날 작업할 사람 작업하게 해주고 싶었는데</pre>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="close">
-                                        <p class="number">1</p>
-                                        <div class="subject">
-                                            <span class="reply">RE</span>
-                                            <img src="../img/qna_lock.gif" alt="">
-                                            <p>내일하고 싶은데 미뤄도 되나요</p>
-                                        </div>
-                                        <p class="writer">관리자</p>
-                                        <p class="regdate">2024-00-00<br>00:00:00</p>
-                                    </div>
-                                    <div class="write_pw">
-                                        <form method="POST" action="">
-                                            <label for="review_pw1">비밀번호</label>
-                                            <input type="password" id="review_pw1" name="review_pw" class="review_pw_input">
-                                            <button>확인</button>
-                                        </form>
-                                    </div>
-                                    <div class="open">
-                                        <pre>여기는 답변 나오게</pre>
-                                    </div>
-                                </li>
-                            </ul>
-                            <ul class="page">
-                                <li><a href="">&lt;</a></li>
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li><a href="#">&gt;</a></li>
-                            </ul>
-                        </div>
+                        <jsp:include page="../qna/list.jsp"></jsp:include>
                     </div>
                 </section>
             </div>
@@ -570,7 +365,7 @@ $(function(){
     var geocoder = new kakao.maps.services.Geocoder();
     
     // 주소로 좌표를 검색합니다
-    geocoder.addressSearch('${studio_vo.address}', function(result, status) {
+    geocoder.addressSearch('${suit_vo.su_address}', function(result, status) {
     
         // 정상적으로 검색이 완료됐으면 
          if (status === kakao.maps.services.Status.OK) {
@@ -585,7 +380,7 @@ $(function(){
     
             // 인포윈도우로 장소에 대한 설명을 표시합니다
             var infowindow = new kakao.maps.InfoWindow({
-                content: '<div style="width:150px;text-align:center;padding:6px 0;">${studio_vo.name}</div>'
+                content: '<div style="width:150px;text-align:center;padding:6px 0;">제이진슈트(jjinsuit)</div>'
             });
             infowindow.open(map, marker);
     

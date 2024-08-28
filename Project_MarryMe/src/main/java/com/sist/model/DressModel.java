@@ -169,15 +169,15 @@ public class DressModel {
         request.setAttribute("main_jsp", "../dress/suit_list.jsp");
         return "../main/main.jsp";
     }
-    
-    @RequestMapping("dress/suit_deteail_before.do")
+
+    @RequestMapping("dress/suit_detail_before.do")
     public String suit_detail_before(HttpServletRequest request, HttpServletResponse response) {
     	String su_no = request.getParameter("su_no");
     	Cookie cookie = new Cookie("suit_" + su_no, su_no);
     	cookie.setMaxAge(60 * 60 * 24);
     	cookie.setPath("/");
     	response.addCookie(cookie);
-    	return "redirect:../dress/suit_detail.do?su_no=" + su_no;
+    	return "redirect:../dress/suit_detail.do?su_no="+su_no;
     }
     
     // 수트 상세 보기 화면을 처리하는 메서드
