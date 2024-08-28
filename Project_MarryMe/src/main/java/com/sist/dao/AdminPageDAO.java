@@ -1,5 +1,5 @@
 package com.sist.dao;
 
-public class AdminDAO {
+public class AdminPageDAO {
 
 }

@@ -14,7 +14,7 @@ import lombok.Data;
 @Data
 public class QnaVO {
 	private int qna_no,cate,tab,group_id,pno,num,groupCount;
-	private String msg,dbday,id,pwd;
-	private Date regdate;
+	private String msg,dbday,id,pwd,reply_msg;
+	private Date regdate,replyDate;
 	private MemberVO mvo=new MemberVO();
 }

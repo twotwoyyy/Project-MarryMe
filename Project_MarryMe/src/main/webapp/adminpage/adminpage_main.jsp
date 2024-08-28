@@ -31,10 +31,10 @@
                 <h3></h3>
                 <ul>
                     <li><a href="../adminpage/member_list.do">회원 관리</a></li>
-                    <li><a href="../adminpage/notice_list.do">공지사항 관리</a></li>
+                    <li><a href="../notice/notice_list.do">공지사항 관리</a></li>
 <!--                     <li><a href="#">리뷰 관리</a></li> -->
                     <li><a href="../adminpage/adminpage_reserve.do">예약 관리</a></li>
-                    <li><a href="../adminpage/qna_list.do">QnA 관리</a></li>
+                    <li><a href="../adminpage/adminpage_qna.do">QnA 관리</a></li>
                 </ul>
             </div>
 <!--             <div id="adminmenu"> -->

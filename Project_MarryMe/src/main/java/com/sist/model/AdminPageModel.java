@@ -37,107 +37,6 @@ public class AdminPageModel {
 		
 		return "../main/main.do";
 	}
-
-	@RequestMapping("adminpage/notice_list.do")
-	   public String notice_list(HttpServletRequest request,HttpServletResponse response)
-	   {
-		   String page=request.getParameter("page");
-		   if(page==null)
-			   page="1";
-		   int curpage=Integer.parseInt(page);
-		   int rowSize=15;
-		   int start=(rowSize*curpage)-(rowSize-1);
-		   int end=rowSize*curpage;
-		   Map map=new HashMap();
-		   map.put("start", start);
-		   map.put("end", end);
-		   
-		   List<NoticeVO> list=NoticeDAO.noticeListData(map);
-		   for(NoticeVO vo:list)
-		   {
-			   vo.setNotice_type(types[vo.getType()]);
-		   }
-		   int count=NoticeDAO.noticeTotal();
-		   int totalpage=(int)(Math.ceil(count/15.0));
-		   count=count-((curpage*rowSize)-rowSize);
-		   
-		   request.setAttribute("curpage", curpage);
-		   request.setAttribute("totalpage", totalpage);
-		   request.setAttribute("count", count);
-		   request.setAttribute("noticeList", list);
-		   
-		   request.setAttribute("admin_jsp", "../notice/notice_list.jsp");
-		   request.setAttribute("main_jsp", "../adminpage/adminpage_main.jsp");
-		   
-		   return "../main/main.jsp";
-	   }
-	   
-	   @RequestMapping("adminpage/notice_insert.do")
-	   public String notice_insert(HttpServletRequest request,HttpServletResponse response)
-	   {
-		   request.setAttribute("admin_jsp", "../notice/notice_insert.jsp");
-		   request.setAttribute("main_jsp", "../adminpage/adminpage_main.jsp");
-		   return "../main/main.jsp";
-	   }
-	   
-	   @RequestMapping("adminpage/notice_insert_ok.do")
-	   public String notice_insert_ok(HttpServletRequest request,HttpServletResponse response)
-	   {
-		   try
-		   {
-			   request.setCharacterEncoding("UTF-8");
-		   }catch(Exception ex) {}
-		   String type=request.getParameter("type");
-		   String subject=request.getParameter("subject");
-		   String content=request.getParameter("content");
-		   NoticeVO vo=new NoticeVO();
-		   vo.setType(Integer.parseInt(type));
-		   vo.setSubject(subject);
-		   vo.setContent(content);
-		   NoticeDAO.noticeInsert(vo);
-		   return "redirect:../adminpage/notice_list.do";
-	   }
-	   
-	   @RequestMapping("adminpage/notice_update.do")
-	   public String notice_update(HttpServletRequest request,HttpServletResponse response)
-	   {
-		   String no=request.getParameter("no");
-		   NoticeVO vo=NoticeDAO.noticeUpdateData(Integer.parseInt(no));
-		   request.setAttribute("vo", vo);
-		   request.setAttribute("admin_jsp", "../notice/notice_update.jsp");
-		   request.setAttribute("main_jsp", "../adminpage/adminpage_main.jsp");
-		   return "../main/main.jsp";
-	   }
-	   
-	   @RequestMapping("adminpage/notice_update_ok.do")
-	   public String notice_update_ok(HttpServletRequest request,HttpServletResponse response)
-	   {
-		   try
-		   {
-			   request.setCharacterEncoding("UTF-8");
-		   }catch(Exception ex) {}
-		   String type=request.getParameter("type");
-		   String subject=request.getParameter("subject");
-		   String content=request.getParameter("content");
-		   String no=request.getParameter("no");//update,delete
-		   NoticeVO vo=new NoticeVO();
-		   vo.setType(Integer.parseInt(type));
-		   vo.setSubject(subject);
-		   vo.setContent(content);
-		   vo.setNo(Integer.parseInt(no));
-		   // DB연동 
-		   NoticeDAO.noticeUpdate(vo);
-		   return "redirect:../adminpage/notice_list.do";
-	   }
-	   
-	   @RequestMapping("adminpage/notice_delete.do")
-	   public String notice_delete(HttpServletRequest request,HttpServletResponse response)
-	   {
-		   String no=request.getParameter("no");
-		   //DB연동 
-		   NoticeDAO.noticeDelete(Integer.parseInt(no));
-		   return "redirect:../adminpage/notice_list.do";
-	   }
 	   
 	   @RequestMapping("adminpage/reply_insert.do")
 	   public String reply_insert(HttpServletRequest request,HttpServletResponse response)
@@ -150,21 +49,50 @@ public class AdminPageModel {
 		   return "../main/main.jsp";
 	   }
 	   
-	   @RequestMapping("adminpage/qna_list.do")
-	   public String qna_list(HttpServletRequest request,HttpServletResponse response)
-	   {
-		  String no=request.getParameter("no");
-		  String page=request.getParameter("page");
-		  if(page==null) {
-			  page="1";
-		  }
-		  int curpage=Integer.parseInt(page);
-		   request.setAttribute("no", no);
-		   request.setAttribute("pno", 2);
-		   request.setAttribute("cate", 6);
-		   request.setAttribute("curpate", curpage);
-		   request.setAttribute("admin_jsp", "../adminpage/admin_qna.jsp");
-		   request.setAttribute("main_jsp", "../adminpage/adminpage_main.jsp");
+	   @RequestMapping("adminpage/adminpage_qna.do")
+	   public String qna_list(HttpServletRequest request,HttpServletResponse response) {
+		   	HttpSession session=request.getSession();
+			String id=(String)session.getAttribute("id");
+			String group_id=request.getParameter("group_id");
+			if(group_id==null)
+				group_id="1";
+			String page=request.getParameter("page");
+			if(page==null)
+				page="1";
+			int curpage=Integer.parseInt(page);
+			Map map=new HashMap();
+			map.put("id", id);
+			map.put("start", (curpage*10)-9);
+			map.put("end", curpage*10);
+
+			List<QnaVO> list=QnaDAO.adminQnaListData(map);
+		    List<QnaVO> relist = new ArrayList();
+		    for (QnaVO qna : list) {
+		        int groupId = qna.getGroup_id();
+		        List<QnaVO> replies = QnaDAO.adminQnaListReData(groupId);
+		        relist.addAll(replies); // 답변 리스트를 모읍니다
+		    }
+
+			int count = QnaDAO.adminQnaTotalPage(id);
+			int total = count;
+					
+			int totalpage = (int)(Math.ceil(count/10.0));
+			count = count - ((curpage * 10) - 10);
+
+			for (QnaVO qna : list) {
+			    int groupCount = QnaDAO.getGroupIdCount(qna.getGroup_id());  // group_id를 사용하여 count 조회
+			    qna.setGroupCount(groupCount);  // 조회된 count 값을 QnaVO 객체에 설정
+			}
+			request.setAttribute("total", total);
+			request.setAttribute("count", count);
+			request.setAttribute("adminqSize", list.size());
+			request.setAttribute("curpage", curpage);
+			request.setAttribute("totalpage", totalpage);
+			request.setAttribute("adminqList", list);
+			request.setAttribute("reList", relist);
+			request.setAttribute("title", "문의 내역");
+			request.setAttribute("admin_jsp", "../adminpage/adminpage_qna.jsp");
+			request.setAttribute("main_jsp", "../adminpage/adminpage_main.jsp");
 
 		   return "../main/main.jsp";
 	   }

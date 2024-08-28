@@ -198,5 +198,82 @@ public class QnaDAO {
 		}
 		return groupCount;
 	}
-
+	
+	// 관리자 페이지 QnA 목록
+	public static List<QnaVO> adminQnaListData(Map map){
+		List<QnaVO> list = new ArrayList<QnaVO>();
+		SqlSession session = null;
+		try {
+		session = ssf.openSession();
+		list = session.selectList("adminQnaListData",map);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (session != null)
+				session.close();
+		}
+		return list;
+	}
+	
+	public static List<QnaVO> adminQnaListReData(int group_id){
+		List<QnaVO> list = new ArrayList<QnaVO>();
+		SqlSession session = null;
+		try {
+			session = ssf.openSession();
+			list = session.selectList("adminQnaListReData",group_id);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return list;
+	}
+	
+	// tab Count로 총 답변 개수를 출력
+	public static int getTabCount(int tab) {
+		int tabCount = 0;
+		SqlSession session=null;
+		try {
+			session=ssf.openSession();
+			tabCount = session.selectOne("getTabCount",tab);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return tabCount;
+	}
+	
+	// 관리자 페이지 QnA 총 페이지
+	public static int adminQnaTotalPage(String id) {
+		int total = 0;
+		SqlSession session = null;
+		try {
+			session = ssf.openSession();
+			total = session.selectOne("adminQnaTotalPage",id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(session != null)
+				session.close();
+		}
+		return total;
+	}
+	
+	// QnA 답변을 출력하는 기능
+	public static void qnaReplyInsert(QnaVO vo) {
+	    SqlSession session = null;
+	    try {
+	        session = ssf.openSession();
+	        session.insert("qnaReplyInsert", vo);
+	        session.commit();
+	    } catch (Exception ex) {
+	        ex.printStackTrace();
+	    } finally {
+	        if (session != null)
+	            session.close();
+	    }
+	}
 }

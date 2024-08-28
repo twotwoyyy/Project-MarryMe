@@ -237,7 +237,8 @@ public class QnaModel {
 			PrintWriter out=response.getWriter();
 			out.write(result);
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 	}
+	
+	
 }
