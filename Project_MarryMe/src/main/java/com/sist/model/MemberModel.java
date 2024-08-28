@@ -28,6 +28,10 @@ public class MemberModel {
 			session.setAttribute("id", vo.getId());
 			session.setAttribute("name", vo.getName());
 			session.setAttribute("admin", vo.getAdmin());
+			session.setAttribute("phone", vo.getPhone());
+			session.setAttribute("address", vo.getAddress1());
+			session.setAttribute("email", vo.getEmail());
+			session.setAttribute("post", vo.getPost());
 			if(vo.getGender().equals("선택안함")) {
 				session.setAttribute("gender", "");				
 			}else {

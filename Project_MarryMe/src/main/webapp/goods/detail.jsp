@@ -172,7 +172,7 @@ function requestPay(json,name,price) {
         buyer_addr: json.address,
         buyer_postcode: json.post
     }, function (rsp) { // callback
-    	location.href='http://localhost/JSPLastProject/mypage/mypage_buy.do' 
+    	location.href='http://localhost/Project_MarryMe/mypage/mypage_buy.do' 
     });
 }
 </script>
@@ -337,7 +337,7 @@ function requestPay(json,name,price) {
                             <button class="share">share link</button>
                         </div>
                     </div>
-                    <form method="POST" action="">
+                    <form method="POST" action="../goods/cart_insert.do">
                         <div class="date">
                           <div style="display: grid;">
                             <c:if test="${vo.discount!='할인없음' }">
@@ -364,9 +364,12 @@ function requestPay(json,name,price) {
                         	
                         	<span id="total">${vo.price}</span>
                         
-                        </div>  
-                      <a href="#" class="buyBtn" style="float: left ;margin-right: 20px">장바구니</a>
-                      <a href="#" class="buyBtn" id="buy">바로구매</a>
+                        </div>
+                        <input type="hidden" name="gno" value="${pno}" id="gno">
+		        		<input type="hidden" name="price" value="${vo.price}" id="price2">
+		                <input type="hidden" name="account" value="" id="account">
+		        	    <input type="submit"  class="buyBtn" value="장바구니" id="cart" style="float: left ;margin-right: 20px">
+                      	<a href="#" class="buyBtn" id="buy">바로구매</a>
                     </form>
                 </aside>
             </div>

@@ -179,4 +179,5 @@ public class GoodsModel {
 		request.setAttribute("main_jsp", "../goods/detail.jsp");
 		return "../main/main.jsp";
 	}
+	
 }

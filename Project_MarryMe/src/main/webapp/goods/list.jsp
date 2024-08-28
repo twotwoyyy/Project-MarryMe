@@ -57,7 +57,7 @@
 	            <div class="latest_slide">
 				<c:forEach var="cvo" items="${cookieList}">
 				    <div class="slides">
-				        <a href="../goods/detail.do?pno=${cvo.mgno}">
+				        <a href="../goods/detail.do?pno=${cvo.mgno}&cate=6">
 				            <div class="img_wrap">
 				                <img src="${cvo.poster }" alt="">
 				            </div>

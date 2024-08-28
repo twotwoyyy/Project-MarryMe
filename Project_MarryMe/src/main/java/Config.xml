@@ -19,6 +19,7 @@
 		<typeAlias type="com.sist.vo.SuitVO" alias="SuitVO"/>
 		<typeAlias type="com.sist.vo.WishVO" alias="WishVO"/>
 		<typeAlias type="com.sist.vo.ReserveVO" alias="ReserveVO"/>
+		<typeAlias type="com.sist.vo.CartVO" alias="CartVO"/>
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
@@ -44,5 +45,6 @@
 		<mapper resource="com/sist/mapper/reserve-mapper.xml"/>
 		<mapper resource="com/sist/mapper/find-mapper.xml"/>
 		<mapper resource="com/sist/mapper/admin-mapper.xml"/>
+		<mapper resource="com/sist/mapper/cart-mapper.xml"/>
 	</mappers>
 </configuration>
