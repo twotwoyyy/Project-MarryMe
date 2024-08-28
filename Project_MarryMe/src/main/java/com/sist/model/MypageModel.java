@@ -184,9 +184,9 @@ public class MypageModel {
 
 		HttpSession session=request.getSession();
 		String id=(String)session.getAttribute("id");
-		String group_id=request.getParameter("group_id");
-		if(group_id==null)
-			group_id="1";
+//		String group_id=request.getParameter("group_id");
+//		if(group_id==null)
+//			group_id="1";
 		String page=request.getParameter("page");
 		if(page==null)
 			page="1";
@@ -227,8 +227,8 @@ public class MypageModel {
 	@RequestMapping("mypage/mypage_qna_delete.do")
 	public String mypage_qna_delete(HttpServletRequest request, HttpServletResponse response) {
 
-		String qna_no=request.getParameter("qna_no");
-		QnaDAO.mypageQnaDelete(Integer.parseInt(qna_no));
+		String qna_groupid=request.getParameter("qna_groupid");
+		QnaDAO.mypageQnaDelete(Integer.parseInt(qna_groupid));
 		return "redirect:../mypage/mypage_qna.do";
 	}
 	

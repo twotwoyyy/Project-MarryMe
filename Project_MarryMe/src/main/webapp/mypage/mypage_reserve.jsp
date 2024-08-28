@@ -58,6 +58,24 @@
             overflow: hidden;
             box-sizing: border-box;
         }
+        .reservedetail .stline.past{
+        	position:relative;
+        }
+        .reservedetail .stline.past::after{
+        	content:'이미 지난 예약입니다';
+        	width:100%;
+        	height:100%;
+        	display:flex;
+        	justify-content:center;
+        	align-items:center;
+        	font-size:20px;
+        	font-weight:500;
+        	color:#dcdcdc;
+        	background:rgba(0,0,0,.5);
+        	position:absolute;
+        	top:0; bottom:0; left:0; right:0;
+      		z-index:1
+        }
         .reserveimage img {
             width: 100px;
             height: auto;
@@ -84,7 +102,6 @@
             height: 50px;
             border: 1px solid #e7e7e7;
             border-radius: 5px;
-            cursor: pointer;
             text-align: center;
             line-height: 50px;
             font-size: 16px;
@@ -94,6 +111,9 @@
         .rebtn .cancel {
             background-color:  #FF5A5A;;
             color: white;
+            cursor: pointer;
+            position:relative;
+            z-index:2;
         }
         
 
@@ -148,6 +168,33 @@
                     $(this).text('예약 대기');
                 }
             });
+            
+            //지난 예약
+            let today=new Date(),
+            	year = today.getFullYear(),
+            	month = ('0' + (today.getMonth() + 1)).slice(-2),
+           		day = ('0' + today.getDate()).slice(-2);
+            let rdate=$('.stline .ws_info .tel .rdate')
+            rdate.each(function(){
+            	let target=$(this).text();
+            	let temp=target.split('-');
+   				let ryear=temp[0],
+   					rmonth=temp[1],
+   					rday=temp[2];
+            	if(year>ryear){
+            		$(this).parents('.stline').addClass("past");
+            	}else if(year==ryear){
+            		if(month>rmonth){
+            			$(this).parents('.stline').addClass("past");
+            		}else if(month==rmonth){
+            			if(day>rday){
+            				$(this).parents('.stline').addClass("past");
+            			}
+            		}
+            	}
+            			
+            	
+            })
         });
         
         
@@ -182,12 +229,12 @@
                                         <span>${vo.hvo.name}</span>
                                     </div>
                                     <div class="tel">
-                                    <div class="date-info">☎ ${vo.hvo.addr}</div>
-                                        <div class="date-info" style="color:red">예약일: ${vo.rdate}</div>
+	                                    <div class="date-info">☎ ${vo.hvo.addr}</div>
+                                        <div class="date-info" style="color:red">예약일: <span class="rdate">${vo.rdate}</span></div>
                                         <div class="date-info" style="color:green">예약시간: ${vo.rtime }</div>
                                         <div class="date-info">등록일: ${vo.dbday}</div>
-                                    </div>
-                                </div>
+	                                </div>
+	                            </div>
                                 <div class="rebtn">
                                     <button class="status-button" data-confirm="${vo.confirm}">예약 대기</button>
                                     <button class="cancel" data-href="${vo.resno}">예약 취소</button>
@@ -220,7 +267,7 @@
                                         <span>${vo.dvo.d_subject}</span>
                                     </div>
                                     <div class="tel">
-                                        <div class="date-info" style="color:red">예약일: ${vo.rdate}</div>
+                                        <div class="date-info" style="color:red">예약일: <span class="rdate">${vo.rdate}</span></div>
                                         <div class="date-info" style="color:green">예약시간: ${vo.rtime }</div>
                                         <div class="date-info">등록일: ${vo.dbday}</div>
                                     </div>
@@ -258,7 +305,7 @@
                                         <span>${vo.suvo.su_subject}</span>
                                     </div>
                                     <div class="tel">
-                                        <div class="date-info" style="color:red">예약일: ${vo.rdate}</div>
+                                        <div class="date-info" style="color:red">예약일: <span class="rdate">${vo.rdate}</span></div>
                                         <div class="date-info" style="color:green">예약시간: ${vo.rtime }</div>
                                         <div class="date-info">등록일: ${vo.dbday}</div>
                                     </div>
@@ -297,7 +344,7 @@
                                     </div>
                                     <div class="tel"> 
                                     <div class="date-info">☎ ${vo.svo.address}</div>
-                                        <div class="date-info" style="color:red">예약일: ${vo.rdate}</div>
+                                        <div class="date-info" style="color:red">예약일: <span class="rdate">${vo.rdate}</span></div>
                                         <div class="date-info" style="color:green">예약시간: ${vo.rtime }</div>
                                         <div class="date-info">등록일: ${vo.dbday}</div>
                                     </div>
@@ -335,7 +382,7 @@
                                     </div>
                                     <div class="tel">
                                     	<div class="date-info">☎ ${vo.mvo.address}</div>
-                                        <div class="date-info" style="color:red">예약일: ${vo.rdate}</div>
+                                        <div class="date-info" style="color:red">예약일: <span class="rdate">${vo.rdate}</span></div>
                                         <div class="date-info" style="color:green">예약시간: ${vo.rtime }</div>
                                         <div class="date-info">등록일: ${vo.dbday}</div>
                                     </div>

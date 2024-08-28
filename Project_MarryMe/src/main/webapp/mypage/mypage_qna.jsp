@@ -139,6 +139,7 @@
         }
     </style>
     <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
     <script type="text/javascript">
     $(function() {
         $('.btn-msg').click(function() {
@@ -155,8 +156,19 @@
 
         $('.btn-delete').click(function() {
             if (confirm('문의 글을 삭제하시겠습니까?')) {
-                let qna_no = $(this).data('href');
-                location.href = "../mypage/mypage_qna_delete.do?qna_no=" + qna_no;
+                let qna_groupid = $(this).attr('data-delete');
+                $.ajax({
+                	type:'POST',
+                	url:'../mypage/mypage_qna_delete.do',
+                	data:{"qna_groupid":qna_groupid},
+                	success:function(result){
+                		alert("문의가 삭제되었습니다")
+                		location.href="../mypage/mypage_qna.do";
+                	},
+                	error:function(request, status, error){
+                		console.log(error)
+                	}
+                })
             }
         });
     });
@@ -220,7 +232,7 @@
                             </c:choose>
                         </td>
                         <td>
-                            <button class="btn-delete" data-href="${qna.qna_no}">삭제</button>
+                            <button class="btn-delete" data-delete="${qna.group_id}">삭제</button>
                         </td>
                     </tr>
                   <c:forEach var="reply" items="${reList}">

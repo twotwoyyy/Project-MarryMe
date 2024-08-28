@@ -84,7 +84,7 @@
  	</select>
  	<delete id="mypageQnaDelete" parameterType="int">
  		DELETE FROM qna
- 		WHERE qna_no=#{qna_no}
+ 		WHERE group_id=#{group_id}
  	</delete>
 
  	<select id="getGroupIdCount" resultType="int">
@@ -92,45 +92,4 @@
         FROM qna
         WHERE group_id = #{gid}
     </select>
-    
-    	<!-- 관리자 페이지 qna 목록 -->
- 	<select id="adminQnaListData" resultType="QnaVO" parameterType="hashmap">
- 	 	SELECT qna_no,msg,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,cate,group_id,tab,pno,num
- 		FROM (SELECT qna_no,msg,regdate,cate,group_id,tab,pno,rownum as num
- 		FROM (SELECT qna_no,msg,qna.regdate as regdate,cate,group_id,tab,pno
- 		FROM qna
-<!--  		WHERE id=#{id} -->
-	    WHERE id != 'hong'
- 		ORDER BY tab DESC))
- 		WHERE num BETWEEN #{start} AND #{end}
- 	</select>
- 	<select id="adminQnaListReData" resultType="QnaVO" parameterType="int">
- 		SELECT qna_no,msg,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,cate,group_id,tab,num
- 		FROM (SELECT qna_no,msg,regdate,cate,group_id,tab,rownum as num
- 		FROM (SELECT qna_no,msg,qna.regdate as regdate,cate,group_id,tab
- 		FROM qna
-	    WHERE id != 'hong'
- 		ORDER BY tab DESC))
- 	</select>
- 	<select id="adminQnaTotalPage" resultType="int" parameterType="string">
- 		SELECT COUNT(*) i
- 		FROM qna
-	    WHERE id != 'hong'
- 	</select>
- 	<delete id="adminQnaDelete" parameterType="int">
- 		DELETE FROM qna
-	    WHERE id != 'hong'
- 	</delete>
- 	<select id="getTabCount" resultType="int">
-        SELECT COUNT(*) AS re
-        FROM qna
-        WHERE Tab = #{tab}
-    </select>
-    
-    <!-- 관리자 답변을 저장? -->
-	<insert id="qnaReplyInsert" parameterType="QnaVO">
-	    INSERT INTO qna_reply (qna_no, reply_msg, reply_date)
-	    VALUES (#{qna_no}, #{reply_msg}, SYSDATE, 'hong')
-	</insert>
-    
 </mapper>
