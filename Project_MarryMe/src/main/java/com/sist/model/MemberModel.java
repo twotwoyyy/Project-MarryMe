@@ -236,9 +236,9 @@ public class MemberModel {
 	// AdminListData
 	@RequestMapping("adminpage/member_list.do")
 	   public String memberListData(HttpServletRequest request,HttpServletResponse response) {
-			HttpSession session=request.getSession();
-			String name = (String)session.getAttribute("name");
-			
+			try {
+			String name = (String)request.getAttribute("name");
+			System.out.println("112");
 			String page = request.getParameter("page");
 			if (page == null)
 				page = "1";
@@ -246,23 +246,30 @@ public class MemberModel {
 			
 			Map map = new HashMap();
 			map.put("name", name);
-			map.put("start", (curpage * 10) - 9);
-			map.put("end", curpage * 10);
-//			******************************************** 여기부터
-			int nCount = MemberDAO.memberListData(name);
+//			map.put("start", (curpage * 10) - 9);
+//			map.put("end", curpage * 10);
+//			List<MemberVO> list = MemberDAO.memberListData(map);
+			List<MemberVO> voList = MemberDAO.memberListData(map);
 			
-			int total = count;
-			int totalpage = (int)(Math.ceil(count/10.0));
-			count = count - ((curpage * 10) - 10);
 			
-			request.setAttribute("total", total);
-			request.setAttribute("nCount", count);
-			request.setAttribute("adminqSize", list.size());
-			request.setAttribute("curpage", curpage);
-			request.setAttribute("totalpage", totalpage);
-			request.setAttribute("adminqList", list);
-			request.setAttribute("title", "문의 내역");
-			request.setAttribute("admin_jsp", "../adminpage/adminpage_qna.jsp");
+//			int mCount = 0;
+//			int count = MemberDAO.memberTotalPage(mCount);
+//			
+//			int total = count;
+//			int totalpage = (int)(Math.ceil(count/10.0));
+//			count = count - ((curpage * 10) - 10);
+			
+//			request.setAttribute("total", total);
+//			request.setAttribute("nCount", count);
+//			request.setAttribute("memberSize", list.size());
+//			request.setAttribute("curpage", curpage);
+//			request.setAttribute("totalpage", totalpage);
+			request.setAttribute("voList", voList);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			request.setAttribute("title", "회원 목록");
+			request.setAttribute("admin_jsp", "../adminpage/member_list.jsp");
 			request.setAttribute("main_jsp", "../adminpage/adminpage_main.jsp");
 
 		   return "../main/main.jsp";

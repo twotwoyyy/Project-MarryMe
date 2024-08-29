@@ -182,23 +182,24 @@
                     <th>아이디</th>
                     <th>이름</th>
                     <th>성별</th>
-                    <th>나이</th>
                     <th>주소</th>
+                    <th>상세 주소</th>
                     <th>주소</th>
+                    <th>관리자</th>
                 </tr>
             </thead>
             <tbody class="rList">
             <c:set var="i" value="디귿"/>
-                <c:forEach var="y" items="이응">
+                <c:forEach var="vo" items="${voList}">
                     <tr id="myr">
-                        <td>${aqp}</td>
-                        <td> 아이디 </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
+                        <td></td>
+                        <td>${vo.id }</td>
+                        <td>${vo.name }</td>
+                        <td>${vo.gender } </td>
+                        <td>${vo. address1} </td>
+                        <td>${vo.address2 }</td>
+                        <td>${vo.post }</td>
+                        <td>${vo.admin }</td>
                     </tr>
 				    <!-- 기존 답변 내용 -->
 				    

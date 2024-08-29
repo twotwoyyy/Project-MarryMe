@@ -1,55 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sist.mapper.member-mapper">
-	<select id="memberIdCheck" resultType="int" parameterType="string">
+	<select id="memberIdCheck" resultType="int"
+		parameterType="string">
 		SELECT COUNT(*) FROM member WHERE id=#{id}
 	</select>
 	<insert id="memberInsert" parameterType="MemberVO">
-		INSERT INTO member VALUES(#{id}, #{pw}, #{name}, #{phone}, #{email}, #{post}, #{address1}, #{address2}, #{gender}, #{weddingday}, 'n', SYSDATE)
+		INSERT INTO member
+		VALUES(#{id}, #{pw}, #{name}, #{phone}, #{email}, #{post},
+		#{address1}, #{address2}, #{gender}, #{weddingday}, 'n', SYSDATE)
 	</insert>
-	
-	<select id="memberLoginData" resultType="MemberVO" parameterType="string">
+
+	<select id="memberLoginData" resultType="MemberVO"
+		parameterType="string">
 		SELECT * FROM member WHERE id=#{id}
 	</select>
-	
- 	<select id="memberUpdateData" resultType="MemberVO" parameterType="string">
- 		SELECT id,name,phone,email,post,address1,address2,gender,weddingday
- 		FROM member
- 		WHERE id=#{id}
- 	</select>
- 	
- 	<select id="memberIdFindCount" resultType="int" parameterType="MemberVO">
- 		SELECT COUNT(*) FROM member
- 		WHERE name=#{name} AND (email=#{email} OR phone=#{phone})
- 	</select>
- 	<select id="memberIdFindData" resultType="string" parameterType="MemberVO">
- 		SELECT RPAD(SUBSTR(id,1,2),LENGTH(id),'*') FROM member
- 		WHERE name=#{name} AND (email=#{email} OR phone=#{phone})
- 	</select>
- 	<select id="memberPwFindCount" resultType="int" parameterType="MemberVO">
- 		SELECT COUNT(*) FROM member
- 		WHERE id=#{id} AND name=#{name} AND (email=#{email} OR phone=#{phone})
- 	</select>
- 	<select id="memberPwFindData" resultType="string" parameterType="MemberVO">
- 		SELECT pw FROM member
- 		WHERE id=#{id} AND name=#{name} AND (email=#{email} OR phone=#{phone})
- 	</select>
- 	<select id="memberGetEmail" resultType="string" parameterType="MemberVO">
- 		SELECT email FROM member
- 		WHERE id=#{id} AND name=#{name} 
- 	</select>
- 	
- 	<select id="memberGetPassword" resultType="string" parameterType="string">
-        SELECT pw FROM member
-        WHERE id=#{id}
-    </select>
-    <update id="memberUpdate" parameterType="MemberVO">
-        UPDATE member SET
-        name=#{name}, phone=#{phone}, email=#{email},
-        post=#{post}, address1=#{address1}, address2=#{address2}, gender=#{gender}, weddingday=#{weddingday}
-        WHERE id=#{id}
-    </update>
-	<select id="pwCheckData" resultType="int" parameterType="java.util.Map">
+
+	<select id="memberUpdateData" resultType="MemberVO"
+		parameterType="string">
+		SELECT id,name,phone,email,post,address1,address2,gender,weddingday
+		FROM member
+		WHERE id=#{id}
+	</select>
+
+	<select id="memberIdFindCount" resultType="int"
+		parameterType="MemberVO">
+		SELECT COUNT(*) FROM member
+		WHERE name=#{name} AND (email=#{email} OR phone=#{phone})
+	</select>
+	<select id="memberIdFindData" resultType="string"
+		parameterType="MemberVO">
+		SELECT RPAD(SUBSTR(id,1,2),LENGTH(id),'*') FROM member
+		WHERE name=#{name} AND (email=#{email} OR phone=#{phone})
+	</select>
+	<select id="memberPwFindCount" resultType="int"
+		parameterType="MemberVO">
+		SELECT COUNT(*) FROM member
+		WHERE id=#{id} AND name=#{name} AND (email=#{email} OR phone=#{phone})
+	</select>
+	<select id="memberPwFindData" resultType="string"
+		parameterType="MemberVO">
+		SELECT pw FROM member
+		WHERE id=#{id} AND name=#{name} AND (email=#{email} OR phone=#{phone})
+	</select>
+	<select id="memberGetEmail" resultType="string"
+		parameterType="MemberVO">
+		SELECT email FROM member
+		WHERE id=#{id} AND name=#{name}
+	</select>
+
+	<select id="memberGetPassword" resultType="string"
+		parameterType="string">
+		SELECT pw FROM member
+		WHERE id=#{id}
+	</select>
+	<update id="memberUpdate" parameterType="MemberVO">
+		UPDATE member SET
+		name=#{name}, phone=#{phone}, email=#{email},
+		post=#{post}, address1=#{address1}, address2=#{address2}, gender=#{gender},
+		weddingday=#{weddingday}
+		WHERE id=#{id}
+	</update>
+	<select id="pwCheckData" resultType="int"
+		parameterType="java.util.Map">
 		SELECT COUNT(*) FROM member
 		WHERE id=#{id} AND pw=#{pw}
 	</select>
@@ -64,29 +77,35 @@
 		WHERE id=#{id}
 	</delete>
 	<delete id="memberReserveDelete" parameterType="string">
-		DELETE FROM reserve
+		DELETE FROM
+		reserve
 		WHERE id=#{id}
 	</delete>
 	<delete id="memberQnaDelete" parameterType="string">
 		DELETE FROM qna
-		WHERE id=#{id}
+		WHERE
+		id=#{id}
 	</delete>
 	<delete id="memberWishDelete" parameterType="string">
-		DELETE FROM wish_list
+		DELETE FROM
+		wish_list
 		WHERE id=#{id}
 	</delete>
 	<delete id="memberTotalDelete" parameterType="string">
 		DELETE FROM member
 		WHERE id=#{id}
 	</delete>
-	
-	<select id="memberListData" resultType="MemberVO" parameterType="HashMap">
-		SELECT id, name, gender, phone, address1, address2, post, admin, num
-		FROM (SELECT id, name, gender, phone, address1, address2, post, admin, rownum as num
-		FROM (SELECT id, name, gender, phone, address1, address2, post, admin
-		FROM member WHERE name=#{name}
-		ORDER BY name ASC))
-		WHERE num BETWEEN #{start} AND #{end};
+
+	<select id="memberListData" resultType="MemberVO"
+		parameterType="HashMap">
+		SELECT id, name, gender, phone, address1, address2,
+		post, admin
+		FROM member
 	</select>
-	
+
+	<select id="memberTotalPage" resultType="int">
+		SELECT COUNT(*) i
+		FROM member
+	</select>
+
 </mapper>

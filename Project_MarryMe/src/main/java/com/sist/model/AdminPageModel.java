@@ -29,17 +29,6 @@ public class AdminPageModel {
 		return "../main/main.jsp";
 	}
 	
-	@RequestMapping("adminpage/member_list.do")
-	public String member_list(HttpServletRequest request, HttpServletResponse response) {
-		
-
-		request.setAttribute("admin_jsp", "../adminpage/member_list.jsp");
-		request.setAttribute("main_jsp", "../adminpage/adminpage_main.jsp");
-		
-		return "../main/main.jsp";
-	}
-	   
-	
 	   @RequestMapping("adminpage/adminpage_qna.do")
 	   public String qna_list(HttpServletRequest request,HttpServletResponse response) {
 		   	HttpSession session=request.getSession();

@@ -362,6 +362,7 @@ public class MemberDAO {
 		</select>
 	 *
 	 */
+	// 회원 목록을 출력하는 메서드
 	public static List<MemberVO> memberListData(Map map) {
 		List<MemberVO> list = new ArrayList<MemberVO>();
 		SqlSession session = null;
@@ -375,5 +376,29 @@ public class MemberDAO {
 	            session.close();
 		}
 		return list;
+	}
+	
+	
+	/*
+	 * 	<select id="memberTotalPage" resultType="int">
+	 		SELECT COUNT(*) i
+	 		FROM member
+	 	</select>
+	 * 
+	 */
+	// 총 회원 목록 출력 메서드
+	public static int memberTotalPage(int mCount) {
+		int total = 0;
+	      SqlSession session = null;
+	      try {
+	         session = ssf.openSession();
+	         total = session.selectOne("memberTotalPage", mCount);
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         if(session != null)
+	            session.close();
+	      }
+		return total;
 	}
 }
