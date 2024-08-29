@@ -259,4 +259,23 @@ public class CartDAO {
 					   session.close();
 			   }
 		   }
+		   
+		   public static int cartListCount(String id) {
+			   int count=0;
+			   SqlSession session=null;
+			   try
+			   {
+				   session=ssf.openSession();
+				   count=session.selectOne("cartListCount", id);
+			   }catch(Exception ex)
+			   {
+				   ex.printStackTrace();
+			   }
+			   finally
+			   {
+				   if(session!=null)
+					   session.close();
+			   }
+			   return count;
+		   }
 }

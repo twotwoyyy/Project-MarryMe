@@ -212,4 +212,18 @@ public class CartModel {
 			  out.write("FAIL");
 		  }
 	  }
+	  
+	  @RequestMapping("main/cart_count.do")
+	  public void main_cart_count(HttpServletRequest request,HttpServletResponse response) {
+		  HttpSession session=request.getSession();
+		  String id=(String)session.getAttribute("id");
+		  if(id!=null) {
+			  int count=CartDAO.cartListCount(id);
+			  try {
+				  response.setContentType("text/html;charset=UTF-8");
+				  PrintWriter out=response.getWriter();
+				  out.write(String.valueOf(count));
+			  }catch(Exception ex) {}
+		  }
+	  }
 }

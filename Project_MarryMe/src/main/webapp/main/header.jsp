@@ -8,6 +8,16 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 $(function(){
+	$.ajax({
+		type:'POST',
+		url:'../main/cart_count.do',
+		success:function(result){
+			$('#header .right_menu .cart_count').text(result)
+		},
+		error:function(request, status, error){
+			console.log(error)
+		}
+	})
 	$('.search_btn').click(function(e){
 		if($('#header #search').val().trim()===""){
 			e.preventDefault();
@@ -68,7 +78,7 @@ $(function(){
                     	<li class="name"><span>${sessionScope.name}</span>${sessionScope.gender}님</li>
                     	<li><a href="../member/logout.do">로그아웃</a></li>
                     	<c:if test="${sessionScope.admin=='n'}">
-                    		<li><a href="../mypage/mypage_cart.do">장바구니</a></li>
+                    		<li class="cart"><a href="../mypage/mypage_cart.do">장바구니</a><span class="cart_count"></span></li>
 	                    	<li><a href="../mypage/mypage_main.do">마이페이지</a></li>
 	                    </c:if>
 	                    <c:if test="${sessionScope.admin=='y'}">

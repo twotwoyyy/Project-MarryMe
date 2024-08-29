@@ -12,6 +12,9 @@ $(function(){
 	readmore();
 	let find_tabs=$('#find .find_tab li'),
 		find_li=$('#find .find_list li');
+	if($('.find_list li').length===0){
+		$('.find_list').append('<li class="no_list">해당 카테고리에 검색결과가 없습니다<br><span>😢</span></li>');
+	}
 	find_tabs.click(function(){
 		let target=$(this).attr('data-cate')
 		find_tabs.removeClass('active');

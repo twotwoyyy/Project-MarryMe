@@ -261,6 +261,7 @@ main .viewmore:hover::after{
 }
 
 #notice table{
+	max-width:1200px;
     width:80%;
     border-spacing:0;
     border-bottom:1px solid #5B7B60;
@@ -269,7 +270,7 @@ main .viewmore:hover::after{
 }
 #notice table tr{
     display:grid;
-    grid-template-columns:1fr 2fr 8fr 1fr 1.5fr 1fr;
+    grid-template-columns:2fr 8fr 1fr 1.5fr 1fr;
     justify-items:center;
     align-items:center;
 }

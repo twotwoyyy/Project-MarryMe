@@ -145,7 +145,6 @@ $(function(){
            <table>
            	   <thead>
            	   		<tr>
-           	   			<th>번호</th>
            	   			<th>분류</th>
            	   			<th>제목</th>
            	   			<th>작성자</th>
@@ -156,7 +155,6 @@ $(function(){
            	   <tbody>
            	   		<c:forEach var="notice" items="${notice_list}" varStatus="num">
 	           	   		<tr>
-	           	   			<td>${5-num.index}</td>
 	           	   			<td class="cate"><span>${notice.notice_type}</span></td>
 	           	   			<td class="subject">
 	           	   				<a href="../notice/detail.do?no=${notice.no}">${notice.subject}</a>

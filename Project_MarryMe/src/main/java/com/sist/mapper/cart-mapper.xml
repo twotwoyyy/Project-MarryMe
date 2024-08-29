@@ -77,4 +77,9 @@
    DELETE FROM cart
    WHERE cart_no=#{cart_no}
   </delete>
+    <select id="cartListCount" resultType="int" parameterType="string">
+    SELECT COUNT(*) 
+    FROM cart
+    WHERE id=#{id} AND isbuy='n'
+  </select>
 </mapper>
