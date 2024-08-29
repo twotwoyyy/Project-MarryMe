@@ -238,7 +238,7 @@
                             </c:choose>
                         </td>
                         <td>
-						    <button class="btn-primary" onclick="location.href='../qna/admin_update.do?qna_no=${qna.qna_no}'">답변하기</button>
+						    <button class="btn-primary" onclick="location.href='../adminpage/adminpage_qna_insert.do?qna_no=${qna.qna_no}'">답변하기</button>
 						</td>
                     </tr>
 <!-- ********************************************* 지피티 긁어온 시작 부분 *************************************************** -->

@@ -93,6 +93,12 @@
         WHERE group_id = #{gid}
     </select>
     
+    <select id="adminQnaDetail2" parameterType="int" resultType="QnaVO">
+	 		SELECT qna_no,msg,TO_CHAR(qna.regdate,'YYYY-MM-DD:HH24:MI:SS') as dbday,cate,group_id,qna.id
+	 		FROM qna
+	 		WHERE qna_no = #{qna_no}
+	</select>
+	 	
     <!-- 관리자 페이지 qna 목록 -->
  	<select id="adminQnaListData" resultType="QnaVO" parameterType="hashmap">
  	 	SELECT qna_no,msg,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,cate,group_id,tab,pno,num
@@ -119,9 +125,10 @@
  		FROM qna
  		WHERE id != 'hong'
  	</select>
-	<select id="qnaUpdateData" resultType="QnaVO" parameterType="int">
-		SELECT qna_no,cate,hit,id,msg,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') as dbday 
-		FROM qna
-		WHERE qna_no=#{qna_no}
-	</select>
+	 	<insert id="adminQnaInsert" parameterType="QnaVO">
+	 		INSERT INTO qna VALUES((SELECT NVL(MAX(qna_no)+1,1) FROM qna),
+	 		 #{msg},SYSDATE,#{cate},(SELECT NVL(MAX(group_id)+1,1) FROM qna),#{tab},#{id},#{pno},#{pwd}
+	 		)
+	 	</insert>
+	 	
 </mapper>

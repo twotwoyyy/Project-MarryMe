@@ -184,7 +184,6 @@ public class QnaModel {
 			out.write(result);
 		} catch (Exception e) {
 			e.printStackTrace();
-			// TODO: handle exception
 		}
 	}
 	@RequestMapping("qna/userUpdate.do")
@@ -217,14 +216,14 @@ public class QnaModel {
 			// TODO: handle exception
 		}
 	}
-
-	// 관리자 문의 답변 (문의 상세보기)
-	@RequestMapping("qna/admin_update.do")
-	public String qna_update(HttpServletRequest request, HttpServletResponse response) {
-		String no = request.getParameter("no");
-		QnaVO vo = QnaDAO.qnaUpdateData(Integer.parseInt(no));
+	
+	@RequestMapping("adminpage/adminpage_qna_insert.do")
+	public String adminpage_qna_insert(HttpServletRequest request, HttpServletResponse response) {
+		String qna_no = request.getParameter("qna_no");
+		QnaVO vo = QnaDAO.adminQnaDetail2(Integer.parseInt(qna_no));
+		
 		request.setAttribute("vo", vo);
-		request.setAttribute("admin_jsp", "../qna/admin_update.jsp");
+		request.setAttribute("admin_jsp", "../adminpage/adminpage_qna_insert.jsp");
 		request.setAttribute("main_jsp", "../adminpage/adminpage_main.jsp");
 		return "../main/main.jsp";
 	}
