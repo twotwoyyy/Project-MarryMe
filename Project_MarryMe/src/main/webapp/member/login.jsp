@@ -27,7 +27,7 @@
 <link rel="stylesheet" href="../css/common.css">
 <link rel="stylesheet" href="../css/main.css">
 <link rel="stylesheet" href="../css/login.css">
-<title>Insert title here</title>
+<title>Project Marry me</title>
 <script type="text/javascript">
 $(function(){
 	$('.loginBtn').click(function(e){

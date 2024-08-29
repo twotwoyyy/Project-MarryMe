@@ -173,15 +173,14 @@ html .ui-button.ui-state-disabled:active{
     text-align:center;
     width:30px;
     height:30px;
-    line-height:30px;
+    line-height:32px;
     transition:.3s;
 }
 .ui-state-highlight, 
 .ui-widget-content .ui-state-highlight,
 .ui-widget-header .ui-state-highlight{
     font-weight:600;
-    background:#EFF3EA;
-    color:#303030;
+    color:#dcdcdc;
 }
 .ui-datepicker td span, .ui-datepicker td a:hover{
     border:1px solid #303A1F;
@@ -282,7 +281,7 @@ aside#idcheck_box .close{
 	top:10px;
 	right:10px;
 	font-size:20px;
-	padding:0 5px;
+	padding:3px 6px 0;
 	border:1px solid #303030;
 	cursor:pointer;
 }
