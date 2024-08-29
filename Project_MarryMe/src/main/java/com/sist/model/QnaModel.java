@@ -216,6 +216,30 @@ public class QnaModel {
 			// TODO: handle exception
 		}
 	}
+	@RequestMapping("qna/delete.do")
+	public void qna_delete(HttpServletRequest request,HttpServletResponse response) {
+		try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		String qno=request.getParameter("qno");
+		
+		String result="";
+		try {
+			QnaDAO.qnaDelete(Integer.parseInt(qno));
+			result="OK";
+		}catch(Exception ex){
+			result="NO";
+		}
+		try {
+			response.setContentType("text/plain;charset=UTF-8");
+			PrintWriter out=response.getWriter();
+			out.write(result);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
 	
 	@RequestMapping("adminpage/adminpage_qna_insert.do")
 	public String adminpage_qna_insert(HttpServletRequest request, HttpServletResponse response) {
