@@ -4,6 +4,7 @@
     background:#EFF3EA;
     font-family: 'SCoreDream', sans-serif;
     padding:150px 0 100px;
+    min-height:50vh;
 }
 #find .container{
 	padding:0 15%;
