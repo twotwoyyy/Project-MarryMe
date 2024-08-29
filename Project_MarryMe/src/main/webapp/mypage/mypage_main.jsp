@@ -42,6 +42,7 @@
                     <li><a href="../mypage/mypage_reserve.do">예약 내역</a></li>
                     <li><a href="../mypage/mypage_qna.do">문의 내역</a></li>
                     <li><a href="../mypage/mypage_review.do">리뷰 내역</a></li>
+                    <li><a href="../mypage/mypage_buy.do">구매 내역</a></li>
                     <li><a href="../mypage/mypage_cart.do">장바구니 관리</a></li>
                 </ul>
             </div>

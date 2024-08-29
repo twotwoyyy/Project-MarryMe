@@ -11,20 +11,13 @@
 .sixth{
 	margin-bottom: 30px;
 }
-.cart-item {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 3fr 1fr;
-    grid-template-areas:
-        ". date"
-        "item-details ."
-        ". price";
-}
+
 
 .date {
     grid-area: date;
     justify-self: end; /* 오른쪽으로 정렬 */
     align-self: start; /* 위쪽으로 정렬 */
+    margin-right: 20px;
 }
 
 .item-details {
@@ -51,7 +44,33 @@
 .price {
     grid-area: price;
     justify-self: end; /* 오른쪽으로 정렬 */
-    align-self: end; /* 아래쪽으로 정렬 */
+    padding-left: 10px;
+}
+
+.all-cart-item {
+    border: 1px;
+    border-radius: 6px;
+    background-color: rgb(250, 253, 240);
+    max-width: 1050px;
+}
+
+#buyitem {
+    display: flex;
+    align-items: center;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    border-top: 1px solid rgb(211, 231, 173);
+    border-bottom: 1px solid rgb(211, 231, 173);
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    justify-content: flex-start;
+    max-width: 1200px;
+    }
+.info .gnames{
+	max-width: 560px;
 }
 </style>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
@@ -70,18 +89,18 @@
         <c:if test="${count!=0 }">
         <div class="all-cart-item">
           <c:forEach var="vo" items="${buyList }" varStatus="status">
-	        <div class="cart-item">
+	        <div class="cart-item" id="buyitem">
 			    <div class="date">
 			        <span>${vo.dbday}</span>
 			    </div>
 			    <div class="item-details">
 			        <img src="${vo.gvo.poster}" alt="상품 이미지">
 			        <div class="info">
-			            <label id="gname${vo.cart_no}">${vo.gvo.title}</label>
+			            <label id="gname${vo.cart_no}" class="gnames">${vo.gvo.title}</label>
 			            <input type="text" value="${vo.account}개" style="text-align: right;" readonly="readonly">
+			    <span class="price">${vo.won}₩</span>
 			        </div>
 			    </div>
-			    <span class="price">${vo.won}₩</span>
 			    <input type="hidden" value="${vo.cart_no}" class="cart">
 			    <input type="hidden" value="${vo.gno}" id="cart${vo.gno}">
 			</div>
@@ -90,7 +109,7 @@
 
         <!-- 총 금액 및 구매 버튼 -->
         <div class="cart-summary">
-            <span>총 금액: <span id="totalAmount">${total}</span> 원</span>
+            <span>총 구매 금액: <span id="totalAmount">${total}</span> 원</span>
         </div>
         </c:if>
     </div>

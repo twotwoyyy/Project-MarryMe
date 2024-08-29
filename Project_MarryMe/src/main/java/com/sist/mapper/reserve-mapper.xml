@@ -67,7 +67,7 @@
 		ORDER BY resno DESC
 	</select>
 	<select id="dressReserveMypageData" resultMap="dressMap" parameterType="string">
-		SELECT resno,pno,rdate,rtime,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,confirm,d.d_price,d.d_image,d.d_address
+		SELECT resno,pno,rdate,rtime,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,confirm,d.d_subject,d.d_price,d.d_image,d.d_address
 		FROM reserve r, dress d
 		WHERE r.pno=d.d_no
 		AND id=#{id} AND r.cate=2

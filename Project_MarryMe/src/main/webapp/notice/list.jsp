@@ -34,6 +34,10 @@
 }
 #notice{
 	font-family: 'SCoreDream', sans-serif;
+}
+
+.All{
+
 	max-width: 1200px;
 	width: 100%;
 	margin: 0px auto;
@@ -52,6 +56,7 @@ h1{
 	font-weight: 300;
 	font-size: 30px;
 	margin-top: 20px;
+	margin-bottom: 10px;
 }
 .titbox {
 	margin-bottom: 20px;
@@ -114,8 +119,8 @@ th:nth-child(5) {
     cursor: pointer;
     border-radius: 5px;
     font-size: 14px;
-    margin-left: 360px;
     margin-bottom: 5px;
+    margin-top: 10px;
 }
 #noticeBtn:hover{
 	background-color: rgb(101, 122, 65);
@@ -134,51 +139,56 @@ th:nth-child(5) {
 		<div>
 			<h1>공지사항</h1>
 		</div>
-		<div>
-			<button id="noticeBtn">새 글</button>
-		</div>
-		<table id="notice">
-			<thead>
-				<tr id="rcate">
-					<th>번호</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>작성일</th>
-					<th>조회수</th>
-				</tr>
-			</thead>
-			<tbody class="rList">
-				<c:set var="count" value="${count }" />
-				<c:forEach var="vo" items="${noticeList}">
-					<tr id="myr">
-						<td width="10%">${count}</td>
-						<td width="50%" style="text-align: left;">
-							<a href="../notice/detail.do?no=${vo.no}">[${vo.notice_type}]&nbsp;${vo.subject }</a>
-						</td>
-						<td width="10%">관리자</td>
-						<td width="15%">${vo.dbday }</td>
-						<td width="10%">${vo.hit }</td>
+		<div class="All">
+			<c:if test="${sessionScope.id!=null}">
+				<c:if test="${sessionScope.admin=='y'}">
+					<div>
+						<button id="noticeBtn">새 글</button>
+					</div>
+				</c:if>
+			</c:if>
+			<table id="notice">
+				<thead>
+					<tr id="rcate">
+						<th>번호</th>
+						<th>제목</th>
+						<th>작성자</th>
+						<th>작성일</th>
+						<th>조회수</th>
 					</tr>
-					<c:set var="count" value="${count-1 }" />
-				</c:forEach>
-			</tbody>
-		</table>
-		<div id="detail">
-			<ul class="page">
-			    <!-- 이전 페이지 링크 -->
-			        <c:if test="${startpage>1}">
-			            <li><a href="../notice/list.do?page=${startpage-1}">&lt;</a></li>
-			        </c:if>
-			    <c:forEach var="i" begin="${startpage}" end="${endpage}">
-			        <li class="${i == curpage ? 'active' : ''}">
-			            <a href="../notice/list.do?page=${i}">${i}</a>
-			        </li>
-			    </c:forEach>
-			    <!-- 다음 페이지 링크 -->
-		        <c:if test="${endpage < totalpage}">
-		            <li><a href="../notice/list.do?page=${endpage + 1}">&gt;</a></li>
-		        </c:if>
-			</ul>
+				</thead>
+				<tbody class="rList">
+					<c:set var="count" value="${count }" />
+					<c:forEach var="vo" items="${noticeList}">
+						<tr id="myr">
+							<td width="10%">${count}</td>
+							<td width="50%" style="text-align: left;"><a
+								href="../notice/detail.do?no=${vo.no}">[${vo.notice_type}]&nbsp;${vo.subject }</a>
+							</td>
+							<td width="10%">관리자</td>
+							<td width="15%">${vo.dbday }</td>
+							<td width="10%">${vo.hit }</td>
+						</tr>
+						<c:set var="count" value="${count-1 }" />
+					</c:forEach>
+				</tbody>
+			</table>
+			<div id="detail">
+				<ul class="page">
+					<!-- 이전 페이지 링크 -->
+					<c:if test="${startpage>1}">
+						<li><a href="../notice/list.do?page=${startpage-1}">&lt;</a></li>
+					</c:if>
+					<c:forEach var="i" begin="${startpage}" end="${endpage}">
+						<li class="${i == curpage ? 'active' : ''}"><a
+							href="../notice/list.do?page=${i}">${i}</a></li>
+					</c:forEach>
+					<!-- 다음 페이지 링크 -->
+					<c:if test="${endpage < totalpage}">
+						<li><a href="../notice/list.do?page=${endpage + 1}">&gt;</a></li>
+					</c:if>
+				</ul>
+			</div>
 		</div>
 	</div>
 </body>

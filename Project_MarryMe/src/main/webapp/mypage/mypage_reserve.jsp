@@ -270,8 +270,8 @@
                                         <div class="date-info" style="color:red">예약일: <span class="rdate">${vo.rdate}</span></div>
                                         <div class="date-info" style="color:green">예약시간: ${vo.rtime }</div>
                                         <div class="date-info">등록일: ${vo.dbday}</div>
+	                                    <div class="date-info">${vo.dvo.d_price}</div>
                                     </div>
-                                    <div class="date-info">${vo.dvo.d_price}</div>
                                 </div>
                                 <div class="rebtn">
                                     <button class="status-button" data-confirm="${vo.confirm}">예약 대기</button>
@@ -308,8 +308,8 @@
                                         <div class="date-info" style="color:red">예약일: <span class="rdate">${vo.rdate}</span></div>
                                         <div class="date-info" style="color:green">예약시간: ${vo.rtime }</div>
                                         <div class="date-info">등록일: ${vo.dbday}</div>
+	                                    <div class="date-info">${vo.suvo.su_price}</div>
                                     </div>
-                                    <div class="date-info">${vo.suvo.su_price}</div>
                                 </div>
                                 <div class="rebtn">
                                     <button class="status-button" data-confirm="${vo.confirm}">예약 대기</button>

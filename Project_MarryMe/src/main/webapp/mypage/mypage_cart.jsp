@@ -11,6 +11,11 @@
 	.sixth{
 		margin-bottom: 30px;
 	}
+
+	.action-buttons .buyBtn:hover{
+		background-color: green;
+	
+	}
 </style>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <script type="text/javascript">
@@ -92,18 +97,18 @@ $(document).ready(function() {
 	        <div class="cart-item">
 	            <img src="${vo.gvo.poster }" alt="상품 이미지">
 	            <label id="gname${vo.cart_no }">${ vo.gvo.title}</label>
+	            	<span><span id="totalAmount">${ vo.won}</span> 원</span>
 	            <input type="number" value="${vo.account }" min="1" data-item="Item${status.count }" class="item-quantity" id="account${vo.cart_no }" data-price="${vo.price}"> 
-	            <span class="item-price">${(vo.price)*(vo.account)}₩</span>
 	            <input type="hidden" value="${vo.cart_no }" id="cart${vo.cart_no }">
 	            <input type="hidden" value="${vo.gno }" id="cart${vo.gno}">
+	            <div>
+	            <span class="item-price">${(vo.price)*(vo.account)}₩</span>
+	            </div>
 	            <div class="action-buttons" style="display: flex">
+	                <button data-cno="${vo.cart_no }" data-name="${vo.gvo.title }" data-price="${vo.price }" class="buyBtn">구매</button>
 	              <form method="post" action="../mypage/mypage_cart_cancel.do?cno=${vo.cart_no }">
 	                <button>삭제</button>
 	              </form> 
-	                <button data-cno="${vo.cart_no }" data-name="${vo.gvo.title }" data-price="${vo.price }" class="buyBtn">구매</button>
-	            </div>
-	            <div>
-	            	<span>단가: <span id="totalAmount">${ vo.won}</span> 원</span>
 	            </div>
 	        </div>
 	      </c:forEach> 
