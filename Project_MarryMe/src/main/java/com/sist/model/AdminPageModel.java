@@ -37,7 +37,7 @@ public class AdminPageModel {
 		request.setAttribute("admin_jsp", "../adminpage/member_list.jsp");
 		request.setAttribute("main_jsp", "../adminpage/adminpage_main.jsp");
 		
-		return "../main/main.do";
+		return "../main/main.jsp";
 	}
 	   
 	   @RequestMapping("adminpage/adminpage_qna.do")
@@ -88,4 +88,56 @@ public class AdminPageModel {
 
 		   return "../main/main.jsp";
 	   }
+		@RequestMapping("adminpage/adminpage_reserve.do")
+		public String admimReserve(HttpServletRequest request, HttpServletResponse response) {
+			
+			List<ReserveVO> hallrList=ReserveDAO.hallReserveAdminpageData();
+			List<ReserveVO> suitrList=ReserveDAO.suitReserveAdminpageData();
+			List<ReserveVO> dressrList=ReserveDAO.dressReserveAdminpageData();
+			List<ReserveVO> studiorList=ReserveDAO.studioReserveAdminpageData();
+			List<ReserveVO> hairmakeuprList=ReserveDAO.hairmakeupReserveAdminpageData();
+			int hSize=hallrList.size();
+			int dSize=dressrList.size();
+			int suSize=suitrList.size();
+			System.out.println(suSize);
+			int sSize=studiorList.size();
+			int mSize=hairmakeuprList.size();
+			int totalRes=hSize+dSize+suSize+sSize+mSize;
+			
+			request.setAttribute("hCount", hallrList.size());
+			request.setAttribute("dCount", dressrList.size());
+			request.setAttribute("suCount", suitrList.size());
+			request.setAttribute("sCount", studiorList.size());
+			request.setAttribute("mCount", hairmakeuprList.size());
+			request.setAttribute("totalRes", totalRes);
+			
+			request.setAttribute("title", "🕦예약내역🕦");
+			request.setAttribute("hallrList", hallrList);
+			request.setAttribute("suitrList", suitrList);
+			request.setAttribute("dressrList", dressrList);
+			request.setAttribute("studiorList", studiorList);
+			request.setAttribute("hairmakeuprList", hairmakeuprList);
+			System.out.println("123");
+			
+			
+			try {
+			request.setAttribute("admin_jsp", "../adminpage/adminpage_reserve.jsp");
+			request.setAttribute("main_jsp", "../adminpage/adminpage_main.jsp");
+			
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			return "../main/main.jsp";
+		}
+	   
+		@RequestMapping("adminpage/adminpage_reserve_ok.do")
+		public String admimReserve_ok(HttpServletRequest request, HttpServletResponse response) {
+			String reNumber = request.getParameter("resno");
+			
+			ReserveDAO.adminReserveOK(Integer.parseInt(reNumber));
+			
+			
+			return "redirect:../adminpage/adminpage_reserve.do";
+		}
 }

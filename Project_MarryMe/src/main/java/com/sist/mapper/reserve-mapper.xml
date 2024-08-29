@@ -98,4 +98,47 @@
 			DELETE FROM reserve
 			WHERE resno=#{resno}
 		</delete>
+		
+	<!-- 관리자 페이지 -->
+	<select id="hallReserveAdminpageData" resultMap="hallMap">
+		SELECT resno,pno,rdate,rtime,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,confirm,h.hno,h.name,h.image,h.addr
+		FROM reserve r, hall h
+		WHERE r.pno=h.hno
+		AND r.cate=1
+		ORDER BY resno DESC
+	</select>
+	<select id="dressReserveAdminpageData" resultMap="dressMap">
+		SELECT resno,pno,rdate,rtime,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,confirm,d.d_subject,d.d_price,d.d_image,d.d_address
+		FROM reserve r, dress d
+		WHERE r.pno=d.d_no
+		AND r.cate=2
+		ORDER BY resno DESC
+	</select>
+	<select id="suitReserveAdminpageData" resultMap="suitMap">
+		SELECT resno,pno,rdate,rtime,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,confirm,su.su_no,su.su_subject,su.su_price,su.su_image,su.su_address
+		FROM reserve r, suit su
+		WHERE r.pno=su.su_no
+		AND r.cate=3
+		ORDER BY resno DESC
+	</select>
+	<select id="studioReserveAdminpageData" resultMap="studioMap">
+		SELECT resno,pno,rdate,rtime,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,confirm,s.sno,s.name,s.thumb,s.tel,s.address
+		FROM reserve r, studio s
+		WHERE r.pno=s.sno
+		AND r.cate=4
+		ORDER BY resno DESC
+	</select>
+	<select id="hairmakeupReserveAdminpageData" resultMap="hmMap">
+		SELECT resno,pno,rdate,rtime,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,confirm,hm.mno,hm.name,hm.thumb,hm.tel,hm.address
+		FROM reserve r, hair_makeup hm
+		WHERE r.pno=hm.mno
+		AND r.cate=5
+		ORDER BY resno DESC
+	</select>
+	
+	<update id="adminReserveOK" parameterType="int">
+		UPDATE reserve SET
+		confirm = 'y'
+		WHERE resno = #{resno}
+	</update>
 </mapper>

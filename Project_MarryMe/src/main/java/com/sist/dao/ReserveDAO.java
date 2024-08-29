@@ -144,4 +144,98 @@ public class ReserveDAO {
 				   session.close();
 		   }
 	   }
+	   
+// ************************ 여기부터는 관리자 예약 내역 입니다. ^^	 ***********************************
+		public static List<ReserveVO> hallReserveAdminpageData(){
+			List<ReserveVO> list=new ArrayList<ReserveVO>();
+			SqlSession session=null;
+			try {
+				session=ssf.openSession();
+				list=session.selectList("hallReserveAdminpageData");
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}finally {
+				if(session!=null)
+					session.close();
+			}
+			return list;
+		}
+		public static List<ReserveVO> suitReserveAdminpageData(){
+			List<ReserveVO> list=new ArrayList<ReserveVO>();
+			SqlSession session=null;
+			try {
+				session=ssf.openSession();
+				list=session.selectList("suitReserveAdminpageData");
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}finally {
+				if(session!=null)
+					session.close();
+			}
+			return list;
+		}
+		public static List<ReserveVO> dressReserveAdminpageData(){
+			List<ReserveVO> list=new ArrayList<ReserveVO>();
+			SqlSession session=null;
+			try {
+				session=ssf.openSession();
+				list=session.selectList("dressReserveAdminpageData");
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}finally {
+				if(session!=null)
+					session.close();
+			}
+			return list;
+		}
+		public static List<ReserveVO> studioReserveAdminpageData(){
+			List<ReserveVO> list=new ArrayList<ReserveVO>();
+			SqlSession session=null;
+			try {
+				session=ssf.openSession();
+				list=session.selectList("studioReserveAdminpageData");
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}finally {
+				if(session!=null)
+					session.close();
+			}
+			return list;
+		}
+		public static List<ReserveVO> hairmakeupReserveAdminpageData(){
+			List<ReserveVO> list=new ArrayList<ReserveVO>();
+			SqlSession session=null;
+			try {
+				session=ssf.openSession();
+				list=session.selectList("hairmakeupReserveAdminpageData");
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}finally {
+				if(session!=null)
+					session.close();
+			}
+			return list;
+		}
+		
+		/*
+		 * <update id="adminReserveOK" parameterType="int">
+				UPDATE reserve SET
+				confirm = 'y'
+				WHERE resno = #{resno}
+			</update>
+		 * 
+		 */
+		public static void adminReserveOK(int resno) {
+			SqlSession session = null;
+			try {
+				session = ssf.openSession();
+				session.update("adminReserveOK", resno);
+				session.commit();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if (session != null)
+					session.close();
+			}
+		}
 }
