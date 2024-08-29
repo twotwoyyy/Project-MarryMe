@@ -242,13 +242,13 @@ public class CartDAO {
 				   WHERE cno=#{cno}
 				  </update>
 		    */
-		   public static void cartBuyUpdate(int cno)
+		   public static void cartBuyUpdate(CartVO vo)
 		   {
 			   SqlSession session=null;
 			   try
 			   {
 				   session=ssf.openSession(true);
-				   session.update("cartBuyUpdate",cno);
+				   session.update("cartBuyUpdate",vo);
 			   }catch(Exception ex)
 			   {
 				   ex.printStackTrace();

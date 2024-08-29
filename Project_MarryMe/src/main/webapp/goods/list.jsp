@@ -9,7 +9,7 @@
 </head>
 <body>
 	 <div id="list" class="goods">
-	   <c:if test="${curpage==1}">
+	   <c:if test="${curpage==1 && cno==1}">
         <section class="list_banner">
             <h2>Marriage articles</h2>
         </section> 

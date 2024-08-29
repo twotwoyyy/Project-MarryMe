@@ -183,7 +183,11 @@ public class CartModel {
 	  public void mypage_cart_buy(HttpServletRequest request,HttpServletResponse response)
 	  {
 		  String cno=request.getParameter("cno");
-		  CartDAO.cartBuyUpdate(Integer.parseInt(cno));
+		  String account=request.getParameter("account");
+		  CartVO vo=new CartVO();
+		  vo.setCart_no(Integer.parseInt(cno));
+		  vo.setAccount(Integer.parseInt(account));
+		  CartDAO.cartBuyUpdate(vo);
 		  HttpSession session=request.getSession();
 		  String name=(String)session.getAttribute("name");
 		  String email=(String)session.getAttribute("email");

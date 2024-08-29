@@ -28,7 +28,7 @@ $(function(){
 		$.ajax({
 			type:'post',
 			url:'../mypage/mypage_cart_buy.do',
-			data:{"cno":cno},
+			data:{"cno":cno,"account":account},
 			success:function(result)
 			{
 				let json=JSON.parse(result)
@@ -82,8 +82,12 @@ $(document).ready(function() {
         </div>
         
         <!-- 장바구니 항목 1 -->
-       
+     	<c:if test="${cartList.size()==0 }">
+       		<img src="http://mobile.iluvbabi.cafe24.com/data_m/common/img_cartnotice.jpg" style="width: 1000px;height: 600px">
+  	    </c:if>
+  	   <c:if test="${cartList.size()!=0 }">
         <div class="all-cart-item">
+          
           <c:forEach var="vo" items="${cartList }" varStatus="status">
 	        <div class="cart-item">
 	            <img src="${vo.gvo.poster }" alt="상품 이미지">
@@ -104,7 +108,7 @@ $(document).ready(function() {
 	        </div>
 	      </c:forEach> 
         </div>
-
+	  </c:if>
         <!-- 총 금액 및 구매 버튼 -->
     </div>
 </body>

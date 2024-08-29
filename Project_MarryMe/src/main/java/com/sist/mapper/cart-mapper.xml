@@ -38,7 +38,7 @@
   </select>
   <select id="cartGetGnoCount" resultType="int" parameterType="hashmap">
    SELECT COUNT(*) FROM cart
-   WHERE gno=#{gno} AND id=#{id}
+   WHERE gno=#{gno} AND id=#{id} AND isbuy='n'
   </select>
   <select id="cartGetGno" resultType="int" parameterType="hashmap">
    SELECT gno FROM cart
@@ -57,18 +57,19 @@
   </insert>
   <!-- 구매목록 : mypage-->
   <select id="buyListData" resultMap="cartMap" parameterType="string">
-    SELECT cart_no,title,poster,account,pc.price as price
+    SELECT cart_no,title,poster,account,pc.price as price ,TO_CHAR(buydate,'YYYY-MM-DD') as dbday
     FROM cart pc,goods g
     WHERE id=#{id} AND isbuy='y'
     AND pc.gno=g.mgno
+    ORDER BY buydate DESC
   </select>
   <select id="buyTotalPrice" resultType="int" parameterType="string">
     SELECT SUM(price*account) FROM cart
     WHERE id=#{id} AND isbuy='y'
   </select>
-  <update id="cartBuyUpdate" parameterType="int">
+  <update id="cartBuyUpdate" parameterType="CartVO">
    UPDATE cart SET 
-   isbuy='y'
+   isbuy='y' , account=#{account}
    WHERE cart_no=#{cart_no}
   </update>
   <!-- 장바구니 취소 -->
