@@ -335,4 +335,65 @@ public class QnaDAO {
 		return vo;
 	}
 	
+	public static int adminQnaOk(int group_id) {
+		SqlSession session = null;
+		int reCount = 0;
+		try {
+			session = ssf.openSession();
+
+	         reCount = session.selectOne("adminQnaOk", group_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (session != null)
+				session.close();
+		}
+		return reCount;
+	}
+	/*
+	 * 	 	<select id="adminQnaMessage" parameterType="int" resultType="String">
+		 		SELECT MSG
+		 		FROM qna
+		 		WHERE group_id = #{group_id} AND tab = 1
+		 	</select>
+	 * 
+	 */
+	public static String adminQnaMessage(int group_id) {
+		SqlSession session = null;
+		String reMsg = "";
+		try {
+			session = ssf.openSession();
+			
+			reMsg = session.selectOne("adminQnaMessage", group_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (session != null)
+				session.close();
+		}
+		return reMsg;
+	}
+	
+	/*
+	 * 	 	<update id="adminQnaUpdate" parameterType="HashMap">
+		 		UPDATE qna SET
+		 		msg = #{msg}
+		 		WHERE group_id = #{group_id} AND tab = 1
+		 	</update>
+	 * 
+	 */
+	public static void adminQnaUpdate(Map map) {
+		SqlSession session = null;
+		try {
+			session = ssf.openSession();
+			session.update("adminQnaUpdate", map);
+			session.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (session != null)
+				session.close();
+		}
+	}
+	
 }

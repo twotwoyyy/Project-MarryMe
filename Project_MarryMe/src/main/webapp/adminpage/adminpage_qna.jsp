@@ -229,8 +229,8 @@
                         <td class="date-info">${qna.dbday}</td>
                         <td>
                             <c:choose>
-                                <c:when test="${qna.tab == 1}">
-                                    <button class="btn-msg" data-qna_no="${qna.qna_no}" data-group_id="${qna.group_id}">답변 보기</button>
+                                <c:when test="${qna.groupCount == 2}">
+                                    <button class="btn-msg" data-qna_no="${qna.qna_no}" data-group_id="${qna.group_id}">답변 완료</button>
                                 </c:when>
                                 <c:otherwise>
                                     <button class="btn-delete">답변 대기</button>
@@ -238,23 +238,20 @@
                             </c:choose>
                         </td>
                         <td>
-						    <button class="btn-primary" onclick="location.href='../adminpage/adminpage_qna_insert.do?qna_no=${qna.qna_no}'">답변하기</button>
+                      	  <c:choose>
+                                <c:when test="${qna.groupCount == 2}">
+                                    <button class="btn-primary" onclick="location.href='../adminpage/adminpage_qna_update.do?qna_no=${qna.qna_no}'">수정하기</button>
+                                </c:when>
+                                <c:otherwise>
+								    <button class="btn-success" onclick="location.href='../adminpage/adminpage_qna_insert.do?qna_no=${qna.qna_no}'">답변하기</button>
+                                </c:otherwise>
+                            </c:choose>
 						</td>
                     </tr>
-<!-- ********************************************* 지피티 긁어온 시작 부분 *************************************************** -->
 				    <!-- 기존 답변 내용 -->
-				    <c:forEach var="reply" items="${reList}">
-				        <c:if test="${reply.group_id == qna.group_id}">
-				            <tr class="answer-row">
-				                <td colspan="6">
-				                    <div class="answerContent" style="text-align: left;">➡️[관리자] ${qna.msg}</div>
-				                </td>
-				            </tr>
-				        </c:if>
-				    </c:forEach>
+				    
 				    <c:set var="aqp" value="${count = count-1 }"/>
 				</c:forEach>
-<!-- ********************************************* 지피티 긁어온 끝 부분 *************************************************** -->  
             </tbody>
         </table>
 

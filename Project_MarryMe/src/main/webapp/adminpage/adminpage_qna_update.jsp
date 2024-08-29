@@ -133,7 +133,7 @@
     <div id="notice-form-container">
         <div id="notice-form-content">
             <h2 id="notice-form-title">답변 등록</h2>
-            <form method="post" action="../adminpage/adminpage_qna_insert_ok.do">
+            <form method="post" action="../adminpage/adminpage_qna_update_ok.do">
                 <table class="notice-form-table">
                     <tr id="white">
                         <th width="20%">번호</th>
@@ -164,7 +164,7 @@
                     <tr>
                         <th width="20%">답변 작성</th>
                         <td width="80%" colspan="3">
-                            <textarea rows="10" cols="50" name="content" class="notice-form-textarea" required>내가 답변하는 곳</textarea>
+                            <textarea rows="10" cols="50" name="content" class="notice-form-textarea" required>${Remsg }</textarea>
                             <input type="hidden" name="qno" value="${vo.qna_no}">
                         </td>
                     </tr>

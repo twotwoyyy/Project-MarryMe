@@ -32,6 +32,8 @@ public class AdminPageModel {
 	@RequestMapping("adminpage/member_list.do")
 	public String member_list(HttpServletRequest request, HttpServletResponse response) {
 		
+		
+		
 		request.setAttribute("admin_jsp", "../adminpage/member_list.jsp");
 		request.setAttribute("main_jsp", "../adminpage/adminpage_main.jsp");
 		
@@ -55,18 +57,20 @@ public class AdminPageModel {
 			map.put("end", curpage*10);
 
 			List<QnaVO> list=QnaDAO.adminQnaListData(map);
-		    List<QnaVO> relist = new ArrayList();
-		    for (QnaVO qna : list) {
-		        int groupId = qna.getGroup_id();
-		        List<QnaVO> replies = QnaDAO.adminQnaListReData(groupId);
-		        relist.addAll(replies); // 답변 리스트를 모읍니다
-		    }
+			
+			for(QnaVO vo : list) {
+				int count = QnaDAO.adminQnaOk(vo.getGroup_id());
+				vo.setGroupCount(count);
+			}
+			
+			
 
 			int count = QnaDAO.adminQnaTotalPage(id);
 			int total = count;
 					
 			int totalpage = (int)(Math.ceil(count/10.0));
 			count = count - ((curpage * 10) - 10);
+			
 
 			for (QnaVO qna : list) {
 			    int groupCount = QnaDAO.getGroupIdCount(qna.getGroup_id());  // group_id를 사용하여 count 조회
@@ -78,7 +82,6 @@ public class AdminPageModel {
 			request.setAttribute("curpage", curpage);
 			request.setAttribute("totalpage", totalpage);
 			request.setAttribute("adminqList", list);
-			request.setAttribute("reList", relist);
 			request.setAttribute("title", "문의 내역");
 			request.setAttribute("admin_jsp", "../adminpage/adminpage_qna.jsp");
 			request.setAttribute("main_jsp", "../adminpage/adminpage_main.jsp");

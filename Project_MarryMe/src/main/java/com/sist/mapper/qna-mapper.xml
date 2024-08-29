@@ -94,7 +94,7 @@
     </select>
     
     <select id="adminQnaDetail2" parameterType="int" resultType="QnaVO">
-	 		SELECT qna_no,msg,TO_CHAR(qna.regdate,'YYYY-MM-DD:HH24:MI:SS') as dbday,cate,group_id,qna.id
+	 		SELECT qna_no,msg,TO_CHAR(qna.regdate,'YYYY-MM-DD:HH24:MI:SS') as dbday,cate,group_id,qna.id, pno, pwd
 	 		FROM qna
 	 		WHERE qna_no = #{qna_no}
 	</select>
@@ -127,8 +127,25 @@
  	</select>
 	 	<insert id="adminQnaInsert" parameterType="QnaVO">
 	 		INSERT INTO qna VALUES((SELECT NVL(MAX(qna_no)+1,1) FROM qna),
-	 		 #{msg},SYSDATE,#{cate},(SELECT NVL(MAX(group_id)+1,1) FROM qna),#{tab},#{id},#{pno},#{pwd}
+	 		 #{msg},SYSDATE,#{cate},#{group_id},#{tab},#{id},#{pno},#{pwd}
 	 		)
 	 	</insert>
 	 	
+	 	<select id="adminQnaOk" parameterType="int" resultType="int">
+	 		SELECT Count(*)
+	 		FROM qna
+	 		WHERE group_id = #{group_id}
+	 	</select>
+	 	
+	 	<select id="adminQnaMessage" parameterType="int" resultType="String">
+	 		SELECT MSG
+	 		FROM qna
+	 		WHERE group_id = #{group_id} AND tab = 1
+	 	</select>
+	 	
+	 	<update id="adminQnaUpdate" parameterType="HashMap">
+	 		UPDATE qna SET
+	 		msg = #{msg}
+	 		WHERE group_id = #{group_id} AND tab = 1
+	 	</update>
 </mapper>

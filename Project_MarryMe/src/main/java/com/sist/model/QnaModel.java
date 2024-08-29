@@ -227,4 +227,66 @@ public class QnaModel {
 		request.setAttribute("main_jsp", "../adminpage/adminpage_main.jsp");
 		return "../main/main.jsp";
 	}
+
+	@RequestMapping("adminpage/adminpage_qna_insert_ok.do")
+	public String adminpage_qna_insert_ok(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		String qna_no = request.getParameter("qno");
+		String msg = request.getParameter("content");
+		
+		
+		QnaVO vo = QnaDAO.adminQnaDetail2(Integer.parseInt(qna_no));
+		QnaVO vvo = new QnaVO();
+		vvo.setMsg(msg);
+		vvo.setCate(vo.getCate());
+		vvo.setGroup_id(vo.getGroup_id());
+		vvo.setPno(vo.getPno());
+		vvo.setPwd(vo.getPwd());
+		vvo.setTab(1);
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("id");
+		vvo.setId(id);
+
+		QnaDAO.adminQnaInsert(vvo);
+		
+		return "redirect:../adminpage/adminpage_qna.do";
+	}
+	
+	@RequestMapping("adminpage/adminpage_qna_update.do")
+	public String adminpage_qna_update(HttpServletRequest request, HttpServletResponse response) {
+		String qna_no = request.getParameter("qna_no");
+		QnaVO vo = QnaDAO.adminQnaDetail2(Integer.parseInt(qna_no));
+		
+		String Remsg = QnaDAO.adminQnaMessage(vo.getGroup_id());
+		
+		request.setAttribute("Remsg", Remsg);
+		request.setAttribute("vo", vo);
+		request.setAttribute("admin_jsp", "../adminpage/adminpage_qna_update.jsp");
+		request.setAttribute("main_jsp", "../adminpage/adminpage_main.jsp");
+		return "../main/main.jsp";
+	}
+	
+	@RequestMapping("adminpage/adminpage_qna_update_ok.do")
+	public String adminpage_qna_update_ok(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (Exception e) {
+		}
+		String qna_no = request.getParameter("qno");
+		String msg = request.getParameter("content");
+
+		QnaVO vo = QnaDAO.adminQnaDetail2(Integer.parseInt(qna_no));
+		
+		Map map = new HashMap();
+		map.put("msg", msg);
+		map.put("group_id", vo.getGroup_id());
+		
+		
+		QnaDAO.adminQnaUpdate(map);
+		return "redirect:../adminpage/adminpage_qna_insert.do";
+	}
 }
