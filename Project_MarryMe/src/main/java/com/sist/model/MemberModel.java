@@ -212,4 +212,25 @@ public class MemberModel {
 		return "../main/main.jsp";
 	}
 	
+	@RequestMapping("member/member_delete_ok.do")
+	public String member_delete_ok(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		String pw=request.getParameter("pw");
+		Map map=new HashMap();
+		map.put("id", id);
+		map.put("pw", pw);
+		int count=MemberDAO.pwCheckData(map);
+		if(count!=0) {
+			MemberDAO.memberReserveDelete(id);
+			MemberDAO.memberReviewDelete(id);
+			MemberDAO.memberQnaDelete(id);
+			MemberDAO.memberWishDelete(id);
+			MemberDAO.memberTotalDelete(id);
+			session.invalidate();
+		}
+		request.setAttribute("count", count);
+		return "redirect:../main/main.do";
+	}
+	
 }

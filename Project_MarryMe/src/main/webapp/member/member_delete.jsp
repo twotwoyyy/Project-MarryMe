@@ -29,6 +29,22 @@
 	padding: 40px;
 }
 </style>
+<script type="text/javascript">
+$(function() {
+    $('.join_btn').click(function(e) {
+		if($('#pw').val() != $('#pw_check').val()){
+			e.preventDefault()
+			alert('비밀번호를 확인해주세요')
+			$('#pw').val("")
+			$('#pw_check').val("")
+			$('#pw').focus()
+		}else{
+	        alert('회원 탈퇴처리 되었습니다. 그동안 이용해주셔서 감사합니다.');			
+		}
+    });
+    
+});
+</script>
 </head>
 <body>
    <div id="join" class="mycontent">
@@ -37,7 +53,7 @@
         </div>
         <section class="join_wrap">
             <p><span>*</span> 필수입력사항</p>
-            <form method="POST" action="../member/pw_change_ok.do">
+            <form method="POST" action="../member/member_delete_ok.do">
                 <div class="center">
 				<label for="pw" style="line-height: 1.5;">
 				    탈퇴 시 모든 정보가 삭제되며 취소가 불가합니다<br>
@@ -45,11 +61,11 @@
 				</label>
                     <div class="input_wrap" id="delmember">
                         <label for="pw">비밀번호<span>*</span></label>
-                        <input type="password" name="pw" placeholder="비밀번호를 입력해주세요" required>
+                        <input type="password" name="pw" id="pw" placeholder="비밀번호를 입력해주세요" required>
                     </div>
                     <div class="input_wrap">
                         <label for="pw_check">비밀번호 확인<span>*</span></label>
-                        <input type="password" name="pw_check" placeholder="비밀번호를 입력해주세요" required>
+                        <input type="password" name="pw_check" id="pw_check" placeholder="비밀번호를 입력해주세요" required>
                     </div>
                     <div class="form_btns">
                         <button class="join_btn">탈퇴</button>

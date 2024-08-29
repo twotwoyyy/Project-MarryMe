@@ -58,4 +58,25 @@
 		pw=#{pw}
 		WHERE id=#{id}
 	</update>
+	<!-- 탈퇴 -->
+	<delete id="memberReviewDelete" parameterType="string">
+		DELETE FROM review
+		WHERE id=#{id}
+	</delete>
+	<delete id="memberReserveDelete" parameterType="string">
+		DELETE FROM reserve
+		WHERE id=#{id}
+	</delete>
+	<delete id="memberQnaDelete" parameterType="string">
+		DELETE FROM qna
+		WHERE id=#{id}
+	</delete>
+	<delete id="memberWishDelete" parameterType="string">
+		DELETE FROM wish_list
+		WHERE id=#{id}
+	</delete>
+	<delete id="memberTotalDelete" parameterType="string">
+		DELETE FROM member
+		WHERE id=#{id}
+	</delete>
 </mapper>

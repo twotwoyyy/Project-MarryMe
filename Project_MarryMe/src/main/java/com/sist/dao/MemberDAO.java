@@ -260,4 +260,94 @@ public class MemberDAO {
 				session.close();
 		}
 	}
+	
+	// 회원 탈퇴
+	/*
+	 * 	<delete id="memberReviewDelete" parameterType="java.util.Map">
+		DELETE FROM review
+		WHERE id=#{id}
+	</delete>
+	<delete id="memberReserveDelete" parameterType="java.util.Map">
+		DELETE FROM reserve
+		WHERE id=#{id}
+	</delete>
+	<delete id="memberQnaDelete" parameterType="java.util.Map">
+		DELETE FROM qna
+		WHERE id=#{id}
+	</delete>
+	<delete id="memberWishDelete" parameterType="java.util.Map">
+		DELETE FROM wish_list
+		WHERE id=#{id}
+	</delete>
+	<delete id="memberTotalDelete">
+		DELETE FROM member
+		WHERE id=#{id}
+	</delete>
+	 */
+	// 회원 탈퇴 
+	// 1-1 리뷰 삭제
+	public static void memberReviewDelete(String id) {
+		SqlSession session=null;
+		try {
+			session=ssf.openSession(true);
+			session.delete("memberReviewDelete",id);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+	}
+	// 1-2 예약 삭제
+	public static void memberReserveDelete(String id) {
+		SqlSession session=null;
+		try {
+			session=ssf.openSession(true);
+			session.delete("memberReserveDelete",id);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+	}
+	//1-3 문의 삭제
+	public static void memberQnaDelete(String id) {
+		SqlSession session=null;
+		try {
+			session=ssf.openSession(true);
+			session.delete("memberQnaDelete",id);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+	}
+	// 1-4 위시 삭제
+	public static void memberWishDelete(String id) {
+		SqlSession session=null;
+		try {
+			session=ssf.openSession(true);
+			session.delete("memberWishDelete",id);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+	}
+	// 2-1 최종 탈퇴 
+	public static void memberTotalDelete(String id) {
+		SqlSession session=null;
+		try {
+			session=ssf.openSession(true);
+			session.delete("memberTotalDelete",id);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+	}
 }
