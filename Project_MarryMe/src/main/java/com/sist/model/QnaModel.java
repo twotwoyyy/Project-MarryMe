@@ -151,11 +151,9 @@ public class QnaModel {
 			}
 			arr.add(obj);
 		}
-		}catch(Exception ex) {
+		} catch(Exception ex) {
 			ex.printStackTrace();
 		}
-		
-		
 		try {
 			
 			response.setContentType("text/plain;charset=UTF-8");
@@ -166,6 +164,7 @@ public class QnaModel {
 			// TODO: handle exception
 		}
 	}
+	
 	@RequestMapping("qna/password.do")
 	public void qna_password(HttpServletRequest request,HttpServletResponse response) {
 		try {
@@ -186,6 +185,7 @@ public class QnaModel {
 			e.printStackTrace();
 		}
 	}
+	
 	@RequestMapping("qna/userUpdate.do")
 	public void qna_userUpdate(HttpServletRequest request,HttpServletResponse response) {
 		try {
@@ -216,6 +216,7 @@ public class QnaModel {
 			// TODO: handle exception
 		}
 	}
+	
 	@RequestMapping("qna/delete.do")
 	public void qna_delete(HttpServletRequest request,HttpServletResponse response) {
 		try {
@@ -311,6 +312,6 @@ public class QnaModel {
 		
 		
 		QnaDAO.adminQnaUpdate(map);
-		return "redirect:../adminpage/adminpage_qna_insert.do";
+		return "redirect:../adminpage/adminpage_qna.do";
 	}
 }

@@ -170,69 +170,35 @@
 <body>
     <div class="myreserve">
         <div class="sixth"> 
-            <h1>문의 내역</h1>
+            <h1>회원 목록</h1>
         </div>
         <p class="titbox">
-            미답변 문의 총 <span id="count">${total}</span>개의 문의가 있습니다
+            총 <span id="count">${total}</span> 분의 회원이&nbsp;Project MarryMe와 함께하고있습니다.
         </p>
         <table>
             <thead>
                 <tr id="rcate">
                     <th>번호</th>
-                    <th>카테고리</th>
-                    <th>문의 내용</th>
-                    <th>날짜</th>
-                    <th>답변 상태</th>
-                    <th>답변</th>
+                    <th>아이디</th>
+                    <th>이름</th>
+                    <th>성별</th>
+                    <th>나이</th>
+                    <th>주소</th>
+                    <th>주소</th>
                 </tr>
             </thead>
             <tbody class="rList">
-            <c:set var="aqp" value="${count }"/>
-                <c:forEach var="qna" items="${adminqList}">
+            <c:set var="i" value="디귿"/>
+                <c:forEach var="y" items="이응">
                     <tr id="myr">
                         <td>${aqp}</td>
-                        <td>
-                            <c:choose>
-                                <c:when test="${qna.cate == 1}">웨딩홀</c:when>
-                                <c:when test="${qna.cate == 2}">드레스</c:when>
-                                <c:when test="${qna.cate == 3}">예복</c:when>
-                                <c:when test="${qna.cate == 4}">스튜디오</c:when>
-                                <c:when test="${qna.cate == 5}">헤어/메이크업</c:when>
-                                <c:when test="${qna.cate == 6}">혼수</c:when>
-                                <c:otherwise>기타</c:otherwise>
-                            </c:choose>
-                        </td>
-                        <td id="rmsg" style="text-align: left;">
-                            <c:choose>
-                                <c:when test="${qna.cate==1 }"><a href="../hall/detail.do?hno=${qna.pno }">${qna.msg}</a></c:when>
-                                <c:when test="${qna.cate==2 }"><a href="../dress/dress_detail.do?d_no=${qna.pno }">${qna.msg}</a></c:when>
-                                <c:when test="${qna.cate==3 }"><a href="../dress/suit_detail.do?su_no=${qna.pno }">${qna.msg}</a></c:when>
-                                <c:when test="${qna.cate==4 }"><a href="../studio/studio_detail.do?sno=${qna.pno }">${qna.msg}</a></c:when>
-                                <c:when test="${qna.cate==5 }"><a href="../studio/hairmakeup_detail.do?mno=${qna.pno }">${qna.msg}</a></c:when>
-                                <c:when test="${qna.cate==6 }"><a href="../goods/detail.do?mgno=${qna.pno }">${qna.msg}</a></c:when>
-                            </c:choose>
-                        </td>
-                        <td class="date-info">${qna.dbday}</td>
-                        <td>
-                            <c:choose>
-                                <c:when test="${qna.groupCount == 2}">
-                                    <button class="btn-msg" data-qna_no="${qna.qna_no}" data-group_id="${qna.group_id}">답변 완료</button>
-                                </c:when>
-                                <c:otherwise>
-                                    <button class="btn-delete">답변 대기</button>
-                                </c:otherwise>
-                            </c:choose>
-                        </td>
-                        <td>
-                      	  <c:choose>
-                                <c:when test="${qna.groupCount == 2}">
-                                    <button class="btn-primary" onclick="location.href='../adminpage/adminpage_qna_update.do?qna_no=${qna.qna_no}'">수정하기</button>
-                                </c:when>
-                                <c:otherwise>
-								    <button class="btn-success" onclick="location.href='../adminpage/adminpage_qna_insert.do?qna_no=${qna.qna_no}'">답변하기</button>
-                                </c:otherwise>
-                            </c:choose>
-						</td>
+                        <td> 아이디 </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
                     </tr>
 				    <!-- 기존 답변 내용 -->
 				    

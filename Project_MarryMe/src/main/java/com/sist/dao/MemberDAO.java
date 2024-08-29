@@ -350,4 +350,30 @@ public class MemberDAO {
 				session.close();
 		}
 	}
+	
+	/*
+	 * 	<select id="memberListData" resultType="MemberVO" parameterType="HashMap">
+			SELECT id, name, gender, phone, address1, address2, post, admin, num
+			FROM (SELECT id, name, gender, phone, address1, address2, post, admin, rownum as num
+			FROM (SELECT id, name, gender, phone, address1, address2, post, admin
+			FROM member WHERE name=#{name}
+			ORDER BY name ASC))
+			WHERE num BETWEEN #{start} AND #{end};
+		</select>
+	 *
+	 */
+	public static List<MemberVO> memberListData(Map map) {
+		List<MemberVO> list = new ArrayList<MemberVO>();
+		SqlSession session = null;
+		try {
+			session = ssf.openSession();
+			list = session.selectList("memberListData", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (session != null)
+	            session.close();
+		}
+		return list;
+	}
 }

@@ -56,6 +56,7 @@ public class QnaDAO {
       }
       return list;
    }
+   
    public static QnaVO qnaAdminData(Map map) {
       QnaVO vo=new QnaVO();
       SqlSession session=null;
@@ -200,6 +201,18 @@ public class QnaDAO {
    }
    
    // 관리자 페이지 QnA 목록
+   /*
+    *  	<select id="adminQnaListData" resultType="QnaVO" parameterType="hashmap">
+	 	 	SELECT qna_no,msg,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,cate,group_id,tab,pno,num
+	 		FROM (SELECT qna_no,msg,regdate,cate,group_id,tab,pno,rownum as num
+	 		FROM (SELECT qna_no,msg,qna.regdate as regdate,cate,group_id,tab,pno
+	 		FROM qna
+	 		WHERE id != 'hong'
+	 		ORDER BY regdate DESC))
+	 		WHERE num BETWEEN #{start} AND #{end}
+	 	</select>
+    * 
+    */
    public static List<QnaVO> adminQnaListData(Map map){
       List<QnaVO> list = new ArrayList<QnaVO>();
       SqlSession session = null;
@@ -395,5 +408,4 @@ public class QnaDAO {
 				session.close();
 		}
 	}
-	
 }

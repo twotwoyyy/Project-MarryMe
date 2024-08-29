@@ -233,4 +233,38 @@ public class MemberModel {
 		return "redirect:../main/main.do";
 	}
 	
+	// AdminListData
+	@RequestMapping("adminpage/member_list.do")
+	   public String memberListData(HttpServletRequest request,HttpServletResponse response) {
+			HttpSession session=request.getSession();
+			String name = (String)session.getAttribute("name");
+			
+			String page = request.getParameter("page");
+			if (page == null)
+				page = "1";
+			int curpage = Integer.parseInt(page);
+			
+			Map map = new HashMap();
+			map.put("name", name);
+			map.put("start", (curpage * 10) - 9);
+			map.put("end", curpage * 10);
+//			******************************************** 여기부터
+			int nCount = MemberDAO.memberListData(name);
+			
+			int total = count;
+			int totalpage = (int)(Math.ceil(count/10.0));
+			count = count - ((curpage * 10) - 10);
+			
+			request.setAttribute("total", total);
+			request.setAttribute("nCount", count);
+			request.setAttribute("adminqSize", list.size());
+			request.setAttribute("curpage", curpage);
+			request.setAttribute("totalpage", totalpage);
+			request.setAttribute("adminqList", list);
+			request.setAttribute("title", "문의 내역");
+			request.setAttribute("admin_jsp", "../adminpage/adminpage_qna.jsp");
+			request.setAttribute("main_jsp", "../adminpage/adminpage_main.jsp");
+
+		   return "../main/main.jsp";
+	   }
 }
