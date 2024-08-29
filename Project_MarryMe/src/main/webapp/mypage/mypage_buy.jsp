@@ -64,7 +64,7 @@
     border-radius: 10px;
     padding-top: 10px;
     padding-left: 20px;
-    padding-right: 20px;
+    padding-right: 20px; 
     padding-bottom: 10px;
     justify-content: flex-start;
     max-width: 1200px;
