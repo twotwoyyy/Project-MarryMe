@@ -101,7 +101,7 @@ public class CartModel {
 		  
 		  request.setAttribute("cartList", list);
 		  request.setAttribute("count", list.size());
-		  
+		  request.setAttribute("title", "장바구니");
 		  request.setAttribute("mypage_jsp", "../mypage/mypage_cart.jsp");
 		  request.setAttribute("main_jsp","../mypage/mypage_main.jsp");
 		  return "../main/main.jsp";
@@ -169,6 +169,7 @@ public class CartModel {
 		  request.setAttribute("total", totalform);
 		  request.setAttribute("mypage_jsp", "../mypage/mypage_buy.jsp");
 		  request.setAttribute("main_jsp","../mypage/mypage_main.jsp");
+		  request.setAttribute("title", "구매 내역");
 		  return "../main/main.jsp";
 	  }
 	  @RequestMapping("mypage/mypage_cart_cancel.do")
