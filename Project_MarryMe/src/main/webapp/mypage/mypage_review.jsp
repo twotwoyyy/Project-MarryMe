@@ -168,7 +168,7 @@
 	                        	<c:when test="${review.cate==3 }"><a href="../dress/suit_detail.do?su_no=${review.pno }">${review.msg}</a></c:when>
 	                        	<c:when test="${review.cate==4 }"><a href="../studio/studio_detail.do?sno=${review.pno }">${review.msg}</a></c:when>
 	                        	<c:when test="${review.cate==5 }"><a href="../studio/hairmakeup_detail.do?mno=${review.pno }">${review.msg}</a></c:when>
-	                        	<c:when test="${review.cate==6 }"><a href="../goods/detail.do?mgno=${review.pno }">${review.msg}</a></c:when>
+	                        	<c:when test="${review.cate==6 }"><a href="../goods/detail.do?pno=${review.pno }&cate=6">${review.msg}</a></c:when>
                         	</c:choose>
                         	
                         </td>

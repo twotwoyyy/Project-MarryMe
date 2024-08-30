@@ -217,7 +217,7 @@
                                 <c:when test="${qna.cate==3 }"><a href="../dress/suit_detail.do?su_no=${qna.pno }">${qna.msg}</a></c:when>
                                 <c:when test="${qna.cate==4 }"><a href="../studio/studio_detail.do?sno=${qna.pno }">${qna.msg}</a></c:when>
                                 <c:when test="${qna.cate==5 }"><a href="../studio/hairmakeup_detail.do?mno=${qna.pno }">${qna.msg}</a></c:when>
-                                <c:when test="${qna.cate==6 }"><a href="../goods/detail.do?mgno=${qna.pno }">${qna.msg}</a></c:when>
+                                <c:when test="${qna.cate==6 }"><a href="../goods/detail.do?pno=${qna.pno }&cate=6">${qna.msg}</a></c:when>
                             </c:choose>
                         </td>
                         <td class="date-info">${qna.dbday}</td>
