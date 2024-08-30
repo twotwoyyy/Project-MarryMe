@@ -1,6 +1,7 @@
 package com.sist.model;
 import java.io.File;
 import java.io.PrintWriter;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -33,7 +34,15 @@ public class ReviewModel {
 		  try {
 				request.setCharacterEncoding("UTF-8");
 			
-		  String path = "C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Project_MarryMe\\img\\review_img";
+				URL url=this.getClass().getClassLoader().getResource(".");
+				// 경로명 읽기 => AWS => 리눅스 / 맥 
+				File file=new File(url.toURI());
+				System.out.println(file.getPath());
+				String path=file.getPath();
+				path=path.replace("\\", File.separator);
+				// 리눅스 , 맥 => / , 윈도우 \\ => 운영체제에 따라 자동 변경 
+				path=path.substring(0,path.lastIndexOf(File.separator));
+				path=path+File.separator+"..\\review_img";
 		  
 		  // 파일이 업로드 되는 폴더를 지정한다.
 		  //String saveFolder = "JSP_File/01_file_basic";

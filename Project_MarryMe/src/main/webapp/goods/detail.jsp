@@ -167,9 +167,10 @@ $(function(){
 			})
 		}
 	})
-	$('#cart').click(function(){
+	$('#cartform').submit(function(e){
 		if(${sessionScope.id==null}){
-			alert('로그인 후 이용해주세요')
+			e.preventDefault()
+			alert("로그인 후 이용해주세요")
 			location.href="../member/login.do";
 		}
 	})
@@ -379,10 +380,12 @@ function requestPay(json,name,price) {
                         	<span id="total">${vo.EA==0?"0원":vo.price}</span>
                         
                         </div>
+                     <form id="cartform" method="POST" action="../goods/cart_insert.do">
                         <input type="hidden" name="gno" value="${pno}" id="gno">
 		        		<input type="hidden" name="price" value="${vo.price}" id="price2">
 		                <input type="hidden" name="account" value="${vo.EA==0?0:1 }" id="account">
-		        	    <button  class="buyBtn" id="cart" ${vo.EA==0?'disabled="disabled" style="opacity:0.5;"':""}>장바구니</button>
+		        	    <input type="submit" value="장바구니"  class="buyBtn" id="cart" ${vo.EA==0?'disabled="disabled" style="opacity:0.5;"':""}>
+		        	 </form>
                         <button  class="buyBtn" id="buy" ${vo.EA==0?'disabled="disabled" style="opacity:0.5;"':""}>바로구매</button>
                 </aside>
             </div>

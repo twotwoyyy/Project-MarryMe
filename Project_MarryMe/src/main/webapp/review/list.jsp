@@ -356,7 +356,7 @@ function replyList(pno,page,cate)
              html+='</div>'
             if(reply.img!=="NOIMAGE" || reply.img!=null){
             	html+='<div class="img_box">'//이미지
-                html+='<img src="../img/review_img/'+reply.img+'" alt="">'
+                html+='<img src="../review_img/'+reply.img+'" alt="">'
             	html+='</div>'	
             }else{
             	html+='<div class="img_box">'//이미지
