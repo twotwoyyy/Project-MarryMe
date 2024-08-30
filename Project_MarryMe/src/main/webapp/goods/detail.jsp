@@ -140,27 +140,38 @@ $(function(){
 		}
 	})
 	$('#buy').click(function(){
-		if(sel===0)
-		{
-			alert("수량을 선택하세요")
-			return
-		}
-		
-		let gno=$('#pno').val()
-		let price=$('#sel').data('price')
-		let account=$('#sel').val()
-		let name=$('#title').text()
-		$.ajax({
-			type:'post',
-			url:'../goods/buy_insert.do',
-			data:{"gno":gno,"price":price,"account":account},
-			success:function(result)
+		if(${sessionScope.id==null}){
+			alert('로그인 후 이용해주세요')
+			location.href="../member/login.do";
+		}else{
+			if(sel===0)
 			{
-				let json=JSON.parse(result)
-			    console.log(json)
-				requestPay(json,name,price)
+				alert("수량을 선택하세요")
+				return
 			}
-		})
+			
+			let gno=$('#pno').val()
+			let price=$('#sel').data('price')
+			let account=$('#sel').val()
+			let name=$('#title').text()
+			$.ajax({
+				type:'post',
+				url:'../goods/buy_insert.do',
+				data:{"gno":gno,"price":price,"account":account},
+				success:function(result)
+				{
+					let json=JSON.parse(result)
+				    console.log(json)
+					requestPay(json,name,price)
+				}
+			})
+		}
+	})
+	$('#cart').click(function(){
+		if(${sessionScope.id==null}){
+			alert('로그인 후 이용해주세요')
+			location.href="../member/login.do";
+		}
 	})
 })
 function requestPay(json,name,price) {
@@ -341,20 +352,19 @@ function requestPay(json,name,price) {
                             <button class="share">share link</button>
                         </div>
                     </div>
-                    <form method="POST" action="../goods/cart_insert.do">
                         <div class="date">
                           <div style="display: grid;">
                             <c:if test="${vo.discount!='할인없음' }">
-                            	<p>${vo.discount }</p>
-                            	<p style="text-decoration-line: line-through;">${fPrice}원</p>
+                            	<p style="font-size: 20px">${vo.discount }</p>
+                            	<p style="text-decoration-line: line-through;color: #899c8f">${fPrice}원</p>
                             </c:if>
-                            <p>${vo.price }</p>
+                            <p style="font-size: 30px">${vo.price }</p>
                             <c:choose>
                               <c:when test="${vo.EA!=0 }">
                             	<p id="ea" data-ea="${vo.EA }">남은 수량:&nbsp;${vo.EA }</p>
                               </c:when>	
                           	  <c:when test="${vo.EA==0 }">
-                          	    <p id="ea" data-ea="${vo.EA }">품절</p>
+                          	    <p id="ea" data-ea="${vo.EA }" style="font-weight: bold;font-size: 25px;">품절</p>
                           	  </c:when>
                           	</c:choose>
                           </div>
@@ -366,14 +376,13 @@ function requestPay(json,name,price) {
                             </ul>
                             <input type="number" id="sel" class="collect" value="${vo.EA==0?0:1 }" min="0" max="${vo.EA }" style="font-weight: bold;" data-price="${price }">
                         	
-                        	<span id="total">${vo.price}</span>
+                        	<span id="total">${vo.EA==0?"0원":vo.price}</span>
                         
                         </div>
                         <input type="hidden" name="gno" value="${pno}" id="gno">
 		        		<input type="hidden" name="price" value="${vo.price}" id="price2">
 		                <input type="hidden" name="account" value="${vo.EA==0?0:1 }" id="account">
-		        	    <input type="submit"  class="buyBtn" value="장바구니" id="cart" ${vo.EA==0?'disabled="disabled" style="opacity:0.5;"':""}>
-                    </form>
+		        	    <button  class="buyBtn" id="cart" ${vo.EA==0?'disabled="disabled" style="opacity:0.5;"':""}>장바구니</button>
                         <button  class="buyBtn" id="buy" ${vo.EA==0?'disabled="disabled" style="opacity:0.5;"':""}>바로구매</button>
                 </aside>
             </div>
