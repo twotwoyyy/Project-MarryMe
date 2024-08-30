@@ -12,9 +12,13 @@
             margin: 0;
             padding: 0;
         }
+        .mycontainer{
+        	min-height:70vh;
+        }
         .myreserve {
             margin: 0 auto;
             padding: 20px;
+            padding-top:80px;
             width: 100%;
             max-width: 1200px;
         }
@@ -129,12 +133,12 @@
         .titbox {
             margin-top: 10px;
         }
-        th:nth-child(1) { width: 20px; } /* 번호 */
-        th:nth-child(2) { width: 80px; } /* 카테고리 */
-        th:nth-child(3) { width: 350px; } /* 문의 내용 */
-        th:nth-child(4) { width: 80px; } /* 날짜 */
-        th:nth-child(5) { width: 80px; } /* 관리자 답변 */
-        th:nth-child(6) { width: 80px; } /* 삭제 버튼 */
+        th:nth-child(1) { width: 40px; } 
+        th:nth-child(2) { width: 80px; } 
+        th:nth-child(3) { width: 100px; } 
+        th:nth-child(4) { width: 80px; } 
+        th:nth-child(5) { width: 400px; } 
+        th:nth-child(6) { width: 120px; } 
         .answer-row {
             display: none;
             background-color: #f9f9f9;
@@ -184,7 +188,7 @@
                     <th>성별</th>
                     <th>주소</th>
                     <th>상세 주소</th>
-                    <th>주소</th>
+                    <th>우편번호</th>
                     <th>관리자</th>
                 </tr>
             </thead>
