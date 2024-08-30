@@ -187,7 +187,7 @@
             <h1>문의 내역</h1>
         </div>
         <p class="titbox">
-            미답변 문의 총 <span id="count">${total}</span>개의 문의가 있습니다
+            문의 내역 총 <span id="count">${total}</span>개의 문의가 있습니다
         </p>
         <table>
             <thead>

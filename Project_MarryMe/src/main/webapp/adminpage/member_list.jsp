@@ -173,7 +173,7 @@
             <h1>회원 목록</h1>
         </div>
         <p class="titbox">
-            총 <span id="count">${total}</span> 분의 회원이&nbsp;Project MarryMe와 함께하고있습니다.
+            총 <span id="count">6</span>분의 회원이&nbsp;Project MarryMe와 함께하고있습니다.
         </p>
         <table>
             <thead>

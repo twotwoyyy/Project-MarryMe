@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>답변 등록</title>
+<title>답변 수정</title>
 <style type="text/css">
 /* 기존 스타일 재사용 및 새로운 스타일 추가 */
 #notice-form-container {
@@ -132,7 +132,7 @@
 <body>
     <div id="notice-form-container">
         <div id="notice-form-content">
-            <h2 id="notice-form-title">답변 등록</h2>
+            <h2 id="notice-form-title">답변 수정</h2>
             <form method="post" action="../adminpage/adminpage_qna_update_ok.do">
                 <table class="notice-form-table">
                     <tr id="white">
@@ -142,7 +142,7 @@
                         </td>
                         <th class="custom-height" width="20%">구분</th> <!-- 수정된 부분 -->
 					    <td width="30%">
-					        <div class="notice-form-readonly">${vo.cate }</div>
+					        <div class="notice-form-readonly">웨딩홀</div>
 					    </td>
                     </tr>
                     <tr id="white">
@@ -162,7 +162,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th width="20%">답변 작성</th>
+                        <th width="20%">답변 수정란</th>
                         <td width="80%" colspan="3">
                             <textarea rows="10" cols="50" name="content" class="notice-form-textarea" required>${Remsg }</textarea>
                             <input type="hidden" name="qno" value="${vo.qna_no}">
@@ -170,7 +170,7 @@
                     </tr>
                     <tr id="noBtn">
                         <td colspan="4">
-                            <button type="submit" class="notice-form-button">등록</button> 
+                            <button type="submit" class="notice-form-button">수정</button> 
                             <input type="button" value="취소" class="notice-form-cancel-button" onclick="javascript:history.back()">
                         </td>
                     </tr>

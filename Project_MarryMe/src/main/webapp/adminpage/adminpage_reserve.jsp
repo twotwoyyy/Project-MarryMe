@@ -109,7 +109,7 @@
         }
 
         .rebtn .cancel {
-            background-color:  #05f5b1;
+            background-color:  #419DD9;
             color: white;
             cursor: pointer;
             position:relative;
@@ -118,12 +118,12 @@
         
 
         .rebtn .status-button {
-        	background-color: ##f4f4f4;
+        	background-color: ##8FBC8B;
         	color:black;
         }
         
         .rebtn .status-button.approved {
-		    background-color: #64c9f5;
+		    background-color: #8FBC8B;
 		    color: white;
 		}
         .sixth {

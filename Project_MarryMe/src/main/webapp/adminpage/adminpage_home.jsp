@@ -116,21 +116,18 @@
             <div class="info-item">
                 <label for="id" class="infos">관리자의 대나무숲</label>
                 <div class="info-value"> 관리자들 파이팅 !! </div>
+
 	        	<input type="hidden" id="sessionId" value="}">
             </div>
-<!--             <div class="info-item"> -->
-<!--                 <label for="id" class="infos">아이디</label> -->
-<!--                 <div class="info-value"></div> -->
-<!-- 	        	<input type="hidden" id="sessionId" value="}"> -->
-<!--             </div> -->
-<!--             <div class="info-item"> -->
-<!--                 <label for="name" class="infos"></label> -->
-<!--                 <div class="info-value"></div> -->
-<!--             </div> -->
-<!--             <div class="info-item"> -->
-<!--                 <label for="phone" class="infos"></label> -->
-<!--                 <div class="info-value"></div> -->
-<!--             </div> -->
+            <div class="info-item">
+                <label for="id" class="infos">공유 내용</label>
+                <div class="info-value"> ==== 2024.08.30 ==== </div>
+	        	<input type="hidden" id="sessionId" value="}">
+            </div>
+            <div class="info-item">
+                <label for="name" class="infos"></label>
+                <div class="info-value">12:03 CJ 대한통운의 배송 지연 문제가 해결되었다고 합니다.</div>
+            </div>
 <!--             <div class="info-item"> -->
 <!--                 <label for="email" class="infos"></label> -->
 <!--                 <div class="info-value"></div> -->

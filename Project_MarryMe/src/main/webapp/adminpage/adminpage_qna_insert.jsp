@@ -142,7 +142,7 @@
                         </td>
                         <th class="custom-height" width="20%">구분</th> <!-- 수정된 부분 -->
 					    <td width="30%">
-					        <div class="notice-form-readonly">${vo.cate }</div>
+					        <div class="notice-form-readonly">웨딩홀</div>
 					    </td>
                     </tr>
                     <tr id="white">
@@ -164,7 +164,7 @@
                     <tr>
                         <th width="20%">답변 작성</th>
                         <td width="80%" colspan="3">
-                            <textarea rows="10" cols="50" name="content" class="notice-form-textarea" required>내가 답변하는 곳</textarea>
+                            <textarea rows="10" cols="50" name="content" class="notice-form-textarea" required></textarea>
                             <input type="hidden" name="qno" value="${vo.qna_no}">
                         </td>
                     </tr>
