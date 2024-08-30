@@ -95,7 +95,7 @@
         }
         .btn-success {
             border: none;
-            background-color: #4CAF50;
+            background-color: #8FBC8B;
             color: white;
             padding: 10px 20px;
             cursor: pointer;
@@ -107,7 +107,7 @@
 		}
         .btn-primary {
 		    border: none; /* 테두리 없음 */
-		    background-color: #007bff; /* 파란색 배경색 */
+		    background-color: #419DD9; /* 파란색 배경색 */
 		    color: white; /* 텍스트 색상 */
 		    padding: 10px 20px; /* 상하 10px, 좌우 20px 여백 */
 		    cursor: pointer; /* 마우스 커서가 포인터로 변함 */
@@ -119,7 +119,7 @@
 		}
 
         #rmsg:hover {
-            background-color: #efefef;
+            background-color: #419DD9;
         }
         #count {
             color: #DC143C;

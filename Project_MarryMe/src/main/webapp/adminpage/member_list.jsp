@@ -192,7 +192,7 @@
             <c:set var="i" value="디귿"/>
                 <c:forEach var="vo" items="${voList}">
                     <tr id="myr">
-                        <td></td>
+                        <td>${vo.mlc }</td>
                         <td>${vo.id }</td>
                         <td>${vo.name }</td>
                         <td>${vo.gender } </td>
@@ -209,11 +209,11 @@
         </table>
 
         <!-- Pagination -->
-        <div class="pagination">
-            <a href="../adminpage/adminpage_qna.do?page=${curpage-1}">이전</a>
-            ${curpage} page / ${totalpage} pages
-            <a href="../adminpage/adminpage_qna.do?page=${curpage+1}">다음</a>
-        </div>
+<!--         <div class="pagination"> -->
+<%--             <a href="../adminpage/memberList.do?page=${curpage-1}">이전</a> --%>
+<%--             ${curpage} page / ${totalpage} pages --%>
+<%--             <a href="../adminpage/adminpage_qna.do?page=${curpage+1}">다음</a> --%>
+<!--         </div> -->
     </div>
 </body>
 </html>

@@ -249,10 +249,15 @@ public class MemberModel {
 //			map.put("start", (curpage * 10) - 9);
 //			map.put("end", curpage * 10);
 //			List<MemberVO> list = MemberDAO.memberListData(map);
+			int mlc = 1;
+			
 			List<MemberVO> voList = MemberDAO.memberListData(map);
-			
-			
-//			int mCount = 0;
+			for (MemberVO vo : voList) {
+				
+				vo.setMlc(mlc);
+				mlc ++;
+			}
+			//			int mCount = 0;
 //			int count = MemberDAO.memberTotalPage(mCount);
 //			
 //			int total = count;
