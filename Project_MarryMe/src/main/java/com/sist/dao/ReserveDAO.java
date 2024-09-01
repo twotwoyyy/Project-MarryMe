@@ -238,4 +238,24 @@ public class ReserveDAO {
 					session.close();
 			}
 		}
+		
+		/*	예약 삭제
+		 * 	<delete id="adminReserveDelete" parameterType="int">
+				DELETE FROM reserve
+				WHERE resno=#{resno}
+			</delete>
+		 * 	
+		 */
+		public static void adminReserveDelete(int resno) {
+			SqlSession session = null;
+			try {
+				session = ssf.openSession();
+				session.delete("adminReserveDelete", resno);
+				session.commit();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				session.close();
+			}
+		}
 }

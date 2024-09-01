@@ -126,6 +126,14 @@
 		    background-color: #8FBC8B;
 		    color: white;
 		}
+		.rebtn .approve {
+		    background-color: #419DD9 !important; /* 적절한 색상을 여기서 설정 */
+		    color: white;
+		    cursor: pointer;
+		    position: relative;
+		    z-index: 2;
+		}
+		
         .sixth {
             margin-top: 20px;
             margin-bottom: 20px;
@@ -149,56 +157,102 @@
             color: #666;
             margin-top: 10px;
         }
+        
+/*         예약 삭제 버튼 */
+        .rebtn .delete {
+		    background-color: #DC143C;
+		    color: white;
+		    cursor: pointer;
+		    position: relative;
+		    z-index: 2;
+		}
+        
     </style>
     <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
     <script type="text/javascript">
-        $(function() {
-            $('.cancel').click(function() {
+    $(function() {
+        // 예약 승인 버튼 클릭 처리
+        $(document).on('click', '.approve', function() {
+            let isApproved = $(this).parents('.stline').find('.status-button').hasClass('approved');
+            
+            if (isApproved) {
+                alert('이미 예약 승인 상태입니다.');
+            } else {
                 alert('예약이 승인되었습니다');
                 let resno = $(this).attr('data-href');
                 location.href = "../adminpage/adminpage_reserve_ok.do?resno=" + resno;
-            });
-         
-            $('.status-button').each(function() {
-                const confirmStatus = $(this).data('confirm');
-                if (confirmStatus === 'y') {
-                    $(this).text('예약 완료');
-                    $(this).addClass('approved');  
-                } else {
-                    $(this).text('예약 대기');
+            }
+        });
+
+        // 예약 삭제 버튼 클릭 처리
+        $(document).on('click', '.delete', function() {
+            if (!confirm('정말로 예약을 삭제하시겠습니까?')) {
+                return; // 사용자가 삭제를 취소한 경우 아무 작업도 하지 않음
+            }
+
+            let resno = $(this).attr('data-href');
+            $.ajax({
+                url: "../adminpage/reserve_delete.do",
+                type: "POST",
+                data: { resno: resno },
+                success: function(response) {
+                    // 삭제 시 페이지를 새로 고쳐 갱신된 목록을 로드합니다.
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    alert('예약 삭제 중 오류가 발생했습니다.');
                 }
             });
-            
-            //지난 예약
-            let today=new Date(),
-            	year = today.getFullYear(),
-            	month = ('0' + (today.getMonth() + 1)).slice(-2),
-           		day = ('0' + today.getDate()).slice(-2);
-            let rdate=$('.stline .ws_info .tel .rdate')
-            rdate.each(function(){
-            	let target=$(this).text();
-            	let temp=target.split('-');
-   				let ryear=temp[0],
-   					rmonth=temp[1],
-   					rday=temp[2];
-            	if(year>ryear){
-            		$(this).parents('.stline').addClass("past");
-            	}else if(year==ryear){
-            		if(month>rmonth){
-            			$(this).parents('.stline').addClass("past");
-            		}else if(month==rmonth){
-            			if(day>rday){
-            				$(this).parents('.stline').addClass("past");
-            			}
-            		}
-            	}
-            			
-            	
-            })
         });
-        
-        
-    </script>
+
+        // 예약 상태에 따라 버튼 텍스트를 업데이트합니다
+        $('.status-button').each(function() {
+            const confirmStatus = $(this).data('confirm');
+            if (confirmStatus === 'y') {
+                $(this).text('예약 완료');
+                $(this).addClass('approved');
+            } else {
+                $(this).text('예약 대기');
+            }
+        });
+
+        // 지난 예약 처리
+        let today = new Date(),
+            year = today.getFullYear(),
+            month = ('0' + (today.getMonth() + 1)).slice(-2),
+            day = ('0' + today.getDate()).slice(-2);
+        let rdate = $('.stline .ws_info .tel .rdate')
+        rdate.each(function() {
+            let target = $(this).text();
+            let temp = target.split('-');
+            let ryear = temp[0],
+                rmonth = temp[1],
+                rday = temp[2];
+            let isPast = false;
+            
+            if (year > ryear) {
+                isPast = true;
+            } else if (year == ryear) {
+                if (month > rmonth) {
+                    isPast = true;
+                } else if (month == rmonth) {
+                    if (day > rday) {
+                        isPast = true;
+                    }
+                }
+            }
+
+            if (isPast) {
+                $(this).parents('.stline').addClass("past");
+            } else {
+                // 지난 예약이 아닌 경우 예약 삭제 버튼을 예약 승인 버튼으로 변경
+                const deleteBtn = $(this).parents('.stline').find('.delete');
+                deleteBtn.text('예약 승인');
+                deleteBtn.removeClass('delete').addClass('approve');
+            }
+        });
+    });
+</script>
 </head>
 <body>
     <div class="myreserve">
@@ -236,9 +290,16 @@
 	                                </div>
 	                            </div>
                                 <div class="rebtn">
-                                    <button class="status-button" data-confirm="${vo.confirm}">예약 대기</button>
-                                    <button class="cancel" data-href="${vo.resno}">예약 승인</button>
-                                </div>
+		                            <c:choose>
+		                                <c:when test="${vo.confirm eq 'y'}">
+		                                    <button class="status-button approved" data-confirm="${vo.confirm}" data-href="${vo.resno}">예약 완료</button>
+		                                </c:when>
+		                                <c:otherwise>
+		                                    <button class="status-button" data-confirm="${vo.confirm}" data-href="${vo.resno}">예약 대기</button>
+		                                </c:otherwise>
+		                            </c:choose>
+		                            <button class="delete" data-href="${vo.resno}">예약 삭제</button>
+		                        </div>
                             </div>
                         </c:forEach>
                     </div>
@@ -274,9 +335,16 @@
                                     </div>
                                 </div>
                                 <div class="rebtn">
-                                    <button class="status-button" data-confirm="${vo.confirm}">예약 대기</button>
-                                    <button class="cancel" data-href="${vo.resno}">예약 승인</button>
-                                </div>
+		                            <c:choose>
+		                                <c:when test="${vo.confirm eq 'y'}">
+		                                    <button class="status-button approved" data-confirm="${vo.confirm}" data-href="${vo.resno}">예약 완료</button>
+		                                </c:when>
+		                                <c:otherwise>
+		                                    <button class="status-button" data-confirm="${vo.confirm}" data-href="${vo.resno}">예약 대기</button>
+		                                </c:otherwise>
+		                            </c:choose>
+		                            <button class="delete" data-href="${vo.resno}">예약 삭제</button>
+		                        </div>
                             </div>
                         </c:forEach>
                     </div>
@@ -312,9 +380,16 @@
                                     </div>
                                 </div>
                                 <div class="rebtn">
-                                    <button class="status-button" data-confirm="${vo.confirm}">예약 대기</button>
-                                    <button class="cancel" data-href="${vo.resno}">예약 승인</button>
-                                </div>
+		                            <c:choose>
+		                                <c:when test="${vo.confirm eq 'y'}">
+		                                    <button class="status-button approved" data-confirm="${vo.confirm}" data-href="${vo.resno}">예약 완료</button>
+		                                </c:when>
+		                                <c:otherwise>
+		                                    <button class="status-button" data-confirm="${vo.confirm}" data-href="${vo.resno}">예약 대기</button>
+		                                </c:otherwise>
+		                            </c:choose>
+		                            <button class="delete" data-href="${vo.resno}">예약 삭제</button>
+		                        </div>
                             </div>
                         </c:forEach>
                     </div>
@@ -350,9 +425,16 @@
                                     </div>
                                 </div>
                                 <div class="rebtn">
-                                    <button class="status-button" data-confirm="${vo.confirm}">예약 대기</button>
-                                    <button class="cancel" data-href="${vo.resno}">예약 승인</button>
-                                </div>
+		                            <c:choose>
+		                                <c:when test="${vo.confirm eq 'y'}">
+		                                    <button class="status-button approved" data-confirm="${vo.confirm}" data-href="${vo.resno}">예약 완료</button>
+		                                </c:when>
+		                                <c:otherwise>
+		                                    <button class="status-button" data-confirm="${vo.confirm}" data-href="${vo.resno}">예약 대기</button>
+		                                </c:otherwise>
+		                            </c:choose>
+		                            <button class="delete" data-href="${vo.resno}">예약 삭제</button>
+		                        </div>
                             </div>
                         </c:forEach>
                     </div>
@@ -388,9 +470,16 @@
                                     </div>
                                 </div>
                                 <div class="rebtn">
-                                    <button class="status-button" data-confirm="${vo.confirm}">예약 대기</button>
-                                    <button class="cancel" data-href="${vo.resno}">예약 승인</button>
-                                </div>
+		                            <c:choose>
+		                                <c:when test="${vo.confirm eq 'y'}">
+		                                    <button class="status-button approved" data-confirm="${vo.confirm}" data-href="${vo.resno}">예약 완료</button>
+		                                </c:when>
+		                                <c:otherwise>
+		                                    <button class="status-button" data-confirm="${vo.confirm}" data-href="${vo.resno}">예약 대기</button>
+		                                </c:otherwise>
+		                            </c:choose>
+		                            <button class="delete" data-href="${vo.resno}">예약 삭제</button>
+		                        </div>
                             </div>
                         </c:forEach>
                     </div>

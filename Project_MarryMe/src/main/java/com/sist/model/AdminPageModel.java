@@ -127,4 +127,12 @@ public class AdminPageModel {
 			
 			return "redirect:../adminpage/adminpage_reserve.do";
 		}
+		
+		// 예약 삭제
+		@RequestMapping("adminpage/reserve_delete.do")
+		public String adminReserveDelete(HttpServletRequest request, HttpServletResponse response) {
+			String resno = request.getParameter("resno");
+			ReserveDAO.adminReserveDelete(Integer.parseInt(resno));
+			return "redirect:../adminpage/adminpage_reserve.do";
+		}
 }

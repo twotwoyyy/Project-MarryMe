@@ -141,4 +141,8 @@
 		confirm = 'y'
 		WHERE resno = #{resno}
 	</update>
+	<delete id="adminReserveDelete" parameterType="int">
+		DELETE FROM reserve
+		WHERE resno=#{resno}
+	</delete>
 </mapper>
