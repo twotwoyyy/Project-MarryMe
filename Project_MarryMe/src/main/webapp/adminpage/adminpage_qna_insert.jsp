@@ -57,13 +57,14 @@
     box-sizing: border-box;
     font-size: 14px;
 }
-/*  	문의 내용 출력란 사이즈 조절하는 코드 */
- .notice-form-input {
-   	height: 150px; /* 입력 필드의 높이 */
+
+/* 문의 내용 출력란 사이즈 조절하는 코드 */
+.notice-form-input {
+    height: 150px; /* 입력 필드의 높이 */
 }
- .notice-form-textarea {
-     height: 150px;
- }
+.notice-form-textarea {
+    height: 150px;
+}
 
 /* 바로 위의 주석 코드가 수정된 스타일 */
 .notice-form-table td input,
@@ -96,7 +97,7 @@
     background-color: #aaa;
 }
 
-#white input,select{
+#white input,select {
     background-color: white;
 }
 
@@ -140,20 +141,20 @@
                         <td width="30%">
                             <div class="notice-form-readonly">${vo.qna_no}</div>
                         </td>
-                        <th class="custom-height" width="20%">구분</th> <!-- 수정된 부분 -->
-					    <td width="30%">
-					        <div class="notice-form-readonly">웨딩홀</div>
-					    </td>
+                        <th class="custom-height" width="20%">구분</th>
+                        <td width="30%">
+                            <div id="category" class="notice-form-readonly"></div>
+                        </td>
                     </tr>
                     <tr id="white">
                         <th width="20%">아이디</th>
                         <td width="30%">
                             <div class="notice-form-readonly">${vo.id }</div>
                         </td>
-                        <th class="custom-height" width="20%">날짜</th> <!-- 수정된 부분 -->
-					    <td width="30%">
-					        <div class="notice-form-readonly">${vo.dbday }</div>
-					    </td>
+                        <th class="custom-height" width="20%">날짜</th>
+                        <td width="30%">
+                            <div class="notice-form-readonly">${vo.dbday }</div>
+                        </td>
                     </tr>
                     <tr id="white">
                         <th width="20%">문의 내용</th>
@@ -178,5 +179,31 @@
             </form>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Retrieve the cate value from the server-side context
+            var cateValue = ${vo.cate};
+
+            // Define the category mapping
+            var categoryMap = {
+                1: "웨딩홀",
+                2: "드레스",
+                3: "예복",
+                4: "스튜디오",
+                5: "헤어/메이크업",
+                6: "혼수"
+            };
+
+            // Get the category element
+            var categoryElement = document.getElementById("category");
+
+            // Set the category text based on the cate value
+            if (categoryMap.hasOwnProperty(cateValue)) {
+                categoryElement.textContent = categoryMap[cateValue];
+            } else {
+                categoryElement.textContent = "기타";
+            }
+        });
+    </script>
 </body>
 </html>

@@ -333,7 +333,6 @@ public class QnaDAO {
 		
 		SqlSession session = null;
 		QnaVO vo = new QnaVO();
-		System.out.println(777);
 		try {
 			session = ssf.openSession();
 
@@ -344,7 +343,6 @@ public class QnaDAO {
 			if (session != null)
 				session.close();
 		}
-		System.out.println(vo.getMsg() + "jbGod");
 		return vo;
 	}
 	

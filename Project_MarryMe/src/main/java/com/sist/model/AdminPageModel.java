@@ -86,7 +86,6 @@ public class AdminPageModel {
 			int hSize=hallrList.size();
 			int dSize=dressrList.size();
 			int suSize=suitrList.size();
-			System.out.println(suSize);
 			int sSize=studiorList.size();
 			int mSize=hairmakeuprList.size();
 			int totalRes=hSize+dSize+suSize+sSize+mSize;
@@ -104,7 +103,6 @@ public class AdminPageModel {
 			request.setAttribute("dressrList", dressrList);
 			request.setAttribute("studiorList", studiorList);
 			request.setAttribute("hairmakeuprList", hairmakeuprList);
-			System.out.println("123");
 			
 			
 			try {

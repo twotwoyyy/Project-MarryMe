@@ -171,18 +171,35 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
     <script type="text/javascript">
     $(function() {
-        // 예약 승인 버튼 클릭 처리
-        $(document).on('click', '.approve', function() {
-            let isApproved = $(this).parents('.stline').find('.status-button').hasClass('approved');
-            
-            if (isApproved) {
-                alert('이미 예약 승인 상태입니다.');
-            } else {
-                alert('예약이 승인되었습니다');
-                let resno = $(this).attr('data-href');
-                location.href = "../adminpage/adminpage_reserve_ok.do?resno=" + resno;
-            }
-        });
+    	$(function() {
+    	    // 예약 승인 버튼 클릭 처리
+    	    $(document).on('click', '.approve', function() {
+    	        let $this = $(this);  // 클릭된 요소를 참조하는 변수 저장
+    	        let isApproved = $this.parents('.stline').find('.status-button').hasClass('approved');
+    	        
+    	        if (isApproved) {
+    	            alert('이미 예약 승인 상태입니다.');
+    	        } else {
+    	            let resno = $this.attr('data-href');
+    	            $.ajax({
+    	                url: "../adminpage/adminpage_reserve_ok.do?resno=" + resno,
+    	                type: "POST",
+    	                success: function(response) {
+    	                    // 예약 승인 성공 시 해당 항목의 상태만 업데이트
+    	                    const statusButton = $this.parents('.stline').find('.status-button');
+    	                    statusButton.text('예약 완료');
+    	                    statusButton.addClass('approved');
+    	                    $this.prop('disabled', true); // 승인 버튼 비활성화
+    	                    alert('예약이 승인되었습니다.');
+    	                },
+    	                error: function(xhr, status, error) {
+    	                    alert('예약 승인 중 오류가 발생했습니다.');
+    	                }
+    	            });
+    	        }
+    	    });
+    	});
+
 
         // 예약 삭제 버튼 클릭 처리
         $(document).on('click', '.delete', function() {

@@ -238,7 +238,6 @@ public class MemberModel {
 	   public String memberListData(HttpServletRequest request,HttpServletResponse response) {
 			try {
 			String name = (String)request.getAttribute("name");
-			System.out.println("112");
 			String page = request.getParameter("page");
 			if (page == null)
 				page = "1";
