@@ -32,22 +32,16 @@ public class ReviewModel {
 	public void review_insert_ok(HttpServletRequest request,HttpServletResponse response) {
 		
 		  try {
-				request.setCharacterEncoding("UTF-8");
-			
-				URL url=this.getClass().getClassLoader().getResource(".");
-				// 경로명 읽기 => AWS => 리눅스 / 맥 
-				File file=new File(url.toURI());
-				System.out.println(file.getPath());
-				String path=file.getPath();
-				path=path.replace("\\", File.separator);
-				// 리눅스 , 맥 => / , 윈도우 \\ => 운영체제에 따라 자동 변경 
-				path=path.substring(0,path.lastIndexOf(File.separator));
-				path=path+File.separator+"..\\review_img";
-		  
-				File dir = new File(path); 
-				if (!dir.exists()) {
-					dir.mkdir();
+			  
+			  request.setCharacterEncoding("UTF-8");
+			  String path = request.getSession().getServletContext().getRealPath("/") + "review_img\\";
+				
+			  File dir = new File(path); 
+			  if (!dir.exists()) {
+				  dir.mkdir();
 				}
+			  path = path.replace("\\", File.separator);
+		  
 		  // 파일이 업로드 되는 폴더를 지정한다.
 		  //String saveFolder = "JSP_File/01_file_basic";
 		  
