@@ -44,6 +44,10 @@ public class ReviewModel {
 				path=path.substring(0,path.lastIndexOf(File.separator));
 				path=path+File.separator+"..\\review_img";
 		  
+				File dir = new File(path); 
+				if (!dir.exists()) {
+					dir.mkdir();
+				}
 		  // 파일이 업로드 되는 폴더를 지정한다.
 		  //String saveFolder = "JSP_File/01_file_basic";
 		  
